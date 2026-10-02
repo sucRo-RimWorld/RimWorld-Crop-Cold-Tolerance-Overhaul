@@ -30,7 +30,7 @@ echo run the tests, write reports, and exit RimWorld automatically.
 echo.
 
 start /wait "" "%RIMWORLD_EXE%" ^
-    -pickle-run=cold-tolerance.feature ^
+    -pickle-run="framework.feature,cold-tolerance.feature" ^
     -pickle-mode=fast ^
     -pickle-report-dir="%REPORT_DIR%" ^
     -pickle-no-browser ^
