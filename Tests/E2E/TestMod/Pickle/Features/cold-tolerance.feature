@@ -10,6 +10,15 @@ Feature: CCTO cold tolerance runtime behavior
     And I wait 2100 ticks
     Then the CCTO test plant is dead
 
+  Scenario: Fixed death threshold uses a strict below-threshold boundary
+    Given a fixed-death CCTO test plant with minimum growth 0 and death -10
+    When I set the CCTO test outdoor temperature to -10
+    And I force the CCTO plant cold check
+    Then the CCTO test plant is alive
+    When I set the CCTO test outdoor temperature to -10.5
+    And I force the CCTO plant cold check
+    Then the CCTO test plant is dead
+
   Scenario: Dormancy keeps a plant alive below its minimum growth temperature
     Given a dormancy CCTO test plant with minimum growth 5
     When I set the CCTO test outdoor temperature to -10
