@@ -176,4 +176,6 @@ As of 2026-10-02:
 - RimTest Redux and Pickle + Quickstarts test infrastructure is present.
 - The live Pickle suite passed all existing scenarios after the boundary-test temperature synchronization fix. This confirmed fixed-threshold behavior, Vanilla fallback, extension validation, Info Card construction, live cold death, strict threshold boundary, dormancy survival, and extreme-cold death.
 - Additional regression scenarios have since been added for the decided delayed dormancy recovery semantics and for indoor actual-room-temperature behavior.
-- Draft PR #1 should remain Draft until those newly added recovery/indoor scenarios also pass locally.
+- The first expanded-suite run was contaminated by unrelated `Andromeda.PawnQuickInfo` `Log.Error` output; Pickle treated those external errors as scenario failures even though they were not CCTO assertion failures.
+- The authoritative E2E runner now launches RimWorld with an isolated `-savedatafolder` profile containing only the required test mods, while leaving the user's normal gameplay mod configuration untouched.
+- Draft PR #1 should remain Draft until the newly added recovery/indoor scenarios pass in that isolated profile.
