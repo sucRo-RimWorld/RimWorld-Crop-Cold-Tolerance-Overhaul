@@ -87,7 +87,13 @@ Fast recovery test commits: `0529e9f8fe79f1379be6dd92eadba0c78d25ddcf`, `d8e0382
 
 The E2E launcher also now has an outer five-minute process watchdog so a startup/runtime freeze cannot leave `run-tests.bat` waiting indefinitely. Watchdog commits: `510d6c5b31345259070ff5cd0f3e74e3061969af`, `7c1d1dc98d4be60bde823fe506c8d4ca4f8c6e42`.
 
-**Next action for Code/framework:** rerun the automated suite in the isolated profile and require the delayed-recovery scenario to pass.
+Latest isolated-profile run result: the delayed-recovery scenario itself passed. The suite overall reported 9/11 passed because two other scenarios that used Pickle's full-world fast `I wait 2100 ticks` step triggered unrelated Vanilla WorldPawns/AI `Log.Error` entries.
+
+The full-world waits have now been replaced with a targeted `Plant.TickLong()` E2E step so CCTO's real plant long-tick path is exercised without advancing unrelated world/pawn systems.
+
+Targeted long-tick commits: `06aa7613f6e1150a0ae418ac6bf7d77ac85d84bf`, `474a38e0400100fb9cde8e07a73021741b09f264`.
+
+**Next action for Code/framework:** rerun the suite and require a clean all-pass result.
 
 ### CODE-003 — Indoor cold behavior / `CheckMakeLeafless` postfix
 
@@ -115,7 +121,11 @@ Indoor-safe and indoor-cold Pickle coverage has now been added on framework bran
 
 The first expanded-suite run was contaminated by unrelated `Andromeda.PawnQuickInfo` `Log.Error` output rather than a CCTO assertion failure. The authoritative runner now uses the same isolated test profile described under CODE-002.
 
-**Next action for Code/framework:** rerun the automated suite in the isolated profile and require the indoor room-temperature scenario to pass.
+Latest isolated-profile run result: the indoor room-temperature scenario passed. Heated indoor survival and genuinely cold indoor death both behaved as designed.
+
+The suite overall still had two unrelated Vanilla errors from full-world fast ticking in other scenarios; those waits have now been replaced by the targeted plant long-tick step described under CODE-002.
+
+**Next action for Code/framework:** rerun the suite and require a clean all-pass result.
 
 ## Completed handoffs
 
