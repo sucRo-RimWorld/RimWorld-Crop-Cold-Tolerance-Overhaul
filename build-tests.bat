@@ -28,10 +28,17 @@ set "MANAGED=%RIMWORLD_DIR%\RimWorldWin64_Data\Managed"
 set "ASSEMBLY_CSHARP=%MANAGED%\Assembly-CSharp.dll"
 set "UNITY_CORE=%MANAGED%\UnityEngine.CoreModule.dll"
 set "UNITY_MATH=%MANAGED%\Unity.Mathematics.dll"
+set "NETSTANDARD=%MANAGED%\netstandard.dll"
 
 if not exist "%UNITY_MATH%" (
     echo [ERROR] Required RimWorld managed assembly was not found:
     echo         %UNITY_MATH%
+    exit /b 1
+)
+
+if not exist "%NETSTANDARD%" (
+    echo [ERROR] Required RimWorld managed assembly was not found:
+    echo         %NETSTANDARD%
     exit /b 1
 )
 
@@ -92,6 +99,7 @@ if exist "%UNITY_CORE%" (
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
         /reference:"%UNITY_MATH%" ^
+        /reference:"%NETSTANDARD%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%RIMTEST_DLL%" ^
         !SOURCES!
@@ -99,6 +107,7 @@ if exist "%UNITY_CORE%" (
     "%CSC%" /nologo /target:library /optimize+ /out:"%OUTPUT_DLL%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_MATH%" ^
+        /reference:"%NETSTANDARD%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%RIMTEST_DLL%" ^
         !SOURCES!
