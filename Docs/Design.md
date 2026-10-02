@@ -34,6 +34,21 @@ Growth stopping and plant death are separate concepts.
 
 AMJ crop minimum growth temperatures that have already been decided remain unchanged.
 
+## 2.1 Implementation ownership and dependency direction
+
+CCTO owns the common cold-tolerance mechanism. It should not depend on AMJ.
+
+- Vanilla and Medieval Overhaul crops are patched by CCTO because those are supported external Defs.
+- AMJ crops consume the same CCTO extension/API from their own PlantDefs.
+- CCTO therefore does not need to hard-code AMJ DefNames.
+- This keeps the dependency direction one-way: **AMJ -> CCTO mechanism**, never CCTO -> AMJ.
+- Other third-party crop mods can later add compatibility by attaching the same extension without CCTO needing to know their internal DefNames.
+
+For ordinary crops, the extension stores one fixed low-temperature death threshold. For dormancy crops, the extension marks cold behavior as dormancy rather than supplying a lethal threshold.
+
+A dormancy crop should enter its cold/leafless state when temperature falls below its configured minimum growth temperature and should survive that state. This avoids introducing a third temperature axis solely for dormancy.
+
+
 ## 3. Fixed implementation values — AMJ crops
 
 These are the cold-tolerance values intended to be used directly by AMJ.
