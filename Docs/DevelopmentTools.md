@@ -73,11 +73,36 @@ The shared Library document contains the general enable/disable policy for these
 Run checks in this order where applicable:
 
 1. Build `CropColdToleranceOverhaul.dll`.
-2. Start RimWorld and confirm CCTO/Harmony loads without red errors.
-3. Run RimTest Redux tests for framework logic and patch behavior.
-4. Run Pickle E2E scenarios for actual temperature-dependent behavior.
-5. When balance XML is present, verify final resolved Def values with Things Explorer/XML Patch Helper.
-6. Run a normal-game smoke test with development-only helper mods disabled.
+2. Build the separate developer test mod with:
+   `build-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+3. Start RimWorld and confirm CCTO/Harmony loads without red errors.
+4. Enable and run the RimTest Redux suite from `[DEV] Crop Cold Tolerance Overhaul Tests`.
+5. Run Pickle E2E scenarios for actual temperature-dependent behavior once the E2E fixture/steps are available.
+6. When balance XML is present, verify final resolved Def values with Things Explorer/XML Patch Helper.
+7. Run a normal-game smoke test with development-only helper mods disabled.
+
+The RimTest build creates a **separate sibling local mod** at:
+
+`D:\SteamLibrary\steamapps\common\RimWorld\Mods\CropColdToleranceOverhaul.Tests`
+
+This keeps `RimTestRedux.dll` out of the shipping CCTO assembly and prevents the Workshop mod from acquiring a development dependency. The generated test mod can be removed with:
+
+`clean-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+### Current RimTest coverage
+
+The developer suite currently checks:
+
+- an ordinary extension without a fixed death temperature is rejected;
+- dormancy-only configuration is valid;
+- finite fixed death temperature is valid;
+- infinite death temperature is rejected;
+- configured plants return the exact same fixed leafless/death threshold across different plant IDs;
+- dormancy uses native `minGrowthTemperature` as the leafless threshold;
+- an unconfigured plant retains the vanilla random threshold range;
+- Info Card stat construction yields the expected number of CCTO entries for fixed death, dormancy-only, and dormancy-plus-extreme-death configurations.
+
+The fixed-threshold tests intentionally verify **non-random fixed behavior**, because that is the current beta candidate. The public beta may solicit feedback on whether a per-plant range would be preferable.
 
 ## 5. Framework behavior that tests must protect
 
@@ -95,6 +120,8 @@ Regression tests should cover at least:
 - Info Card shows dormancy for dormancy-type plants;
 - duplicate CCTO extensions are diagnosed;
 - invalid extension configuration is diagnosed.
+
+Items involving actual spawned-map temperature, death, dormancy persistence/recovery, and save/runtime interaction remain E2E targets rather than unit-style RimTest targets.
 
 ## 6. Current implementation branch
 
