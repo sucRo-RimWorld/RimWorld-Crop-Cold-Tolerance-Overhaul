@@ -181,4 +181,6 @@ As of 2026-10-02:
 - A later isolated-profile run reached 10 of 11 scenarios passed. The delayed-recovery and indoor actual-room-temperature scenarios both passed.
 - The sole remaining failure was a Vanilla sound-update `NullReferenceException` while reading `MapTemperature.OutdoorTemp` during the strict fixed-threshold boundary scenario; the CCTO plant state itself matched the expected boundary result.
 - CCTO E2E temperature control no longer mutates global outdoor temperature through `GameCondition_TemperatureOffset` or world tile-temperature cache clears. It now sets the relevant RimWorld `Room.Temperature` directly and verifies the plant's actual `AmbientTemperature`. The indoor test uses a separate outdoor room to model cold outside versus warm inside.
-- Draft PR #1 should remain Draft until the revised isolated suite returns a clean 11/11 pass.
+- The final isolated Pickle run completed successfully with the full 11/11 suite passing.
+- The automated release gate is now green. The framework implementation has passed fixed-threshold, Vanilla fallback, validation, Info Card, live cold-death, strict boundary, dormancy, delayed recovery, extreme-cold, and indoor actual-room-temperature regression coverage.
+- Draft PR #1 no longer has an automated-test blocker; Draft status may now be removed when review/merge is desired.
