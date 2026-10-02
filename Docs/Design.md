@@ -28,87 +28,120 @@ Growth stopping and plant death are separate concepts.
 
 - **Minimum growth temperature**: below this temperature the crop stops growing.
 - **Low-temperature death threshold**: each supported crop has one fixed species-level threshold. Below this temperature the crop may die.
-- The death threshold is **not randomized per plant**. All plants of the same Def use the same configured threshold.
-- Where appropriate, a crop may enter **cold dormancy** instead of dying.
-- Ranges such as `-7 to -5°C` in balance work are candidate/validation bands only. They are not runtime random ranges. Before implementation, each crop is reduced to one fixed death threshold.
+- The initial release does **not** randomize the death threshold per plant. All plants of the same Def use the same configured threshold.
+- Where appropriate, a crop enters **cold dormancy** instead of dying.
+- Range-based values used during balancing are archived in §7. They remain candidate data for a possible future randomized mode.
 
 AMJ crop minimum growth temperatures that have already been decided remain unchanged.
 
-## 3. Medicinal crops
+## 3. Fixed implementation values — AMJ crops
+
+These are the cold-tolerance values intended to be used directly by AMJ.
+
+| Crop | Minimum growth temperature | Fixed death threshold / behavior |
+|---|---:|---:|
+| Barley | 0°C | -8°C |
+| Daikon | 0°C | -5°C |
+| Buckwheat | 5°C | -2°C |
+| Barnyard millet | 5°C | -4°C |
+| Hemp | 5°C | -6°C |
+| Kudzu | 5°C | cold dormancy |
+| Foxtail millet | 8°C | -4°C |
+| Proso millet | 8°C | -3°C |
+| Adzuki bean | 8°C | -1°C |
+| Soybean | 8°C | -3°C |
+| Perilla | 8°C | -1°C |
+| Rice | 10°C | -1°C |
+| Taro | 10°C | -1°C |
+
+Kudzu is a special case: cold removes or suppresses above-ground growth, but the plant survives through its rootstock and can recover when conditions improve.
+
+## 4. Fixed implementation values — Medieval Overhaul 1.6
+
+### 4.1 Medicinal crops
 
 Medieval Overhaul medicinal crops must not all inherit the same cold tolerance merely because they share `HealrootBase`.
 
 Cold tolerance is assigned per plant so that medicinal crop choice matters, especially once advanced medicine recipes explicitly require particular herbs.
 
-### Agreed roles and candidate death bands
-
-| Crop | Minimum growth temperature | Candidate death band / behavior | Role |
+| Crop | Minimum growth temperature | Fixed death threshold / behavior | Role |
 |---|---:|---:|---|
-| Healroot | 0°C | -10 to -8°C | baseline cold-hardy medicinal crop |
-| Mindwort | 5°C | -4 to -2°C | delicate medicinal herb; relatively frost-sensitive |
-| Poppy | 3–5°C | -6 to -4°C | cool-season medicinal crop |
-| Fleawort | 3°C | -7 to -5°C | hardy medicinal crop |
-| Fly agaric | 0°C | cold dormancy | visible growth stops/dies back while the underlying organism survives winter |
+| Healroot | 0°C | -9°C | baseline cold-hardy medicinal crop |
+| Mindwort | 5°C | -3°C | delicate medicinal herb; relatively frost-sensitive |
+| Poppy | 5°C | -5°C | cool-season medicinal crop |
+| Fleawort | 3°C | -6°C | hardy medicinal crop |
+| Fly agaric | 0°C | cold dormancy | fungal crop that survives ordinary winter cold |
 
-### Design notes
+Design notes:
 
 - `Mindwort`, `Poppy`, `Fleawort`, and `Fly agaric` currently inherit from `HealrootBase` in Medieval Overhaul, but this inheritance is not treated as evidence that their cold tolerance should be identical.
-- `Fleawort` should be clearly hardier than `Mindwort`.
-- `Fly agaric` is a special case: it should not behave like a normal annual crop that dies permanently from ordinary winter cold.
-- The information card should show the fixed death threshold for ordinary crops, and dormancy-type behavior explicitly for special crops.
+- `Fleawort` is deliberately hardier than `Mindwort`.
+- `Fly agaric` should not behave like a normal annual crop that dies permanently from ordinary winter cold.
+- The information card should show the fixed death threshold for ordinary crops and explicit dormancy wording for special crops.
 
-## 4. Medieval Overhaul food, fiber, and perennial crops
+### 4.2 Food and fiber crops
 
-These values are balanced using the same AMJ principle: real-world cold behavior establishes the relative ordering, while final thresholds are simplified for clear gameplay roles.
-
-### Annual / harvest-destroying crops
-
-The numeric death ranges below are balance-validation bands. Final runtime values will be one fixed threshold per crop.
-
-| Crop | Minimum growth temperature | Candidate death band / behavior | Role |
+| Crop | Minimum growth temperature | Fixed death threshold / behavior | Role |
 |---|---:|---:|---|
-| Onion | 5°C | -4 to -2°C | cool-season crop, but not strongly frost-hardy |
-| Lentil | 5°C | -5 to -3°C | relatively cold-tolerant pulse |
-| Cabbage | 0°C | -7 to -5°C | strongly frost-tolerant vegetable |
+| Onion | 5°C | -3°C | cool-season crop, but not strongly frost-hardy |
+| Lentil | 5°C | -4°C | relatively cold-tolerant pulse |
+| Cabbage | 0°C | -6°C | strongly frost-tolerant vegetable |
 | Garlic | 0°C | cold dormancy | overwintering crop |
-| Mushroom | 5°C | -2 to 0°C | above-ground fungal crop vulnerable to freezing |
-| Wheat | 0°C | -7 to -5°C | cold-climate cereal |
-| Flax | 5°C | -6 to -4°C | cool-season fiber crop with good frost tolerance |
-| Sugarcane | 10°C | -5 to -4°C | requires warmth for growth but survives light freezing better than tropical growth needs imply |
-| Carrot | 0°C | -5 to -3°C | cool-season root crop |
-| Herb | 5°C | -4 to -2°C | generic temperate herb |
-| Tomato | 10°C | -1 to 0°C | warm-season, frost-sensitive |
-| Pumpkin | 10°C | -1 to 0°C | warm-season, frost-sensitive |
+| Mushroom | 5°C | -1°C | above-ground fungal crop vulnerable to freezing |
+| Wheat | 0°C | -6°C | cold-climate cereal |
+| Flax | 5°C | -5°C | cool-season fiber crop with good frost tolerance |
+| Sugarcane | 10°C | -5°C | requires warmth for growth but tolerates light freezing better than its growth requirement implies |
+| Carrot | 0°C | -4°C | cool-season root crop |
+| Herb | 5°C | -3°C | generic temperate herb |
+| Tomato | 10°C | -1°C | warm-season, frost-sensitive |
+| Pumpkin | 10°C | -1°C | warm-season, frost-sensitive |
 
 The Medieval Overhaul 1.6 cabbage value `minGrowthTemperature=-18°C` is treated as a balance error for this overhaul and is replaced with 0°C. Cold survival and active growth are intentionally kept separate.
 
-### Perennial crops
+### 4.3 Perennial crops
 
-| Crop | Minimum growth temperature | Candidate death band / behavior |
-|---|---:|---|
+| Crop | Minimum growth temperature | Fixed death threshold / behavior |
+|---|---:|---:|
 | Grape | 5°C | cold dormancy |
 | Apple | 5°C | cold dormancy |
 | Mulberry | 5°C | cold dormancy |
 | Griffon berry | 5°C | cold dormancy |
-| Lemon | 10°C | death at -5 to -3°C |
+| Lemon | 10°C | -4°C |
 
-Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, mulberry, and Griffon berry already have leafless-survival behavior in Medieval Overhaul and retain the same conceptual role. Lemon is deliberately different: it remains a warm-climate perennial and receives a real low-temperature death threshold rather than unlimited dormancy survival.
+Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, mulberry, and Griffon berry already have leafless-survival behavior in Medieval Overhaul and retain the same conceptual role. Lemon remains a warm-climate perennial and receives a real low-temperature death threshold rather than unlimited dormancy survival.
 
-## 5. Compatibility principle
+## 5. Fixed implementation values — Vanilla
+
+| Crop | Minimum growth temperature | Fixed death threshold / behavior | Role |
+|---|---:|---:|---|
+| Rice | 10°C | -1°C | warm-season grain; aligned with AMJ rice |
+| Potato | 5°C | -2°C | cool-climate crop but frost-sensitive |
+| Corn | 8°C | -2°C | warm-season cereal |
+| Strawberry | 5°C | -9°C | growth slows early, but the plant itself is strongly cold-hardy |
+| Haygrass | 0°C | -9°C | cold-climate forage crop |
+| Cotton | 10°C | -1°C | warm-climate fiber crop |
+| Devilstrand | 8°C | -1°C | fictional warm-climate fungal crop |
+| Healroot | 0°C | -9°C | cold-hardy medicinal crop |
+| Hops | 5°C | cold dormancy | perennial rhizome; above-ground growth dies back in winter |
+| Smokeleaf | 5°C | -4°C | relatively frost-tolerant compared with tropical crops |
+| Psychoid | 8°C | -1°C | fictional warm-climate drug crop |
+| Cocoa | 12°C | 0°C | tropical crop with very poor cold tolerance |
+
+## 6. Compatibility principle
 
 Unknown third-party crops are not automatically overwritten.
 
 Explicit compatibility/balance data should be provided for supported crop sets such as Vanilla, Medieval Overhaul, and AMJ crops. Unsupported crops retain their originating behavior unless a compatibility patch is added.
 
-## 6. Archived candidate ranges and future randomized mode
+## 7. Archived candidate ranges and future randomized mode
 
 The range-based values used during balancing are intentionally preserved instead of being discarded.
 
-### Current release policy
+### 7.1 Current release policy
 
 The initial implementation uses **one fixed low-temperature death threshold per crop Def**. This is simpler to understand, easier to balance, and avoids unexpected differences between adjacent plants of the same crop.
 
-### Possible post-release alternative
+### 7.2 Possible post-release alternative
 
 If post-release player feedback strongly favors individual variation, the mod may later switch to or add an option for **per-plant deterministic random death thresholds within the archived crop range**.
 
@@ -119,9 +152,27 @@ In that model:
 - the information card shows the species range rather than the hidden per-plant exact threshold;
 - the same saved range data can be reused without redesigning the crop balance from scratch.
 
-Therefore the range tables below are not deprecated data. They are both the historical balancing record and the candidate configuration for a future randomized mode.
+The range tables below are therefore not deprecated data. They are both the historical balancing record and candidate configuration for a future randomized mode.
 
-### Archived Medieval Overhaul medicinal crop ranges
+### 7.3 Archived AMJ crop ranges
+
+| Crop | Minimum growth temperature | Candidate death range / behavior |
+|---|---:|---:|
+| Barley | 0°C | -9 to -7°C |
+| Daikon | 0°C | -6 to -4°C |
+| Buckwheat | 5°C | -3 to -1°C |
+| Barnyard millet | 5°C | -5 to -3°C |
+| Hemp | 5°C | -7 to -5°C |
+| Kudzu | 5°C | cold dormancy |
+| Foxtail millet | 8°C | -4 to -3°C |
+| Proso millet | 8°C | -3 to -2°C |
+| Adzuki bean | 8°C | -2 to 0°C |
+| Soybean | 8°C | -4 to -2°C |
+| Perilla | 8°C | -2 to 0°C |
+| Rice | 10°C | -1 to 0°C |
+| Taro | 10°C | -1 to 0°C |
+
+### 7.4 Archived Medieval Overhaul medicinal crop ranges
 
 | Crop | Minimum growth temperature | Candidate death range / behavior |
 |---|---:|---:|
@@ -131,7 +182,7 @@ Therefore the range tables below are not deprecated data. They are both the hist
 | Fleawort | 3°C | -7 to -5°C |
 | Fly agaric | 0°C | cold dormancy |
 
-### Archived Medieval Overhaul annual crop ranges
+### 7.5 Archived Medieval Overhaul annual crop ranges
 
 | Crop | Minimum growth temperature | Candidate death range / behavior |
 |---|---:|---:|
@@ -148,7 +199,7 @@ Therefore the range tables below are not deprecated data. They are both the hist
 | Tomato | 10°C | -1 to 0°C |
 | Pumpkin | 10°C | -1 to 0°C |
 
-### Archived Medieval Overhaul perennial crop ranges
+### 7.6 Archived Medieval Overhaul perennial crop ranges
 
 | Crop | Minimum growth temperature | Candidate death range / behavior |
 |---|---:|---:|
@@ -158,4 +209,19 @@ Therefore the range tables below are not deprecated data. They are both the hist
 | Griffon berry | 5°C | cold dormancy |
 | Lemon | 10°C | -5 to -3°C |
 
-Additional AMJ and Vanilla candidate ranges should also be preserved when their fixed implementation values are finalized.
+### 7.7 Archived Vanilla crop ranges
+
+| Crop | Minimum growth temperature | Candidate death range / behavior |
+|---|---:|---:|
+| Rice | 10°C | -1 to 0°C |
+| Potato | 5°C | -3 to -1°C |
+| Corn | 8°C | -3 to -2°C |
+| Strawberry | 5°C | -10 to -8°C |
+| Haygrass | 0°C | -10 to -8°C |
+| Cotton | 10°C | -2 to 0°C |
+| Devilstrand | 8°C | -2 to 0°C |
+| Healroot | 0°C | -10 to -8°C |
+| Hops | 5°C | cold dormancy |
+| Smokeleaf | 5°C | -5 to -3°C |
+| Psychoid | 8°C | -2 to 0°C |
+| Cocoa | 12°C | 0 to 2°C |
