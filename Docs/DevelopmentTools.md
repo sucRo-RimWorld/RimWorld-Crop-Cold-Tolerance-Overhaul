@@ -1,5 +1,7 @@
 # CCTO Development Workflow
 
+Before code/framework work, read the authoritative cross-workstream handoff log at `main:Docs/Coordination.md`. Update it directly instead of asking the user to relay messages between chats.
+
 This file contains **CCTO-specific** development and test guidance only.
 
 General RimWorld mod-development tools, enablement policy, Local Work/Codex usage, and Sol/Astra escalation rules are maintained separately in the ChatGPT Library:
