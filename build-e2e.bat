@@ -171,6 +171,9 @@ if not exist "%QUICKSTART_OUTPUT%" exit /b 1
 if not exist "%STEPS_OUTPUT%" exit /b 1
 if not exist "%FEATURES_DIR%\cold-tolerance.feature" exit /b 1
 if not exist "%FEATURES_DIR%\framework.feature" exit /b 1
+if exist "%ROOT%Tests\E2E\TestMod\Pickle\Features\balance.feature" (
+    if not exist "%FEATURES_DIR%\balance.feature" exit /b 1
+)
 
 echo.
 echo [5/5] CCTO E2E test mod is ready:
