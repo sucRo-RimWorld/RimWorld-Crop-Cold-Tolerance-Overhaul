@@ -39,10 +39,12 @@ Feature: CCTO cold tolerance runtime behavior
     When I set the CCTO test outdoor temperature to -10
     And I wait 2100 ticks
     Then the CCTO test plant is dormant
-    When I set the CCTO test outdoor temperature to 10
+    When I remember the CCTO dormancy refresh tick
+    And I set the CCTO test outdoor temperature to 10
     And I force the CCTO plant cold check
     Then the CCTO test plant is dormant
-    When I wait 60050 ticks
+    And the CCTO dormancy refresh tick has not changed
+    When I expire the CCTO dormancy recovery timer
     Then the CCTO test plant has recovered from dormancy
 
   Scenario: Indoor plants use actual room temperature rather than outdoor temperature
