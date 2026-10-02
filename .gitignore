@@ -5,3 +5,6 @@ Source/**/obj/
 
 # Local-only runtime test patch
 Patches/_LocalTest.xml
+
+# Automated test reports
+TestResults/
