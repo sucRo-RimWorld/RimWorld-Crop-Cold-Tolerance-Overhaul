@@ -40,13 +40,11 @@ echo Pickle will generate a deterministic Quickstarts map for each scenario,
 echo run the tests, write reports, and exit RimWorld automatically.
 echo.
 
-start /wait "" "%RIMWORLD_EXE%" ^
-    -savedatafolder="%TEST_SAVEDATA%" ^
-    -pickle-run="framework.feature,cold-tolerance.feature" ^
-    -pickle-mode=fast ^
-    -pickle-report-dir="%REPORT_DIR%" ^
-    -pickle-no-browser ^
-    -pickle-run-timeout=10
+powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-RimWorldWithTimeout.ps1" ^
+    -ExePath "%RIMWORLD_EXE%" ^
+    -SavedataFolder "%TEST_SAVEDATA%" ^
+    -ReportDir "%REPORT_DIR%" ^
+    -TimeoutSeconds 300
 
 set "RESULT=%ERRORLEVEL%"
 
