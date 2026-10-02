@@ -120,7 +120,7 @@ Framework regression scenarios check:
 Live-map scenarios check:
 
 - a configured plant survives safely above its fixed death threshold;
-- the same plant dies after the actual scheduled plant tick path runs below the threshold;
+- the same plant dies when its actual `Plant.TickLong()` path runs below the threshold;
 - at exactly the fixed threshold the plant survives, while below it the plant dies (strict `<` boundary);
 - a `dieIfLeafless` plant can enter CCTO dormancy without dying;
 - a dormant plant with an explicit extreme-cold death threshold still dies below that threshold;
@@ -129,6 +129,8 @@ Live-map scenarios check:
 - a configured plant in a genuinely cold indoor room responds to its actual `AmbientTemperature`.
 
 Each live scenario starts from a fixed-seed Quickstarts world. The test runner creates a temporary temperature-offset game condition so test temperatures are deterministic without changing shipping balance XML.
+
+Full-world fast waits are avoided for CCTO cold-response assertions. Earlier `I wait 2100 ticks` steps advanced all Vanilla world/pawn systems and could surface unrelated WorldPawns/AI errors. CCTO now calls the spawned test plant's `TickLong()` directly, which exercises the real plant long-tick cold path without ticking unrelated simulation systems.
 
 ### RimTest Redux developer suite
 
