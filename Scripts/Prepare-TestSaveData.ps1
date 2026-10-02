@@ -40,8 +40,13 @@ $configPath = Join-Path $configDir "ModsConfig.xml"
 $sourceConfigDir = Split-Path -Parent $SourceModsConfigPath
 $sourcePrefsPath = Join-Path $sourceConfigDir "Prefs.xml"
 $testPrefsPath = Join-Path $configDir "Prefs.xml"
+$devModeDisabledPath = Join-Path $configDir "DevModeDisabled"
 
 New-Item -ItemType Directory -Force -Path $configDir | Out-Null
+
+if (Test-Path -LiteralPath $devModeDisabledPath) {
+    Remove-Item -LiteralPath $devModeDisabledPath -Force
+}
 
 $doc = New-Object System.Xml.XmlDocument
 $declaration = $doc.CreateXmlDeclaration("1.0", "utf-8", $null)
