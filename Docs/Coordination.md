@@ -44,7 +44,7 @@ For durable specifications and decided values, update the appropriate design/fra
 
 **Requested by:** Balance/XML  
 **Owner:** Code/framework  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Confirm that a configured fixed death threshold uses a strict below-threshold rule:
 
@@ -57,7 +57,7 @@ Current implementation uses:
 
 An E2E boundary scenario exists. The first runtime attempt exposed a test-harness temperature synchronization issue rather than a CCTO logic failure. The harness was fixed so the plant's actual `AmbientTemperature` is synchronized before forcing the cold check.
 
-**Next action:** rerun the Pickle suite and require the boundary scenario to pass.
+**Result:** the rerun passed the full existing Pickle E2E suite, including the strict boundary scenario. Exact threshold survives; values below it die. Test harness synchronization fix is on framework branch commit `26c104677e189ff3450f2158ecb6e2882e857700`.
 
 ### CODE-002 — Recovery from cold dormancy
 
@@ -75,7 +75,9 @@ This means visible/state recovery may lag warming by up to roughly one in-game d
 
 Durable specification: `Docs/PatchPlan.md`, commit `b868e278d04d772e406b92cde085ec7e4d36ca64`.
 
-**Next action for Code/framework:** add/enable a regression scenario confirming delayed recovery and report the test result here.
+A delayed-recovery Pickle scenario has now been added on framework branch commit `28d7faac3760fb3d003f11d0878d0ab01de415d7`.
+
+**Next action for Code/framework:** rerun the automated suite and require the delayed-recovery scenario to pass.
 
 ### CODE-003 — Indoor cold behavior / `CheckMakeLeafless` postfix
 
@@ -99,7 +101,9 @@ This is intentional CCTO behavior, not an accidental bypass.
 
 Durable specification: `Docs/PatchPlan.md`, commit `b868e278d04d772e406b92cde085ec7e4d36ca64`.
 
-**Next action for Code/framework:** add indoor-safe and indoor-cold E2E regression coverage and report the results here.
+Indoor-safe and indoor-cold Pickle coverage has now been added on framework branch commit `28d7faac3760fb3d003f11d0878d0ab01de415d7`.
+
+**Next action for Code/framework:** rerun the automated suite and require the indoor room-temperature scenario to pass.
 
 ## Completed handoffs
 
