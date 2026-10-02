@@ -55,6 +55,8 @@ if "%RESULT%"=="0" (
     echo [FAIL] One or more Pickle scenarios failed.
 ) else if "%RESULT%"=="2" (
     echo [ERROR] Pickle test runner failed or no scenarios were discovered.
+) else if "%RESULT%"=="124" (
+    echo [ERROR] RimWorld/Pickle was terminated by the outer 5-minute watchdog.
 ) else (
     echo [ERROR] RimWorld/Pickle exited with code %RESULT%.
 )
