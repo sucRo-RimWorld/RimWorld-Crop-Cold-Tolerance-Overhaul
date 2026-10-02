@@ -1,3 +1,4 @@
+using System.Reflection;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -6,12 +7,17 @@ namespace CropColdToleranceOverhaul
 {
     internal static class ColdToleranceUtility
     {
-        private static readonly AccessTools.FieldRef<Plant, int> MadeLeaflessTick =
-            AccessTools.FieldRefAccess<Plant, int>("madeLeaflessTick");
+        private static readonly FieldInfo MadeLeaflessTickField =
+            AccessTools.Field(typeof(Plant), "madeLeaflessTick");
 
         internal static ColdToleranceExtension ExtensionFor(Plant plant)
         {
-            return plant?.def?.GetModExtension<ColdToleranceExtension>();
+            if (plant == null || plant.def == null)
+            {
+                return null;
+            }
+
+            return plant.def.GetModExtension<ColdToleranceExtension>();
         }
 
         internal static void EnterColdDormancy(Plant plant)
@@ -22,7 +28,7 @@ namespace CropColdToleranceOverhaul
             }
 
             bool wasLeafless = plant.LeaflessNow;
-            MadeLeaflessTick(plant) = Find.TickManager.TicksGame;
+            MadeLeaflessTickField.SetValue(plant, Find.TickManager.TicksGame);
 
             if (!wasLeafless)
             {
@@ -44,7 +50,7 @@ namespace CropColdToleranceOverhaul
                 && MessagesRepeatAvoider.MessageShowAllowed("MessagePlantDiedOfCold-" + plant.def.defName, 240f))
             {
                 Messages.Message(
-                    "MessagePlantDiedOfCold".Translate(plant.GetCustomLabelNoCount(includeHp: false)),
+                    "MessagePlantDiedOfCold".Translate(plant.GetCustomLabelNoCount(false)),
                     new TargetInfo(plant.Position, map),
                     MessageTypeDefOf.NegativeEvent);
             }
