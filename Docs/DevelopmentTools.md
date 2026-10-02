@@ -70,39 +70,88 @@ The shared Library document contains the general enable/disable policy for these
 
 ## 4. CCTO validation sequence
 
-Run checks in this order where applicable:
+### Automated release gate
 
-1. Build `CropColdToleranceOverhaul.dll`.
-2. Build the separate developer test mod with:
-   `build-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
-3. Start RimWorld and confirm CCTO/Harmony loads without red errors.
-4. Enable and run the RimTest Redux suite from `[DEV] Crop Cold Tolerance Overhaul Tests`.
-5. Run Pickle E2E scenarios for actual temperature-dependent behavior once the E2E fixture/steps are available.
-6. When balance XML is present, verify final resolved Def values with Things Explorer/XML Patch Helper.
-7. Run a normal-game smoke test with development-only helper mods disabled.
+The authoritative automated gate is the Pickle + Quickstarts suite. It contains both framework-level regression scenarios and live-map/tick scenarios, and returns a process exit code.
 
-The RimTest build creates a **separate sibling local mod** at:
+Build/run with:
+
+`run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+The underlying E2E runner:
+
+- builds the shipping CCTO DLL;
+- creates a separate local developer mod at
+  `D:\SteamLibrary\steamapps\common\RimWorld\Mods\CropColdToleranceOverhaul.E2E`;
+- compiles CCTO-specific Quickstarts and Pickle step assemblies;
+- copies all CCTO `.feature` files;
+- launches RimWorld with Pickle autorun;
+- runs framework regression scenarios and live cold-behavior scenarios;
+- writes reports to `TestResults\Pickle`;
+- exits with Pickle's pass/fail/error exit code.
+
+The generated E2E mod is development-only and must not be included in the Workshop release. Remove it with:
+
+`clean-e2e.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+For the automated run, the active development mod set must contain:
+
+- Harmony;
+- RimLogging;
+- Pickle;
+- Quickstarts;
+- Crop Cold Tolerance Overhaul;
+- `[DEV] Crop Cold Tolerance Overhaul E2E`.
+
+The active-mod selection itself is intentionally not rewritten by the repository scripts, so normal gameplay presets are not modified behind the user's back.
+
+### Current Pickle gate coverage
+
+Framework regression scenarios check:
+
+- fixed death thresholds are identical across different plant identities;
+- dormancy uses native `minGrowthTemperature` as its cold-response threshold;
+- unconfigured plants retain the vanilla per-plant threshold range;
+- extension validation accepts dormancy-only and finite fixed death values while rejecting incomplete/infinite configurations;
+- CCTO Info Card stat construction matches fixed-death, dormancy-only, and combined configurations.
+
+Live-map scenarios check:
+
+- a configured plant survives safely above its fixed death threshold;
+- the same plant dies after the actual scheduled plant tick path runs below the threshold;
+- at exactly the fixed threshold the plant survives, while below it the plant dies (strict `<` boundary);
+- a `dieIfLeafless` plant can enter CCTO dormancy without dying;
+- a dormant plant with an explicit extreme-cold death threshold still dies below that threshold.
+
+Each live scenario starts from a fixed-seed Quickstarts world. The test runner creates a temporary temperature-offset game condition so test temperatures are deterministic without changing shipping balance XML.
+
+Dormancy recovery timing is deliberately not locked by the automated suite yet. The current implementation uses vanilla `madeLeaflessTick` behavior, but the intended recovery timing should be explicitly settled before it becomes a regression contract.
+
+### RimTest Redux developer suite
+
+A separate RimTest Redux suite remains available as a fast interactive/unit-style development tool.
+
+Build it with:
+
+`build-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+It creates:
 
 `D:\SteamLibrary\steamapps\common\RimWorld\Mods\CropColdToleranceOverhaul.Tests`
 
-This keeps `RimTestRedux.dll` out of the shipping CCTO assembly and prevents the Workshop mod from acquiring a development dependency. The generated test mod can be removed with:
+This keeps `RimTestRedux.dll` out of the shipping CCTO assembly. Remove the generated test mod with:
 
 `clean-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
 
-### Current RimTest coverage
+Its current coverage overlaps the framework portion of the Pickle gate: extension validation, fixed-vs-vanilla thresholds, dormancy threshold behavior, and Info Card stat construction. RimTest Redux is useful for rapid development feedback; Pickle is the release gate because it can also exercise a live RimWorld session and produce an unattended process result.
 
-The developer suite currently checks:
+### Final pre-beta checks
 
-- an ordinary extension without a fixed death temperature is rejected;
-- dormancy-only configuration is valid;
-- finite fixed death temperature is valid;
-- infinite death temperature is rejected;
-- configured plants return the exact same fixed leafless/death threshold across different plant IDs;
-- dormancy uses native `minGrowthTemperature` as the leafless threshold;
-- an unconfigured plant retains the vanilla random threshold range;
-- Info Card stat construction yields the expected number of CCTO entries for fixed death, dormancy-only, and dormancy-plus-extreme-death configurations.
+After the automated gate passes:
 
-The fixed-threshold tests intentionally verify **non-random fixed behavior**, because that is the current beta candidate. The public beta may solicit feedback on whether a per-plant range would be preferable.
+1. when balance XML is present, inspect representative final Def values with Things Explorer/XML Patch Helper;
+2. run a normal-game smoke test with development-only helpers disabled;
+3. keep PR #1 draft until the local automated run has actually passed.
 
 ## 5. Framework behavior that tests must protect
 
