@@ -174,5 +174,6 @@ As of 2026-10-02:
 - Draft PR #1 implements the C# framework.
 - Shipping CCTO DLL has compiled successfully against the user's RimWorld 1.6 installation.
 - RimTest Redux and Pickle + Quickstarts test infrastructure is present.
-- The automated Pickle gate includes fixed threshold, Vanilla fallback, extension validation, Info Card, cold death, boundary, dormancy, and extreme-cold cases.
-- Developer test assemblies and the full live Pickle suite still need their local automated run to pass before Draft PR #1 is ready to merge.
+- The live Pickle suite passed all existing scenarios after the boundary-test temperature synchronization fix. This confirmed fixed-threshold behavior, Vanilla fallback, extension validation, Info Card construction, live cold death, strict threshold boundary, dormancy survival, and extreme-cold death.
+- Additional regression scenarios have since been added for the decided delayed dormancy recovery semantics and for indoor actual-room-temperature behavior.
+- Draft PR #1 should remain Draft until those newly added recovery/indoor scenarios also pass locally.
