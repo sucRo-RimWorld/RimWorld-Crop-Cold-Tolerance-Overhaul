@@ -137,7 +137,7 @@ The suite overall still had two unrelated Vanilla errors from full-world fast ti
 
 **Requested by:** Code/framework  
 **Owner:** Code/framework  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Latest isolated run: 10/11 scenarios passed.
 
@@ -147,7 +147,7 @@ The E2E harness had still been mutating global outdoor temperature through a tem
 
 Framework branch commit `a739d49dc556b5d68ff065a0ea91b80012d28cf6` removes that global temperature-condition path from CCTO E2E temperature setup. Tests now set the relevant RimWorld `Room.Temperature` directly and verify the spawned plant's `AmbientTemperature`. The indoor scenario uses a separate outdoor room temperature to preserve the warm-inside/cold-outside distinction without touching world temperature caches.
 
-**Next action:** rerun the isolated suite and require 11/11 clean pass.
+**Result:** final isolated Pickle run completed successfully with the full suite passing. The room-temperature based harness eliminated the remaining unrelated Vanilla temperature-cache failure. The automated E2E release gate is now green.
 
 ## Completed handoffs
 
