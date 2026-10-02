@@ -17,6 +17,15 @@ if not exist "%RIMWORLD_EXE%" (
     exit /b 1
 )
 
+echo.
+echo Checking active development mod set...
+powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Check-TestModList.ps1"
+if errorlevel 1 (
+    echo.
+    echo [STOP] Automated test run was not started.
+    exit /b 1
+)
+
 if not exist "%REPORT_DIR%" mkdir "%REPORT_DIR%"
 
 echo.
