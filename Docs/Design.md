@@ -99,3 +99,63 @@ Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, 
 Unknown third-party crops are not automatically overwritten.
 
 Explicit compatibility/balance data should be provided for supported crop sets such as Vanilla, Medieval Overhaul, and AMJ crops. Unsupported crops retain their originating behavior unless a compatibility patch is added.
+
+## 6. Archived candidate ranges and future randomized mode
+
+The range-based values used during balancing are intentionally preserved instead of being discarded.
+
+### Current release policy
+
+The initial implementation uses **one fixed low-temperature death threshold per crop Def**. This is simpler to understand, easier to balance, and avoids unexpected differences between adjacent plants of the same crop.
+
+### Possible post-release alternative
+
+If post-release player feedback strongly favors individual variation, the mod may later switch to or add an option for **per-plant deterministic random death thresholds within the archived crop range**.
+
+In that model:
+
+- each crop Def owns a configured minimum/maximum death-temperature range;
+- each individual plant receives a stable threshold derived deterministically from its identity rather than rerolling over time;
+- the information card shows the species range rather than the hidden per-plant exact threshold;
+- the same saved range data can be reused without redesigning the crop balance from scratch.
+
+Therefore the range tables below are not deprecated data. They are both the historical balancing record and the candidate configuration for a future randomized mode.
+
+### Archived Medieval Overhaul medicinal crop ranges
+
+| Crop | Minimum growth temperature | Candidate death range / behavior |
+|---|---:|---:|
+| Healroot | 0°C | -10 to -8°C |
+| Mindwort | 5°C | -4 to -2°C |
+| Poppy | 3–5°C | -6 to -4°C |
+| Fleawort | 3°C | -7 to -5°C |
+| Fly agaric | 0°C | cold dormancy |
+
+### Archived Medieval Overhaul annual crop ranges
+
+| Crop | Minimum growth temperature | Candidate death range / behavior |
+|---|---:|---:|
+| Onion | 5°C | -4 to -2°C |
+| Lentil | 5°C | -5 to -3°C |
+| Cabbage | 0°C | -7 to -5°C |
+| Garlic | 0°C | cold dormancy |
+| Mushroom | 5°C | -2 to 0°C |
+| Wheat | 0°C | -7 to -5°C |
+| Flax | 5°C | -6 to -4°C |
+| Sugarcane | 10°C | -5 to -4°C |
+| Carrot | 0°C | -5 to -3°C |
+| Herb | 5°C | -4 to -2°C |
+| Tomato | 10°C | -1 to 0°C |
+| Pumpkin | 10°C | -1 to 0°C |
+
+### Archived Medieval Overhaul perennial crop ranges
+
+| Crop | Minimum growth temperature | Candidate death range / behavior |
+|---|---:|---:|
+| Grape | 5°C | cold dormancy |
+| Apple | 5°C | cold dormancy |
+| Mulberry | 5°C | cold dormancy |
+| Griffon berry | 5°C | cold dormancy |
+| Lemon | 10°C | -5 to -3°C |
+
+Additional AMJ and Vanilla candidate ranges should also be preserved when their fixed implementation values are finalized.
