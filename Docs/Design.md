@@ -55,7 +55,42 @@ Cold tolerance is assigned per plant so that medicinal crop choice matters, espe
 - `Fly agaric` is a special case: it should not behave like a normal annual crop that dies permanently from ordinary winter cold.
 - The information card should show dormancy-type behavior explicitly rather than presenting a misleading ordinary death-temperature range.
 
-## 4. Compatibility principle
+## 4. Medieval Overhaul food, fiber, and perennial crops
+
+These values are balanced using the same AMJ principle: real-world cold behavior establishes the relative ordering, while final thresholds are simplified for clear gameplay roles.
+
+### Annual / harvest-destroying crops
+
+| Crop | Minimum growth temperature | Low-temperature death behavior | Role |
+|---|---:|---:|---|
+| Onion | 5°C | -4 to -2°C | cool-season crop, but not strongly frost-hardy |
+| Lentil | 5°C | -5 to -3°C | relatively cold-tolerant pulse |
+| Cabbage | 0°C | -7 to -5°C | strongly frost-tolerant vegetable |
+| Garlic | 0°C | cold dormancy | overwintering crop |
+| Mushroom | 5°C | -2 to 0°C | above-ground fungal crop vulnerable to freezing |
+| Wheat | 0°C | -7 to -5°C | cold-climate cereal |
+| Flax | 5°C | -6 to -4°C | cool-season fiber crop with good frost tolerance |
+| Sugarcane | 10°C | -5 to -4°C | requires warmth for growth but survives light freezing better than tropical growth needs imply |
+| Carrot | 0°C | -5 to -3°C | cool-season root crop |
+| Herb | 5°C | -4 to -2°C | generic temperate herb |
+| Tomato | 10°C | -1 to 0°C | warm-season, frost-sensitive |
+| Pumpkin | 10°C | -1 to 0°C | warm-season, frost-sensitive |
+
+The Medieval Overhaul 1.6 cabbage value `minGrowthTemperature=-18°C` is treated as a balance error for this overhaul and is replaced with 0°C. Cold survival and active growth are intentionally kept separate.
+
+### Perennial crops
+
+| Crop | Minimum growth temperature | Low-temperature behavior |
+|---|---:|---|
+| Grape | 5°C | cold dormancy |
+| Apple | 5°C | cold dormancy |
+| Mulberry | 5°C | cold dormancy |
+| Griffon berry | 5°C | cold dormancy |
+| Lemon | 10°C | death at -5 to -3°C |
+
+Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, mulberry, and Griffon berry already have leafless-survival behavior in Medieval Overhaul and retain the same conceptual role. Lemon is deliberately different: it remains a warm-climate perennial and receives a real low-temperature death threshold rather than unlimited dormancy survival.
+
+## 5. Compatibility principle
 
 Unknown third-party crops are not automatically overwritten.
 
