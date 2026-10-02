@@ -178,4 +178,6 @@ As of 2026-10-02:
 - Additional regression scenarios have since been added for the decided delayed dormancy recovery semantics and for indoor actual-room-temperature behavior.
 - The first expanded-suite run was contaminated by unrelated `Andromeda.PawnQuickInfo` `Log.Error` output; Pickle treated those external errors as scenario failures even though they were not CCTO assertion failures.
 - The authoritative E2E runner now launches RimWorld with an isolated `-savedatafolder` profile containing only the required test mods, while leaving the user's normal gameplay mod configuration untouched.
-- Draft PR #1 should remain Draft until the newly added recovery/indoor scenarios pass in that isolated profile.
+- In the latest isolated-profile run, 9 of 11 scenarios passed. The new delayed-recovery and indoor-room scenarios both passed. The two remaining failures were unrelated Vanilla WorldPawns/AI `Log.Error` entries produced while Pickle's fast `I wait 2100 ticks` step advanced the entire world simulation.
+- Those full-world waits have been replaced with a targeted `Plant.TickLong()` E2E step. This still exercises the real plant long-tick path that calls `CheckMakeLeafless`, without advancing unrelated pawn/world systems.
+- Draft PR #1 should remain Draft until the revised targeted suite returns a clean all-pass result.
