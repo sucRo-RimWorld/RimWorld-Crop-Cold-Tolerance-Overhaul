@@ -97,7 +97,7 @@ A subsequent isolated-profile launch reached the RimWorld title screen but did n
 
 The test-profile preparation now copies the user's existing `Prefs.xml` into the isolated profile, sets only `<devMode>True</devMode>`, and removes any isolated `DevModeDisabled` marker. The user's normal preferences are not modified.
 
-Dev-mode profile fix: framework branch commits `e36ef0e7f5745f1c2a9bec330545f41bcd8a435f` and latest follow-up.
+Dev-mode profile fix: framework branch commits `e36ef0e7f5745f1c2a9bec330545f41bcd8a435f` and `c0045c9886f6bfc6d9c3c22c8b07c78876548d17`.
 
 **Next action for Code/framework:** rerun the suite and require a clean all-pass result.
 
