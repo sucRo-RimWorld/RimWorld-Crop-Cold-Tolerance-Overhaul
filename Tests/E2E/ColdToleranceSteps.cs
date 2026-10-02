@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using CropColdToleranceOverhaul;
 using RimWorks.Pickle;
 using RimWorld;
@@ -18,6 +19,117 @@ namespace CropColdToleranceOverhaul.E2E
         private float originalMinimumGrowthTemperature;
         private Plant testPlant;
         private GameCondition_TemperatureOffset temperatureCondition;
+
+        [Then("CCTO fixed death thresholds are independent of plant identity")]
+        public void AssertFixedThresholdIsNotPerPlantRandom(PickleContext ctx)
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDeathTemperature = -12f;
+
+            float first = ReadLeaflessThreshold(
+                CreateUnspawnedPlant(8f, extension, 101));
+            float second = ReadLeaflessThreshold(
+                CreateUnspawnedPlant(8f, extension, 987654));
+
+            ctx.Assert(
+                Math.Abs(first - (-12f)) < 0.001f,
+                "First configured plant did not use the exact fixed -12 C threshold.");
+            ctx.Assert(
+                Math.Abs(second - (-12f)) < 0.001f,
+                "Second configured plant did not use the exact fixed -12 C threshold.");
+        }
+
+        [Then("CCTO dormancy uses the plant minimum growth temperature as its cold threshold")]
+        public void AssertDormancyThresholdUsesMinimumGrowthTemperature(PickleContext ctx)
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDormancy = true;
+            extension.coldDeathTemperature = -25f;
+
+            float threshold = ReadLeaflessThreshold(
+                CreateUnspawnedPlant(3f, extension, 202));
+
+            ctx.Assert(
+                Math.Abs(threshold - 3f) < 0.001f,
+                "Dormancy threshold should equal minGrowthTemperature (3 C).");
+        }
+
+        [Then("an unconfigured plant retains the vanilla per-plant cold threshold range")]
+        public void AssertUnconfiguredPlantKeepsVanillaRange(PickleContext ctx)
+        {
+            const float minimumGrowthTemperature = 10f;
+            float threshold = ReadLeaflessThreshold(
+                CreateUnspawnedPlant(
+                    minimumGrowthTemperature,
+                    null,
+                    303));
+
+            ctx.Assert(
+                threshold >= minimumGrowthTemperature - 18f
+                && threshold <= minimumGrowthTemperature - 10f,
+                "Unconfigured plant threshold should stay inside the vanilla "
+                + "minGrowthTemperature-18..-10 range, but was "
+                + threshold.ToString("F2") + " C.");
+        }
+
+        [Then("CCTO extension validation accepts dormancy-only and rejects incomplete ordinary configuration")]
+        public void AssertExtensionValidation(PickleContext ctx)
+        {
+            ColdToleranceExtension incomplete =
+                new ColdToleranceExtension();
+            ColdToleranceExtension dormancy =
+                new ColdToleranceExtension();
+            dormancy.coldDormancy = true;
+            ColdToleranceExtension finite =
+                new ColdToleranceExtension();
+            finite.coldDeathTemperature = -12f;
+            ColdToleranceExtension infinite =
+                new ColdToleranceExtension();
+            infinite.coldDormancy = true;
+            infinite.coldDeathTemperature =
+                float.PositiveInfinity;
+
+            ctx.Assert(
+                incomplete.ConfigErrors().Count() == 1,
+                "An ordinary CCTO extension without a death temperature "
+                + "should report one configuration error.");
+            ctx.Assert(
+                !dormancy.ConfigErrors().Any(),
+                "Dormancy-only CCTO configuration should be valid.");
+            ctx.Assert(
+                !finite.ConfigErrors().Any(),
+                "A finite fixed death temperature should be valid.");
+            ctx.Assert(
+                infinite.ConfigErrors().Count() == 1,
+                "An infinite death temperature should report one configuration error.");
+        }
+
+        [Then("CCTO Info Card stat construction matches fixed-death and dormancy configuration")]
+        public void AssertInfoCardStatConstruction(PickleContext ctx)
+        {
+            ColdToleranceExtension deathOnly =
+                new ColdToleranceExtension();
+            deathOnly.coldDeathTemperature = -12f;
+
+            ColdToleranceExtension dormancyOnly =
+                new ColdToleranceExtension();
+            dormancyOnly.coldDormancy = true;
+
+            ColdToleranceExtension both =
+                new ColdToleranceExtension();
+            both.coldDormancy = true;
+            both.coldDeathTemperature = -25f;
+
+            ctx.Assert(
+                BuildCctoStats(deathOnly).Count == 1,
+                "Fixed-death-only configuration should add one CCTO Info Card stat.");
+            ctx.Assert(
+                BuildCctoStats(dormancyOnly).Count == 1,
+                "Dormancy-only configuration should add one CCTO Info Card stat.");
+            ctx.Assert(
+                BuildCctoStats(both).Count == 2,
+                "Dormancy plus extreme-cold death should add two CCTO Info Card stats.");
+        }
 
         [Given("a fixed-death CCTO test plant with minimum growth {float} and death {float}")]
         public void SpawnFixedDeathPlant(
@@ -325,6 +437,93 @@ namespace CropColdToleranceOverhaul.E2E
                     }
                 }
             }
+        }
+
+        private static Plant CreateUnspawnedPlant(
+            float minimumGrowthTemperature,
+            ColdToleranceExtension extension,
+            int thingId)
+        {
+            ThingDef def = new ThingDef();
+            def.defName = "CCTO_E2E_UnspawnedPlant_" + thingId;
+            def.label = "CCTO E2E unspawned plant";
+            def.category = ThingCategory.Plant;
+            def.plant = new PlantProperties();
+            def.plant.minGrowthTemperature =
+                minimumGrowthTemperature;
+
+            if (extension != null)
+            {
+                def.modExtensions =
+                    new List<DefModExtension>();
+                def.modExtensions.Add(extension);
+            }
+
+            Plant plant = new Plant();
+            plant.def = def;
+            plant.thingIDNumber = thingId;
+            return plant;
+        }
+
+        private static float ReadLeaflessThreshold(Plant plant)
+        {
+            PropertyInfo property =
+                typeof(Plant).GetProperty(
+                    "LeaflessTemperatureThresh",
+                    BindingFlags.Instance
+                    | BindingFlags.NonPublic);
+
+            if (property == null)
+            {
+                throw new InvalidOperationException(
+                    "Plant.LeaflessTemperatureThresh was not found.");
+            }
+
+            return (float)property.GetValue(plant, null);
+        }
+
+        private static List<StatDrawEntry> BuildCctoStats(
+            ColdToleranceExtension extension)
+        {
+            Type patchType =
+                typeof(ColdToleranceExtension)
+                    .Assembly
+                    .GetType(
+                        "CropColdToleranceOverhaul.Patches.ThingDefSpecialDisplayStatsPatch",
+                        false);
+
+            if (patchType == null)
+            {
+                throw new InvalidOperationException(
+                    "CCTO Info Card patch type was not found.");
+            }
+
+            MethodInfo append =
+                patchType.GetMethod(
+                    "AppendCctoStats",
+                    BindingFlags.Static
+                    | BindingFlags.NonPublic);
+
+            if (append == null)
+            {
+                throw new InvalidOperationException(
+                    "CCTO Info Card stat builder was not found.");
+            }
+
+            IEnumerable<StatDrawEntry> original =
+                new List<StatDrawEntry>();
+
+            object result =
+                append.Invoke(
+                    null,
+                    new object[]
+                    {
+                        original,
+                        extension
+                    });
+
+            return ((IEnumerable<StatDrawEntry>)result)
+                .ToList();
         }
 
         private static Map RequireCurrentMap(PickleContext ctx)
