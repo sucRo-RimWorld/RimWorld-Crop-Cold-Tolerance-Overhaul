@@ -20,7 +20,14 @@ set "MAIN_DLL=%ROOT%Assemblies\CropColdToleranceOverhaul.dll"
 set "MANAGED=%RIMWORLD_DIR%\RimWorldWin64_Data\Managed"
 set "ASSEMBLY_CSHARP=%MANAGED%\Assembly-CSharp.dll"
 set "UNITY_CORE=%MANAGED%\UnityEngine.CoreModule.dll"
+set "UNITY_MATH=%MANAGED%\Unity.Mathematics.dll"
 set "STEAMAPPS=%RIMWORLD_DIR%\..\.."
+
+if not exist "%UNITY_MATH%" (
+    echo [ERROR] Required RimWorld managed assembly was not found:
+    echo         %UNITY_MATH%
+    exit /b 1
+)
 
 echo [1/5] Building CCTO...
 call "%ROOT%build.bat" "%RIMWORLD_DIR%"
@@ -103,11 +110,13 @@ if exist "%UNITY_CORE%" (
     "%CSC%" /nologo /target:library /optimize+ /out:"%QUICKSTART_OUTPUT%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
+        /reference:"%UNITY_MATH%" ^
         /reference:"%QUICKSTARTS_DLL%" ^
         "%ROOT%Tests\E2E\CctoColdToleranceQuickstart.cs"
 ) else (
     "%CSC%" /nologo /target:library /optimize+ /out:"%QUICKSTART_OUTPUT%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
+        /reference:"%UNITY_MATH%" ^
         /reference:"%QUICKSTARTS_DLL%" ^
         "%ROOT%Tests\E2E\CctoColdToleranceQuickstart.cs"
 )
@@ -126,12 +135,14 @@ if exist "%UNITY_CORE%" (
     "%CSC%" /nologo /target:library /optimize+ /out:"%STEPS_OUTPUT%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
+        /reference:"%UNITY_MATH%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%PICKLE_DLL%" ^
         "%ROOT%Tests\E2E\ColdToleranceSteps.cs"
 ) else (
     "%CSC%" /nologo /target:library /optimize+ /out:"%STEPS_OUTPUT%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
+        /reference:"%UNITY_MATH%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%PICKLE_DLL%" ^
         "%ROOT%Tests\E2E\ColdToleranceSteps.cs"
