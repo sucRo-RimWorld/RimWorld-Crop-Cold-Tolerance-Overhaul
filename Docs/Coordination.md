@@ -149,6 +149,31 @@ Framework branch commit `a739d49dc556b5d68ff065a0ea91b80012d28cf6` removes that 
 
 **Result:** final isolated Pickle run completed successfully with the full suite passing. The room-temperature based harness eliminated the remaining unrelated Vanilla temperature-cache failure. The automated E2E release gate is now green.
 
+### CODE-005 — Integrated framework + balance XML regression
+
+**Requested by:** Balance/XML  
+**Owner:** Code/framework  
+**Status:** OPEN
+
+The framework-only automated E2E gate is green through CODE-004.
+
+Balance/XML has now rebased/merged the latest framework state into the balance branch:
+
+- branch: `balance-xml`
+- integration commit: `8e2b0d8843b54ea25bdb4a090540b5dd5889af5c`
+- Draft PR: #2
+
+This branch adds the actual Vanilla and Medieval Overhaul balance XML, including `minGrowthTemperature`, fixed `coldDeathTemperature`, and dormancy flags.
+
+**Required integration check:**
+
+1. run `validate-balance.bat`;
+2. run the existing `run-tests.bat` / isolated Pickle E2E gate from `balance-xml`;
+3. verify the final loaded Def values for representative Vanilla and MO crops if the existing E2E suite does not already cover actual patched Def data;
+4. report PASS/FAIL and any defect back here.
+
+Do not change balance numbers during test repair without a Balance/XML decision. Test-harness/framework fixes may be made by Code/framework as usual.
+
 ## Completed handoffs
 
 None yet.
