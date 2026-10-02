@@ -37,9 +37,9 @@ namespace CropColdToleranceOverhaul.Patches
     internal static class PlantMakeLeaflessPatch
     {
         [HarmonyPrefix]
-        private static bool Prefix(Plant __instance, LeaflessCause cause, bool sendMessage)
+        private static bool Prefix(Plant __instance, Plant.LeaflessCause cause, bool sendMessage)
         {
-            if (cause != LeaflessCause.Cold)
+            if (cause != Plant.LeaflessCause.Cold)
             {
                 return true;
             }
