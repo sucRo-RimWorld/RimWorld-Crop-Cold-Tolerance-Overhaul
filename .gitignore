@@ -1,0 +1,7 @@
+# Local build output
+Assemblies/*.dll
+Source/**/bin/
+Source/**/obj/
+
+# Local-only runtime test patch
+Patches/_LocalTest.xml
