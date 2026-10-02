@@ -1,6 +1,7 @@
 param(
     [string]$OutputRoot,
-    [string]$SourceModsConfigPath = "$env:USERPROFILE\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config\ModsConfig.xml"
+    [string]$SourceModsConfigPath = "$env:USERPROFILE\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config\ModsConfig.xml",
+    [switch]$IncludeMedievalOverhaul
 )
 
 $ErrorActionPreference = "Stop"
@@ -27,7 +28,18 @@ catch {
 
 $required = @(
     "brrainz.harmony",
-    "ludeon.rimworld",
+    "ludeon.rimworld"
+)
+
+if ($IncludeMedievalOverhaul) {
+    $required += @(
+        "OskarPotocki.VanillaFactionsExpanded.Core",
+        "syrchalis.processor.framework",
+        "DankPyon.Medieval.Overhaul"
+    )
+}
+
+$required += @(
     "rimworks.rimlogging",
     "rimworks.pickle",
     "rimworks.quickstarts",
