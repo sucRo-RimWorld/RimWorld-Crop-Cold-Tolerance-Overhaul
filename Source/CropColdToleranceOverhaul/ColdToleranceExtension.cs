@@ -9,7 +9,10 @@ namespace CropColdToleranceOverhaul
         public float coldDeathTemperature = float.NaN;
         public bool coldDormancy;
 
-        public bool HasColdDeathTemperature => !float.IsNaN(coldDeathTemperature);
+        public bool HasColdDeathTemperature
+        {
+            get { return !float.IsNaN(coldDeathTemperature); }
+        }
 
         public override IEnumerable<string> ConfigErrors()
         {
