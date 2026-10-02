@@ -33,3 +33,25 @@ Feature: CCTO cold tolerance runtime behavior
     When I set the CCTO test outdoor temperature to -50
     And I wait 2100 ticks
     Then the CCTO test plant is dead
+
+  Scenario: Dormancy recovery preserves the vanilla delayed leafless window
+    Given a dormancy CCTO test plant with minimum growth 5
+    When I set the CCTO test outdoor temperature to -10
+    And I wait 2100 ticks
+    Then the CCTO test plant is dormant
+    When I set the CCTO test outdoor temperature to 10
+    And I force the CCTO plant cold check
+    Then the CCTO test plant is dormant
+    When I wait 60050 ticks
+    Then the CCTO test plant has recovered from dormancy
+
+  Scenario: Indoor plants use actual room temperature rather than outdoor temperature
+    Given a fixed-death CCTO test plant with minimum growth 0 and death -10
+    When I enclose the CCTO test plant in a roofed indoor room
+    And I set only the CCTO test outdoor temperature to -30
+    And I set the CCTO test plant room temperature to 10
+    And I force the CCTO plant cold check
+    Then the CCTO test plant is alive
+    When I set the CCTO test plant room temperature to -30
+    And I force the CCTO plant cold check
+    Then the CCTO test plant is dead
