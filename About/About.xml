@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Crop Cold Tolerance Overhaul</name>
+  <author>sucRo0629</author>
+  <packageId>sucro.cropcoldtoleranceoverhaul</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+    </li>
+  </modDependencies>
+
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+
+  <description>Separates crop growth limits from fixed cold-death thresholds.
+
+Crop Cold Tolerance Overhaul can also be used as a lightweight framework by other mods. Dependent mods can define or override plant cold-death temperatures and cold dormancy through XML without replacing the plant class.</description>
+</ModMetaData>
