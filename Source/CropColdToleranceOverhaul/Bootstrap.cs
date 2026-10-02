@@ -35,8 +35,10 @@ namespace CropColdToleranceOverhaul
                 if (extensions.Length > 1)
                 {
                     Log.Error(
-                        $"[CCTO] {def.defName} has {extensions.Length} ColdToleranceExtension entries. " +
-                        "Only one is supported; dependent mods should replace the existing value instead of appending another extension.");
+                        string.Format(
+                            "[CCTO] {0} has {1} ColdToleranceExtension entries. Only one is supported; dependent mods should replace the existing value instead of appending another extension.",
+                            def.defName,
+                            extensions.Length));
                 }
 
                 ColdToleranceExtension extension = extensions[0];
@@ -44,7 +46,9 @@ namespace CropColdToleranceOverhaul
                 if (def.plant == null)
                 {
                     Log.Error(
-                        $"[CCTO] {def.defName} has ColdToleranceExtension but is not a plant ThingDef.");
+                        string.Format(
+                            "[CCTO] {0} has ColdToleranceExtension but is not a plant ThingDef.",
+                            def.defName));
                     continue;
                 }
 
@@ -52,9 +56,11 @@ namespace CropColdToleranceOverhaul
                     && extension.coldDeathTemperature > def.plant.minGrowthTemperature)
                 {
                     Log.Warning(
-                        $"[CCTO] {def.defName}: coldDeathTemperature " +
-                        $"({extension.coldDeathTemperature}) is above minGrowthTemperature " +
-                        $"({def.plant.minGrowthTemperature}). This is allowed, but is probably unintended.");
+                        string.Format(
+                            "[CCTO] {0}: coldDeathTemperature ({1}) is above minGrowthTemperature ({2}). This is allowed, but is probably unintended.",
+                            def.defName,
+                            extension.coldDeathTemperature,
+                            def.plant.minGrowthTemperature));
                 }
             }
         }
