@@ -25,25 +25,32 @@ The uploaded MO 1.6 data was audited. Its Vanilla crop changes do not conflict w
 
 Therefore CCTO can apply the normal Vanilla temperature data regardless of MO, then add MO-specific cold-tolerance data only to MO's own crop Defs.
 
-## 2. CCTO extension
+The balance/XML workstream uses an optional `loadAfter` entry for `DankPyon.Medieval.Overhaul` so MO Defs exist before CCTO's MO-specific XML patches are applied.
 
-The intended shared API is a `DefModExtension` attached to a plant `ThingDef`.
+## 2. CCTO extension — implemented API
 
-Conceptual fields:
+The code/framework workstream has already implemented `ColdToleranceExtension : DefModExtension`.
 
-- cold behavior: ordinary death or cold dormancy
-- fixed low-temperature death threshold for ordinary death crops
+Current fields:
+
+- `float coldDeathTemperature = float.NaN`
+- `bool coldDormancy`
+
+The two fields may coexist. This intentionally supports three configurations:
+
+1. fixed cold death only;
+2. cold dormancy only;
+3. cold dormancy below `minGrowthTemperature` plus death under a more extreme fixed `coldDeathTemperature`.
+
+For the initial CCTO balance tables, current dormancy crops use dormancy only. The third mode remains available to compatibility mods and future balance revisions.
 
 `minGrowthTemperature` remains RimWorld's native `PlantProperties` value rather than being duplicated inside the extension.
 
-This keeps the responsibilities clear:
-
-- native RimWorld field = growth stopping temperature
-- CCTO extension = behavior below colder conditions
-
 AMJ and compatibility mods can attach the same extension to their own PlantDefs. CCTO does not hard-code AMJ DefNames.
 
-## 3. Harmony behavior
+## 3. Harmony behavior — current framework implementation
+
+The framework implementation currently lives on Draft PR #1 / branch `framework-code`.
 
 ### 3.1 `Plant.LeaflessTemperatureThresh`
 
@@ -53,76 +60,109 @@ Vanilla RimWorld 1.6 calculates:
 
 for each plant instance.
 
-CCTO replaces this result only when a CCTO extension exists:
+CCTO applies a postfix only when `ColdToleranceExtension` exists:
 
-- **death crop** -> fixed CCTO death threshold
-- **dormancy crop** -> `minGrowthTemperature`
+- if `coldDormancy=true`, the leafless trigger becomes native `minGrowthTemperature`;
+- otherwise, if `coldDeathTemperature` is configured, the trigger becomes that fixed value;
+- plants without the extension keep the Vanilla formula unchanged.
 
-Plants without the CCTO extension keep the Vanilla formula unchanged.
+When dormancy and a death threshold coexist, the leafless trigger remains `minGrowthTemperature`; the colder lethal threshold is evaluated separately by the Cold handling patches.
 
-This means the initial release has no per-plant random cold-death threshold for supported crops.
+### 3.2 `Plant.MakeLeafless`
 
-### 3.2 `Plant.MakeLeafless(LeaflessCause cause, ...)`
+The implemented prefix changes behavior only for `LeaflessCause.Cold`.
 
-CCTO must change behavior only for `LeaflessCause.Cold`. Poison, pollution, no-pollution and other leafless causes must retain Vanilla behavior.
+Order:
 
-For a supported death crop:
+1. if a fixed death threshold exists and ambient temperature is below it, CCTO performs the standard cold-death outcome;
+2. otherwise, if dormancy is enabled and ambient temperature is below `minGrowthTemperature`, CCTO enters nonlethal cold dormancy;
+3. otherwise Vanilla `MakeLeafless` continues normally.
 
-- if the original Def already has `dieIfLeafless=true`, let Vanilla perform the cold death after CCTO supplies the fixed leafless threshold;
-- if the original Def has `dieIfLeafless=false` but CCTO defines lethal cold behavior, CCTO forces the same cold-death result only for the Cold cause.
+Poison, pollution, no-pollution and other causes are not intercepted.
 
-This is required for cases such as Healroot and Lemon, where CCTO wants a finite lethal cold threshold even though the originating Def can survive ordinary leaflessness.
+CCTO does **not** globally rewrite `dieIfLeafless`, so unrelated leafless causes retain the originating Def's behavior.
 
-For a supported dormancy crop:
+### 3.3 `Plant.CheckMakeLeafless`
 
-- if the original Def already has `dieIfLeafless=false`, let Vanilla perform the nonlethal leafless state;
-- if the original Def has `dieIfLeafless=true`, CCTO converts only Cold-triggered leaflessness into the normal nonlethal leafless state.
+The current framework also applies a postfix to `CheckMakeLeafless` that rechecks:
 
-This is required for crops such as Garlic, Grape, and Hops.
+- fixed lethal cold;
+- cold dormancy.
 
-Do **not** globally rewrite `dieIfLeafless` for these crops, because that would also change poison/pollution behavior outside CCTO's responsibility.
+This supports the live cold-response path used by the automated integration tests.
+
+Before leaving Draft, integration testing should explicitly confirm that this postfix has the intended behavior for indoor rooms as well as outdoor crops, because Vanilla's own cold leafless check is gated by room/outdoor-temperature semantics.
 
 ## 4. Dormancy semantics
 
-Dormancy does not introduce a third configured temperature.
+Dormancy does not require a third configured temperature.
 
-For a dormancy crop:
+For the current balance data:
 
 - active growth stops below `minGrowthTemperature`;
-- below that same temperature, the plant enters the leafless/cold-dormant state;
+- below that same temperature, the plant enters a leafless/cold-dormant state;
 - the plant survives;
-- after temperatures recover, Vanilla's existing leafless recovery timing is reused.
+- while cold persists, the dormancy state is refreshed;
+- after temperature recovery, RimWorld's existing leafless recovery timing is reused.
 
-This keeps the public model at two concepts: growth temperature and lethal cold behavior, while allowing perennial/surviving crops to express winter dormancy.
+The framework additionally supports dormancy plus a separate extreme-cold lethal threshold, although the initial balance tables do not currently use that combination.
 
-## 5. Information card
+## 5. Information card — current implementation
 
-The plant information card already displays:
+The framework already patches `ThingDef.SpecialDisplayStats`.
 
-- minimum growth temperature
-- maximum growth temperature
+RimWorld's native entries are:
 
-CCTO adds one entry in the same Basics section, adjacent to those values.
+- minimum growth temperature — priority 4152;
+- maximum growth temperature — priority 4153.
 
-For ordinary death crops:
+CCTO currently adds:
 
-- label: localized equivalent of **Low-temperature death**
-- value: the fixed configured threshold, e.g. `-6°C`
-- description: temperatures below this threshold can kill the plant
+- **cold response** for dormancy — priority 4151;
+- **cold-death temperature** when configured — priority 4150.
 
-For dormancy crops:
+A plant configured with both dormancy and extreme-cold death displays both entries.
 
-- label: localized equivalent of **Low-temperature behavior**
-- value: localized equivalent of **Cold dormancy below 5°C**
-- description: the plant becomes leafless/dormant below its minimum growth temperature but survives and can recover when temperatures rise
+Current Japanese labels are:
 
-The exact display priority should be tested in-game so the new entry appears directly beside the existing growth-temperature entries.
+- `枯死温度`
+- `低温反応`
+- `休眠`
 
-## 6. Patch safety
+The display is already implemented and covered by framework tests. Final visual ordering and wording should still be checked in-game before release.
+
+## 6. Balance XML integration
+
+The balance/XML workstream must consume the implemented extension rather than introducing another C# data model.
+
+For each supported crop:
+
+1. set or replace native `plant/minGrowthTemperature`;
+2. add exactly one `CropColdToleranceOverhaul.ColdToleranceExtension`;
+3. set either:
+   - `coldDeathTemperature`, or
+   - `coldDormancy=true`;
+4. do not touch harvest, growth days, fertility, research, products, or processing.
+
+Vanilla values are unconditional.
+
+MO-specific values are gated on Medieval Overhaul and target the verified MO 1.6 DefNames.
+
+## 7. Patch safety
 
 - Unsupported crops keep Vanilla/originating behavior.
-- Missing optional MO Defs must not generate patch errors.
 - CCTO must not overwrite unrelated MO or Vanilla fields.
-- Cold handling should be keyed by the extension, not by broad tests such as `Sowable`, so third-party crops are not silently changed.
+- Cold handling is keyed by the extension, not by broad tests such as `Sowable`.
 - Fixed thresholds are species/Def-level values in the initial release.
 - The archived range tables remain available for a later optional deterministic per-plant randomized mode.
+- The C# framework and the balance XML remain separate workstreams until both pass integration tests.
+
+## 8. Verification status
+
+As of 2026-10-02:
+
+- Draft PR #1 implements the C# framework.
+- Shipping CCTO DLL has compiled successfully against the user's RimWorld 1.6 installation.
+- RimTest Redux and Pickle + Quickstarts test infrastructure is present.
+- The automated Pickle gate includes fixed threshold, Vanilla fallback, extension validation, Info Card, cold death, boundary, dormancy, and extreme-cold cases.
+- Developer test assemblies and the full live Pickle suite still need their local automated run to pass before Draft PR #1 is ready to merge.
