@@ -129,7 +129,7 @@ Live-map scenarios check:
 - a heated indoor plant survives lethal outdoor cold when its actual room temperature is safe;
 - a configured plant in a genuinely cold indoor room responds to its actual `AmbientTemperature`.
 
-Each live scenario starts from a fixed-seed Quickstarts world. The test runner creates a temporary temperature-offset game condition so test temperatures are deterministic without changing shipping balance XML.
+Each live scenario starts from a fixed-seed Quickstarts world. CCTO test temperatures are controlled by setting the relevant RimWorld `Room.Temperature` directly and verifying the spawned plant's resulting `AmbientTemperature`. This avoids mutating global world temperature caches merely to exercise CCTO's ambient-temperature checks. The indoor regression uses separate indoor and outdoor rooms to model warm-inside/cold-outside behavior.
 
 Full-world fast waits are avoided for CCTO cold-response assertions. Earlier `I wait 2100 ticks` steps advanced all Vanilla world/pawn systems and could surface unrelated WorldPawns/AI errors. CCTO now calls the spawned test plant's `TickLong()` directly, which exercises the real plant long-tick cold path without ticking unrelated simulation systems.
 
