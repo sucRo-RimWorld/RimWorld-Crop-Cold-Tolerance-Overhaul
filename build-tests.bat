@@ -27,6 +27,13 @@ if errorlevel 1 exit /b 1
 set "MANAGED=%RIMWORLD_DIR%\RimWorldWin64_Data\Managed"
 set "ASSEMBLY_CSHARP=%MANAGED%\Assembly-CSharp.dll"
 set "UNITY_CORE=%MANAGED%\UnityEngine.CoreModule.dll"
+set "UNITY_MATH=%MANAGED%\Unity.Mathematics.dll"
+
+if not exist "%UNITY_MATH%" (
+    echo [ERROR] Required RimWorld managed assembly was not found:
+    echo         %UNITY_MATH%
+    exit /b 1
+)
 
 set "STEAMAPPS=%RIMWORLD_DIR%\..\.."
 set "RIMTEST_ROOT=%STEAMAPPS%\workshop\content\294100\3762405308"
@@ -84,12 +91,14 @@ if exist "%UNITY_CORE%" (
     "%CSC%" /nologo /target:library /optimize+ /out:"%OUTPUT_DLL%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
+        /reference:"%UNITY_MATH%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%RIMTEST_DLL%" ^
         !SOURCES!
 ) else (
     "%CSC%" /nologo /target:library /optimize+ /out:"%OUTPUT_DLL%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
+        /reference:"%UNITY_MATH%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%RIMTEST_DLL%" ^
         !SOURCES!
