@@ -8,6 +8,8 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$ReportDir,
 
+    [string]$RunFilter = "framework.feature,cold-tolerance.feature",
+
     [int]$TimeoutSeconds = 300
 )
 
@@ -21,7 +23,7 @@ if (-not (Test-Path -LiteralPath $ExePath)) {
 
 $arguments = @(
     '-savedatafolder="' + $SavedataFolder + '"',
-    '-pickle-run="framework.feature,cold-tolerance.feature"',
+    '-pickle-run="' + $RunFilter + '"',
     '-pickle-mode=fast',
     '-pickle-report-dir="' + $ReportDir + '"',
     '-pickle-no-browser',
