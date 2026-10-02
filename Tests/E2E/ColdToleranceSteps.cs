@@ -21,6 +21,12 @@ namespace CropColdToleranceOverhaul.E2E
         private GameCondition_TemperatureOffset temperatureCondition;
         private readonly List<Thing> testRoomWalls = new List<Thing>();
         private CellRect? testRoomRect;
+        private int? rememberedDormancyTick;
+
+        private static readonly FieldInfo MadeLeaflessTickField =
+            typeof(Plant).GetField(
+                "madeLeaflessTick",
+                BindingFlags.Instance | BindingFlags.NonPublic);
 
         [Then("CCTO fixed death thresholds are independent of plant identity")]
         public void AssertFixedThresholdIsNotPerPlantRandom(PickleContext ctx)
@@ -336,6 +342,58 @@ namespace CropColdToleranceOverhaul.E2E
                 "CCTO test plant should be leafless while cold-dormant.");
         }
 
+        [When("I remember the CCTO dormancy refresh tick")]
+        public void RememberDormancyRefreshTick(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+
+            ctx.Require(
+                MadeLeaflessTickField != null,
+                "Plant.madeLeaflessTick was not found.");
+
+            rememberedDormancyTick =
+                (int)MadeLeaflessTickField.GetValue(plant);
+        }
+
+        [Then("the CCTO dormancy refresh tick has not changed")]
+        public void AssertDormancyRefreshTickUnchanged(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+
+            ctx.Require(
+                MadeLeaflessTickField != null,
+                "Plant.madeLeaflessTick was not found.");
+            ctx.Require(
+                rememberedDormancyTick.HasValue,
+                "CCTO dormancy refresh tick was not remembered.");
+
+            int current =
+                (int)MadeLeaflessTickField.GetValue(plant);
+
+            ctx.Assert(
+                current == rememberedDormancyTick.Value,
+                "CCTO refreshed the dormancy timer after temperature recovery. "
+                + "Remembered="
+                + rememberedDormancyTick.Value
+                + ", current="
+                + current
+                + ".");
+        }
+
+        [When("I expire the CCTO dormancy recovery timer")]
+        public void ExpireDormancyRecoveryTimer(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+
+            ctx.Require(
+                MadeLeaflessTickField != null,
+                "Plant.madeLeaflessTick was not found.");
+
+            MadeLeaflessTickField.SetValue(
+                plant,
+                Find.TickManager.TicksGame - 60000);
+        }
+
         [Then("the CCTO test plant has recovered from dormancy")]
         public void AssertPlantRecoveredFromDormancy(PickleContext ctx)
         {
@@ -377,6 +435,7 @@ namespace CropColdToleranceOverhaul.E2E
                 testPlant = null;
                 testPlantDef = null;
                 originalModExtensions = null;
+                rememberedDormancyTick = null;
             }
         }
 
