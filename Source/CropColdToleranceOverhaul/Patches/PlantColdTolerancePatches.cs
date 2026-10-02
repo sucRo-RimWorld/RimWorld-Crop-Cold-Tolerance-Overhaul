@@ -33,7 +33,7 @@ namespace CropColdToleranceOverhaul.Patches
         }
     }
 
-    [HarmonyPatch(typeof(Plant), nameof(Plant.MakeLeafless))]
+    [HarmonyPatch(typeof(Plant), "MakeLeafless")]
     internal static class PlantMakeLeaflessPatch
     {
         [HarmonyPrefix]
