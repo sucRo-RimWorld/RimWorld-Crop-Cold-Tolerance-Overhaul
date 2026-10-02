@@ -91,7 +91,15 @@ The current framework also applies a postfix to `CheckMakeLeafless` that recheck
 
 This supports the live cold-response path used by the automated integration tests.
 
-Before leaving Draft, integration testing should explicitly confirm that this postfix has the intended behavior for indoor rooms as well as outdoor crops, because Vanilla's own cold leafless check is gated by room/outdoor-temperature semantics.
+**Decided indoor semantics:** CCTO intentionally evaluates configured plants from the plant's actual `AmbientTemperature` even when Vanilla's original cold-leafless path would be gated by `room.UsesOutdoorTemperature`.
+
+Therefore:
+
+- a heated indoor greenhouse remains safe when its actual room/ambient temperature is above the configured cold threshold;
+- a genuinely cold indoor room can trigger CCTO dormancy or cold death;
+- outdoor temperature by itself does not bypass a warm room.
+
+This behavior is part of CCTO's temperature model and should be covered by indoor-safe and indoor-cold E2E regression scenarios.
 
 ## 4. Dormancy semantics
 
@@ -103,7 +111,9 @@ For the current balance data:
 - below that same temperature, the plant enters a leafless/cold-dormant state;
 - the plant survives;
 - while cold persists, the dormancy state is refreshed;
-- after temperature recovery, RimWorld's existing leafless recovery timing is reused.
+- after temperature recovery, CCTO stops refreshing the cold-dormancy state and **RimWorld's existing delayed leafless recovery timing is intentionally preserved**.
+
+CCTO does not explicitly clear the leafless state the moment temperature rises. Visible/state recovery may therefore lag warming by up to roughly one in-game day, matching the existing 60,000-tick leafless window. This is intentional and should be protected by a regression test.
 
 The framework additionally supports dormancy plus a separate extreme-cold lethal threshold, although the initial balance tables do not currently use that combination.
 
