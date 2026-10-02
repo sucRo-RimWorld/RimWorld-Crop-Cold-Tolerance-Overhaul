@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <CCTO_ColdDeathTemperature>枯死温度</CCTO_ColdDeathTemperature>
+  <CCTO_ColdDeathTemperature_Desc>周囲温度がこの値を下回ると、この植物は低温により枯死します。</CCTO_ColdDeathTemperature_Desc>
+
+  <CCTO_ColdResponse>低温反応</CCTO_ColdResponse>
+  <CCTO_ColdResponse_Desc>最低成長温度を下回ったとき、この植物がどのように反応するかを示します。</CCTO_ColdResponse_Desc>
+  <CCTO_ColdDormancy>休眠</CCTO_ColdDormancy>
+</LanguageData>
