@@ -1,144 +1,116 @@
-# Development Tools and Local Agent Workflow
+# CCTO Development Workflow
 
-This document records the development helpers used around CCTO/AMJ and when to use local Work/Codex.
+This file contains **CCTO-specific** development and test guidance only.
 
-The goal is to avoid leaving every development mod enabled, avoid unnecessary agent quota consumption, and make tool selection repeatable across chats.
+General RimWorld mod-development tools, enablement policy, Local Work/Codex usage, and Sol/Astra escalation rules are maintained separately in the ChatGPT Library:
 
-## 1. RimWorld development helpers
+`/Ancient & Medieval Japan/RimWorld_Mod_Development_Environment.md`
 
-### Confirmed installed / already present in the user's environment
+That shared document is the source of truth for cross-project tooling policy. Do not duplicate those general rules here.
 
-| Tool | Status | Main use | Enablement policy |
-|---|---|---|---|
-| RimDoctor | Installed | startup/log diagnosis, Harmony/patch diagnostics | Enable when diagnosing startup/load/runtime problems; can remain off otherwise |
-| Prepatcher | Installed | startup-time assembly patching required by mods that depend on it | Keep enabled when required by the active mod list; not a CCTO test tool by itself |
-| HugsLib | Installed | shared library/controller and diagnostic logging for mods that depend on it | Keep enabled when required by active mods |
-| Gagarin | Installed | startup/cache handling and load-time support | Keep according to the normal mod setup; use its cache functions when startup/Def cache issues are suspected |
+## 1. CCTO responsibility split
 
-### Development/test helpers to enable only for the task that needs them
+CCTO development is intentionally split into two workstreams.
 
-These are useful for CCTO/AMJ, but should not be treated as normal-play requirements.
+### Balance/XML workstream
 
-| Tool | Installation status | Best use |
-|---|---|---|
-| RimTest Redux | Verify locally before use | C# logic, XML/Def assumptions, Harmony regression tests, repeatable automated checks |
-| Pickle | Verify locally before use | in-game/E2E tests: map state, temperature changes, ticks, death, dormancy, recovery |
-| Things Explorer | Verify locally before use | inspect loaded Defs and resolved values |
-| XML Patch Helper | Verify locally before use | inspect XPath/patch results and confirm the final Def state |
-| Better Stacktraces | Verify locally before use | improve exception stack traces during debugging |
-| Quickstarts | Verify locally before use | rapidly enter a reproducible test state |
-| YADA | Verify locally before use | developer/publishing support where relevant |
-| RimLogging | Verify locally before use | logging instrumentation when ordinary logs are insufficient |
-| XML Extensions | Verify locally before use | only when a patch actually needs its extra XML operations or another dependency requires it |
+Owns:
 
-Do not assume the tools in the second table are installed merely because they were evaluated. Confirm them in the local mod list before relying on them.
+- crop-specific `minGrowthTemperature` values;
+- crop-specific fixed `coldDeathTemperature` values;
+- Vanilla / Medieval Overhaul balance XML;
+- AMJ overrides and balance decisions.
 
-## 2. Enablement rule
+The code workstream must not silently redefine decided balance values.
 
-Development helpers should normally be **off** and enabled for the specific task.
+### Code/framework workstream
 
-Examples:
+Owns:
 
-- C# regression test -> enable RimTest Redux.
-- Temperature/death/dormancy scenario -> enable Pickle.
-- Resolved Def/XPath check -> enable Things Explorer and/or XML Patch Helper.
-- Exception investigation -> enable Better Stacktraces and RimDoctor.
-- Normal gameplay compatibility check -> disable development-only helpers unless another active mod requires them.
+- `ColdToleranceExtension`;
+- Harmony integration with RimWorld plant cold behavior;
+- fixed cold-death handling;
+- low-temperature dormancy support;
+- Info Card display;
+- English/Japanese framework UI strings;
+- validation and diagnostics;
+- build tooling;
+- automated framework tests.
 
-This reduces startup overhead, avoids adding extra compatibility variables, and makes it easier to tell whether a problem belongs to CCTO/AMJ or to a development tool.
+## 2. Local repository layout
 
-## 3. Default agent escalation order
+Recommended local checkout:
 
-Use the least expensive workflow that can actually complete the task:
+`D:\SteamLibrary\steamapps\common\RimWorld\Mods\CropColdToleranceOverhaul`
 
-1. **Normal Chat / GPT-5.6 Sol** for specification, reasoning, research, review, and small self-contained code/XML.
-2. **Local Work/Codex with Sol** when direct access to the local repository, installed mods, DLLs, build scripts, logs, or repeated file edits is materially useful.
-3. **Local Work/Codex with Astra** only for tasks whose complexity or uncertainty justifies the limited Astra allowance.
+This allows the repository to be both the Git checkout and the active local RimWorld mod.
 
-Do not use Local Work/Codex just because a task involves code. If the work can be completed accurately from pasted files, GitHub, or a small isolated snippet, normal Chat should be preferred.
+Build with:
 
-## 4. Local Work/Codex: Sol is normally sufficient
+`build.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
 
-Use **Sol** for local tasks where the target files and desired behavior are already reasonably understood.
+Expected output:
 
-Typical CCTO/AMJ examples:
+`Assemblies\CropColdToleranceOverhaul.dll`
 
-- inspect known Vanilla/MO XML Def files;
-- inspect a known local mod folder for exact Def names or inheritance;
-- create or update XML patches across a small or medium known file set;
-- implement ordinary C# classes, DefModExtensions, Harmony Prefix/Postfix patches, settings, translations, or small utilities;
-- make targeted edits across several known source files;
-- run `build.bat`, compile, inspect compiler output, patch errors, and rerun;
-- inspect Player.log or RimDoctor output when the failing subsystem is already localized;
-- add or update RimTest Redux tests after the expected behavior is defined;
-- add straightforward Pickle scenarios after the test setup is understood;
-- update README/Description/Framework docs and English/Japanese translations;
-- compare CCTO XML against already-decided balance values;
-- perform repository housekeeping, file moves, naming cleanup, and small refactors;
-- check one or a few compatibility mods whose relevant files are known.
+## 3. CCTO-specific development helpers
 
-For CCTO specifically, the current framework implementation, ordinary compile-fix loop, XML API work, and most automated-test authoring should remain in **Sol** unless a genuinely difficult failure appears.
+Enable only what the current CCTO task needs.
 
-## 5. Local Work/Codex: use Astra for high-complexity work
+| Task | Preferred helper |
+|---|---|
+| framework logic / Harmony regression | RimTest Redux |
+| actual temperature, tick, death, dormancy, recovery scenarios | Pickle |
+| verify final loaded plant Def values | Things Explorer |
+| verify XPath / XML patch results | XML Patch Helper |
+| startup/runtime exception investigation | RimDoctor + Better Stacktraces |
+| rapid reproducible map entry | Quickstarts |
 
-Reserve **Astra** for tasks where broad codebase reasoning, difficult debugging, or a large unknown search space is the bottleneck.
+The shared Library document contains the general enable/disable policy for these tools.
 
-Typical cases:
+## 4. CCTO validation sequence
 
-- trace behavior across many installed mods when the conflicting mod or patch is not known;
-- audit a large codebase or many mod folders to discover where a behavior is actually implemented;
-- analyze a DLL/decompiled implementation when source is unavailable and the relevant execution path is not known;
-- diagnose a persistent Harmony conflict involving several patches and unclear ordering;
-- write or repair a complex Transpiler/IL patch;
-- investigate save-compatibility or migration problems that span Def changes, serialized data, and runtime code;
-- perform a major multi-file architecture refactor with many invariants and compatibility constraints;
-- debug an intermittent or state-dependent failure that survives focused Sol attempts;
-- reconcile several frameworks/mod APIs whose interactions are poorly documented;
-- repeatedly run build/test/log cycles where the failure keeps moving between subsystems and cannot be localized.
+Run checks in this order where applicable:
 
-Astra should not be selected merely because a task touches many files. If the files and transformation are straightforward, Sol is still the default.
+1. Build `CropColdToleranceOverhaul.dll`.
+2. Start RimWorld and confirm CCTO/Harmony loads without red errors.
+3. Run RimTest Redux tests for framework logic and patch behavior.
+4. Run Pickle E2E scenarios for actual temperature-dependent behavior.
+5. When balance XML is present, verify final resolved Def values with Things Explorer/XML Patch Helper.
+6. Run a normal-game smoke test with development-only helper mods disabled.
 
-## 6. Escalation rule from Sol to Astra
+## 5. Framework behavior that tests must protect
 
-Escalate to Astra when at least one of these is true:
+Regression tests should cover at least:
 
-- the root cause remains unclear after one or two focused Sol investigation passes;
-- the task requires tracing an unfamiliar execution path across many assemblies/mods;
-- a Harmony/IL problem cannot be solved safely with ordinary Prefix/Postfix techniques;
-- the requested change is a large architectural rewrite rather than a targeted implementation;
-- repeated automated tests expose interacting failures that cannot be localized.
+- plants without `ColdToleranceExtension` retain vanilla behavior;
+- configured plants use one fixed Def-level `coldDeathTemperature`, not per-plant randomness;
+- ordinary configured plants die below the configured threshold;
+- they survive above the configured threshold;
+- dormancy begins below native `minGrowthTemperature`;
+- dormant plants do not die merely because vanilla `dieIfLeafless` is true;
+- a dormant plant with an explicit `coldDeathTemperature` can still die under more extreme cold;
+- dormancy clears after temperature recovery according to the intended CCTO behavior;
+- Info Card shows the configured fixed death temperature;
+- Info Card shows dormancy for dormancy-type plants;
+- duplicate CCTO extensions are diagnosed;
+- invalid extension configuration is diagnosed.
 
-Before escalating, provide Astra with a narrow handoff: current task, relevant files, known facts, latest error/test output, and decisions that must not be changed.
+## 6. Current implementation branch
 
-Do not give Astra the entire project history unless it is necessary.
+Framework code is currently developed on:
 
-## 7. Work vs Codex
+`framework-code`
 
-Prefer **Codex** when the main job is repository work:
+The framework PR should remain separate from balance XML changes until both workstreams have been validated.
 
-- edit source/XML;
-- run build scripts;
-- run tests;
-- inspect diffs;
-- fix compiler/runtime errors.
+## 7. Agent/model use for CCTO
 
-Prefer **local Work** when the task is broader than one repository and needs to inspect or correlate several local resources, such as:
+Use the shared Library document for the general Sol/Astra rules.
 
-- multiple installed RimWorld mod directories;
-- local DLLs plus XML plus logs;
-- reference documentation and project notes alongside source files.
+CCTO-specific default:
 
-For mixed tasks, use the tool that needs the fewest unnecessary files and the smallest context.
+- ordinary framework edits, compiler fixes, test authoring, XML API work: **Sol is sufficient**;
+- escalate to **Astra** only if CCTO develops a difficult cross-mod Harmony/IL conflict, unclear multi-assembly runtime behavior, or another problem that meets the shared escalation criteria.
 
-## 8. CCTO test workflow
-
-Recommended sequence:
-
-1. Compile the framework.
-2. Run RimTest Redux regression tests for extension parsing and Harmony logic.
-3. Run Pickle E2E tests for actual temperature/tick behavior.
-4. Inspect final Def values with Things Explorer/XML Patch Helper when XML balance data is added.
-5. Run a normal-game smoke test with development-only helpers disabled.
-6. Only use Astra if failures remain difficult to localize after the above steps.
-
-Balance values remain owned by the separate balance/XML workflow; code-side tools must not silently redefine decided values.
+Do not spend Astra merely on routine CCTO file edits or compile-error loops.
