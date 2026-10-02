@@ -37,6 +37,9 @@ $required = @(
 
 $configDir = Join-Path $OutputRoot "Config"
 $configPath = Join-Path $configDir "ModsConfig.xml"
+$sourceConfigDir = Split-Path -Parent $SourceModsConfigPath
+$sourcePrefsPath = Join-Path $sourceConfigDir "Prefs.xml"
+$testPrefsPath = Join-Path $configDir "Prefs.xml"
 
 New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 
@@ -84,8 +87,44 @@ finally {
     $writer.Dispose()
 }
 
+
+if (-not (Test-Path -LiteralPath $sourcePrefsPath)) {
+    Write-Host "[ERROR] RimWorld Prefs.xml was not found:" -ForegroundColor Red
+    Write-Host "        $sourcePrefsPath"
+    exit 2
+}
+
+try {
+    [xml]$prefs = Get-Content -LiteralPath $sourcePrefsPath -Raw
+}
+catch {
+    Write-Host "[ERROR] Failed to parse RimWorld Prefs.xml:" -ForegroundColor Red
+    Write-Host "        $($_.Exception.Message)"
+    exit 2
+}
+
+$devModeNode = $prefs.SelectSingleNode("//devMode")
+if ($null -eq $devModeNode) {
+    $devModeNode = $prefs.CreateElement("devMode")
+    $devModeNode.InnerText = "True"
+    $null = $prefs.DocumentElement.AppendChild($devModeNode)
+}
+else {
+    $devModeNode.InnerText = "True"
+}
+
+$writer = [System.Xml.XmlWriter]::Create($testPrefsPath, $settings)
+try {
+    $prefs.Save($writer)
+}
+finally {
+    $writer.Dispose()
+}
+
 Write-Host "[OK] Prepared isolated CCTO test save-data profile."
 Write-Host "     $OutputRoot"
+Write-Host "[OK] Dev mode enabled in isolated test Prefs.xml."
+Write-Host "     $testPrefsPath"
 Write-Host ""
 Write-Host "Active test mods:"
 foreach ($packageId in $required) {
