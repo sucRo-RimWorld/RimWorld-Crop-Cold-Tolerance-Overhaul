@@ -88,6 +88,7 @@ The underlying E2E runner:
 - compiles CCTO-specific Quickstarts and Pickle step assemblies;
 - copies all CCTO `.feature` files;
 - prepares an isolated RimWorld save-data profile under `TestResults\SaveData`;
+- copies the normal `Prefs.xml` into that isolated profile and forces only `devMode=True`, because Quickstarts does nothing when RimWorld dev mode is off;
 - gives that profile a minimal test-only mod list containing Harmony, Core, RimLogging, Pickle, Quickstarts, CCTO, and the CCTO E2E companion mod;
 - launches RimWorld with `-savedatafolder` pointing at that isolated profile;
 - runs framework regression scenarios and live cold-behavior scenarios;
