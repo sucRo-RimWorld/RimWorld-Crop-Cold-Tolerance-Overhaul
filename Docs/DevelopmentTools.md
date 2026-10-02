@@ -74,11 +74,19 @@ The shared Library document contains the general enable/disable policy for these
 
 ### Automated release gate
 
-The authoritative automated gate is the Pickle + Quickstarts suite. It contains both framework-level regression scenarios and live-map/tick scenarios, and returns a process exit code.
+The authoritative automated gate is `run-tests.bat`. On the integrated balance branch/final mod it performs both static balance validation and the Pickle + Quickstarts runtime suite, and returns a process exit code.
 
 Build/run with:
 
 `run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+The full gate requires Medieval Overhaul plus its declared required dependencies to be installed in the same Steam library:
+
+- Medieval Overhaul — Workshop 3219596926;
+- Vanilla Expanded Framework — Workshop 2023507013;
+- [SYR] Processor Framework — Workshop 3210544395.
+
+`run-e2e.bat` remains usable by itself for framework-only testing without Medieval Overhaul. `run-tests.bat` invokes its `with-mo` mode for the complete integration gate.
 
 The underlying E2E runner:
 
@@ -89,7 +97,7 @@ The underlying E2E runner:
 - copies all CCTO `.feature` files;
 - prepares an isolated RimWorld save-data profile under `TestResults\SaveData`;
 - copies the normal `Prefs.xml` into that isolated profile and forces only `devMode=True`, because Quickstarts does nothing when RimWorld dev mode is off;
-- gives that profile a minimal test-only mod list containing Harmony, Core, RimLogging, Pickle, Quickstarts, CCTO, and the CCTO E2E companion mod;
+- gives that profile a minimal test-only mod list; framework-only runs contain Harmony, Core, RimLogging, Pickle, Quickstarts, CCTO, and the CCTO E2E companion mod, while the full integration gate additionally enables Vanilla Expanded Framework, Processor Framework, and Medieval Overhaul;
 - launches RimWorld with `-savedatafolder` pointing at that isolated profile;
 - runs framework regression scenarios and live cold-behavior scenarios;
 - writes reports to `TestResults\Pickle`;
@@ -109,6 +117,12 @@ The normal gameplay preset is therefore left untouched, and unrelated mods do no
 `Scripts/Check-TestModList.ps1` is retained only for workflows that intentionally run development helpers against the normal active profile; it is not part of the authoritative Pickle release gate.
 
 ### Current Pickle gate coverage
+
+Loaded balance-Def scenarios in the full integration gate check:
+
+- all 12 targeted Vanilla plant Defs have the final expected `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature or dormancy flag;
+- all 21 targeted Medieval Overhaul plant Defs have the same final loaded-value checks;
+- Medieval Overhaul's installed 1.6 source XML contains every targeted DefName before the runtime suite starts.
 
 Framework regression scenarios check:
 
@@ -153,11 +167,11 @@ Its current coverage overlaps the framework portion of the Pickle gate: extensio
 
 ### Final pre-beta checks
 
-After the automated gate passes:
+After the full automated gate passes:
 
-1. when balance XML is present, inspect representative final Def values with Things Explorer/XML Patch Helper;
+1. optionally spot-check representative Defs with Things Explorer/XML Patch Helper if investigating UI/load-order concerns; exact Vanilla/MO balance values are already asserted from the loaded `DefDatabase` by the integration gate;
 2. run a normal-game smoke test with development-only helpers disabled;
-3. keep PR #1 draft until the local automated run has actually passed.
+3. keep the relevant PR Draft until its required local automated gate has actually passed.
 
 ## 5. Framework behavior that tests must protect
 
@@ -180,11 +194,9 @@ Items involving actual spawned-map temperature, death, dormancy persistence/reco
 
 ## 6. Current implementation branch
 
-Framework code is currently developed on:
+Framework code is developed on `framework-code`. Integrated Vanilla/Medieval Overhaul balance XML and its full integration gate are developed on `balance-xml`.
 
-`framework-code`
-
-The framework PR should remain separate from balance XML changes until both workstreams have been validated.
+The framework and balance PRs remain separate until the integrated balance branch passes the full `run-tests.bat` gate.
 
 ## 7. Agent/model use for CCTO
 
