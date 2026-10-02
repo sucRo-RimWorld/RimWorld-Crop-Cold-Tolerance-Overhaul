@@ -183,6 +183,24 @@ namespace CropColdToleranceOverhaul.E2E
             ReplaceTemperatureCondition(ctx, map, target);
         }
 
+        [When("I force the CCTO plant cold check")]
+        public void ForcePlantColdCheck(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+
+            MethodInfo check =
+                typeof(Plant).GetMethod(
+                    "CheckMakeLeafless",
+                    BindingFlags.Instance
+                    | BindingFlags.NonPublic);
+
+            ctx.Require(
+                check != null,
+                "Plant.CheckMakeLeafless was not found.");
+
+            check.Invoke(plant, null);
+        }
+
         [Then("the CCTO test plant is alive")]
         public void AssertPlantAlive(PickleContext ctx)
         {
