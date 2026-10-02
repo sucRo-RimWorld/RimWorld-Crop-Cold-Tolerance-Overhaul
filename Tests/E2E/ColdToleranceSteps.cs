@@ -294,6 +294,13 @@ namespace CropColdToleranceOverhaul.E2E
                 + " C.");
         }
 
+        [When("I run one CCTO plant long tick")]
+        public void RunPlantLongTick(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            plant.TickLong();
+        }
+
         [When("I force the CCTO plant cold check")]
         public void ForcePlantColdCheck(PickleContext ctx)
         {
