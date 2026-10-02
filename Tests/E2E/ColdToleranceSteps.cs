@@ -27,6 +27,49 @@ namespace CropColdToleranceOverhaul.E2E
                 "madeLeaflessTick",
                 BindingFlags.Instance | BindingFlags.NonPublic);
 
+        [Then("loaded Vanilla crop Defs match the CCTO balance table")]
+        public void AssertLoadedVanillaBalanceDefs(PickleContext ctx)
+        {
+            AssertLoadedBalanceDef(ctx, "Plant_Rice", 10f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Potato", 5f, -2f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Corn", 8f, -2f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Strawberry", 5f, -9f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Haygrass", 0f, -9f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Cotton", 10f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Devilstrand", 8f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Healroot", 0f, -9f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Hops", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Smokeleaf", 5f, -4f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Psychoid", 8f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeCocoa", 12f, 0f, false);
+        }
+
+        [Then("loaded Medieval Overhaul crop Defs match the CCTO balance table")]
+        public void AssertLoadedMedievalOverhaulBalanceDefs(PickleContext ctx)
+        {
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Onions", 5f, -3f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Lentils", 5f, -4f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Cabbages", 0f, -6f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Garlic", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Mushrooms", 5f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Wheat", 0f, -6f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Flax", 5f, -5f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Sugarcane", 10f, -5f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Carrots", 0f, -4f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Herb", 5f, -3f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Tomatoes", 10f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Grape", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Pumpkins", 10f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Apple", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Lemon", 10f, -4f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Mulberry", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_GriffonBerry", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Mindwort", 5f, -3f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Poppy", 5f, -5f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Fleawort", 3f, -6f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaric", 0f, null, true);
+        }
+
         [Then("CCTO fixed death thresholds are independent of plant identity")]
         public void AssertFixedThresholdIsNotPerPlantRandom(PickleContext ctx)
         {
@@ -692,6 +735,112 @@ namespace CropColdToleranceOverhaul.E2E
             }
 
             testRoomRect = null;
+        }
+
+        private static void AssertLoadedBalanceDef(
+            PickleContext ctx,
+            string defName,
+            float expectedMinimumGrowthTemperature,
+            float? expectedDeathTemperature,
+            bool expectedDormancy)
+        {
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+
+            ctx.Assert(
+                def != null,
+                "Expected loaded balance Def '" + defName + "' was not found.");
+
+            if (def == null)
+            {
+                return;
+            }
+
+            ctx.Assert(
+                def.plant != null,
+                "Loaded balance Def '" + defName + "' is not a plant.");
+
+            if (def.plant == null)
+            {
+                return;
+            }
+
+            ctx.Assert(
+                Math.Abs(
+                    def.plant.minGrowthTemperature
+                    - expectedMinimumGrowthTemperature) < 0.001f,
+                "Loaded minGrowthTemperature mismatch for "
+                + defName
+                + ": expected "
+                + expectedMinimumGrowthTemperature.ToString("F2")
+                + " C, got "
+                + def.plant.minGrowthTemperature.ToString("F2")
+                + " C.");
+
+            List<ColdToleranceExtension> extensions =
+                def.modExtensions == null
+                    ? new List<ColdToleranceExtension>()
+                    : def.modExtensions
+                        .OfType<ColdToleranceExtension>()
+                        .ToList();
+
+            ctx.Assert(
+                extensions.Count == 1,
+                "Loaded balance Def '"
+                + defName
+                + "' should have exactly one CCTO extension, got "
+                + extensions.Count
+                + ".");
+
+            if (extensions.Count != 1)
+            {
+                return;
+            }
+
+            ColdToleranceExtension extension = extensions[0];
+
+            ctx.Assert(
+                extension.coldDormancy == expectedDormancy,
+                "Loaded dormancy flag mismatch for "
+                + defName
+                + ": expected "
+                + expectedDormancy
+                + ", got "
+                + extension.coldDormancy
+                + ".");
+
+            if (expectedDeathTemperature.HasValue)
+            {
+                ctx.Assert(
+                    extension.HasColdDeathTemperature,
+                    "Loaded balance Def '"
+                    + defName
+                    + "' is missing its fixed cold-death temperature.");
+
+                if (extension.HasColdDeathTemperature)
+                {
+                    ctx.Assert(
+                        Math.Abs(
+                            extension.coldDeathTemperature
+                            - expectedDeathTemperature.Value) < 0.001f,
+                        "Loaded coldDeathTemperature mismatch for "
+                        + defName
+                        + ": expected "
+                        + expectedDeathTemperature.Value.ToString("F2")
+                        + " C, got "
+                        + extension.coldDeathTemperature.ToString("F2")
+                        + " C.");
+                }
+            }
+            else
+            {
+                ctx.Assert(
+                    !extension.HasColdDeathTemperature,
+                    "Loaded balance Def '"
+                    + defName
+                    + "' unexpectedly has coldDeathTemperature="
+                    + extension.coldDeathTemperature.ToString("F2")
+                    + " C.");
+            }
         }
 
         private static Plant CreateUnspawnedPlant(
