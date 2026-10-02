@@ -63,7 +63,7 @@ An E2E boundary scenario exists. The first runtime attempt exposed a test-harnes
 
 **Requested by:** Balance/XML  
 **Owner:** Code/framework  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Balance/XML decision:
 
@@ -99,13 +99,13 @@ The test-profile preparation now copies the user's existing `Prefs.xml` into the
 
 Dev-mode profile fix: framework branch commits `e36ef0e7f5745f1c2a9bec330545f41bcd8a435f` and `c0045c9886f6bfc6d9c3c22c8b07c78876548d17`.
 
-**Next action for Code/framework:** rerun the suite and require a clean all-pass result.
+**Result:** the isolated Pickle regression scenario for delayed dormancy recovery passed. It confirms that warming does not refresh `madeLeaflessTick`, and that the plant leaves the leafless state after the preserved 60,000-tick recovery window expires.
 
 ### CODE-003 — Indoor cold behavior / `CheckMakeLeafless` postfix
 
 **Requested by:** Balance/XML  
 **Owner:** Code/framework  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Balance/XML decision:
 
@@ -131,7 +131,23 @@ Latest isolated-profile run result: the indoor room-temperature scenario passed.
 
 The suite overall still had two unrelated Vanilla errors from full-world fast ticking in other scenarios; those waits have now been replaced by the targeted plant long-tick step described under CODE-002.
 
-**Next action for Code/framework:** rerun the suite and require a clean all-pass result.
+**Result:** the isolated Pickle indoor regression scenario passed. A configured plant survives in a warm indoor room while a separate outdoor-temperature room is cold, and dies when its own actual room/ambient temperature is lowered below the fixed death threshold.
+
+### CODE-004 — E2E harness clean all-pass
+
+**Requested by:** Code/framework  
+**Owner:** Code/framework  
+**Status:** IN PROGRESS
+
+Latest isolated run: 10/11 scenarios passed.
+
+The sole failure was not a CCTO assertion. During the strict fixed-threshold boundary scenario, Vanilla sound update code called `MapTemperature.OutdoorTemp` and hit a `NullReferenceException` in `TileTemperaturesComp.GetOutdoorTemp`. The CCTO state dump at the failure showed the expected boundary state: ambient -10.00 C, plant alive, not leafless.
+
+The E2E harness had still been mutating global outdoor temperature through a temporary `GameCondition_TemperatureOffset` and world tile-temperature cache clears. That global dependency is unnecessary for CCTO's checks, which consume the plant's actual `AmbientTemperature`.
+
+Framework branch commit `a739d49dc556b5d68ff065a0ea91b80012d28cf6` removes that global temperature-condition path from CCTO E2E temperature setup. Tests now set the relevant RimWorld `Room.Temperature` directly and verify the spawned plant's `AmbientTemperature`. The indoor scenario uses a separate outdoor room temperature to preserve the warm-inside/cold-outside distinction without touching world temperature caches.
+
+**Next action:** rerun the isolated suite and require 11/11 clean pass.
 
 ## Completed handoffs
 
