@@ -5,7 +5,7 @@ using Verse;
 
 namespace CropColdToleranceOverhaul.Patches
 {
-    [HarmonyPatch(typeof(ThingDef), nameof(ThingDef.SpecialDisplayStats))]
+    [HarmonyPatch(typeof(ThingDef), "SpecialDisplayStats")]
     internal static class ThingDefSpecialDisplayStatsPatch
     {
         [HarmonyPostfix]
@@ -13,8 +13,13 @@ namespace CropColdToleranceOverhaul.Patches
             ThingDef __instance,
             ref IEnumerable<StatDrawEntry> __result)
         {
+            if (__instance == null)
+            {
+                return;
+            }
+
             ColdToleranceExtension extension =
-                __instance?.GetModExtension<ColdToleranceExtension>();
+                __instance.GetModExtension<ColdToleranceExtension>();
 
             if (extension == null || __instance.plant == null)
             {
