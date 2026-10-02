@@ -93,6 +93,12 @@ The full-world waits have now been replaced with a targeted `Plant.TickLong()` E
 
 Targeted long-tick commits: `06aa7613f6e1150a0ae418ac6bf7d77ac85d84bf`, `474a38e0400100fb9cde8e07a73021741b09f264`.
 
+A subsequent isolated-profile launch reached the RimWorld title screen but did not start Pickle scenarios. Cause: the fresh isolated profile had no `Prefs.xml`, so RimWorld dev mode defaulted OFF; Quickstarts explicitly requires dev mode ON and otherwise does nothing.
+
+The test-profile preparation now copies the user's existing `Prefs.xml` into the isolated profile, sets only `<devMode>True</devMode>`, and removes any isolated `DevModeDisabled` marker. The user's normal preferences are not modified.
+
+Dev-mode profile fix: framework branch commits `e36ef0e7f5745f1c2a9bec330545f41bcd8a435f` and latest follow-up.
+
 **Next action for Code/framework:** rerun the suite and require a clean all-pass result.
 
 ### CODE-003 — Indoor cold behavior / `CheckMakeLeafless` postfix
