@@ -153,7 +153,7 @@ Framework branch commit `a739d49dc556b5d68ff065a0ea91b80012d28cf6` removes that 
 
 **Requested by:** Balance/XML  
 **Owner:** Code/framework  
-**Status:** OPEN
+**Status:** IN PROGRESS
 
 The framework-only automated E2E gate is green through CODE-004.
 
@@ -165,14 +165,27 @@ Balance/XML has now rebased/merged the latest framework state into the balance b
 
 This branch adds the actual Vanilla and Medieval Overhaul balance XML, including `minGrowthTemperature`, fixed `coldDeathTemperature`, and dormancy flags.
 
-**Required integration check:**
+**Integration gate implemented on `balance-xml`:**
 
-1. run `validate-balance.bat`;
-2. run the existing `run-tests.bat` / isolated Pickle E2E gate from `balance-xml`;
-3. verify the final loaded Def values for representative Vanilla and MO crops if the existing E2E suite does not already cover actual patched Def data;
-4. report PASS/FAIL and any defect back here.
+- `run-tests.bat` now verifies that Medieval Overhaul and its declared required dependencies are installed;
+- it passes the installed MO root to `validate-balance.bat`, so all 21 targeted MO DefNames are checked against the installed 1.6 source XML;
+- it launches the isolated Pickle suite in a `with-mo` mode that enables VEF, Processor Framework, and Medieval Overhaul in addition to the framework test set;
+- new `balance.feature` scenarios assert the **final loaded `DefDatabase` values for all 12 Vanilla and all 21 Medieval Overhaul targets**, including `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature/dormancy flag;
+- `run-e2e.bat` remains framework-only by default, so the standalone framework gate does not unnecessarily require Medieval Overhaul.
 
-Do not change balance numbers during test repair without a Balance/XML decision. Test-harness/framework fixes may be made by Code/framework as usual.
+Implementation commits on `balance-xml`:
+
+- isolated MO test profile: `4780189eb21d7e8c319bd75dbd63dcbf47a51364`;
+- loaded-Def scenarios: `e2d4492f595f9eaed14d78ccf69b2eaccb75b37b`, `67cb9e8685cdee9090c3287d6405f883eda0d870`;
+- selectable Pickle filter / MO E2E mode: `beae177a3eedc7d61fba8c775c394df7afec0d95`, `a16ba426897dc0b777b8c39ad2c1d7e87d7b4bb4`;
+- full integration runner: `9da133b1732cb867c4d39ee381f1cbf9fa058d3f`;
+- generated test-mod verification: `5ed6caa02ba1da0a0107fa1e020b3dc7edd64dcb`.
+
+**Next action:** run the full gate locally from `balance-xml`:
+
+`run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+Require both static balance validation and the complete Pickle suite, including the two loaded-balance scenarios, to pass. Do not change balance numbers during test repair without a Balance/XML decision.
 
 ## Completed handoffs
 
