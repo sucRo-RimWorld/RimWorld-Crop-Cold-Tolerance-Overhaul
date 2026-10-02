@@ -181,6 +181,25 @@ namespace CropColdToleranceOverhaul.E2E
         {
             Map map = RequireCurrentMap(ctx);
             ReplaceTemperatureCondition(ctx, map, target);
+
+            Plant plant = RequireTestPlant(ctx);
+            Room room = plant.GetRoom();
+
+            ctx.Require(
+                room != null,
+                "CCTO test plant has no room/region temperature context.");
+
+            room.TempTracker.EqualizeTemperature();
+
+            float ambient = plant.AmbientTemperature;
+            ctx.Require(
+                Math.Abs(ambient - target) < 0.25f,
+                "CCTO test plant ambient temperature did not synchronize "
+                + "with the requested outdoor test temperature. Target="
+                + target.ToString("F2")
+                + " C, ambient="
+                + ambient.ToString("F2")
+                + " C.");
         }
 
         [When("I force the CCTO plant cold check")]
