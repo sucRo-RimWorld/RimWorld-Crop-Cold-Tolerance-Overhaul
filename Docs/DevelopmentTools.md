@@ -1,5 +1,7 @@
 # CCTO Development Workflow
 
+Before code/framework work, read the authoritative cross-workstream handoff log at `main:Docs/Coordination.md`. Update it directly instead of asking the user to relay messages between chats.
+
 This file contains **CCTO-specific** development and test guidance only.
 
 General RimWorld mod-development tools, enablement policy, Local Work/Codex usage, and Sol/Astra escalation rules are maintained separately in the ChatGPT Library:
@@ -85,27 +87,26 @@ The underlying E2E runner:
   `D:\SteamLibrary\steamapps\common\RimWorld\Mods\CropColdToleranceOverhaul.E2E`;
 - compiles CCTO-specific Quickstarts and Pickle step assemblies;
 - copies all CCTO `.feature` files;
-- launches RimWorld with Pickle autorun;
+- prepares an isolated RimWorld save-data profile under `TestResults\SaveData`;
+- copies the normal `Prefs.xml` into that isolated profile and forces only `devMode=True`, because Quickstarts does nothing when RimWorld dev mode is off;
+- gives that profile a minimal test-only mod list containing Harmony, Core, RimLogging, Pickle, Quickstarts, CCTO, and the CCTO E2E companion mod;
+- launches RimWorld with `-savedatafolder` pointing at that isolated profile;
 - runs framework regression scenarios and live cold-behavior scenarios;
 - writes reports to `TestResults\Pickle`;
-- exits with Pickle's pass/fail/error exit code.
+- exits with Pickle's pass/fail/error exit code;
+- is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
+
+The user's normal RimWorld `ModsConfig.xml` is read only to reuse the current RimWorld version/known-expansion metadata. It is not rewritten. This prevents unrelated gameplay mods and their log errors from causing false Pickle failures.
 
 The generated E2E mod is development-only and must not be included in the Workshop release. Remove it with:
 
 `clean-e2e.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
 
-For the automated run, the active development mod set must contain:
+The automated Pickle gate no longer depends on the user's normal active mod preset. `Scripts/Prepare-TestSaveData.ps1` writes a separate test-only `ModsConfig.xml` inside `TestResults\SaveData`, and `run-e2e.bat` launches RimWorld against that profile.
 
-- Harmony;
-- RimLogging;
-- Pickle;
-- Quickstarts;
-- Crop Cold Tolerance Overhaul;
-- `[DEV] Crop Cold Tolerance Overhaul E2E`.
+The normal gameplay preset is therefore left untouched, and unrelated mods do not need to be manually disabled before an E2E run.
 
-Before RimWorld is launched, `Scripts/Check-TestModList.ps1` checks the normal `ModsConfig.xml` and stops with a list of missing package IDs if the required test set is not active.
-
-The active-mod selection itself is intentionally not rewritten by the repository scripts, so normal gameplay presets are not modified behind the user's back. On the first run, `build-e2e.bat` may need to create the sibling E2E mod before RimSort can enable it; after enabling that generated mod once, rerun `run-tests.bat`.
+`Scripts/Check-TestModList.ps1` is retained only for workflows that intentionally run development helpers against the normal active profile; it is not part of the authoritative Pickle release gate.
 
 ### Current Pickle gate coverage
 
@@ -120,14 +121,17 @@ Framework regression scenarios check:
 Live-map scenarios check:
 
 - a configured plant survives safely above its fixed death threshold;
-- the same plant dies after the actual scheduled plant tick path runs below the threshold;
+- the same plant dies when its actual `Plant.TickLong()` path runs below the threshold;
 - at exactly the fixed threshold the plant survives, while below it the plant dies (strict `<` boundary);
 - a `dieIfLeafless` plant can enter CCTO dormancy without dying;
-- a dormant plant with an explicit extreme-cold death threshold still dies below that threshold.
+- a dormant plant with an explicit extreme-cold death threshold still dies below that threshold;
+- cold dormancy preserves RimWorld's delayed 60,000-tick leafless recovery window after warming; the test verifies the stored `madeLeaflessTick` and advances that private recovery timer directly rather than simulating an entire in-game day;
+- a heated indoor plant survives lethal outdoor cold when its actual room temperature is safe;
+- a configured plant in a genuinely cold indoor room responds to its actual `AmbientTemperature`.
 
-Each live scenario starts from a fixed-seed Quickstarts world. The test runner creates a temporary temperature-offset game condition so test temperatures are deterministic without changing shipping balance XML.
+Each live scenario starts from a fixed-seed Quickstarts world. CCTO test temperatures are controlled by setting the relevant RimWorld `Room.Temperature` directly and verifying the spawned plant's resulting `AmbientTemperature`. This avoids mutating global world temperature caches merely to exercise CCTO's ambient-temperature checks. The indoor regression uses separate indoor and outdoor rooms to model warm-inside/cold-outside behavior.
 
-Dormancy recovery timing is deliberately not locked by the automated suite yet. The current implementation uses vanilla `madeLeaflessTick` behavior, but the intended recovery timing should be explicitly settled before it becomes a regression contract.
+Full-world fast waits are avoided for CCTO cold-response assertions. Earlier `I wait 2100 ticks` steps advanced all Vanilla world/pawn systems and could surface unrelated WorldPawns/AI errors. CCTO now calls the spawned test plant's `TickLong()` directly, which exercises the real plant long-tick cold path without ticking unrelated simulation systems.
 
 ### RimTest Redux developer suite
 

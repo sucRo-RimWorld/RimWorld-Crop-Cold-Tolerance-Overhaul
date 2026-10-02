@@ -21,11 +21,18 @@ set "MANAGED=%RIMWORLD_DIR%\RimWorldWin64_Data\Managed"
 set "ASSEMBLY_CSHARP=%MANAGED%\Assembly-CSharp.dll"
 set "UNITY_CORE=%MANAGED%\UnityEngine.CoreModule.dll"
 set "UNITY_MATH=%MANAGED%\Unity.Mathematics.dll"
+set "NETSTANDARD=%MANAGED%\netstandard.dll"
 set "STEAMAPPS=%RIMWORLD_DIR%\..\.."
 
 if not exist "%UNITY_MATH%" (
     echo [ERROR] Required RimWorld managed assembly was not found:
     echo         %UNITY_MATH%
+    exit /b 1
+)
+
+if not exist "%NETSTANDARD%" (
+    echo [ERROR] Required RimWorld managed assembly was not found:
+    echo         %NETSTANDARD%
     exit /b 1
 )
 
@@ -111,12 +118,14 @@ if exist "%UNITY_CORE%" (
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
         /reference:"%UNITY_MATH%" ^
+        /reference:"%NETSTANDARD%" ^
         /reference:"%QUICKSTARTS_DLL%" ^
         "%ROOT%Tests\E2E\CctoColdToleranceQuickstart.cs"
 ) else (
     "%CSC%" /nologo /target:library /optimize+ /out:"%QUICKSTART_OUTPUT%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_MATH%" ^
+        /reference:"%NETSTANDARD%" ^
         /reference:"%QUICKSTARTS_DLL%" ^
         "%ROOT%Tests\E2E\CctoColdToleranceQuickstart.cs"
 )
@@ -136,6 +145,7 @@ if exist "%UNITY_CORE%" (
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
         /reference:"%UNITY_MATH%" ^
+        /reference:"%NETSTANDARD%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%PICKLE_DLL%" ^
         "%ROOT%Tests\E2E\ColdToleranceSteps.cs"
@@ -143,6 +153,7 @@ if exist "%UNITY_CORE%" (
     "%CSC%" /nologo /target:library /optimize+ /out:"%STEPS_OUTPUT%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_MATH%" ^
+        /reference:"%NETSTANDARD%" ^
         /reference:"%MAIN_DLL%" ^
         /reference:"%PICKLE_DLL%" ^
         "%ROOT%Tests\E2E\ColdToleranceSteps.cs"

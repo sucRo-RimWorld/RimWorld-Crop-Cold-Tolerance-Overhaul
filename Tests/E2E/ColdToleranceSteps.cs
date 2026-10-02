@@ -18,7 +18,14 @@ namespace CropColdToleranceOverhaul.E2E
         private List<DefModExtension> originalModExtensions;
         private float originalMinimumGrowthTemperature;
         private Plant testPlant;
-        private GameCondition_TemperatureOffset temperatureCondition;
+        private readonly List<Thing> testRoomWalls = new List<Thing>();
+        private CellRect? testRoomRect;
+        private int? rememberedDormancyTick;
+
+        private static readonly FieldInfo MadeLeaflessTickField =
+            typeof(Plant).GetField(
+                "madeLeaflessTick",
+                BindingFlags.Instance | BindingFlags.NonPublic);
 
         [Then("CCTO fixed death thresholds are independent of plant identity")]
         public void AssertFixedThresholdIsNotPerPlantRandom(PickleContext ctx)
@@ -179,8 +186,125 @@ namespace CropColdToleranceOverhaul.E2E
         [When("I set the CCTO test outdoor temperature to {float}")]
         public void SetTestOutdoorTemperature(PickleContext ctx, float target)
         {
+            Plant plant = RequireTestPlant(ctx);
+            Room room = plant.GetRoom();
+
+            ctx.Require(
+                room != null,
+                "CCTO test plant has no room/region temperature context.");
+            ctx.Require(
+                room.UsesOutdoorTemperature,
+                "CCTO test plant must still be outdoors for this step.");
+
+            SetRoomTemperatureAndVerify(
+                ctx,
+                plant,
+                room,
+                target,
+                "outdoor test room");
+        }
+
+        [When("I enclose the CCTO test plant in a roofed indoor room")]
+        public void EncloseTestPlant(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
             Map map = RequireCurrentMap(ctx);
-            ReplaceTemperatureCondition(ctx, map, target);
+
+            CellRect rect = CellRect.CenteredOn(plant.Position, 2);
+            ctx.Require(
+                RectCanBecomeTestRoom(rect, plant.Position, map),
+                "The selected CCTO test plant position cannot be enclosed "
+                + "into the deterministic 5x5 test room.");
+
+            foreach (IntVec3 cell in rect.EdgeCells)
+            {
+                Thing wall =
+                    ThingMaker.MakeThing(
+                        ThingDefOf.Wall,
+                        ThingDefOf.Steel);
+
+                GenSpawn.Spawn(
+                    wall,
+                    cell,
+                    map,
+                    WipeMode.Vanish);
+
+                testRoomWalls.Add(wall);
+            }
+
+            foreach (IntVec3 cell in rect.Cells)
+            {
+                map.roofGrid.SetRoof(
+                    cell,
+                    RoofDefOf.RoofConstructed);
+            }
+
+            map.regionAndRoomUpdater.RebuildAllRegionsAndRooms();
+
+            Room room = plant.GetRoom();
+            ctx.Require(
+                room != null,
+                "The enclosed CCTO test plant has no room after region rebuild.");
+            ctx.Require(
+                !room.UsesOutdoorTemperature,
+                "The CCTO indoor regression room unexpectedly uses outdoor temperature.");
+
+            testRoomRect = rect;
+        }
+
+        [When("I set only the CCTO test outdoor temperature to {float}")]
+        public void SetOutdoorTemperatureOnly(
+            PickleContext ctx,
+            float target)
+        {
+            Map map = RequireCurrentMap(ctx);
+            Plant plant = RequireTestPlant(ctx);
+            Room plantRoom = plant.GetRoom();
+
+            ctx.Require(
+                plantRoom != null,
+                "CCTO indoor test plant has no room.");
+
+            Room outdoorRoom = FindOutdoorRoom(ctx, map, plantRoom);
+            outdoorRoom.Temperature = target;
+
+            ctx.Require(
+                Math.Abs(outdoorRoom.Temperature - target) < 0.25f,
+                "Failed to set deterministic outdoor room temperature. Target="
+                + target.ToString("F2")
+                + " C, actual="
+                + outdoorRoom.Temperature.ToString("F2")
+                + " C.");
+        }
+
+        [When("I set the CCTO test plant room temperature to {float}")]
+        public void SetPlantRoomTemperature(
+            PickleContext ctx,
+            float target)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            Room room = plant.GetRoom();
+
+            ctx.Require(
+                room != null,
+                "CCTO test plant has no room/region temperature context.");
+            ctx.Require(
+                !room.UsesOutdoorTemperature,
+                "CCTO test plant room must be a true indoor room for this step.");
+
+            SetRoomTemperatureAndVerify(
+                ctx,
+                plant,
+                room,
+                target,
+                "indoor plant room");
+        }
+
+        [When("I run one CCTO plant long tick")]
+        public void RunPlantLongTick(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            plant.TickLong();
         }
 
         [When("I force the CCTO plant cold check")]
@@ -231,6 +355,71 @@ namespace CropColdToleranceOverhaul.E2E
                 "CCTO test plant should be leafless while cold-dormant.");
         }
 
+        [When("I remember the CCTO dormancy refresh tick")]
+        public void RememberDormancyRefreshTick(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+
+            ctx.Require(
+                MadeLeaflessTickField != null,
+                "Plant.madeLeaflessTick was not found.");
+
+            rememberedDormancyTick =
+                (int)MadeLeaflessTickField.GetValue(plant);
+        }
+
+        [Then("the CCTO dormancy refresh tick has not changed")]
+        public void AssertDormancyRefreshTickUnchanged(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+
+            ctx.Require(
+                MadeLeaflessTickField != null,
+                "Plant.madeLeaflessTick was not found.");
+            ctx.Require(
+                rememberedDormancyTick.HasValue,
+                "CCTO dormancy refresh tick was not remembered.");
+
+            int current =
+                (int)MadeLeaflessTickField.GetValue(plant);
+
+            ctx.Assert(
+                current == rememberedDormancyTick.Value,
+                "CCTO refreshed the dormancy timer after temperature recovery. "
+                + "Remembered="
+                + rememberedDormancyTick.Value
+                + ", current="
+                + current
+                + ".");
+        }
+
+        [When("I expire the CCTO dormancy recovery timer")]
+        public void ExpireDormancyRecoveryTimer(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+
+            ctx.Require(
+                MadeLeaflessTickField != null,
+                "Plant.madeLeaflessTick was not found.");
+
+            MadeLeaflessTickField.SetValue(
+                plant,
+                Find.TickManager.TicksGame - 60000);
+        }
+
+        [Then("the CCTO test plant has recovered from dormancy")]
+        public void AssertPlantRecoveredFromDormancy(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Assert(
+                !plant.Destroyed,
+                "Recovered CCTO test plant should still be alive.");
+            ctx.Assert(
+                !plant.LeaflessNow,
+                "CCTO test plant should no longer be leafless after "
+                + "the delayed recovery window expires.");
+        }
+
         [AfterScenario]
         public void Cleanup()
         {
@@ -243,7 +432,7 @@ namespace CropColdToleranceOverhaul.E2E
             }
             finally
             {
-                RemoveTemperatureCondition();
+                RemoveTestRoom();
 
                 if (testPlantDef != null)
                 {
@@ -258,28 +447,28 @@ namespace CropColdToleranceOverhaul.E2E
                 testPlant = null;
                 testPlantDef = null;
                 originalModExtensions = null;
+                rememberedDormancyTick = null;
             }
         }
 
         [PickleStateDump]
         public string DumpCctoState()
         {
-            string temperature = "no map";
-            if (Find.CurrentMap != null)
-            {
-                temperature =
-                    Find.CurrentMap.mapTemperature.OutdoorTemp.ToString("F2") + " C";
-            }
-
             string plantState = "no test plant";
             if (testPlant != null)
             {
+                string ambient =
+                    testPlant.Spawned
+                        ? testPlant.AmbientTemperature.ToString("F2") + " C"
+                        : "unspawned";
+
                 plantState =
-                    "destroyed=" + testPlant.Destroyed
+                    "ambient=" + ambient
+                    + ", destroyed=" + testPlant.Destroyed
                     + ", leafless=" + testPlant.LeaflessNow;
             }
 
-            return "outdoorTemp=" + temperature + "; " + plantState;
+            return plantState;
         }
 
         private void ConfigureAndSpawn(
@@ -331,12 +520,18 @@ namespace CropColdToleranceOverhaul.E2E
                         ? extension.coldDeathTemperature + 10f
                         : minimumGrowthTemperature + 10f);
 
-            ReplaceTemperatureCondition(
-                ctx,
-                map,
-                safeTemperature);
-
             IntVec3 cell = FindOutdoorPlantCell(ctx, map, def);
+            Room spawnRoom = cell.GetRoom(map);
+
+            ctx.Require(
+                spawnRoom != null,
+                "CCTO test spawn cell has no room.");
+            ctx.Require(
+                spawnRoom.UsesOutdoorTemperature,
+                "CCTO test spawn cell must use outdoor temperature.");
+
+            spawnRoom.Temperature = safeTemperature;
+
             Thing thing = ThingMaker.MakeThing(def);
             Plant plant = thing as Plant;
 
@@ -379,6 +574,17 @@ namespace CropColdToleranceOverhaul.E2E
                     continue;
                 }
 
+                CellRect roomRect =
+                    CellRect.CenteredOn(cell, 2);
+
+                if (!RectCanBecomeTestRoom(
+                    roomRect,
+                    cell,
+                    map))
+                {
+                    continue;
+                }
+
                 return cell;
             }
 
@@ -389,72 +595,103 @@ namespace CropColdToleranceOverhaul.E2E
             return IntVec3.Invalid;
         }
 
-        private void ReplaceTemperatureCondition(
+        private static void SetRoomTemperatureAndVerify(
             PickleContext ctx,
-            Map map,
-            float target)
+            Plant plant,
+            Room room,
+            float target,
+            string context)
         {
-            RemoveTemperatureCondition();
+            room.Temperature = target;
 
-            Find.World.tileTemperatures.ClearCaches();
-            float current =
-                map.mapTemperature.OutdoorTemp;
-
-            GameConditionDef def = new GameConditionDef();
-            def.defName = "CCTO_E2E_TemperatureOffset";
-            def.label = "CCTO E2E temperature offset";
-            def.description =
-                "Temporary game condition used only by automated CCTO tests.";
-            def.conditionClass =
-                typeof(GameCondition_TemperatureOffset);
-            def.displayOnUI = false;
-            def.natural = false;
-            def.temperatureOffset = target - current;
-
-            GameCondition_TemperatureOffset condition =
-                (GameCondition_TemperatureOffset)
-                GameConditionMaker.MakeCondition(
-                    def,
-                    3600000);
-
-            condition.suppressEndMessage = true;
-            map.gameConditionManager.RegisterCondition(condition);
-            temperatureCondition = condition;
-
-            Find.World.tileTemperatures.ClearCaches();
-            float actual =
-                map.mapTemperature.OutdoorTemp;
-
+            float ambient = plant.AmbientTemperature;
             ctx.Require(
-                Math.Abs(actual - target) < 0.25f,
-                "Failed to set deterministic CCTO test temperature. "
-                + "Target=" + target.ToString("F2")
-                + " C, actual=" + actual.ToString("F2") + " C.");
+                Math.Abs(ambient - target) < 0.25f,
+                "Failed to set deterministic " + context + " temperature. Target="
+                + target.ToString("F2")
+                + " C, ambient="
+                + ambient.ToString("F2")
+                + " C.");
         }
 
-        private void RemoveTemperatureCondition()
+        private static Room FindOutdoorRoom(
+            PickleContext ctx,
+            Map map,
+            Room excludedRoom)
         {
-            if (temperatureCondition != null)
+            foreach (IntVec3 cell in map.AllCells)
             {
-                try
+                Room room = cell.GetRoom(map);
+                if (room != null
+                    && room != excludedRoom
+                    && room.UsesOutdoorTemperature)
                 {
-                    if (temperatureCondition.gameConditionManager != null
-                        && temperatureCondition.gameConditionManager
-                            .ActiveConditions
-                            .Contains(temperatureCondition))
-                    {
-                        temperatureCondition.End();
-                    }
-                }
-                finally
-                {
-                    temperatureCondition = null;
-                    if (Find.World != null)
-                    {
-                        Find.World.tileTemperatures.ClearCaches();
-                    }
+                    return room;
                 }
             }
+
+            ctx.Require(
+                false,
+                "No outdoor room was found for the CCTO indoor regression test.");
+
+            return null;
+        }
+
+        private static bool RectCanBecomeTestRoom(
+            CellRect rect,
+            IntVec3 plantCell,
+            Map map)
+        {
+            foreach (IntVec3 cell in rect.Cells)
+            {
+                if (!cell.InBounds(map))
+                {
+                    return false;
+                }
+
+                if (cell == plantCell)
+                {
+                    continue;
+                }
+
+                if (rect.IsOnEdge(cell)
+                    && cell.GetEdifice(map) != null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void RemoveTestRoom()
+        {
+            Map map = Find.CurrentMap;
+
+            foreach (Thing wall in testRoomWalls)
+            {
+                if (wall != null && !wall.Destroyed)
+                {
+                    wall.Destroy(DestroyMode.Vanish);
+                }
+            }
+
+            testRoomWalls.Clear();
+
+            if (map != null && testRoomRect.HasValue)
+            {
+                foreach (IntVec3 cell in testRoomRect.Value.Cells)
+                {
+                    if (cell.InBounds(map))
+                    {
+                        map.roofGrid.SetRoof(cell, null);
+                    }
+                }
+
+                map.regionAndRoomUpdater.RebuildAllRegionsAndRooms();
+            }
+
+            testRoomRect = null;
         }
 
         private static Plant CreateUnspawnedPlant(
