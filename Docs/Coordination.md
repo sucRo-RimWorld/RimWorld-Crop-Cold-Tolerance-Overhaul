@@ -63,49 +63,43 @@ An E2E boundary scenario exists. The first runtime attempt exposed a test-harnes
 
 **Requested by:** Balance/XML  
 **Owner:** Code/framework  
-**Status:** OPEN
+**Status:** IN PROGRESS
 
-Confirm intended recovery behavior after a dormant plant warms above `minGrowthTemperature`.
+Balance/XML decision:
 
-Current implementation refreshes RimWorld's private `madeLeaflessTick` while the plant is cold. Once temperature rises, CCTO stops refreshing it. Vanilla `LeaflessNow` remains true until 60,000 ticks have elapsed since the last refresh.
+- preserve RimWorld's existing delayed leafless recovery;
+- do **not** explicitly clear dormancy immediately when temperature rises;
+- once temperature recovers, CCTO stops refreshing `madeLeaflessTick`, and the normal 60,000-tick leafless window is allowed to expire naturally.
 
-Potential issue:
+This means visible/state recovery may lag warming by up to roughly one in-game day. That delay is intentional.
 
-- the plant can resume temperature-based growth eligibility before the visible leafless state clears;
-- visual/state recovery can therefore lag warming by up to about one in-game day.
+Durable specification: `Docs/PatchPlan.md`, commit `b868e278d04d772e406b92cde085ec7e4d36ca64`.
 
-**Decision required:** decide whether CCTO should:
-- preserve vanilla delayed leafless recovery; or
-- explicitly clear cold dormancy when the plant warms.
-
-Do not turn either behavior into a regression contract until this is decided.
+**Next action for Code/framework:** add/enable a regression scenario confirming delayed recovery and report the test result here.
 
 ### CODE-003 — Indoor cold behavior / `CheckMakeLeafless` postfix
 
 **Requested by:** Balance/XML  
 **Owner:** Code/framework  
-**Status:** OPEN
+**Status:** IN PROGRESS
 
-Confirm whether CCTO should intentionally bypass Vanilla's:
+Balance/XML decision:
+
+CCTO should intentionally evaluate configured plants using the plant's actual `AmbientTemperature`, even when Vanilla's original cold-leafless path would be gated by:
 
 `room.UsesOutdoorTemperature`
 
-gate for configured plants.
+Intended behavior:
 
-Current implementation's postfix does bypass that gate, but uses the plant's actual:
+- heated indoor greenhouse, cold outdoors -> survives if actual room/ambient temperature is safe;
+- genuinely cold indoor room -> configured plant can enter dormancy or die;
+- cold outdoor temperature alone must not kill a plant inside a warm room.
 
-`plant.AmbientTemperature`
+This is intentional CCTO behavior, not an accidental bypass.
 
-rather than outdoor temperature directly.
+Durable specification: `Docs/PatchPlan.md`, commit `b868e278d04d772e406b92cde085ec7e4d36ca64`.
 
-Therefore current behavior is:
-
-- heated indoor greenhouse, cold outdoors -> plant survives if its room/ambient temperature is safe;
-- genuinely cold indoor room -> configured plant can enter dormancy or die even though the room is not using outdoor temperature.
-
-This appears consistent with CCTO's cold-tolerance model, but it needs an explicit design decision and an E2E regression test before beta.
-
-**Next action:** confirm intended semantics, then add indoor safe/indoor cold E2E coverage.
+**Next action for Code/framework:** add indoor-safe and indoor-cold E2E regression coverage and report the results here.
 
 ## Completed handoffs
 
