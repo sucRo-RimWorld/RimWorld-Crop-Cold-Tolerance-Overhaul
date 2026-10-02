@@ -7,6 +7,7 @@ if not defined RIMWORLD_DIR set "RIMWORLD_DIR=D:\SteamLibrary\steamapps\common\R
 set "ROOT=%~dp0"
 set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
 set "REPORT_DIR=%ROOT%TestResults\Pickle"
+set "TEST_SAVEDATA=%ROOT%TestResults\SaveData"
 
 call "%ROOT%build-e2e.bat" "%RIMWORLD_DIR%"
 if errorlevel 1 exit /b 1
@@ -18,11 +19,11 @@ if not exist "%RIMWORLD_EXE%" (
 )
 
 echo.
-echo Checking active development mod set...
-powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Check-TestModList.ps1"
+echo Preparing isolated RimWorld test profile...
+powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-TestSaveData.ps1" -OutputRoot "%TEST_SAVEDATA%"
 if errorlevel 1 (
     echo.
-    echo [STOP] Automated test run was not started.
+    echo [STOP] Failed to prepare isolated test profile.
     exit /b 1
 )
 
@@ -32,13 +33,15 @@ echo.
 echo Running CCTO Pickle E2E suite...
 echo Report: %REPORT_DIR%
 echo.
-echo IMPORTANT:
-echo The required development mods must already be enabled in the active RimWorld mod list.
+echo Isolated save data: %TEST_SAVEDATA%
+echo.
+echo The normal RimWorld mod list is not changed.
 echo Pickle will generate a deterministic Quickstarts map for each scenario,
 echo run the tests, write reports, and exit RimWorld automatically.
 echo.
 
 start /wait "" "%RIMWORLD_EXE%" ^
+    -savedatafolder="%TEST_SAVEDATA%" ^
     -pickle-run="framework.feature,cold-tolerance.feature" ^
     -pickle-mode=fast ^
     -pickle-report-dir="%REPORT_DIR%" ^
