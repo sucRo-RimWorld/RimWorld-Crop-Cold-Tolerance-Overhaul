@@ -86,8 +86,11 @@ if not exist "%FEATURES_DIR%" mkdir "%FEATURES_DIR%"
 copy /Y "%ROOT%Tests\E2E\TestMod\About\About.xml" "%ABOUT_DIR%\About.xml" >nul
 if errorlevel 1 exit /b 1
 
-copy /Y "%ROOT%Tests\E2E\TestMod\Pickle\Features\cold-tolerance.feature" "%FEATURES_DIR%\cold-tolerance.feature" >nul
-if errorlevel 1 exit /b 1
+copy /Y "%ROOT%Tests\E2E\TestMod\Pickle\Features\*.feature" "%FEATURES_DIR%\" >nul
+if errorlevel 1 (
+    echo [ERROR] Failed to copy Pickle feature files.
+    exit /b 1
+)
 
 set "QUICKSTART_OUTPUT=%ASSEMBLIES_DIR%\CropColdToleranceOverhaul.E2E.dll"
 set "STEPS_OUTPUT=%PICKLE_ASSEMBLIES_DIR%\CropColdToleranceOverhaul.E2E.Steps.dll"
@@ -145,6 +148,7 @@ echo [4/5] Verifying generated E2E layout...
 if not exist "%QUICKSTART_OUTPUT%" exit /b 1
 if not exist "%STEPS_OUTPUT%" exit /b 1
 if not exist "%FEATURES_DIR%\cold-tolerance.feature" exit /b 1
+if not exist "%FEATURES_DIR%\framework.feature" exit /b 1
 
 echo.
 echo [5/5] CCTO E2E test mod is ready:
