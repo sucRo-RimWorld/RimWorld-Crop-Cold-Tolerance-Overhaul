@@ -103,7 +103,9 @@ For the automated run, the active development mod set must contain:
 - Crop Cold Tolerance Overhaul;
 - `[DEV] Crop Cold Tolerance Overhaul E2E`.
 
-The active-mod selection itself is intentionally not rewritten by the repository scripts, so normal gameplay presets are not modified behind the user's back.
+Before RimWorld is launched, `Scripts/Check-TestModList.ps1` checks the normal `ModsConfig.xml` and stops with a list of missing package IDs if the required test set is not active.
+
+The active-mod selection itself is intentionally not rewritten by the repository scripts, so normal gameplay presets are not modified behind the user's back. On the first run, `build-e2e.bat` may need to create the sibling E2E mod before RimSort can enable it; after enabling that generated mod once, rerun `run-tests.bat`.
 
 ### Current Pickle gate coverage
 
