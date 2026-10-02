@@ -178,6 +178,7 @@ As of 2026-10-02:
 - Additional regression scenarios have since been added for the decided delayed dormancy recovery semantics and for indoor actual-room-temperature behavior.
 - The first expanded-suite run was contaminated by unrelated `Andromeda.PawnQuickInfo` `Log.Error` output; Pickle treated those external errors as scenario failures even though they were not CCTO assertion failures.
 - The authoritative E2E runner now launches RimWorld with an isolated `-savedatafolder` profile containing only the required test mods, while leaving the user's normal gameplay mod configuration untouched.
-- In the latest isolated-profile run, 9 of 11 scenarios passed. The new delayed-recovery and indoor-room scenarios both passed. The two remaining failures were unrelated Vanilla WorldPawns/AI `Log.Error` entries produced while Pickle's fast `I wait 2100 ticks` step advanced the entire world simulation.
-- Those full-world waits have been replaced with a targeted `Plant.TickLong()` E2E step. This still exercises the real plant long-tick path that calls `CheckMakeLeafless`, without advancing unrelated pawn/world systems.
-- Draft PR #1 should remain Draft until the revised targeted suite returns a clean all-pass result.
+- A later isolated-profile run reached 10 of 11 scenarios passed. The delayed-recovery and indoor actual-room-temperature scenarios both passed.
+- The sole remaining failure was a Vanilla sound-update `NullReferenceException` while reading `MapTemperature.OutdoorTemp` during the strict fixed-threshold boundary scenario; the CCTO plant state itself matched the expected boundary result.
+- CCTO E2E temperature control no longer mutates global outdoor temperature through `GameCondition_TemperatureOffset` or world tile-temperature cache clears. It now sets the relevant RimWorld `Room.Temperature` directly and verifies the plant's actual `AmbientTemperature`. The indoor test uses a separate outdoor room to model cold outside versus warm inside.
+- Draft PR #1 should remain Draft until the revised isolated suite returns a clean 11/11 pass.
