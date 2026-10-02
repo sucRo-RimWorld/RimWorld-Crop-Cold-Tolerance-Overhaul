@@ -92,7 +92,8 @@ The underlying E2E runner:
 - launches RimWorld with `-savedatafolder` pointing at that isolated profile;
 - runs framework regression scenarios and live cold-behavior scenarios;
 - writes reports to `TestResults\Pickle`;
-- exits with Pickle's pass/fail/error exit code.
+- exits with Pickle's pass/fail/error exit code;
+- is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
 The user's normal RimWorld `ModsConfig.xml` is read only to reuse the current RimWorld version/known-expansion metadata. It is not rewritten. This prevents unrelated gameplay mods and their log errors from causing false Pickle failures.
 
@@ -123,7 +124,7 @@ Live-map scenarios check:
 - at exactly the fixed threshold the plant survives, while below it the plant dies (strict `<` boundary);
 - a `dieIfLeafless` plant can enter CCTO dormancy without dying;
 - a dormant plant with an explicit extreme-cold death threshold still dies below that threshold;
-- cold dormancy preserves RimWorld's delayed 60,000-tick leafless recovery window after warming;
+- cold dormancy preserves RimWorld's delayed 60,000-tick leafless recovery window after warming; the test verifies the stored `madeLeaflessTick` and advances that private recovery timer directly rather than simulating an entire in-game day;
 - a heated indoor plant survives lethal outdoor cold when its actual room temperature is safe;
 - a configured plant in a genuinely cold indoor room responds to its actual `AmbientTemperature`.
 
