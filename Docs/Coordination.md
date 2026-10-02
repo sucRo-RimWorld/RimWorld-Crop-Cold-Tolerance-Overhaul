@@ -77,7 +77,11 @@ Durable specification: `Docs/PatchPlan.md`, commit `b868e278d04d772e406b92cde085
 
 A delayed-recovery Pickle scenario has now been added on framework branch commit `28d7faac3760fb3d003f11d0878d0ab01de415d7`.
 
-**Next action for Code/framework:** rerun the automated suite and require the delayed-recovery scenario to pass.
+The first expanded-suite run was not a CCTO assertion failure: unrelated `Andromeda.PawnQuickInfo` errors were emitted during scenarios and Pickle correctly treated those `Log.Error` entries as failures. The E2E runner has therefore been moved to an isolated `-savedatafolder` profile containing only the required test mods, without rewriting the user's normal mod preset.
+
+Isolation implementation: framework branch commits `149fefd4ca73d562f7900e6d90fbabe740c0b9e0` and `a2c8684299e884cc2feb964275caba8fdcc6a67e`.
+
+**Next action for Code/framework:** rerun the automated suite in the isolated profile and require the delayed-recovery scenario to pass.
 
 ### CODE-003 — Indoor cold behavior / `CheckMakeLeafless` postfix
 
@@ -103,7 +107,9 @@ Durable specification: `Docs/PatchPlan.md`, commit `b868e278d04d772e406b92cde085
 
 Indoor-safe and indoor-cold Pickle coverage has now been added on framework branch commit `28d7faac3760fb3d003f11d0878d0ab01de415d7`.
 
-**Next action for Code/framework:** rerun the automated suite and require the indoor room-temperature scenario to pass.
+The first expanded-suite run was contaminated by unrelated `Andromeda.PawnQuickInfo` `Log.Error` output rather than a CCTO assertion failure. The authoritative runner now uses the same isolated test profile described under CODE-002.
+
+**Next action for Code/framework:** rerun the automated suite in the isolated profile and require the indoor room-temperature scenario to pass.
 
 ## Completed handoffs
 
