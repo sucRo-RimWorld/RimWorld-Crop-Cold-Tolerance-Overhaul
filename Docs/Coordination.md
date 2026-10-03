@@ -230,11 +230,11 @@ Run:
 Then launch RimWorld normally and verify representative Info Cards:
 
 - Vanilla rice: min growth 10 C, cold death -1 C;
-- Vanilla hops: min growth 5 C, dormancy;
+- Vanilla hops: min growth 5 C, dormancy temperature 5 C;
 - MO wheat: min growth 0 C, cold death -6 C;
-- MO apple tree: min growth 5 C, dormancy.
+- MO apple tree: min growth 5 C, dormancy temperature 5 C.
 
-Also require normal startup with no new CCTO-origin error, no duplicate CCTO rows, and acceptable visual grouping/wording of `枯死温度` / `低温反応: 休眠` next to native plant-temperature entries.
+Also require normal startup with no new CCTO-origin error, no duplicate CCTO rows, and acceptable visual grouping/wording of `枯死温度` / `休眠温度` next to native plant-temperature entries.
 
 **Initial visual check result:** the standard Info Card path itself passed, but the dormancy wording exposed a UX defect.
 
