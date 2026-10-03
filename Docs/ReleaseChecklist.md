@@ -33,7 +33,8 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] GitHub release notes drafted in `Docs/ReleaseNotes/ReleaseNotes-0.1-Beta.md`.
 - [x] `v0.1.1-beta` release notes finalized in `Docs/ReleaseNotes/ReleaseNotes-0.1.1-Beta.md`.
 - [x] GitHub release/tag `v0.1.1-beta` already published.
-- [x] Current post-0.1.1 UI-ordering update documented separately in `Docs/ReleaseNotes/ReleaseNotes-0.1.2-Beta.md`.
+- [x] Post-0.1.1 Info Card ordering update documented separately in `Docs/ReleaseNotes/ReleaseNotes-0.1.2-Beta.md`.
+- [x] Medieval Overhaul duplicate-extension error fix documented separately in `Docs/ReleaseNotes/ReleaseNotes-0.1.3-Beta.md`.
 - [x] Preview image technical/art brief fixed in `Docs/PreviewBrief.md`: 640×360 PNG, 16:9, under 1 MB.
 
 - [x] `About/Preview.png` added to `main` from the approved preview image; current blob SHA `c3b690262b92ce06e753fb0ac6e6929ff96bcf73`.
@@ -58,7 +59,8 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] E2E MO fixture now mirrors the real MO Named-Parent inheritance for those four wild alchemy Defs.
 - [x] Automated runtime-log gate added so a CCTO-origin ERROR fails the local E2E gate even if Pickle scenarios otherwise pass.
 - [x] Reran `run-tests.bat` after the MO inheritance/runtime-log-gate changes: **14/14 PASS** with zero CCTO-origin runtime ERROR entries.
-- [ ] Re-upload the corrected Workshop package after the fresh gate passes.
+- [x] In-game verification of the Medieval Overhaul duplicate-extension fix passed.
+- [ ] Re-upload the corrected Workshop package as the 0.1.3 Beta update.
 
 ## Beta feedback targets
 
