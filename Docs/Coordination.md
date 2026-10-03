@@ -153,7 +153,7 @@ Framework branch commit `a739d49dc556b5d68ff065a0ea91b80012d28cf6` removes that 
 
 **Requested by:** Balance/XML  
 **Owner:** Code/framework  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 The framework-only automated E2E gate is green through CODE-004.
 
@@ -195,11 +195,16 @@ Relevant `balance-xml` commits: `f5693133d5798d6458032db4361d348a13d0560b`, `0c8
 
 The full integration mode now also validates the freshly generated `summary.json`: it must contain exactly 13 clean passes and must explicitly include both loaded-balance scenarios. This prevents a missing/undiscovered `balance.feature` from being mistaken for success. Summary-gate commits: `002f2b43ca74fba53cb8f379cd3bbb2de8e789b8`, `ce0d9fb088e8a67a9d5b8c4982a3254edb44579f`.
 
-**Next action:** rerun the full gate locally from `balance-xml`:
+**Result:** the full local integration gate passed cleanly.
 
-`run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+- static balance/XML validation passed;
+- installed MO 1.6 source structure validation passed;
+- Pickle executed `framework.feature,cold-tolerance.feature,balance.feature`;
+- the fresh integration summary contained exactly **13/13 passing scenarios**;
+- both loaded-balance scenarios were explicitly present;
+- all 12 Vanilla and all 21 MO target Def values therefore passed the loaded-`DefDatabase` regression gate.
 
-Require both static balance validation and the complete Pickle suite, including the two loaded-balance scenarios, to pass. Do not change balance numbers during test repair without a Balance/XML decision.
+CODE-005 is complete. No balance numbers were changed during test-harness repair.
 
 ## Completed handoffs
 
