@@ -377,7 +377,7 @@ Completed release-preparation work:
 - Japanese Steam Workshop localization added. Localized title: `作物耐寒性オーバーホール`; paste-ready title file: `Docs/SteamWorkshopTitle-ja.txt` (`4f6f5767fa3982b222a7f2992c2501ce5f4ecccb`); paste-ready Japanese BBCode description: `Docs/SteamWorkshopDescription-ja.txt` (`56aaf0d8cb9046e5e54a08dae2d813eea140240e`). Workshop presentation records the localization workflow: `59df0e8688f9a6811125b4c53f0938a3fdf3e8c3`; release checklist: `1f1fc23a7b36e23fd1cdc54dcacb4d56b7bb38aa`.
 - User completed a subscription smoke check against the private Steam Workshop package and reported no apparent issues. This counts as a pre-publication package sanity check; the checklist still keeps the final post-publication clean-subscription smoke pending. Release checklist update: `9a73701332e2f9b6e38ad323915db36fcc29aaea`.
 - `About/Preview.png` is now present on `main`. The binary was copied from the existing `balance-xml` branch blob `c3b690262b92ce06e753fb0ac6e6929ff96bcf73` into `main` in commit `30dae3c1c541e185be98fcb67a6fc1bc435b53b7`; release checklist marked complete in `91acc72b6418bc989b83f0ec2a0d5c538a494745`.
-- Steam Workshop item is now public at `https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548`. Public-release checklist marked published in `a977e71bcff03942d2199c62d99e5e8fde083497`. Final clean post-publication subscription smoke remains pending.
+- Steam Workshop item is now public at `https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548`. Public-release checklist marked published in `a977e71bcff03942d2199c62d99e5e8fde083497`. Post-publication subscribed-package check was then completed; representative CCTO balance values were confirmed correct with no apparent issue. Release checklist update: `b1ed31fd1d749c32192c8153100452ad31a5ad71`.
 
 Public-description decisions:
 
@@ -388,10 +388,7 @@ Public-description decisions:
 
 Remaining public-release decisions/tasks:
 
-- create and add `About/Preview.png` using the approved preview brief;
-- create GitHub release/tag `v0.1.0-beta`;
-- publish to Steam Workshop using the finalized Workshop presentation;
-- perform a clean published-package smoke test after publication.
+- create GitHub release/tag `v0.1.0-beta`.
 
 Release-presentation decisions completed on `main`:
 
