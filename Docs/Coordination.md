@@ -474,3 +474,4 @@ Release/presentation maintenance update (2026-10-03):
 - Release notes are now centralized under `Docs/ReleaseNotes/`; root-level `Docs/ReleaseNotes-*.md` copies were removed and checklist references were updated.
 - Japanese Workshop description wording was polished for natural Japanese, updated to 0.1.1 Beta verification status, and remains within Steam's 8,000-byte limit (5,951 bytes).
 - Live Workshop page still requires the maintained Japanese description to be pasted/applied if not already updated after this commit.
+- English Workshop presentation and paste-ready description were synchronized to **0.1.1 Beta / 14/14**; no stale 13/13 or 0.1 Beta wording remains in those two maintained English files. Current paste-ready English description size: 6,389 bytes.
