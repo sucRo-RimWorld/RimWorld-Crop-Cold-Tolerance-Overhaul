@@ -1,6 +1,6 @@
 # Crop Cold Tolerance Overhaul — 0.1.2 Beta
 
-Git tag: `v0.1.2-beta`
+Target Git tag: `v0.1.2-beta`
 
 ## Summary
 
