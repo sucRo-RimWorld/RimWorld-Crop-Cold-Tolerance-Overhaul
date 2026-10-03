@@ -475,3 +475,10 @@ Release/presentation maintenance update (2026-10-03):
 - Japanese Workshop description wording was polished for natural Japanese, updated to 0.1.1 Beta verification status, and remains within Steam's 8,000-byte limit (5,951 bytes).
 - Live Workshop page still requires the maintained Japanese description to be pasted/applied if not already updated after this commit.
 - English Workshop presentation and paste-ready description were synchronized to **0.1.1 Beta / 14/14**; no stale 13/13 or 0.1 Beta wording remains in those two maintained English files. Current paste-ready English description size: 6,389 bytes.
+
+UI consistency update (2026-10-03):
+- Standard Info Card `Cold death temperature` and `Dormancy temperature` now use the same display priority, so the relevant cold threshold appears at the same row position when comparing plants.
+- Nice Plants Menu was already inserting either threshold in the same position after growth temperature; no compatibility change was needed there.
+- RimTest regression added to assert equal display priority for death vs dormancy entries.
+- Code commits: `e24af7ea7e3ad9a50f6384b9978161def5b66751`, `cad86c5a55a8c4de2ca04999fb3b2b76f1ee3790`.
+- Full local gate and normal-profile visual recheck are pending after this UI-only code change.
