@@ -38,6 +38,12 @@ Because real plants vary by cultivar, growth stage, acclimation, and exposure du
 
 Medieval Overhaul is optional. Its patches are applied only when MO is present.
 
+[h2]Supported languages[/h2]
+[list]
+[*]English
+[*]Japanese
+[/list]
+
 [h2]Representative before / after examples[/h2]
 
 Vanilla's ordinary cold threshold is normally derived per plant from minimum growth temperature with an offset of about -18°C to -10°C.
