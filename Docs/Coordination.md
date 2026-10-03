@@ -533,4 +533,6 @@ Regression protection now includes:
 
 Implementation commits: `f9c71232c2e2dfaf1f85a404b2c1e12aebff91ef`, `64e5c8508eba53809d79b552211369801de553f8`, `3e9f292a253817bf09ff15883faf11afcda79bf5`, `c08e2ae7f6d1308203757b2ae4ab10f88d5fa93c`, `465e54d0c4f75b9e7340d3aa0cb9f41cd60d58eb`, `2ddccc445aa74c7ff37373c98605900ba1d6b962`, `74c7ed1af6dad7337e401f5fd0d321da33eaa911`.
 
-**Next action:** rerun the full local `run-tests.bat` gate. Do not close CODE-009 or re-upload until both the scenario gate and the new CCTO-origin runtime ERROR gate pass.
+Runtime rerun found a malformed XML regression before the runtime suite: the automated removal of four direct wild-alchemy extension blocks left four orphan `</value></li>` closers in `Patches/MedievalOverhaul_ColdTolerance.xml`. The patch XML was repaired in `be75db88918da1f708889ea7b1506caba2930d1e`. A post-fix structural check confirms balanced XML tags, 25 direct MO extension operations, no direct extension on the four inherited wild-alchemy Defs, and all four minimum-growth patches still present.
+
+**Next action:** pull the fix and rerun the full local `run-tests.bat` gate. Do not close CODE-009 or re-upload until both the scenario gate and the new CCTO-origin runtime ERROR gate pass.
