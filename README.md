@@ -6,7 +6,7 @@ Crop Cold Tolerance Overhaul (CCTO) separates a plant's **minimum growth tempera
 
 CCTO also functions as a lightweight cold-tolerance framework: other mods can define explicit **cold-death temperatures** and cold dormancy for their own plants through XML without replacing the plant class.
 
-Vanilla RimWorld derives cold death from the growth minimum with deterministic per-plant variation. CCTO instead gives supported player-sowable plants a clear species-level cold response:
+Vanilla RimWorld derives cold death from the growth minimum with deterministic per-plant variation. CCTO instead gives every living PlantDef in its supported plant sets a clear species-level cold response:
 
 - ordinary plants use one fixed cold-death temperature;
 - selected perennial/overwintering plants enter cold dormancy below their minimum growth temperature;
@@ -14,7 +14,7 @@ Vanilla RimWorld derives cold death from the growth minimum with deterministic p
 
 ## Scope
 
-CCTO **rebalances cold-tolerance-related values only** for supported player-sowable plants: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate. The scope includes field crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, and other plants exposed through sowing UI. Wild-only plants that the player cannot sow are not part of the default balance set.
+CCTO **rebalances cold-tolerance-related values only** for all living PlantDefs in supported plant sets: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate. The scope includes field crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, grasses, shrubs, and wild-only vegetation. Dead plant remnants such as stump Defs are excluded because they have no meaningful living cold-response model.
 
 The current balance is **generally more demanding than the original Vanilla / Medieval Overhaul settings**. Most supported plants stop growing at warmer temperatures, and many ordinary plants receive fixed death thresholds that are much warmer than the original generic cold-death range. In practice, this makes cold-season farming and forestry more demanding and makes plant choice, seasonal timing, and temperature control more important.
 
@@ -22,11 +22,11 @@ This is not a universal nerf to every plant: selected perennial or overwintering
 
 ### Balance rationale
 
-The values are not arbitrary. CCTO uses real-world crop cold-tolerance information, including frost-damage and lethal-temperature data where available, as reference points for each crop.
+The values are not arbitrary. CCTO uses real-world plant cold-tolerance information, including frost-damage and lethal-temperature data where available, as reference points for each plant.
 
-Real plants vary by cultivar, growth stage, acclimation, and exposure duration, so CCTO does not copy one real-world temperature literally. The real-world data is used as a guideline, then rounded and tuned into clear gameplay thresholds that preserve meaningful differences between crops.
+Real plants vary by cultivar, growth stage, acclimation, and exposure duration, so CCTO does not copy one real-world temperature literally. The real-world data is used as a guideline, then rounded and tuned into clear gameplay thresholds that preserve meaningful differences between plants.
 
-It does **not** rebalance other crop properties such as:
+It does **not** rebalance other plant properties such as:
 
 - harvest yield;
 - growth time;
@@ -46,8 +46,8 @@ The cold-tolerance system was split into a standalone mod because the distinctio
 
 The current balance set covers:
 
-- all 30 player-sowable Core plants in RimWorld 1.6, including crops, decorative plants, forestry trees, fungi, and special sowable plants;
-- all 21 Medieval Overhaul 1.6-specific cultivated plant Defs used by CCTO.
+- all **49 living Core PlantDefs** in RimWorld 1.6; the three Core stump/remnant Defs are intentionally excluded;
+- all **29 Medieval Overhaul 1.6-specific PlantDefs**, including cultivated and wild-only plants.
 
 Medieval Overhaul's Healroot continues to use the Core `Plant_Healroot` Def, so it is covered by the Core table rather than counted again.
 
@@ -67,11 +67,11 @@ Vanilla RimWorld does not store a fixed species-level cold-death temperature. It
 
 `minGrowthTemperature + deterministic random offset from -18°C to -10°C`
 
-If `dieIfLeafless=true`, crossing that threshold kills the plant. If `dieIfLeafless=false`, the plant enters the leafless state but survives. CCTO replaces this generic behavior for supported player-sowable plants with explicit species-level fixed death temperatures or cold dormancy.
+If `dieIfLeafless=true`, crossing that threshold kills the plant. If `dieIfLeafless=false`, the plant enters the leafless state but survives. CCTO replaces this generic behavior for supported living plants with explicit species-level fixed death temperatures or cold dormancy.
 
-For CCTO dormancy crops, the CCTO minimum growth temperature is also the dormancy threshold.
+For CCTO dormancy plants, the CCTO minimum growth temperature is also the dormancy threshold.
 
-### Vanilla RimWorld
+### Core / Vanilla RimWorld
 
 | Crop | Original min growth | CCTO min growth | Original cold behavior | CCTO cold behavior |
 |---|---:|---:|---|---|
@@ -105,12 +105,31 @@ For CCTO dormancy crops, the CCTO minimum growth temperature is also the dormanc
 | Timbershroom | 0°C | 0°C | generic plant cold behavior | cold dormancy below 0°C |
 | Tinctoria | 0°C | 5°C | generic plant cold behavior | fixed death at -4°C |
 | Willow | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
+| Agarilux | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Agave | 0°C | 5°C | generic wild cold behavior | fixed death at -7°C |
+| Alocasia | 0°C | 10°C | generic wild cold behavior | fixed death at -1°C |
+| Ambrosia bush | 0°C | 0°C | generic wild cold behavior | fixed death at -9°C |
+| Astragalus | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Berry bush | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Brambles | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Bryolux | 0°C | 0°C | generic cave-plant cold behavior | fixed death at -12°C |
+| Bush | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Chokevine | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Clivia | 0°C | 8°C | generic wild cold behavior | fixed death at -2°C |
+| Giant rafflesia | 0°C | 12°C | generic wild cold behavior | fixed death at 5°C |
+| Glowstool | 0°C | 0°C | generic cave-plant cold behavior | fixed death at -8°C |
+| Grass | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Low shrubs | 0°C | 8°C | generic wild cold behavior | fixed death at -2°C |
+| Moss | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Pincushion cactus | 0°C | 5°C | generic wild cold behavior | fixed death at -8°C |
+| Tall grass | 0°C | 0°C | generic wild cold behavior | cold dormancy below 0°C |
+| Wild healroot | 0°C | 0°C | generic wild cold behavior | fixed death at -9°C |
 
 ### Medieval Overhaul 1.6
 
 Medieval Overhaul's Healroot uses the Vanilla `Plant_Healroot` Def, so its before/after values are the Healroot row in the Vanilla table above.
 
-The following are the 21 MO-specific cultivated plant Defs patched by CCTO:
+The following are the 29 MO-specific cultivated and wild PlantDefs patched by CCTO:
 
 | Crop | Original min growth | CCTO min growth | Original cold behavior | CCTO cold behavior |
 |---|---:|---:|---|---|
@@ -135,6 +154,14 @@ The following are the 21 MO-specific cultivated plant Defs patched by CCTO:
 | Mulberry | 0°C | 5°C | leafless below -18 to -10°C, survives | cold dormancy below 5°C |
 | Griffon berry | 0°C | 5°C | leafless below -18 to -10°C, survives | cold dormancy below 5°C |
 | Lemon | 0°C | 10°C | leafless below -18 to -10°C, survives | fixed death at -4°C |
+| Wild mindwort | 0°C | 5°C | inherited wild leafless/cold behavior | fixed death at -3°C |
+| Wild poppy | 0°C | 5°C | inherited wild leafless/cold behavior | fixed death at -5°C |
+| Wild fleawort | 0°C | 3°C | inherited wild leafless/cold behavior | fixed death at -6°C |
+| Wild fly agaric | 0°C | 0°C | inherited wild leafless/cold behavior | cold dormancy below 0°C |
+| Great oak | 0°C | 5°C | leafless and survives | cold dormancy below 5°C |
+| Great Iter | 0°C | 5°C | leafless and survives | cold dormancy below 5°C |
+| Great fir | 0°C | 0°C | evergreen tree cold behavior | fixed death at -35°C |
+| Great willow | 0°C | 5°C | leafless and survives | cold dormancy below 5°C |
 
 ## Dependencies
 
