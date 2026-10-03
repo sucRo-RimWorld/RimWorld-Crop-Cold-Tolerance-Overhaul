@@ -4,6 +4,8 @@
 
 Crop Cold Tolerance Overhaul (CCTO) separates a crop's **minimum growth temperature** from its **cold-death behavior**.
 
+CCTO also functions as a lightweight cold-tolerance framework: other mods can define explicit **cold-death temperatures** and cold dormancy for their own plants through XML without replacing the plant class.
+
 Vanilla RimWorld derives cold death from the growth minimum with deterministic per-plant variation. CCTO instead gives supported crops a clear species-level cold response:
 
 - ordinary crops use one fixed cold-death temperature;
@@ -53,7 +55,7 @@ Optional:
 
 ## Framework use
 
-Other mods can use CCTO without replacing the plant class.
+CCTO is not only a balance mod. It can also be used as a framework for assigning explicit cold-death temperatures and cold dormancy behavior to plants added by other mods, without replacing the plant class.
 
 Example fixed cold-death threshold:
 
@@ -96,6 +98,10 @@ Useful feedback includes:
 - whether the Info Card and plant-menu temperature information is sufficiently clear.
 
 A possible future deterministic per-plant range mode is documented, but is **not** part of the current Beta.
+
+## AI-assisted development
+
+This mod was developed with AI assistance, primarily for code implementation, documentation, research, and test development. Design decisions, balance decisions, and final testing/review are performed by the author.
 
 ## Verification
 
