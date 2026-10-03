@@ -108,12 +108,33 @@ $mo = @{
   DankPyon_GreatWillow         = Spec 5  $null $true
 }
 
+# These wild alchemy defs inherit from named cultivated defs in MO 1.6.
+# Their CCTO extension must therefore be inherited, not appended directly.
+$moInheritedExtensions = @{
+  DankPyon_Plant_MindwortWild  = "DankPyon_Plant_Mindwort"
+  DankPyon_Plant_PoppyWild     = "DankPyon_Plant_Poppy"
+  DankPyon_Plant_FleawortWild  = "DankPyon_Plant_Fleawort"
+  DankPyon_Plant_FlyAgaricWild = "DankPyon_Plant_FlyAgaric"
+}
+
+$moExpectedParentNames = @{
+  DankPyon_Plant_MindwortWild  = "DankPyon_MindwortBase"
+  DankPyon_Plant_PoppyWild     = "DankPyon_PoppyBase"
+  DankPyon_Plant_FleawortWild  = "DankPyon_FleawortBase"
+  DankPyon_Plant_FlyAgaricWild = "DankPyon_FlyAgaricBase"
+}
+
 function DefFromXPath([string]$Text) {
   if ($Text -match 'defName="([^"]+)"') { return $Matches[1] }
   return $null
 }
 
-function ValidatePatch([string]$Path, [hashtable]$Expected, [string]$Label) {
+function ValidatePatch(
+  [string]$Path,
+  [hashtable]$Expected,
+  [string]$Label,
+  [hashtable]$InheritedExtensions = @{}
+) {
   [xml]$xml = LoadXml $Path
   $extensions = @{}
   $mins = @{}
@@ -121,7 +142,7 @@ function ValidatePatch([string]$Path, [hashtable]$Expected, [string]$Label) {
   foreach ($node in @($xml.SelectNodes("//*[@Class='PatchOperationAddModExtension']"))) {
     $defName = DefFromXPath ([string]$node.xpath)
     if (-not $defName) { continue }
-    if ($extensions.ContainsKey($defName)) { Fail "$Label duplicate extension: $defName" }
+    if ($extensions.ContainsKey($defName)) { Fail "$Label duplicate direct extension: $defName" }
 
     $ext = $node.value.li
     $death = $null
@@ -146,16 +167,29 @@ function ValidatePatch([string]$Path, [hashtable]$Expected, [string]$Label) {
     $mins[$defName] = $matchValue
   }
 
-  if ($extensions.Count -ne $Expected.Count) {
-    Fail "$Label extension count $($extensions.Count), expected $($Expected.Count)"
+  $expectedDirectExtensionCount = $Expected.Count - $InheritedExtensions.Count
+  if ($extensions.Count -ne $expectedDirectExtensionCount) {
+    Fail "$Label direct extension count $($extensions.Count), expected $expectedDirectExtensionCount"
   }
 
   foreach ($defName in $Expected.Keys) {
-    if (-not $extensions.ContainsKey($defName)) { Fail "$Label missing extension: $defName" }
     if (-not $mins.ContainsKey($defName)) { Fail "$Label missing minGrowthTemperature: $defName" }
 
     $want = $Expected[$defName]
-    $got = $extensions[$defName]
+    $extensionSource = $defName
+
+    if ($InheritedExtensions.ContainsKey($defName)) {
+      if ($extensions.ContainsKey($defName)) {
+        Fail "$Label inherited target must not append a second extension: $defName"
+      }
+      $extensionSource = [string]$InheritedExtensions[$defName]
+    }
+
+    if (-not $extensions.ContainsKey($extensionSource)) {
+      Fail "$Label missing extension source for $defName (source: $extensionSource)"
+    }
+
+    $got = $extensions[$extensionSource]
 
     if ([double]$mins[$defName] -ne [double]$want.Min) {
       Fail "$Label wrong minGrowthTemperature for $defName"
@@ -178,7 +212,7 @@ function ValidatePatch([string]$Path, [hashtable]$Expected, [string]$Label) {
 }
 
 ValidatePatch (Join-Path $RepoRoot "Patches/Vanilla_ColdTolerance.xml") $vanilla "Vanilla"
-ValidatePatch (Join-Path $RepoRoot "Patches/MedievalOverhaul_ColdTolerance.xml") $mo "Medieval Overhaul"
+ValidatePatch (Join-Path $RepoRoot "Patches/MedievalOverhaul_ColdTolerance.xml") $mo "Medieval Overhaul" $moInheritedExtensions
 
 [xml]$about = LoadXml (Join-Path $RepoRoot "About/About.xml")
 $loadAfter = @($about.ModMetaData.loadAfter.li | ForEach-Object { [string]$_ })
@@ -207,8 +241,16 @@ if ($MedievalOverhaulRoot) {
     if ($null -eq $sourceDef.plant) {
       Fail "MO source target has no local <plant> node required by CCTO XPath: $defName"
     }
+
+    if ($moExpectedParentNames.ContainsKey($defName)) {
+      $actualParent = [string]$sourceDef.ParentName
+      $expectedParent = [string]$moExpectedParentNames[$defName]
+      if ($actualParent -ne $expectedParent) {
+        Fail "MO source ParentName mismatch for $defName: expected $expectedParent, got $actualParent"
+      }
+    }
   }
-  Ok "All $($mo.Count) MO target DefNames and local plant nodes exist in supplied MO 1.6 source"
+  Ok "All $($mo.Count) MO target DefNames, local plant nodes, and wild-alchemy inheritance links match supplied MO 1.6 source"
 }
 
 Write-Host ""
