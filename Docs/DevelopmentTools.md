@@ -18,8 +18,8 @@ CCTO development is intentionally split into two workstreams.
 
 Owns:
 
-- crop-specific `minGrowthTemperature` values;
-- crop-specific fixed `coldDeathTemperature` values;
+- plant-specific `minGrowthTemperature` values;
+- plant-specific fixed `coldDeathTemperature` values;
 - Vanilla / Medieval Overhaul balance XML;
 - AMJ overrides and balance decisions.
 
@@ -128,7 +128,7 @@ The underlying E2E runner:
 - runs framework regression scenarios and live cold-behavior scenarios;
 - clears the previous isolated save-data and Pickle report directories before every run, preventing a startup failure from being mistaken for a stale earlier PASS;
 - writes fresh reports to `TestResults\Pickle`;
-- in full balance mode, parses the fresh `summary.json` and requires exactly 13 clean passes plus explicit presence of both loaded-balance scenarios;
+- in full balance mode, parses the fresh `summary.json` and requires exactly 14 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-sowable-plant coverage scenario;
 - exits with Pickle's pass/fail/error result, or an integration-summary error if the expected balance scenarios were not actually run;
 - is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
@@ -148,8 +148,9 @@ The normal gameplay preset is therefore left untouched, and unrelated mods do no
 
 Loaded balance-Def scenarios in the full integration gate check:
 
-- all 12 targeted Vanilla plant Defs have the final expected `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature or dormancy flag;
+- all 30 targeted Core player-sowable plant Defs have the final expected `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature or dormancy flag;
 - all 21 targeted Medieval Overhaul fixture Defs have the same final loaded-value checks after CCTO's real `PatchOperationFindMod`/XPath patch runs;
+- a coverage scenario scans loaded player-plantable Defs (normal sowing plus TreeSowing-gated forestry) and fails if a sowable plant lacks CCTO balance or falls outside the curated Core/MO target set;
 - Medieval Overhaul's installed 1.6 source XML contains every targeted DefName **and** a local `<plant>` node before the runtime suite starts.
 
 Framework regression scenarios check:
@@ -213,6 +214,7 @@ Then launch RimWorld normally, without `-savedatafolder`, and perform this repre
 |---|---|
 | Vanilla rice | minimum growth temperature 10 C; `枯死温度` -1 C; no `低温反応: 休眠` |
 | Vanilla hops | minimum growth temperature 5 C; `休眠温度` 5 C; no `枯死温度` |
+| Vanilla bamboo | minimum growth temperature 10 C; `枯死温度` -18 C; no `休眠温度` |
 | MO wheat | minimum growth temperature 0 C; `枯死温度` -6 C; no `休眠温度` |
 | MO apple tree | minimum growth temperature 5 C; `休眠温度` 5 C; no `枯死温度` |
 
@@ -221,14 +223,14 @@ The exact spacing/unit formatting around Celsius is RimWorld-native and is not a
 Pass criteria:
 
 1. normal startup completes with the real gameplay mod profile and no new CCTO-origin error;
-2. the four representative cards show the expected data above;
+2. the five representative cards show the expected data above;
 3. `枯死温度` and `休眠温度` are readable and visually grouped sensibly with RimWorld's native plant temperature entries;
 4. no duplicate CCTO temperature rows appear;
 5. opening/closing the Info Card and returning to play causes no visible error or UI breakage.
 
 Things Explorer/XML Patch Helper are optional diagnostics only if a discrepancy is found; exact underlying Vanilla/MO values are already asserted by the automated loaded-`DefDatabase` gate.
 
-The normal-game smoke/visual check and the Nice Plants Menu compatibility smoke have passed for the integrated implementation.
+The normal-game smoke/visual check and the Nice Plants Menu compatibility smoke passed for the published 0.1 Beta baseline. After the 30-Core-plant expansion, rerun the full gate and normal-profile smoke before publishing the updated balance.
 
 ### Nice Plants Menu compatibility smoke
 
