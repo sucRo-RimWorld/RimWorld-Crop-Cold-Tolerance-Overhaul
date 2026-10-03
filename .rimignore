@@ -1,0 +1,43 @@
+# CCTO Steam Workshop upload filter
+# Used by YADA (Yet Another Dev Assistant).
+# Runtime content intentionally kept: About/, Assemblies/, Languages/, Patches/, LICENSE.
+
+# Version control / editor metadata
+.git
+.gitattributes
+.github
+.gitignore
+.rimignore
+.idea
+.vs
+.vscode
+.DS_Store
+Thumbs.db
+
+# Repository-only documentation and agent instructions
+AGENTS.md
+README.md
+Docs
+
+# Source, tests, tooling, and reports
+Source
+Tests
+Scripts
+TestResults
+*.bat
+
+# Local-only test patch
+Patches/_LocalTest.xml
+
+# Build/debug leftovers
+bin
+obj
+*.bak
+*.cache
+*.lnk
+*.pdb
+*.swp
+*.tmp
+*.user
+*.csproj.user
+project.assets.json
