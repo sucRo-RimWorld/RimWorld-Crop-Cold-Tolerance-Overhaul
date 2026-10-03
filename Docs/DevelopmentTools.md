@@ -80,33 +80,36 @@ Build/run with:
 
 `run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
 
-The full gate requires Medieval Overhaul plus its declared required dependencies to be installed in the same Steam library:
+The full gate requires the installed Medieval Overhaul source tree (Workshop 3219596926) so the validator can check the real 1.6 plant DefNames and XML structure.
 
-- Medieval Overhaul — Workshop 3219596926;
-- Vanilla Expanded Framework — Workshop 2023507013;
-- [SYR] Processor Framework — Workshop 3210544395.
+It intentionally does **not** activate Medieval Overhaul's runtime assemblies in the isolated Pickle profile. MO's own Harmony startup is outside CCTO's responsibility and can fail under an artificially stripped mod set even when the Def XML CCTO patches is valid. Instead, the gate stages a developer-only mod named `Medieval Overhaul` containing lightweight versions of the 21 target plant Defs. RimWorld's `PatchOperationFindMod` matches active mods by display name, so CCTO's real MO patch file executes against these fixture Defs.
 
-`run-e2e.bat` remains usable by itself for framework-only testing without Medieval Overhaul. `run-tests.bat` invokes its `with-mo` mode for the complete integration gate.
+This is paired with static checks against the installed real MO 1.6 source: every target DefName must exist and must contain the local `<plant>` node required by CCTO's XPath. Thus the runtime fixture tests CCTO patch application while the static validator protects against drift in the actual MO source structure.
+
+`run-e2e.bat` remains usable by itself for framework-only testing. `run-tests.bat` invokes its `with-mo-fixture` mode for the complete balance integration gate.
 
 The underlying E2E runner:
 
 - builds the shipping CCTO DLL;
-- creates a separate local developer mod at
+- creates a separate local developer test mod at
   `D:\SteamLibrary\steamapps\common\RimWorld\Mods\CropColdToleranceOverhaul.E2E`;
+- creates a second developer-only MO Def fixture at
+  `D:\SteamLibrary\steamapps\common\RimWorld\Mods\CropColdToleranceOverhaul.MOFixture`;
 - compiles CCTO-specific Quickstarts and Pickle step assemblies;
 - copies all CCTO `.feature` files;
 - prepares an isolated RimWorld save-data profile under `TestResults\SaveData`;
 - copies the normal `Prefs.xml` into that isolated profile and forces only `devMode=True`, because Quickstarts does nothing when RimWorld dev mode is off;
-- gives that profile a minimal test-only mod list; framework-only runs contain Harmony, Core, RimLogging, Pickle, Quickstarts, CCTO, and the CCTO E2E companion mod, while the full integration gate additionally enables Vanilla Expanded Framework, Processor Framework, and Medieval Overhaul;
+- gives that profile a minimal test-only mod list; framework-only runs contain Harmony, Core, RimLogging, Pickle, Quickstarts, CCTO, and the CCTO E2E companion mod, while the full balance gate additionally enables only the lightweight MO Def fixture before CCTO;
 - launches RimWorld with `-savedatafolder` pointing at that isolated profile;
 - runs framework regression scenarios and live cold-behavior scenarios;
-- writes reports to `TestResults\Pickle`;
+- clears the previous isolated save-data and Pickle report directories before every run, preventing a startup failure from being mistaken for a stale earlier PASS;
+- writes fresh reports to `TestResults\Pickle`;
 - exits with Pickle's pass/fail/error exit code;
 - is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
 The user's normal RimWorld `ModsConfig.xml` is read only to reuse the current RimWorld version/known-expansion metadata. It is not rewritten. This prevents unrelated gameplay mods and their log errors from causing false Pickle failures.
 
-The generated E2E mod is development-only and must not be included in the Workshop release. Remove it with:
+Both generated test mods are development-only and must not be included in the Workshop release. Remove them with:
 
 `clean-e2e.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
 
@@ -121,8 +124,8 @@ The normal gameplay preset is therefore left untouched, and unrelated mods do no
 Loaded balance-Def scenarios in the full integration gate check:
 
 - all 12 targeted Vanilla plant Defs have the final expected `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature or dormancy flag;
-- all 21 targeted Medieval Overhaul plant Defs have the same final loaded-value checks;
-- Medieval Overhaul's installed 1.6 source XML contains every targeted DefName before the runtime suite starts.
+- all 21 targeted Medieval Overhaul fixture Defs have the same final loaded-value checks after CCTO's real `PatchOperationFindMod`/XPath patch runs;
+- Medieval Overhaul's installed 1.6 source XML contains every targeted DefName **and** a local `<plant>` node before the runtime suite starts.
 
 Framework regression scenarios check:
 
