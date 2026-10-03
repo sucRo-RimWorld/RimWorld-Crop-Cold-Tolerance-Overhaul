@@ -136,7 +136,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="PlantBase" Name="DankPyon_MindwortBase">
     <defName>DankPyon_Plant_Mindwort</defName>
     <label>CCTO MO fixture DankPyon_Plant_Mindwort</label>
     <plant>
@@ -144,7 +144,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="PlantBase" Name="DankPyon_PoppyBase">
     <defName>DankPyon_Plant_Poppy</defName>
     <label>CCTO MO fixture DankPyon_Plant_Poppy</label>
     <plant>
@@ -152,7 +152,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="PlantBase" Name="DankPyon_FleawortBase">
     <defName>DankPyon_Plant_Fleawort</defName>
     <label>CCTO MO fixture DankPyon_Plant_Fleawort</label>
     <plant>
@@ -160,7 +160,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="PlantBase" Name="DankPyon_FlyAgaricBase">
     <defName>DankPyon_Plant_FlyAgaric</defName>
     <label>CCTO MO fixture DankPyon_Plant_FlyAgaric</label>
     <plant>
@@ -168,7 +168,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="DankPyon_MindwortBase">
     <defName>DankPyon_Plant_MindwortWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_MindwortWild</label>
     <plant>
@@ -176,7 +176,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="DankPyon_PoppyBase">
     <defName>DankPyon_Plant_PoppyWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_PoppyWild</label>
     <plant>
@@ -184,7 +184,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="DankPyon_FleawortBase">
     <defName>DankPyon_Plant_FleawortWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_FleawortWild</label>
     <plant>
@@ -192,7 +192,7 @@
     </plant>
   </ThingDef>
 
-  <ThingDef ParentName="PlantBase">
+  <ThingDef ParentName="DankPyon_FlyAgaricBase">
     <defName>DankPyon_Plant_FlyAgaricWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_FlyAgaricWild</label>
     <plant>
