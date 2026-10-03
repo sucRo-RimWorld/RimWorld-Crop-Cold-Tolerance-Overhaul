@@ -128,18 +128,19 @@ RimWorld's native entries are:
 
 CCTO currently adds:
 
-- **cold response** for dormancy — priority 4151;
+- **dormancy temperature** for dormancy crops — priority 4151;
 - **cold-death temperature** when configured — priority 4150.
 
-A plant configured with both dormancy and extreme-cold death displays both entries.
+The dormancy temperature is not an independent third balance value. It is displayed directly from the plant's native `minGrowthTemperature`, because CCTO enters dormancy below that same threshold.
+
+A plant configured with both dormancy and extreme-cold death displays both temperatures.
 
 Current Japanese labels are:
 
+- `休眠温度`
 - `枯死温度`
-- `低温反応`
-- `休眠`
 
-The display is already implemented and covered by framework tests. Final visual ordering and wording should still be checked in-game before release.
+The previous `低温反応: 休眠` display was replaced because it did not tell the player at what temperature dormancy begins. The display is covered by framework tests and must be rechecked visually in-game before release.
 
 ## 6. Balance XML integration
 
