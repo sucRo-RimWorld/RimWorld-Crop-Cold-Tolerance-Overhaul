@@ -23,15 +23,16 @@ catch {
 
 $required = @(
   "Loaded Vanilla sowable plant Defs match the CCTO balance table",
-  "Loaded Medieval Overhaul crop Defs match the CCTO balance table"
+  "Loaded Medieval Overhaul crop Defs match the CCTO balance table",
+  "All loaded sowable plant Defs are covered by CCTO balance"
 )
 
-if ([int]$summary.total -ne 13) {
-  Fail "Integration suite scenario count is $($summary.total), expected 13."
+if ([int]$summary.total -ne 14) {
+  Fail "Integration suite scenario count is $($summary.total), expected 14."
 }
 
-if ([int]$summary.passed -ne 13 -or [int]$summary.failed -ne 0 -or [int]$summary.skipped -ne 0) {
-  Fail "Integration suite is not a clean 13/13 pass. passed=$($summary.passed), failed=$($summary.failed), skipped=$($summary.skipped)"
+if ([int]$summary.passed -ne 14 -or [int]$summary.failed -ne 0 -or [int]$summary.skipped -ne 0) {
+  Fail "Integration suite is not a clean 14/14 pass. passed=$($summary.passed), failed=$($summary.failed), skipped=$($summary.skipped)"
 }
 
 $names = @($summary.scenarios | ForEach-Object { [string]$_.name })
@@ -41,5 +42,5 @@ foreach ($scenario in $required) {
   }
 }
 
-Write-Host "[OK] Fresh Pickle integration summary contains all 13 required passing scenarios." -ForegroundColor Green
+Write-Host "[OK] Fresh Pickle integration summary contains all 14 required passing scenarios." -ForegroundColor Green
 exit 0
