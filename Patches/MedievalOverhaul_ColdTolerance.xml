@@ -569,13 +569,6 @@
             </value>
           </nomatch>
         </li>
-
-        <li Class="PatchOperationAddModExtension">
-          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_MindwortWild"]</xpath>
-          <value>
-            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-3</coldDeathTemperature>
-            </li>
           </value>
         </li>
 
@@ -595,13 +588,6 @@
             </value>
           </nomatch>
         </li>
-
-        <li Class="PatchOperationAddModExtension">
-          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_PoppyWild"]</xpath>
-          <value>
-            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-5</coldDeathTemperature>
-            </li>
           </value>
         </li>
 
@@ -621,13 +607,6 @@
             </value>
           </nomatch>
         </li>
-
-        <li Class="PatchOperationAddModExtension">
-          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FleawortWild"]</xpath>
-          <value>
-            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-6</coldDeathTemperature>
-            </li>
           </value>
         </li>
 
@@ -647,13 +626,6 @@
             </value>
           </nomatch>
         </li>
-
-        <li Class="PatchOperationAddModExtension">
-          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FlyAgaricWild"]</xpath>
-          <value>
-            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDormancy>true</coldDormancy>
-            </li>
           </value>
         </li>
 
