@@ -73,6 +73,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-RimWorldW
 
 set "RESULT=%ERRORLEVEL%"
 
+if "%RESULT%"=="0" if /I "%TEST_MODE%"=="with-mo-fixture" (
+    echo.
+    echo Verifying fresh full-integration Pickle summary...
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Validate-PickleIntegrationSummary.ps1" ^
+        -SummaryPath "%REPORT_DIR%\summary.json"
+    if errorlevel 1 set "RESULT=2"
+)
+
 echo.
 if "%RESULT%"=="0" (
     echo [OK] Pickle E2E suite passed.
