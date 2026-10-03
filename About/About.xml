@@ -25,5 +25,5 @@ Separates crop minimum-growth temperature from cold-death behavior. Supported cr
 
 Includes Vanilla balance and optional Medieval Overhaul 1.6 balance. Nice Plants Menu compatibility is applied when that mod is present; Dubs Mint Menus works through the standard Info Card path.
 
-CCTO can also be used as a lightweight XML-facing framework by other mods without replacing the plant class.</description>
+CCTO also serves as a lightweight XML-facing framework: other mods can assign explicit cold-death temperatures and cold dormancy to their own plants without replacing the plant class.</description>
 </ModMetaData>
