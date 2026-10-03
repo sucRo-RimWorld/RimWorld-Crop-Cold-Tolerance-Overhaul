@@ -26,12 +26,16 @@ namespace CropColdToleranceOverhaul.Patches
                 return;
             }
 
-            __result = AppendCctoStats(__result, extension);
+            __result = AppendCctoStats(
+                __result,
+                extension,
+                __instance.plant.minGrowthTemperature);
         }
 
         private static IEnumerable<StatDrawEntry> AppendCctoStats(
             IEnumerable<StatDrawEntry> original,
-            ColdToleranceExtension extension)
+            ColdToleranceExtension extension,
+            float dormancyTemperature)
         {
             foreach (StatDrawEntry entry in original)
             {
@@ -42,9 +46,9 @@ namespace CropColdToleranceOverhaul.Patches
             {
                 yield return new StatDrawEntry(
                     StatCategoryDefOf.Basics,
-                    "CCTO_ColdResponse".Translate(),
-                    "CCTO_ColdDormancy".Translate(),
-                    "CCTO_ColdResponse_Desc".Translate(),
+                    "CCTO_DormancyTemperature".Translate(),
+                    dormancyTemperature.ToStringTemperature(),
+                    "CCTO_DormancyTemperature_Desc".Translate(),
                     4151);
             }
 
