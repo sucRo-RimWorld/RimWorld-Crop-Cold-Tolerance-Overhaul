@@ -327,6 +327,10 @@ Fixes on `balance-xml`:
 - `build.bat` now verifies and references `RimWorldWin64_Data\\Managed\\netstandard.dll`;
 - the SDK project file also declares the same RimWorld `netstandard.dll` reference for consistency.
 
+**Second post-implementation gate attempt:** the added `netstandard.dll` reference resolved the previous UnityEngine type-reference errors. Compilation then reached the compatibility source and failed only on `nameof(DrawInfoBlockPostfix)`, because the shipping build intentionally uses Windows' legacy .NET Framework `csc.exe`, which does not support the C# 6 `nameof` operator.
+
+The compatibility source was made legacy-compiler-safe by replacing the `nameof` expression with the literal method name. Fix on `balance-xml`: `ede65a8b15334f6f5423af2d9da9a1ececee6dff`.
+
 **Remaining verification:** rerun the integrated automated gate, then verify the four representative crops in the actual Nice Plants Menu panel. CODE-007 remains IN PROGRESS until that manual UI check passes.
 
 ## Completed handoffs
