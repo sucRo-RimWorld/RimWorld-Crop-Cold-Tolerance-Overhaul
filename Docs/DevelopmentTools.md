@@ -171,11 +171,40 @@ Its current coverage overlaps the framework portion of the Pickle gate: extensio
 
 ### Final pre-beta checks
 
-After the full automated gate passes:
+After the full automated gate passes, prepare the normal-game smoke environment with:
 
-1. optionally spot-check representative Defs with Things Explorer/XML Patch Helper if investigating UI/load-order concerns; exact Vanilla/MO balance values are already asserted from the loaded `DefDatabase` by the integration gate;
-2. run a normal-game smoke test with development-only helpers disabled;
-3. keep the relevant PR Draft until its required local automated gate has actually passed.
+`prepare-smoke.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+The script:
+
+- removes generated CCTO E2E/MO-fixture and RimTest companion mods;
+- rebuilds the shipping CCTO DLL;
+- reads, but does not rewrite, the normal RimWorld `ModsConfig.xml`;
+- requires Harmony, Core, Medieval Overhaul, and CCTO to be active;
+- requires CCTO E2E/MO-fixture/RimTest, Pickle, Quickstarts, and RimTest Redux to be inactive.
+
+Then launch RimWorld normally, without `-savedatafolder`, and perform this representative smoke/visual check:
+
+| Case | Expected Info Card |
+|---|---|
+| Vanilla rice | minimum growth temperature 10 C; `枯死温度` -1 C; no `低温反応: 休眠` |
+| Vanilla hops | minimum growth temperature 5 C; `低温反応: 休眠`; no `枯死温度` |
+| MO wheat | minimum growth temperature 0 C; `枯死温度` -6 C; no `低温反応: 休眠` |
+| MO apple tree | minimum growth temperature 5 C; `低温反応: 休眠`; no `枯死温度` |
+
+The exact spacing/unit formatting around Celsius is RimWorld-native and is not a CCTO wording requirement.
+
+Pass criteria:
+
+1. normal startup completes with the real gameplay mod profile and no new CCTO-origin error;
+2. the four representative cards show the expected data above;
+3. `枯死温度` and `低温反応 / 休眠` are readable and visually grouped sensibly with RimWorld's native plant temperature entries;
+4. no duplicate CCTO temperature rows appear;
+5. opening/closing the Info Card and returning to play causes no visible error or UI breakage.
+
+Things Explorer/XML Patch Helper are optional diagnostics only if a discrepancy is found; exact underlying Vanilla/MO values are already asserted by the automated loaded-`DefDatabase` gate.
+
+Keep the relevant PR Draft until this normal-game smoke/visual check is complete.
 
 ## 5. Framework behavior that tests must protect
 
