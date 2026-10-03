@@ -22,9 +22,9 @@ catch {
 }
 
 $required = @(
-  "Loaded Vanilla sowable plant Defs match the CCTO balance table",
-  "Loaded Medieval Overhaul crop Defs match the CCTO balance table",
-  "All loaded sowable plant Defs are covered by CCTO balance"
+  "Loaded Core living plant Defs match the CCTO balance table",
+  "Loaded Medieval Overhaul plant Defs match the CCTO balance table",
+  "All loaded supported living plant Defs are covered by CCTO balance"
 )
 
 if ([int]$summary.total -ne 14) {
