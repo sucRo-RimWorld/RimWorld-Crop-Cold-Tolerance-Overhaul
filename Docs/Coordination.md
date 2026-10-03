@@ -477,11 +477,12 @@ Release/presentation maintenance update (2026-10-03):
 - English Workshop presentation and paste-ready description were synchronized to **0.1.1 Beta / 14/14**; no stale 13/13 or 0.1 Beta wording remains in those two maintained English files. Current paste-ready English description size: 6,389 bytes.
 
 UI consistency update (2026-10-03):
-- Investigation confirmed RimWorld sorts equal-priority Info Card rows by localized `LabelCap`. The original CCTO priorities collided with Vanilla rows: dormancy 4151 with sow skill, and cold death 4150 with lifespan/harvest yield, so English/Japanese could display them in different relative positions.
-- Standard Info Card `Cold death temperature` and `Dormancy temperature` now use the same dedicated priority 4149, below Vanilla's 4150 plant rows, avoiding language-dependent tie ordering.
-- This guarantees the two CCTO thresholds use the same stable sort slot; absolute row number can still differ between plants because Vanilla shows different optional plant stats.
-- Nice Plants Menu was already inserting either threshold in the same position after growth temperature; no compatibility change was needed there.
-- RimTest regression now locks both CCTO entries to priority 4149.
-- Superseded intermediate commits: `e24af7ea7e3ad9a50f6384b9978161def5b66751`, `cad86c5a55a8c4de2ca04999fb3b2b76f1ee3790`.
-- Final ordering commits: `97af3d4187271ed7dc8ee9ede8f901cedbb2923f`, `d4642c1cc4163d9730cb336113d04fb0441712f1`.
+- Follow-up visual comparison showed the differing row positions are caused by plant-specific Vanilla stats (wild/cultivated plants expose different optional rows), not by English/Japanese localization.
+- Vanilla plant priorities relevant here: max growth 4153, min growth 4152, sow skill 4151, lifespan/harvest yield 4150.
+- Original CCTO used dormancy 4151 and cold death 4150, so cold-death rows could fall below harvest yield/lifespan while dormancy stayed directly below the growth-temperature rows.
+- Final fix: both CCTO cold-threshold entries use priority 4151. This keeps both in the same slot immediately below minimum growth temperature and above lifespan/harvest-yield rows. Sowable plants may also show sow skill in the same priority tier.
+- Nice Plants Menu already inserts either threshold in the same place after growth temperature; no compatibility change was needed there.
+- RimTest regression locks both CCTO entries to priority 4151.
+- Superseded intermediate ordering commits: `e24af7ea7e3ad9a50f6384b9978161def5b66751`, `cad86c5a55a8c4de2ca04999fb3b2b76f1ee3790`, `97af3d4187271ed7dc8ee9ede8f901cedbb2923f`, `d4642c1cc4163d9730cb336113d04fb0441712f1`.
+- Final ordering commits: `7d309d5a475254162112e16186675e82ae47abdc`, `a6244249a17d441f1b0913ba948aca3cefedfb9c`.
 - Full local gate and normal-profile visual recheck are pending after this UI-only code change.
