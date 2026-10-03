@@ -29,7 +29,7 @@ echo.
 echo Launch RimWorld normally. Do not use the isolated E2E save-data profile.
 echo Check the startup log for new CCTO errors, then inspect:
 echo   Vanilla rice  - minimum growth 10 C, cold death -1 C
-echo   Vanilla hops  - minimum growth 5 C, low-temperature response: dormancy
+echo   Vanilla hops  - minimum growth 5 C, dormancy temperature 5 C
 echo   MO wheat      - minimum growth 0 C, cold death -6 C
-echo   MO apple tree - minimum growth 5 C, low-temperature response: dormancy
+echo   MO apple tree - minimum growth 5 C, dormancy temperature 5 C
 exit /b 0
