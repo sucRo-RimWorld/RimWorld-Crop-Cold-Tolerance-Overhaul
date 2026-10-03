@@ -23,6 +23,8 @@
 
 Rebalances crop cold tolerance by separating minimum-growth temperature from cold-death behavior. Supported crops receive explicit minimum-growth values plus either a fixed cold-death temperature or cold dormancy below their minimum growth temperature, with the relevant temperature shown in the plant Info Card.
 
+The current balance is generally more demanding than the original Vanilla / Medieval Overhaul settings, making cold-season farming and temperature management more important. Selected overwintering crops are exceptions and gain cold dormancy instead of simply becoming more fragile.
+
 Includes Vanilla balance and optional Medieval Overhaul 1.6 balance. Nice Plants Menu compatibility is applied when that mod is present; Dubs Mint Menus works through the standard Info Card path.
 
 CCTO also serves as a lightweight XML-facing framework: other mods can assign explicit cold-death temperatures and cold dormancy to their own plants without replacing the plant class.</description>
