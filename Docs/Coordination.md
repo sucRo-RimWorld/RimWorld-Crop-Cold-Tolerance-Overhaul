@@ -214,7 +214,7 @@ PR #2 has been retargeted to `main` and renamed **Integrate CCTO framework and c
 
 **Requested by:** Code/framework  
 **Owner:** Code/framework  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 The automated framework + balance gate is green at 13/13. The remaining pre-beta check is intentionally performed against the user's real normal mod profile rather than the isolated Pickle profile.
 
@@ -260,7 +260,15 @@ The visual part of CODE-006 must be rerun after rebuilding because the displayed
 
 A separate compact plant-information panel from another mod does not surface CCTO's `SpecialDisplayStats` rows and also showed unrelated garbled text. This is not a failure of the standard RimWorld Info Card path and is outside the current CCTO release gate.
 
-**Remaining check:** confirm the normal startup/runtime log contains no new CCTO-origin error.
+**Final result:** PASS.
+
+After rebuilding the current dormancy-temperature implementation, the normal-game smoke/visual recheck completed without issue. The user confirmed:
+
+- `休眠温度` displays correctly for dormancy crops;
+- the normal startup/runtime smoke showed no new CCTO-origin problem;
+- the representative standard Info Cards remained correct and readable.
+
+CODE-006 is complete.
 
 Durable checklist: `Docs/DevelopmentTools.md` on `balance-xml`.
 
@@ -269,17 +277,24 @@ Durable checklist: `Docs/DevelopmentTools.md` on `balance-xml`.
 
 **Requested by:** normal-game smoke finding  
 **Owner:** Code/framework  
-**Status:** OPEN
+**Status:** IN PROGRESS
 
-The third-party crop-selection panel seen during CODE-006 is **Nice Plants Menu** (Steam Workshop 3685058533, packageId `Andromeda.NicePlantsMenu`).
+The priority alternate plant-selection UI set was checked against both target mods.
 
-CCTO's standard RimWorld Info Card path is working correctly, but Nice Plants Menu builds its own plant-summary UI and does not automatically surface CCTO's `ThingDef.SpecialDisplayStats` entries. As a result, `枯死温度` / `低温反応: 休眠` are absent from that custom panel even though they appear correctly in the standard Info Card.
+**Dubs Mint Menus** (Steam Workshop 1446523594, packageId `Dubwise.DubsMintMenus`) requires no dedicated CCTO patch. Its plant-selection UI shows RimWorld's standard Info Card on mouse-over, and the user confirmed CCTO's current `枯死温度` / `休眠温度` rows are already visible there. Native `SpecialDisplayStats` reuse is therefore the supported path.
 
-Treat this as an optional third-party compatibility task rather than a failure of the CCTO core display path. Compatibility should remain soft/conditional; Nice Plants Menu must not become a hard dependency.
+**Nice Plants Menu** (Steam Workshop 3685058533, packageId `Andromeda.NicePlantsMenu`) still needs a dedicated soft/conditional compatibility path because its compact plant-summary panel is built independently and does not surface CCTO's `ThingDef.SpecialDisplayStats` rows.
 
-The accented English seen in the panel during smoke testing is RimWorld's dev-mode pseudo-localization for untranslated strings, not a CCTO encoding fault.
+Compatibility requirements:
 
-Next implementation step, if compatibility is taken up: inspect `NicePlantsMenu.dll` and patch its plant-detail row construction conditionally when packageId `Andromeda.NicePlantsMenu` is active.
+- Nice Plants Menu must remain optional; no hard dependency;
+- show CCTO `枯死温度` for fixed-death crops;
+- show explicit `休眠温度` using the plant's native `minGrowthTemperature` for dormancy crops;
+- if both dormancy and an extreme-cold death threshold are configured, show both;
+- unsupported/unconfigured plants remain unchanged;
+- Dubs Mint Menus gets no redundant compatibility code.
+
+Next implementation step: inspect the uploaded `NicePlantsMenu.dll` and patch its plant-summary construction conditionally when `Andromeda.NicePlantsMenu` is active.
 
 ## Completed handoffs
 
