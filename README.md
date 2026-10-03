@@ -51,6 +51,11 @@ The current Beta includes balance data for:
 
 Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs rather than making CCTO depend on AMJ.
 
+## Supported languages
+
+- English
+- Japanese
+
 
 ## Current rebalance values
 
