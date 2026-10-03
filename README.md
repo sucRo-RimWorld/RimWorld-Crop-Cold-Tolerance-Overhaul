@@ -2,21 +2,21 @@
 
 **RimWorld 1.6 — Beta**
 
-Crop Cold Tolerance Overhaul (CCTO) separates a crop's **minimum growth temperature** from its **cold-death behavior**, and adds a non-lethal **cold dormancy** response for selected crops: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
+Crop Cold Tolerance Overhaul (CCTO) separates a plant's **minimum growth temperature** from its **cold-death behavior**, and adds a non-lethal **cold dormancy** response where appropriate: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
 
 CCTO also functions as a lightweight cold-tolerance framework: other mods can define explicit **cold-death temperatures** and cold dormancy for their own plants through XML without replacing the plant class.
 
-Vanilla RimWorld derives cold death from the growth minimum with deterministic per-plant variation. CCTO instead gives supported crops a clear species-level cold response:
+Vanilla RimWorld derives cold death from the growth minimum with deterministic per-plant variation. CCTO instead gives supported player-sowable plants a clear species-level cold response:
 
-- ordinary crops use one fixed cold-death temperature;
-- selected perennial/overwintering crops enter cold dormancy below their minimum growth temperature;
+- ordinary plants use one fixed cold-death temperature;
+- selected perennial/overwintering plants enter cold dormancy below their minimum growth temperature;
 - the Info Card displays the relevant `枯死温度 / Cold death temperature` or `休眠温度 / Dormancy temperature` explicitly.
 
 ## Scope
 
-CCTO **rebalances cold-tolerance-related values only**: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate.
+CCTO **rebalances cold-tolerance-related values only** for supported player-sowable plants: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate. The scope includes field crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and other plants exposed through sowing UI. Wild-only plants that the player cannot sow are not part of the default balance set.
 
-The current balance is **generally more demanding than the original Vanilla / Medieval Overhaul settings**. Most supported crops stop growing at warmer temperatures, and many ordinary crops receive fixed death thresholds that are much warmer than the original generic cold-death range. In practice, this makes cold-season farming harder and makes crop choice, seasonal timing, and temperature control more important.
+The current balance is **generally more demanding than the original Vanilla / Medieval Overhaul settings**. Most supported plants stop growing at warmer temperatures, and many ordinary plants receive fixed death thresholds that are much warmer than the original generic cold-death range. In practice, this makes cold-season farming and forestry more demanding and makes plant choice, seasonal timing, and temperature control more important.
 
 This is not a universal nerf to every plant: selected perennial or overwintering crops gain cold dormancy and can survive ordinary winter cold instead of dying.
 
@@ -42,12 +42,14 @@ CCTO was originally designed as part of **Ancient & Medieval Japan (AMJ)**, a la
 
 The cold-tolerance system was split into a standalone mod because the distinction between growth temperature, cold death, and dormancy is useful well beyond AMJ. Keeping it independent also lets other crop and overhaul mods use the same XML-facing cold-tolerance framework without depending on AMJ.
 
-## Supported crop sets
+## Supported plant sets
 
-The current Beta includes balance data for:
+The current balance set covers:
 
-- Vanilla RimWorld crops;
-- Medieval Overhaul 1.6 crops.
+- all 30 player-sowable Core plants in RimWorld 1.6, including crops, decorative plants, forestry trees, and special sowable plants;
+- all 21 Medieval Overhaul 1.6-specific cultivated plant Defs used by CCTO.
+
+Medieval Overhaul's Healroot continues to use the Core `Plant_Healroot` Def, so it is covered by the Core table rather than counted again.
 
 Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs rather than making CCTO depend on AMJ.
 
@@ -65,7 +67,7 @@ Vanilla RimWorld does not store a fixed species-level cold-death temperature. It
 
 `minGrowthTemperature + deterministic random offset from -18°C to -10°C`
 
-If `dieIfLeafless=true`, crossing that threshold kills the plant. If `dieIfLeafless=false`, the plant enters the leafless state but survives. CCTO replaces this generic behavior for supported plants with explicit species-level fixed death temperatures or cold dormancy.
+If `dieIfLeafless=true`, crossing that threshold kills the plant. If `dieIfLeafless=false`, the plant enters the leafless state but survives. CCTO replaces this generic behavior for supported player-sowable plants with explicit species-level fixed death temperatures or cold dormancy.
 
 For CCTO dormancy crops, the CCTO minimum growth temperature is also the dormancy threshold.
 
@@ -85,12 +87,30 @@ For CCTO dormancy crops, the CCTO minimum growth temperature is also the dormanc
 | Smokeleaf | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -4°C |
 | Psychoid | 0°C | 8°C | death at -18 to -10°C, per plant | fixed death at -1°C |
 | Cocoa | 0°C | 12°C | death at -18 to -10°C, per plant | fixed death at 0°C |
+| Bamboo | 0°C | 10°C | generic tree cold behavior | fixed death at -18°C |
+| Birch | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
+| Cecropia | 0°C | 10°C | generic tree cold behavior | fixed death at 0°C |
+| Cypress | 0°C | 5°C | generic tree cold behavior | cold dormancy below 5°C |
+| Dandelion | 0°C | 0°C | generic plant cold behavior | cold dormancy below 0°C |
+| Daylily | 0°C | 0°C | generic plant cold behavior | cold dormancy below 0°C |
+| Drago tree | 0°C | 8°C | generic tree cold behavior | fixed death at 0°C |
+| Maple | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
+| Oak | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
+| Palm | 0°C | 10°C | generic tree cold behavior | fixed death at 0°C |
+| Pine | 0°C | 0°C | generic tree cold behavior | fixed death at -35°C |
+| Poplar | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
+| Rose | 0°C | 5°C | generic plant cold behavior | cold dormancy below 5°C |
+| Saguaro cactus | 0°C | 8°C | generic plant cold behavior | fixed death at -6°C |
+| Teak | 0°C | 12°C | generic deciduous-tree cold behavior | fixed death at 3°C |
+| Timbershroom | 0°C | 0°C | generic plant cold behavior | cold dormancy below 0°C |
+| Tinctoria | 0°C | 5°C | generic plant cold behavior | fixed death at -4°C |
+| Willow | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
 
 ### Medieval Overhaul 1.6
 
 Medieval Overhaul's Healroot uses the Vanilla `Plant_Healroot` Def, so its before/after values are the Healroot row in the Vanilla table above.
 
-The following are the 21 MO-specific plant Defs patched by CCTO:
+The following are the 21 MO-specific cultivated plant Defs patched by CCTO:
 
 | Crop | Original min growth | CCTO min growth | Original cold behavior | CCTO cold behavior |
 |---|---:|---:|---|---|
@@ -124,7 +144,7 @@ Required:
 
 Optional:
 
-- Medieval Overhaul — CCTO applies its MO crop balance only when MO is present;
+- Medieval Overhaul — CCTO applies its MO plant balance only when MO is present;
 - Nice Plants Menu — CCTO adds its cold-death/dormancy rows to the custom plant summary when the mod is present;
 - Dubs Mint Menus — no special patch is needed; its mouse-over standard Info Card already shows CCTO entries.
 
@@ -163,7 +183,7 @@ CCTO's displayed `Cold death temperature` becomes useful because CCTO also chang
 
 ## Beta feedback
 
-The initial Beta intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
+The current balance model intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
 
 Useful feedback includes:
 
@@ -180,12 +200,14 @@ This mod was developed with AI assistance, primarily for code implementation, do
 
 ## Verification
 
-The current integrated build has passed:
+The published 0.1 Beta baseline previously passed:
 
 - the full automated framework + Vanilla/MO integration gate: **13/13**;
 - normal-game Info Card smoke checks;
 - Dubs Mint Menus display verification;
 - Nice Plants Menu compatibility smoke checks.
+
+The subsequent expansion from 12 to 30 Core player-sowable plants changes balance XML and loaded-Def expectations, so the full release gate must be rerun before that expanded balance is treated as verified for publication.
 
 The tested release source of truth is `main`.
 
