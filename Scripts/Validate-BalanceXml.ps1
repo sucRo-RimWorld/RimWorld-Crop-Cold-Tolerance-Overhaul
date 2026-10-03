@@ -246,7 +246,7 @@ if ($MedievalOverhaulRoot) {
       $actualParent = [string]$sourceDef.ParentName
       $expectedParent = [string]$moExpectedParentNames[$defName]
       if ($actualParent -ne $expectedParent) {
-        Fail "MO source ParentName mismatch for $defName: expected $expectedParent, got $actualParent"
+        Fail "MO source ParentName mismatch for ${defName}: expected $expectedParent, got $actualParent"
       }
     }
   }
