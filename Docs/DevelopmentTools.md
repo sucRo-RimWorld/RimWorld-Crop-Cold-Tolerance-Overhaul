@@ -204,7 +204,7 @@ Pass criteria:
 
 Things Explorer/XML Patch Helper are optional diagnostics only if a discrepancy is found; exact underlying Vanilla/MO values are already asserted by the automated loaded-`DefDatabase` gate.
 
-The normal-game smoke/visual check has passed for the current dormancy-temperature implementation. Keep the integration PR Draft while the remaining Nice Plants Menu compatibility work is in progress.
+The normal-game smoke/visual check and the Nice Plants Menu compatibility smoke have passed for the integrated implementation.
 
 ### Nice Plants Menu compatibility smoke
 
@@ -247,11 +247,11 @@ Regression tests should cover at least:
 
 Items involving actual spawned-map temperature, death, dormancy persistence/recovery, and save/runtime interaction remain E2E targets rather than unit-style RimTest targets.
 
-## 6. Current implementation branch
+## 6. Current integrated source
 
-Framework code is developed on `framework-code`. Integrated Vanilla/Medieval Overhaul balance XML and its full integration gate are developed on `balance-xml`.
+The tested release source of truth is now `main`.
 
-The framework and balance PRs remain separate until the integrated balance branch passes the full `run-tests.bat` gate.
+Historical development branches `framework-code` and `balance-xml` produced the framework and integrated balance work, but new release validation should be run against the current `main` state unless a new work branch is intentionally created.
 
 ## 7. Agent/model use for CCTO
 
