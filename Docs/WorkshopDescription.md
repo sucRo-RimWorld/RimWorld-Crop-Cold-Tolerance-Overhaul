@@ -101,6 +101,11 @@ Cold: death at -18°C to -10°C per plant → [b]cold dormancy below 5°C[/b]
 Minimum growth: 0°C → 12°C
 Cold: death at -18°C to -10°C per plant → [b]fixed death at 0°C[/b]
 
+[b]Vanilla — Bamboo[/b]
+Minimum growth: 0°C → 10°C
+Cold: generic tree cold behavior → [b]fixed death at -18°C[/b]
+Bamboo uses a Japanese moso/madake-style baseline rather than a tropical-bamboo baseline.
+
 [b]Medieval Overhaul — Cabbage[/b]
 Minimum growth: -18°C → 0°C
 Cold: death at -36°C to -28°C per plant → [b]fixed death at -6°C[/b]
