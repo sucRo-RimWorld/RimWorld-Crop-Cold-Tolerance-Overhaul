@@ -313,4 +313,473 @@
     </value>
   </Operation>
 
+
+  <!-- Plant_TreeBamboo -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>8</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>8</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>-5</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeBirch -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeBirch"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeBirch"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeBirch"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeBirch"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeCecropia -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeCecropia"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeCecropia"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>10</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeCecropia"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>10</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeCecropia"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>0</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeCypress -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeCypress"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeCypress"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeCypress"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeCypress"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_Dandelion -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_Dandelion"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_Dandelion"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_Dandelion"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_Dandelion"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_Daylily -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_Daylily"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_Daylily"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_Daylily"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_Daylily"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeDrago -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeDrago"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeDrago"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>8</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeDrago"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>8</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeDrago"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>0</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeMaple -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeMaple"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeMaple"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeMaple"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeMaple"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeOak -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeOak"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeOak"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeOak"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeOak"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreePalm -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreePalm"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreePalm"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>10</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreePalm"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>10</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreePalm"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>0</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreePine -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreePine"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreePine"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreePine"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreePine"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>-35</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreePoplar -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreePoplar"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreePoplar"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreePoplar"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreePoplar"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_Rose -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_Rose"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_Rose"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_Rose"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_Rose"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_SaguaroCactus -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_SaguaroCactus"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_SaguaroCactus"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>8</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_SaguaroCactus"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>8</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_SaguaroCactus"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>-6</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeTeak -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeTeak"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeTeak"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>12</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeTeak"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>12</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeTeak"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>3</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_Timbershroom -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_Timbershroom"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_Timbershroom"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_Timbershroom"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>0</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_Timbershroom"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_Tinctoria -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_Tinctoria"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_Tinctoria"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_Tinctoria"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_Tinctoria"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDeathTemperature>-4</coldDeathTemperature>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Plant_TreeWillow -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeWillow"]/plant/minGrowthTemperature</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeWillow"]/plant/minGrowthTemperature</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="Plant_TreeWillow"]/plant</xpath>
+      <value>
+        <minGrowthTemperature>5</minGrowthTemperature>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeWillow"]</xpath>
+    <value>
+      <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+        <coldDormancy>true</coldDormancy>
+      </li>
+    </value>
+  </Operation>
+
 </Patch>
