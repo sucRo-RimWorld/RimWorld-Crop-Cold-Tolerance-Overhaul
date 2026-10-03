@@ -16,6 +16,10 @@ Vanilla RimWorld derives cold death from the growth minimum with deterministic p
 
 CCTO **rebalances cold-tolerance-related values only**: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate.
 
+The current balance is **generally more demanding than the original Vanilla / Medieval Overhaul settings**. Most supported crops stop growing at warmer temperatures, and many ordinary crops receive fixed death thresholds that are much warmer than the original generic cold-death range. In practice, this makes cold-season farming harder and makes crop choice, seasonal timing, and temperature control more important.
+
+This is not a universal nerf to every plant: selected perennial or overwintering crops gain cold dormancy and can survive ordinary winter cold instead of dying.
+
 It does **not** rebalance other crop properties such as:
 
 - harvest yield;
