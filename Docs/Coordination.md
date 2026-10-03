@@ -378,6 +378,7 @@ Completed release-preparation work:
 - User completed a subscription smoke check against the private Steam Workshop package and reported no apparent issues. This counts as a pre-publication package sanity check; the checklist still keeps the final post-publication clean-subscription smoke pending. Release checklist update: `9a73701332e2f9b6e38ad323915db36fcc29aaea`.
 - `About/Preview.png` is now present on `main`. The binary was copied from the existing `balance-xml` branch blob `c3b690262b92ce06e753fb0ac6e6929ff96bcf73` into `main` in commit `30dae3c1c541e185be98fcb67a6fc1bc435b53b7`; release checklist marked complete in `91acc72b6418bc989b83f0ec2a0d5c538a494745`.
 - Steam Workshop item is now public at `https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548`. Public-release checklist marked published in `a977e71bcff03942d2199c62d99e5e8fde083497`. Post-publication subscribed-package check was then completed; representative CCTO balance values were confirmed correct with no apparent issue. Release checklist update: `b1ed31fd1d749c32192c8153100452ad31a5ad71`.
+- GitHub 0.1 Beta release/tag is complete. Tag `v0.1.0-beta` resolves successfully on GitHub; user confirmed the release is published. Release checklist update: `ea42fbb329db3670d865cb844e023d04009de8d4`.
 
 Public-description decisions:
 
@@ -388,7 +389,7 @@ Public-description decisions:
 
 Remaining public-release decisions/tasks:
 
-- create GitHub release/tag `v0.1.0-beta`.
+- none for the 0.1 Beta publication flow.
 
 Release-presentation decisions completed on `main`:
 
