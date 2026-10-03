@@ -569,8 +569,6 @@
             </value>
           </nomatch>
         </li>
-          </value>
-        </li>
 
         <!-- DankPyon_Plant_PoppyWild -->
         <li Class="PatchOperationConditional">
@@ -587,8 +585,6 @@
               <minGrowthTemperature>5</minGrowthTemperature>
             </value>
           </nomatch>
-        </li>
-          </value>
         </li>
 
         <!-- DankPyon_Plant_FleawortWild -->
@@ -607,8 +603,6 @@
             </value>
           </nomatch>
         </li>
-          </value>
-        </li>
 
         <!-- DankPyon_Plant_FlyAgaricWild -->
         <li Class="PatchOperationConditional">
@@ -625,8 +619,6 @@
               <minGrowthTemperature>0</minGrowthTemperature>
             </value>
           </nomatch>
-        </li>
-          </value>
         </li>
 
         <!-- DankPyon_GreatOak -->
