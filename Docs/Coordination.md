@@ -206,6 +206,34 @@ The full integration mode now also validates the freshly generated `summary.json
 
 CODE-005 is complete. No balance numbers were changed during test-harness repair.
 
+### CODE-006 — Normal-game pre-beta smoke and Info Card visual check
+
+**Requested by:** Code/framework  
+**Owner:** Code/framework  
+**Status:** IN PROGRESS
+
+The automated framework + balance gate is green at 13/13. The remaining pre-beta check is intentionally performed against the user's real normal mod profile rather than the isolated Pickle profile.
+
+Preparation tooling added on `balance-xml`:
+
+- normal-profile validator: `51c882decf241dc57493998251ed96d161cffaa5`;
+- one-command cleanup/build/profile preparation: `b456d3d9099c563b0b91d14dc4da82b880326bf1`.
+
+Run:
+
+`prepare-smoke.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+Then launch RimWorld normally and verify representative Info Cards:
+
+- Vanilla rice: min growth 10 C, cold death -1 C;
+- Vanilla hops: min growth 5 C, dormancy;
+- MO wheat: min growth 0 C, cold death -6 C;
+- MO apple tree: min growth 5 C, dormancy.
+
+Also require normal startup with no new CCTO-origin error, no duplicate CCTO rows, and acceptable visual grouping/wording of `枯死温度` / `低温反応: 休眠` next to native plant-temperature entries.
+
+Durable checklist: `Docs/DevelopmentTools.md` on `balance-xml`.
+
 ## Completed handoffs
 
 None yet.
