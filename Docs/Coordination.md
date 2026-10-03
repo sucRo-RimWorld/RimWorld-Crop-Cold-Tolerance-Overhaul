@@ -253,6 +253,23 @@ A separate compact plant-information panel from another mod does not surface CCT
 
 Durable checklist: `Docs/DevelopmentTools.md` on `balance-xml`.
 
+
+### CODE-007 — Nice Plants Menu compatibility
+
+**Requested by:** normal-game smoke finding  
+**Owner:** Code/framework  
+**Status:** OPEN
+
+The third-party crop-selection panel seen during CODE-006 is **Nice Plants Menu** (Steam Workshop 3685058533, packageId `Andromeda.NicePlantsMenu`).
+
+CCTO's standard RimWorld Info Card path is working correctly, but Nice Plants Menu builds its own plant-summary UI and does not automatically surface CCTO's `ThingDef.SpecialDisplayStats` entries. As a result, `枯死温度` / `低温反応: 休眠` are absent from that custom panel even though they appear correctly in the standard Info Card.
+
+Treat this as an optional third-party compatibility task rather than a failure of the CCTO core display path. Compatibility should remain soft/conditional; Nice Plants Menu must not become a hard dependency.
+
+The accented English seen in the panel during smoke testing is RimWorld's dev-mode pseudo-localization for untranslated strings, not a CCTO encoding fault.
+
+Next implementation step, if compatibility is taken up: inspect `NicePlantsMenu.dll` and patch its plant-detail row construction conditionally when packageId `Andromeda.NicePlantsMenu` is active.
+
 ## Completed handoffs
 
 None yet.
