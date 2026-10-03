@@ -208,7 +208,7 @@ CODE-005 is complete. No balance numbers were changed during test-harness repair
 
 **Integration status update:** the latest `main` canonical docs/coordination state has been merged into `balance-xml` without changing tested code or balance XML. Integration merge commit: `efa6461c2302054f998e531b8f6e9fe554f5523a`.
 
-PR #2 has been retargeted to `main` and renamed **Integrate CCTO framework and cold-tolerance balance**. CODE-006 is now complete. PR #2 remains Draft while CODE-007 (Nice Plants Menu compatibility) is IN PROGRESS. PR #1 remains open for framework history but PR #2 is the intended final integration path.
+PR #2 has been retargeted to `main` and renamed **Integrate CCTO framework and cold-tolerance balance**. CODE-006 and CODE-007 are complete. PR #2 has cleared the automated and manual pre-merge gates and is ready for final integration. PR #1 remains open only for framework history; PR #2 is the intended final integration path.
 
 ### CODE-006 — Normal-game pre-beta smoke and Info Card visual check
 
@@ -277,7 +277,7 @@ Durable checklist: `Docs/DevelopmentTools.md` on `balance-xml`.
 
 **Requested by:** normal-game smoke finding  
 **Owner:** Code/framework  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 The priority alternate plant-selection UI set was checked against both target mods.
 
@@ -333,7 +333,11 @@ The compatibility source was made legacy-compiler-safe by replacing the `nameof`
 
 **Post-fix automated rerun:** PASS. The full integrated `run-tests.bat` gate completed successfully with **13/13** passing scenarios after the Nice Plants Menu compatibility implementation, `netstandard.dll` reference fix, and legacy-compiler `nameof` fix.
 
-**Remaining verification:** verify the four representative crops in the actual Nice Plants Menu panel. CODE-007 remains IN PROGRESS until that manual UI check passes.
+**Final manual visual result:** PASS.
+
+The user confirmed the Nice Plants Menu smoke check completed without issue after the 13/13 automated rerun. The representative fixed-death and dormancy rows displayed correctly in the Nice Plants Menu panel, and no new CCTO-origin error was observed.
+
+CODE-007 is complete. Dubs Mint Menus remains supported through the standard Info Card path with no dedicated compatibility code.
 
 ## Completed handoffs
 
