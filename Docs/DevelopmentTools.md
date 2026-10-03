@@ -106,7 +106,7 @@ Build/run with:
 
 The full gate requires the installed Medieval Overhaul source tree (Workshop 3219596926) so the validator can check the real 1.6 plant DefNames and XML structure.
 
-It intentionally does **not** activate Medieval Overhaul's runtime assemblies in the isolated Pickle profile. MO's own Harmony startup is outside CCTO's responsibility and can fail under an artificially stripped mod set even when the Def XML CCTO patches is valid. Instead, the gate stages a developer-only mod named `Medieval Overhaul` containing lightweight versions of the 21 target plant Defs. RimWorld's `PatchOperationFindMod` matches active mods by display name, so CCTO's real MO patch file executes against these fixture Defs.
+It intentionally does **not** activate Medieval Overhaul's runtime assemblies in the isolated Pickle profile. MO's own Harmony startup is outside CCTO's responsibility and can fail under an artificially stripped mod set even when the Def XML CCTO patches is valid. Instead, the gate stages a developer-only mod named `Medieval Overhaul` containing lightweight versions of the 29 MO-specific target plant Defs. RimWorld's `PatchOperationFindMod` matches active mods by display name, so CCTO's real MO patch file executes against these fixture Defs.
 
 This is paired with static checks against the installed real MO 1.6 source: every target DefName must exist and must contain the local `<plant>` node required by CCTO's XPath. Thus the runtime fixture tests CCTO patch application while the static validator protects against drift in the actual MO source structure.
 
@@ -128,7 +128,7 @@ The underlying E2E runner:
 - runs framework regression scenarios and live cold-behavior scenarios;
 - clears the previous isolated save-data and Pickle report directories before every run, preventing a startup failure from being mistaken for a stale earlier PASS;
 - writes fresh reports to `TestResults\Pickle`;
-- in full balance mode, parses the fresh `summary.json` and requires exactly 14 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-sowable-plant coverage scenario;
+- in full balance mode, parses the fresh `summary.json` and requires exactly 14 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-supported-living-plant coverage scenario;
 - exits with Pickle's pass/fail/error result, or an integration-summary error if the expected balance scenarios were not actually run;
 - is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
@@ -148,9 +148,9 @@ The normal gameplay preset is therefore left untouched, and unrelated mods do no
 
 Loaded balance-Def scenarios in the full integration gate check:
 
-- all 30 targeted Core player-sowable plant Defs have the final expected `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature or dormancy flag;
-- all 21 targeted Medieval Overhaul fixture Defs have the same final loaded-value checks after CCTO's real `PatchOperationFindMod`/XPath patch runs;
-- a coverage scenario scans loaded player-plantable Defs (normal sowing plus TreeSowing-gated forestry) and fails if a sowable plant lacks CCTO balance or falls outside the curated Core/MO target set;
+- all 49 living Core PlantDefs have the final expected `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature or dormancy flag;
+- all 29 targeted Medieval Overhaul fixture Defs have the same final loaded-value checks after CCTO's real `PatchOperationFindMod`/XPath patch runs;
+- a coverage scenario scans all loaded living PlantDefs in the isolated Core/MO profile and fails if a living plant lacks CCTO balance or falls outside the curated 49-Core / 29-MO target set; dead stump/remnant Defs are excluded;
 - Medieval Overhaul's installed 1.6 source XML contains every targeted DefName **and** a local `<plant>` node before the runtime suite starts.
 
 Framework regression scenarios check:
@@ -230,7 +230,7 @@ Pass criteria:
 
 Things Explorer/XML Patch Helper are optional diagnostics only if a discrepancy is found; exact underlying Vanilla/MO values are already asserted by the automated loaded-`DefDatabase` gate.
 
-The normal-game smoke/visual check and the Nice Plants Menu compatibility smoke passed for the published 0.1 Beta baseline. After the 30-Core-plant expansion, rerun the full gate and normal-profile smoke before publishing the updated balance.
+The normal-game smoke/visual check and the Nice Plants Menu compatibility smoke passed for the published 0.1 Beta baseline. After the 49-Core / 29-MO all-living-plant expansion, rerun the full gate and normal-profile smoke before publishing the updated balance.
 
 ### Nice Plants Menu compatibility smoke
 
