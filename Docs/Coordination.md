@@ -294,7 +294,33 @@ Compatibility requirements:
 - unsupported/unconfigured plants remain unchanged;
 - Dubs Mint Menus gets no redundant compatibility code.
 
-Next implementation step: inspect the uploaded `NicePlantsMenu.dll` and patch its plant-summary construction conditionally when `Andromeda.NicePlantsMenu` is active.
+Implementation is now present on `balance-xml`.
+
+DLL audit:
+
+- uploaded Nice Plants Menu DLL SHA-256: `f82a8c52724bf24ca93e966d9b5881e3788655e64656bacdebaaffb9e1264c9a`;
+- plant-info row method: `NicePlantsMenu.Dialog_PlantBrowser.DrawInfoBlock(ref float y, float x, float totalWidth, string label, Texture2D icon, string valueStr, Func<TaggedString> tooltip, Color? color)`;
+- current displayed plant: `Dialog_PlantBrowser.drawInfoFor -> PlantRecord.plant`;
+- Nice Plants Menu's growth-temperature row uses translation key `NPM_GrowthTemperature` and the same `DrawInfoBlock` method.
+
+Implementation strategy:
+
+- only initialize compatibility when packageId `andromeda.niceplantsmenu` is active;
+- dynamically resolve Nice Plants Menu types/members so there is no compile-time or hard mod dependency;
+- Harmony-postfix `DrawInfoBlock`;
+- immediately after the growth-temperature row, call Nice Plants Menu's own `DrawInfoBlock` to add `休眠温度` / `枯死温度`;
+- reuse the existing temperature icon/layout/scroll/tooltip path;
+- guard recursive postfix entry;
+- if a future Nice Plants Menu update removes the reflected members, fail soft with a warning.
+
+Implementation commits on `balance-xml`:
+
+- compatibility patch: `96283e78ae905dcd88db928f2d52d55159d70c83`;
+- Bootstrap activation: `5bbcdc4be482cd151aca7e41d73ddff54c0cf838`;
+- durable compatibility design: `d17854a1aab101717435bb389582d4c7e61504b3`;
+- manual smoke checklist: `e1944034e78ecb13fb5ddcdffa428318f60dc578`.
+
+**Remaining verification:** rebuild/run the integrated automated gate, then verify the four representative crops in the actual Nice Plants Menu panel. CODE-007 remains IN PROGRESS until that manual UI check passes.
 
 ## Completed handoffs
 
