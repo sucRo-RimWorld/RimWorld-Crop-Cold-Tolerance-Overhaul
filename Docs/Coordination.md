@@ -369,6 +369,7 @@ Completed release-preparation work:
 - release checklist records the paste-ready BBCode and YADA filter as complete and simplifies the remaining GitHub release task to the already-fixed tag `v0.1.0-beta`: `e87bf804e8c06c68102e5b6effe63d792090b2ae`.
 - Ko-fi support link added to the README and synchronized to both Workshop presentation files. README: `ad16b572f9e8086a488aea19d85021e3c5d521bd`; Workshop presentation: `6aa9b6d8713c77ba85043967336e658bc00a40f7`; paste-ready BBCode: `4911dea2778eb569ee57f232efa30b6c5db20a9c`.
 - Ko-fi support presentation changed from a plain text link to the requested Shields.io badge. README: `076347066f6c1c59020f5bf5f0c47368dae79da7`; Workshop BBCode equivalent: `84b48991ec19a7786b5b0bee8a7e577a8c495d92`; paste-ready BBCode: `c1842c3bf03b2a63916b1b3bf3ae9cd3c1c7cde9`.
+- Steam Workshop save failure traced to the generated description exceeding Steam's 8,000-byte description limit; the prior paste-ready body was 8,655 characters before UTF-8 overhead and also used unsupported Workshop table tags. The Workshop presentation was compacted to 5,701 characters, all 33 crop before/after comparisons were retained in code blocks, and table/tr/td/th tags were removed. Presentation: `ed124d8144cce47f65a9a343e4f02b90d9d23300`; paste-ready BBCode: `4a1c56356e6b1b2ff2c070744f67ecb77acabedf`.
 
 Public-description decisions:
 
