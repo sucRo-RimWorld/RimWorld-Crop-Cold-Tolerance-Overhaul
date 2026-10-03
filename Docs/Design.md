@@ -167,6 +167,24 @@ Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, 
 | Smokeleaf | 5°C | -4°C | relatively frost-tolerant compared with tropical crops |
 | Psychoid | 8°C | -1°C | fictional warm-climate drug crop |
 | Cocoa | 12°C | 0°C | tropical crop with very poor cold tolerance |
+| Bamboo | 10°C | -18°C | Japanese temperate bamboo (moso/madake baseline); evergreen and winter-surviving, but active shoot development requires warmth |
+| Birch | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
+| Cecropia | 10°C | 0°C | frost-sensitive tropical tree |
+| Cypress | 5°C | cold dormancy | swamp cypress / bald-cypress style deciduous conifer |
+| Dandelion | 0°C | cold dormancy | cold-hardy perennial herb |
+| Daylily | 0°C | cold dormancy | herbaceous perennial that dies back over winter |
+| Drago tree | 8°C | 0°C | evergreen warm/arid-climate tree; cold-sensitive but hardier than tropical rainforest trees |
+| Maple | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
+| Oak | 5°C | cold dormancy | temperate deciduous forestry tree |
+| Palm | 10°C | 0°C | generic warm-climate palm |
+| Pine | 0°C | -35°C | evergreen boreal/tundra forestry tree; survives severe cold without leafless dormancy |
+| Poplar | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
+| Rose | 5°C | cold dormancy | temperate perennial shrub |
+| Saguaro cactus | 8°C | -6°C | desert plant; growth requires warmth but brief freezing is survivable |
+| Teak | 12°C | 3°C | tropical hardwood with very poor frost tolerance |
+| Timbershroom | 0°C | cold dormancy | fictional cave fungus; cold-stable non-lethal response chosen for gameplay |
+| Tinctoria | 5°C | -4°C | fictional engineered dye crop; temperate annual-style gameplay baseline |
+| Willow | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
 
 ## 6. Compatibility principle
 
