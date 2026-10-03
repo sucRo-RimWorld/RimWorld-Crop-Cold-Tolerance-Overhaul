@@ -339,23 +339,25 @@ The user confirmed the Nice Plants Menu smoke check completed without issue afte
 
 CODE-007 is complete. Dubs Mint Menus remains supported through the standard Info Card path with no dedicated compatibility code.
 
-### RELEASE-001 — 0.1 Alpha public release preparation
+### RELEASE-001 — 0.1 Beta public release preparation
 
 **Owner:** release/presentation  
 **Status:** IN PROGRESS
 
 The tested implementation is integrated on `main`.
 
+Release classification decision: **0.1 Beta**. Core functionality and the documented automated/manual gates are complete; the public Beta phase is for broader real-play validation, compatibility reports, and balance feedback.
+
 Completed release-preparation work:
 
 - public-facing `README.md` added: `3e46342e13b2baae570be30dab76e5cc396d1681`;
-- `About/About.xml` description updated for the Alpha feature set and optional UI compatibility: `84aa3cf2a706a245bb7e927c2a53c2b30a797e93`;
+- `About/About.xml` description was updated for the public feature set and optional UI compatibility; release classification is now **Beta**;
 - `Docs/ReleaseChecklist.md` added: `a430ca6252a88d2ff7e9820a7cf276432237d22e`.
 
 Remaining public-release decisions/tasks:
 
 - add `About/Preview.png`;
-- finalize exact public version/tag spelling (design target is currently **0.1 Alpha**);
+- finalize exact public version/tag spelling (design target is currently **0.1 Beta**);
 - finalize Steam Workshop presentation text/tags;
 - decide whether to add a license;
 - create GitHub release/tag and publish to Steam Workshop only after those presentation decisions are approved;
