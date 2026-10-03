@@ -30,8 +30,8 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
 ## Public-release preparation still required
 
-- [x] GitHub release notes drafted in `Docs/ReleaseNotes-0.1-Beta.md`.
-- [x] `v0.1.1-beta` update release notes drafted in `Docs/ReleaseNotes-0.1.1-Beta.md`.
+- [x] GitHub release notes drafted in `Docs/ReleaseNotes/ReleaseNotes-0.1-Beta.md`.
+- [x] `v0.1.1-beta` update release notes drafted in `Docs/ReleaseNotes/ReleaseNotes-0.1.1-Beta.md`.
 - [x] Preview image technical/art brief fixed in `Docs/PreviewBrief.md`: 640×360 PNG, 16:9, under 1 MB.
 
 - [x] `About/Preview.png` added to `main` from the approved preview image; current blob SHA `c3b690262b92ce06e753fb0ac6e6929ff96bcf73`.

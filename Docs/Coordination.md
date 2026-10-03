@@ -469,3 +469,9 @@ Remaining release gate:
 - normal-profile wild-plant Info Card smoke: **PASS**. Verified Wild Healroot (min 0 C / death -9 C), Berry bush (min 0 C / dormancy 0 C), Bush (min 0 C / dormancy 0 C), and Oak (min 5 C / dormancy 5 C); displayed values matched the implemented CCTO balance.
 - BAL-001 implementation/validation is complete.
 - release/presentation remaining: rebuild/re-upload the Workshop package and update the live English/Japanese descriptions.
+
+Release/presentation maintenance update (2026-10-03):
+- Release notes are now centralized under `Docs/ReleaseNotes/`; root-level `Docs/ReleaseNotes-*.md` copies were removed and checklist references were updated.
+- Japanese Workshop description wording was polished for natural Japanese, updated to 0.1.1 Beta verification status, and remains within Steam's 8,000-byte limit (5,951 bytes).
+- Live Workshop page still requires the maintained Japanese description to be pasted/applied if not already updated after this commit.
+- English Workshop presentation and paste-ready description were synchronized to **0.1.1 Beta / 14/14**; no stale 13/13 or 0.1 Beta wording remains in those two maintained English files. Current paste-ready English description size: 6,389 bytes.
