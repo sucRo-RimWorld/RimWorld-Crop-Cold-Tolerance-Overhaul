@@ -88,6 +88,114 @@ namespace CropColdToleranceOverhaul.E2E
             AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaric", 0f, null, true);
         }
 
+        [Then("all loaded sowable plant Defs are covered by CCTO balance")]
+        public void AssertAllLoadedSowablePlantsCovered(PickleContext ctx)
+        {
+            string[] expectedNames =
+            {
+                "Plant_Rice",
+                "Plant_Potato",
+                "Plant_Corn",
+                "Plant_Strawberry",
+                "Plant_Haygrass",
+                "Plant_Cotton",
+                "Plant_Devilstrand",
+                "Plant_Healroot",
+                "Plant_Hops",
+                "Plant_Smokeleaf",
+                "Plant_Psychoid",
+                "Plant_TreeCocoa",
+                "Plant_TreeBamboo",
+                "Plant_TreeBirch",
+                "Plant_TreeCecropia",
+                "Plant_TreeCypress",
+                "Plant_Dandelion",
+                "Plant_Daylily",
+                "Plant_TreeDrago",
+                "Plant_TreeMaple",
+                "Plant_TreeOak",
+                "Plant_TreePalm",
+                "Plant_TreePine",
+                "Plant_TreePoplar",
+                "Plant_Rose",
+                "Plant_SaguaroCactus",
+                "Plant_TreeTeak",
+                "Plant_Timbershroom",
+                "Plant_Tinctoria",
+                "Plant_TreeWillow",
+                "DankPyon_Plant_Onions",
+                "DankPyon_Plant_Lentils",
+                "DankPyon_Plant_Cabbages",
+                "DankPyon_Plant_Garlic",
+                "DankPyon_Plant_Mushrooms",
+                "DankPyon_Plant_Wheat",
+                "DankPyon_Plant_Flax",
+                "DankPyon_Plant_Sugarcane",
+                "DankPyon_Plant_Carrots",
+                "DankPyon_Plant_Herb",
+                "DankPyon_Plant_Tomatoes",
+                "DankPyon_Plant_Grape",
+                "DankPyon_Plant_Pumpkins",
+                "DankPyon_Tree_Apple",
+                "DankPyon_Tree_Lemon",
+                "DankPyon_Tree_Mulberry",
+                "DankPyon_Tree_GriffonBerry",
+                "DankPyon_Plant_Mindwort",
+                "DankPyon_Plant_Poppy",
+                "DankPyon_Plant_Fleawort",
+                "DankPyon_Plant_FlyAgaric"
+            };
+
+            HashSet<string> expected =
+                new HashSet<string>(expectedNames, StringComparer.Ordinal);
+
+            List<ThingDef> sowable =
+                DefDatabase<ThingDef>.AllDefsListForReading
+                    .Where(def =>
+                        def != null
+                        && def.plant != null
+                        && def.plant.sowTags != null
+                        && def.plant.sowTags.Count > 0)
+                    .ToList();
+
+            List<string> missingExtension =
+                sowable
+                    .Where(def =>
+                        def.GetModExtension<ColdToleranceExtension>() == null)
+                    .Select(def => def.defName)
+                    .OrderBy(name => name)
+                    .ToList();
+
+            List<string> unexpectedSowable =
+                sowable
+                    .Where(def => !expected.Contains(def.defName))
+                    .Select(def => def.defName)
+                    .OrderBy(name => name)
+                    .ToList();
+
+            List<string> expectedMissing =
+                expected
+                    .Where(name =>
+                        !sowable.Any(def => def.defName == name))
+                    .OrderBy(name => name)
+                    .ToList();
+
+            ctx.Assert(
+                missingExtension.Count == 0,
+                "Loaded sowable plant Defs without CCTO balance: "
+                + string.Join(", ", missingExtension.ToArray()));
+
+            ctx.Assert(
+                unexpectedSowable.Count == 0,
+                "Loaded sowable plant Defs are outside the curated CCTO balance set: "
+                + string.Join(", ", unexpectedSowable.ToArray()));
+
+            ctx.Assert(
+                expectedMissing.Count == 0,
+                "Expected CCTO sowable plant Defs were not loaded as sowable: "
+                + string.Join(", ", expectedMissing.ToArray()));
+        }
+
         [Then("CCTO fixed death thresholds are independent of plant identity")]
         public void AssertFixedThresholdIsNotPerPlantRandom(PickleContext ctx)
         {
