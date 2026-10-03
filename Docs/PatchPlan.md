@@ -50,7 +50,7 @@ AMJ and compatibility mods can attach the same extension to their own PlantDefs.
 
 ## 3. Harmony behavior — current framework implementation
 
-The framework implementation currently lives on Draft PR #1 / branch `framework-code`.
+The framework implementation is integrated on `main`.
 
 ### 3.1 `Plant.LeaflessTemperatureThresh`
 
@@ -187,13 +187,13 @@ MO-specific values are gated on Medieval Overhaul and target the verified MO 1.6
 - Cold handling is keyed by the extension, not by broad tests such as `Sowable`.
 - Fixed thresholds are species/Def-level values in the initial release.
 - The archived range tables remain available for a later optional deterministic per-plant randomized mode.
-- The C# framework and the balance XML remain separate workstreams until both pass integration tests.
+- Framework and balance may still be developed as separate workstreams, but the tested integrated state on `main` is the release source of truth.
 
 ## 8. Verification status
 
 As of 2026-10-03:
 
-- Draft PR #1 implements the C# framework.
+- The C# framework, Vanilla/MO balance XML, Info Card changes, and Nice Plants Menu compatibility are integrated on `main`.
 - Shipping CCTO DLL has compiled successfully against the user's RimWorld 1.6 installation.
 - RimTest Redux and Pickle + Quickstarts test infrastructure is present.
 - The live Pickle suite passed all existing scenarios after the boundary-test temperature synchronization fix. This confirmed fixed-threshold behavior, Vanilla fallback, extension validation, Info Card construction, live cold death, strict threshold boundary, dormancy survival, and extreme-cold death.
@@ -205,7 +205,7 @@ As of 2026-10-03:
 - CCTO E2E temperature control no longer mutates global outdoor temperature through `GameCondition_TemperatureOffset` or world tile-temperature cache clears. It now sets the relevant RimWorld `Room.Temperature` directly and verifies the plant's actual `AmbientTemperature`. The indoor test uses a separate outdoor room to model cold outside versus warm inside.
 - The final isolated Pickle run completed successfully with the full 11/11 suite passing.
 - The automated release gate is now green. The framework implementation has passed fixed-threshold, Vanilla fallback, validation, Info Card, live cold-death, strict boundary, dormancy, delayed recovery, extreme-cold, and indoor actual-room-temperature regression coverage.
-- Draft PR #1 no longer has an automated-test blocker; Draft status may now be removed when review/merge is desired.
+- PR #2 merged the tested framework + balance integration into `main` at `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - The integrated balance branch subsequently passed the complete `run-tests.bat` gate with a fresh **13/13 Pickle pass**, including the two loaded-balance scenarios.
 - The integration gate verified the final loaded CCTO values for all 12 targeted Vanilla plants and all 21 targeted Medieval Overhaul plants, while also validating the target DefNames and required local `<plant>` nodes against the installed real MO 1.6 source.
 - After the dormancy UI was changed from `低温反応: 休眠` to explicit `休眠温度 <minGrowthTemperature>`, the full integrated `run-tests.bat` gate was rerun locally and again passed **13/13**. The automated framework + Vanilla/MO balance verification is therefore green for the current dormancy-temperature implementation. The documented normal-game smoke/visual recheck also passed. Dubs Mint Menus was verified to show CCTO through the standard Info Card path without dedicated code. After the Nice Plants Menu compatibility implementation and its legacy-build fixes, the full integrated `run-tests.bat` gate passed **13/13** again. The manual Nice Plants Menu visual smoke check also passed without a new CCTO-origin error. All documented pre-merge automated and manual gates are green.
