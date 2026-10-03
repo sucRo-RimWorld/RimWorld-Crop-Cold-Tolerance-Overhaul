@@ -14,7 +14,7 @@ Vanilla RimWorld derives cold death from the growth minimum with deterministic p
 
 ## Scope
 
-CCTO **rebalances cold-tolerance-related values only** for supported player-sowable plants: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate. The scope includes field crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and other plants exposed through sowing UI. Wild-only plants that the player cannot sow are not part of the default balance set.
+CCTO **rebalances cold-tolerance-related values only** for supported player-sowable plants: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate. The scope includes field crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, and other plants exposed through sowing UI. Wild-only plants that the player cannot sow are not part of the default balance set.
 
 The current balance is **generally more demanding than the original Vanilla / Medieval Overhaul settings**. Most supported plants stop growing at warmer temperatures, and many ordinary plants receive fixed death thresholds that are much warmer than the original generic cold-death range. In practice, this makes cold-season farming and forestry more demanding and makes plant choice, seasonal timing, and temperature control more important.
 
@@ -46,7 +46,7 @@ The cold-tolerance system was split into a standalone mod because the distinctio
 
 The current balance set covers:
 
-- all 30 player-sowable Core plants in RimWorld 1.6, including crops, decorative plants, forestry trees, and special sowable plants;
+- all 30 player-sowable Core plants in RimWorld 1.6, including crops, decorative plants, forestry trees, fungi, and special sowable plants;
 - all 21 Medieval Overhaul 1.6-specific cultivated plant Defs used by CCTO.
 
 Medieval Overhaul's Healroot continues to use the Core `Plant_Healroot` Def, so it is covered by the Core table rather than counted again.
