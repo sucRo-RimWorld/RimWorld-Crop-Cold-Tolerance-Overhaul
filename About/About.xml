@@ -19,7 +19,7 @@
     <li>DankPyon.Medieval.Overhaul</li>
   </loadAfter>
 
-  <description>Alpha release.
+  <description>Beta release.
 
 Separates crop minimum-growth temperature from cold-death behavior. Supported crops use either an explicit fixed cold-death temperature or cold dormancy below their minimum growth temperature, with the relevant temperature shown in the plant Info Card.
 
