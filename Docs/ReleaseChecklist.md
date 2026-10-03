@@ -26,9 +26,9 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 ## Public-release preparation still required
 
 - [ ] Add an `About/Preview.png` suitable for the RimWorld mod list / public presentation.
-- [ ] Finalize Steam Workshop title, short description, long description, and tags. The long description should explain that CCTO was split out of the planned AMJ project because the mechanic is independently useful; clearly state that CCTO rebalances cold-tolerance values and can also serve as a framework for other mods to assign explicit cold-death temperatures / dormancy; include before/after Vanilla/MO value tables (or an equally clear comparison list); state that the current numbers are generally higher difficulty for cold-season farming, while noting that dormancy crops are deliberate survival-oriented exceptions; include the same AI-assisted development disclosure used in the README; and note that no display-only edition is currently planned because Vanilla uses a generic derived cold-threshold rule rather than crop-specific fixed death temperatures.
-- [ ] Decide whether a license should be added; do not infer a license automatically.
-- [ ] Decide the exact public version/tag spelling (current design target: **0.1 Beta**).
+- [x] Steam Workshop title, short description, long description, and tag set drafted in `Docs/WorkshopDescription.md`; final publication-time visual review remains tied to `About/Preview.png`.
+- [x] License confirmed: existing repository `LICENSE` is MIT License, copyright 2026 sucRo0629.
+- [x] Public version spelling fixed: **0.1 Beta**. Git tag/release tag: **`v0.1.0-beta`**.
 - [ ] Create the GitHub release/tag only after the public version string is confirmed.
 - [ ] Upload/publish the Steam Workshop item only after the presentation assets and description are approved.
 - [ ] After publication, perform one clean install/subscription smoke test from the published package.
