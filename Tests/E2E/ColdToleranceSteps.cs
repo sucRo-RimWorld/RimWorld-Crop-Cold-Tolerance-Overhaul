@@ -27,7 +27,7 @@ namespace CropColdToleranceOverhaul.E2E
                 "madeLeaflessTick",
                 BindingFlags.Instance | BindingFlags.NonPublic);
 
-        [Then("loaded Vanilla crop Defs match the CCTO balance table")]
+        [Then("loaded Vanilla sowable plant Defs match the CCTO balance table")]
         public void AssertLoadedVanillaBalanceDefs(PickleContext ctx)
         {
             AssertLoadedBalanceDef(ctx, "Plant_Rice", 10f, -1f, false);
@@ -42,6 +42,24 @@ namespace CropColdToleranceOverhaul.E2E
             AssertLoadedBalanceDef(ctx, "Plant_Smokeleaf", 5f, -4f, false);
             AssertLoadedBalanceDef(ctx, "Plant_Psychoid", 8f, -1f, false);
             AssertLoadedBalanceDef(ctx, "Plant_TreeCocoa", 12f, 0f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeBamboo", 8f, -5f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeBirch", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeCecropia", 10f, 0f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeCypress", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Dandelion", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Daylily", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeDrago", 8f, 0f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeMaple", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeOak", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreePalm", 10f, 0f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreePine", 0f, -35f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreePoplar", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Rose", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_SaguaroCactus", 8f, -6f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeTeak", 12f, 3f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Timbershroom", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Tinctoria", 5f, -4f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeWillow", 5f, null, true);
         }
 
         [Then("loaded Medieval Overhaul crop Defs match the CCTO balance table")]
