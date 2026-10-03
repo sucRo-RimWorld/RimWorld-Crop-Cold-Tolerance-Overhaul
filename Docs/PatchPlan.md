@@ -156,6 +156,9 @@ Compatibility rules:
 - neither UI mod is a hard dependency;
 - compatibility must be soft/conditional;
 - Nice Plants Menu uses its own compact plant-summary panel and therefore needs a dedicated compatibility path for `枯死温度` / `休眠温度`;
+- the Nice Plants Menu compatibility implementation is soft/conditional and uses reflection/Harmony only when packageId `Andromeda.NicePlantsMenu` is active. It patches `NicePlantsMenu.Dialog_PlantBrowser.DrawInfoBlock` and inserts CCTO rows immediately after the `NPM_GrowthTemperature` row, reusing Nice Plants Menu's own row layout, temperature icon, scrolling, and tooltip behavior;
+- the audited Nice Plants Menu DLL supplied during development has SHA-256 `f82a8c52724bf24ca93e966d9b5881e3788655e64656bacdebaaffb9e1264c9a`. The relevant 1.6 signature is `DrawInfoBlock(ref float y, float x, float totalWidth, string label, Texture2D icon, string valueStr, Func<TaggedString> tooltip, Color? color)`, and the displayed plant is resolved through `Dialog_PlantBrowser.drawInfoFor -> PlantRecord.plant`;
+- if Nice Plants Menu changes these reflected members in a later update, CCTO must fail soft with a warning rather than make Nice Plants Menu a hard dependency;
 - Dubs Mint Menus exposes RimWorld's standard Info Card on plant-menu mouse-over. Normal-game verification confirmed CCTO's `SpecialDisplayStats` rows already appear there, so **no Dubs-specific compatibility patch is required**;
 - Dubs Mint Menus compatibility is satisfied through the canonical standard Info Card path;
 - other plant-selection UI mods remain best-effort/on-request rather than release blockers.
