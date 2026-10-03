@@ -22,7 +22,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 ## Public-release preparation still required
 
 - [ ] Add an `About/Preview.png` suitable for the RimWorld mod list / public presentation.
-- [ ] Finalize Steam Workshop title, short description, long description, and tags.
+- [ ] Finalize Steam Workshop title, short description, long description, and tags. The long description should explain that CCTO was split out of the planned AMJ project because the mechanic is independently useful, and that no display-only edition is currently planned because Vanilla uses a generic derived cold-threshold rule rather than crop-specific fixed death temperatures.
 - [ ] Decide whether a license should be added; do not infer a license automatically.
 - [ ] Decide the exact public version/tag spelling (current design target: **0.1 Beta**).
 - [ ] Create the GitHub release/tag only after the public version string is confirmed.
