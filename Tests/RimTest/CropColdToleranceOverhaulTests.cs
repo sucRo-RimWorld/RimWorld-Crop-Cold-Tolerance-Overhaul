@@ -203,10 +203,10 @@ namespace CropColdToleranceOverhaul.Tests
             Assert.ThatCollection(dormancyEntries).Has.Count(1);
             Assert.That(
                 deathEntries[0].DisplayPriorityWithinCategory)
-                .Is.EqualTo(4149);
+                .Is.EqualTo(4151);
             Assert.That(
                 dormancyEntries[0].DisplayPriorityWithinCategory)
-                .Is.EqualTo(4149);
+                .Is.EqualTo(4151);
         }
 
         private static MethodInfo FindAppendCctoStatsMethod()
