@@ -1,7 +1,7 @@
 param(
     [string]$OutputRoot,
     [string]$SourceModsConfigPath = "$env:USERPROFILE\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config\ModsConfig.xml",
-    [switch]$IncludeMedievalOverhaul
+    [switch]$IncludeMedievalOverhaulFixture
 )
 
 $ErrorActionPreference = "Stop"
@@ -31,11 +31,9 @@ $required = @(
     "ludeon.rimworld"
 )
 
-if ($IncludeMedievalOverhaul) {
+if ($IncludeMedievalOverhaulFixture) {
     $required += @(
-        "OskarPotocki.VanillaFactionsExpanded.Core",
-        "syrchalis.processor.framework",
-        "DankPyon.Medieval.Overhaul"
+        "sucro.cropcoldtoleranceoverhaul.mofixture"
     )
 }
 
