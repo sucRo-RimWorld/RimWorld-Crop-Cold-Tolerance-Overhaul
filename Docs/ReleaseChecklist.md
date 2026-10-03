@@ -38,7 +38,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] YADA upload filtering configured through repository-root `.rimignore`; runtime `About/`, `Assemblies/`, `Languages/`, `Patches/`, and `LICENSE` are retained while repository/development files are excluded.
 - [x] License confirmed: existing repository `LICENSE` is MIT License, copyright 2026 sucRo0629.
 - [x] Public version spelling fixed: **0.1 Beta**. Git tag/release tag: **`v0.1.0-beta`**.
-- [ ] Create GitHub release/tag `v0.1.0-beta`.
+- [x] GitHub release/tag `v0.1.0-beta` created; the tag resolves successfully on GitHub.
 - [x] Steam Workshop item published publicly: `https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548`.
 - [x] Post-publication subscribed Workshop package checked; representative CCTO balance values were confirmed correct with no apparent issue.
 
