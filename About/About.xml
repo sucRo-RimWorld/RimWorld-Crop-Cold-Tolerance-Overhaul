@@ -19,7 +19,11 @@
     <li>DankPyon.Medieval.Overhaul</li>
   </loadAfter>
 
-  <description>Separates crop growth limits from fixed cold-death thresholds.
+  <description>Alpha release.
 
-Crop Cold Tolerance Overhaul can also be used as a lightweight framework by other mods. Dependent mods can define or override plant cold-death temperatures and cold dormancy through XML without replacing the plant class.</description>
+Separates crop minimum-growth temperature from cold-death behavior. Supported crops use either an explicit fixed cold-death temperature or cold dormancy below their minimum growth temperature, with the relevant temperature shown in the plant Info Card.
+
+Includes Vanilla balance and optional Medieval Overhaul 1.6 balance. Nice Plants Menu compatibility is applied when that mod is present; Dubs Mint Menus works through the standard Info Card path.
+
+CCTO can also be used as a lightweight XML-facing framework by other mods without replacing the plant class.</description>
 </ModMetaData>
