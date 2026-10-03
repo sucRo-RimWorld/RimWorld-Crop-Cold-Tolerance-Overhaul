@@ -1,6 +1,6 @@
 # Implementation Def Mapping
 
-This file is the implementation-facing mapping for the initial fixed-threshold release.
+This file is the implementation-facing mapping for the current fixed-threshold/dormancy balance.
 
 ## Rules
 
@@ -44,6 +44,25 @@ This file is the implementation-facing mapping for the initial fixed-threshold r
 | `Plant_Timbershroom` | Timbershroom | 0°C | dormancy | — |
 | `Plant_Tinctoria` | Tinctoria | 5°C | death | -4°C |
 | `Plant_TreeWillow` | Willow | 5°C | dormancy | — |
+| `Agarilux` | Agarilux | 0°C | dormancy | — |
+| `Plant_Agave` | Agave | 5°C | death | -7°C |
+| `Plant_Alocasia` | Alocasia | 10°C | death | -1°C |
+| `Plant_Ambrosia` | Ambrosia bush | 0°C | death | -9°C |
+| `Plant_Astragalus` | Astragalus | 0°C | dormancy | — |
+| `Plant_Berry` | Berry bush | 0°C | dormancy | — |
+| `Plant_Brambles` | Brambles | 0°C | dormancy | — |
+| `Bryolux` | Bryolux | 0°C | death | -12°C |
+| `Plant_Bush` | Bush | 0°C | dormancy | — |
+| `Plant_Chokevine` | Chokevine | 0°C | dormancy | — |
+| `Plant_Clivia` | Clivia | 8°C | death | -2°C |
+| `Plant_Rafflesia` | Giant rafflesia | 12°C | death | 5°C |
+| `Glowstool` | Glowstool | 0°C | death | -8°C |
+| `Plant_Grass` | Grass | 0°C | dormancy | — |
+| `Plant_ShrubLow` | Low shrubs | 8°C | death | -2°C |
+| `Plant_Moss` | Moss | 0°C | dormancy | — |
+| `Plant_PincushionCactus` | Pincushion cactus | 5°C | death | -8°C |
+| `Plant_TallGrass` | Tall grass | 0°C | dormancy | — |
+| `Plant_HealrootWild` | Wild healroot | 0°C | death | -9°C |
 
 ## Medieval Overhaul 1.6 — cultivated farm crops
 
@@ -86,6 +105,14 @@ These DefNames were verified against `Plants_Cultivated_Alchemy.xml` in the uplo
 | `DankPyon_Plant_Poppy` | Poppy | 5°C | death | -5°C |
 | `DankPyon_Plant_Fleawort` | Fleawort | 3°C | death | -6°C |
 | `DankPyon_Plant_FlyAgaric` | Fly agaric | 0°C | dormancy | — |
+| `DankPyon_Plant_MindwortWild` | Wild mindwort | 5°C | death | -3°C |
+| `DankPyon_Plant_PoppyWild` | Wild poppy | 5°C | death | -5°C |
+| `DankPyon_Plant_FleawortWild` | Wild fleawort | 3°C | death | -6°C |
+| `DankPyon_Plant_FlyAgaricWild` | Wild fly agaric | 0°C | dormancy | — |
+| `DankPyon_GreatOak` | Great oak | 5°C | dormancy | — |
+| `DankPyon_GreatIter` | Great Iter | 5°C | dormancy | — |
+| `DankPyon_GreatFir` | Great fir | 0°C | death | -35°C |
+| `DankPyon_GreatWillow` | Great willow | 5°C | dormancy | — |
 
 All four currently inherit `HealrootBase`, but CCTO deliberately assigns them distinct cold behavior.
 
