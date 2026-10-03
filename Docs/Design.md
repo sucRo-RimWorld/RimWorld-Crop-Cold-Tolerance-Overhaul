@@ -22,6 +22,28 @@ It does **not** rebalance:
 
 The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that crops have clear gameplay identities and meaningful climate/season tradeoffs. Values defined here are intended to be usable by AMJ without a second, conflicting balance layer.
 
+## 1.1 Standalone-mod rationale
+
+CCTO originated during the design of **Ancient & Medieval Japan (AMJ)**. It was separated from AMJ because crop cold-tolerance behavior is broadly useful and does not need to depend on AMJ's larger historical content scope.
+
+The standalone split also establishes a reusable dependency direction:
+
+- CCTO owns the generic cold-tolerance mechanism;
+- AMJ and other mods may consume that mechanism;
+- CCTO does not require AMJ.
+
+### Display-only variant policy
+
+A separate display-only variant is **not currently planned**.
+
+Vanilla RimWorld 1.6 does not store a species-specific fixed cold-death temperature for each crop. Its native cold leafless/death threshold is derived from `minGrowthTemperature` using the same deterministic offset rule for plants:
+
+`minGrowthTemperature + Rand.RangeSeeded(-18f, -10f, thingIDNumber ^ 0x31F3A5C1)`
+
+Therefore a display-only extraction would mainly expose Vanilla's generic derived rule, not the crop-specific cold-death data that CCTO introduces.
+
+CCTO's temperature display is intentionally coupled to its behavior model: supported crops receive explicit species-level death thresholds or dormancy behavior, and the UI reports those actual CCTO semantics.
+
 ## 2. Temperature model
 
 Growth stopping and plant death are separate concepts.
