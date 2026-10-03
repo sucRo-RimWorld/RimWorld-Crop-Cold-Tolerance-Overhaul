@@ -70,6 +70,30 @@ Enable only what the current CCTO task needs.
 
 The shared Library document contains the general enable/disable policy for these tools.
 
+### Steam Workshop upload via YADA
+
+YADA (Yet Another Dev Assistant) may be used for CCTO's in-game Steam Workshop upload workflow.
+
+CCTO keeps a repository-root `.rimignore` specifically for YADA. Its purpose is to exclude repository/development material from the Workshop package while preserving runtime content.
+
+The intended uploaded runtime set includes:
+
+- `About/`
+- `Assemblies/`
+- `Languages/`
+- `Patches/`
+- `LICENSE`
+
+The filter excludes repository-only documentation, source, tests, scripts, batch tooling, test reports, local test patches, version-control metadata, and debug/build leftovers. Do not add `Assemblies/`, `Languages/`, or `Patches/` wholesale to `.rimignore`.
+
+Workshop presentation sources are kept separately:
+
+- `README.md` — public-content source of truth;
+- `Docs/WorkshopDescription.md` — title, version, categories, and maintained Workshop presentation;
+- `Docs/SteamWorkshopDescription.txt` — paste-ready BBCode body for the Steam Workshop description field.
+
+When the README's public feature/balance description changes, update both Workshop description files before publication.
+
 ## 4. CCTO validation sequence
 
 ### Automated release gate
