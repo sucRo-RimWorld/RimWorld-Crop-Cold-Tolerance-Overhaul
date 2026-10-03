@@ -320,7 +320,14 @@ Implementation commits on `balance-xml`:
 - durable compatibility design: `d17854a1aab101717435bb389582d4c7e61504b3`;
 - manual smoke checklist: `e1944034e78ecb13fb5ddcdffa428318f60dc578`.
 
-**Remaining verification:** rebuild/run the integrated automated gate, then verify the four representative crops in the actual Nice Plants Menu panel. CODE-007 remains IN PROGRESS until that manual UI check passes.
+**First post-implementation gate attempt:** build stopped before RimWorld launch. The Nice Plants Menu compatibility source directly references UnityEngine `Texture2D` / nullable `Color`, which made the legacy `csc.exe` shipping build require RimWorld's `netstandard.dll`. This was a build-script/reference omission, not a CCTO behavior assertion failure.
+
+Fixes on `balance-xml`:
+
+- `build.bat` now verifies and references `RimWorldWin64_Data\\Managed\\netstandard.dll`;
+- the SDK project file also declares the same RimWorld `netstandard.dll` reference for consistency.
+
+**Remaining verification:** rerun the integrated automated gate, then verify the four representative crops in the actual Nice Plants Menu panel. CODE-007 remains IN PROGRESS until that manual UI check passes.
 
 ## Completed handoffs
 
