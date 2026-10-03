@@ -27,5 +27,9 @@ The current balance is generally more demanding than the original Vanilla / Medi
 
 Includes balance for all 49 living Core PlantDefs plus all 29 Medieval Overhaul 1.6-specific PlantDefs when MO is present. Wild-only vegetation is included; dead stump/remnant Defs are excluded. Nice Plants Menu compatibility is applied when that mod is present; Dubs Mint Menus works through the standard Info Card path.
 
-CCTO also serves as a lightweight XML-facing framework: other mods can assign explicit cold-death temperatures and cold dormancy to their own plants without replacing the plant class.</description>
+CCTO also serves as a lightweight XML-facing framework: other mods can assign explicit cold-death temperatures and cold dormancy to their own plants without replacing the plant class.
+
+Save compatibility: Safe to add to or remove from an existing save.
+セーブ互換性: 既存のセーブに追加または削除しても安全です。
+Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.</description>
 </ModMetaData>

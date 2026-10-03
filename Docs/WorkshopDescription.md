@@ -164,6 +164,13 @@ No separate display-only edition is currently planned. Vanilla does not contain 
 [*]Dubs Mint Menus
 [/list]
 
+[h2]Save compatibility[/h2]
+[list]
+[*]Safe to add to or remove from an existing save.
+[/list]
+
+Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.
+
 [h2]Verification[/h2]
 The 0.1.1 Beta all-living-PlantDef build passed the [b]14/14[/b] automated integration gate, including loaded-value validation for all 49 Core + 29 Medieval Overhaul targets and the complete supported-living-PlantDef coverage check. Normal-profile wild-plant Info Card smoke checks also passed.
 

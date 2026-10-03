@@ -540,3 +540,16 @@ Final verification: full local `run-tests.bat` gate **PASS, 14/14**, and the new
 In-game verification of the corrected build also passed. The error fix is assigned to **0.1.3 Beta**, with release notes at `Docs/ReleaseNotes/ReleaseNotes-0.1.3-Beta.md`.
 
 **Next action:** re-upload the corrected Workshop package as the 0.1.3 Beta update.
+
+
+### DOC-001 — Shared public-description format and save compatibility
+
+**Requested by:** author / public-description policy (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+All AMJ-related mod descriptions must include save compatibility. CCTO is the evolving format baseline. Durable shared policy: [Docs/ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md). Addition/removal safety must reflect each mod's actual implementation; custom content and world-generation mods do not inherit CCTO's safe-removal claim.
+
+README, About.xml, Workshop presentation, and paste-ready English/Japanese descriptions now include the save-compatibility statement. Current implementation review found no custom save-owned plant classes/components. Existing integration passes are not an add/remove save test.
+
+**Next action:** Synchronize the maintained English/Japanese description files to the live Workshop page during publication maintenance. This documentation change does not itself update Steam.

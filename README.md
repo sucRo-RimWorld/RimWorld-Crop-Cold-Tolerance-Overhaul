@@ -175,6 +175,15 @@ Optional:
 - Nice Plants Menu — CCTO adds its cold-death/dormancy rows to the custom plant summary when the mod is present;
 - Dubs Mint Menus — no special patch is needed; its mouse-over standard Info Card already shows CCTO entries.
 
+## Save compatibility
+
+- Safe to add to or remove from an existing save.
+- 既存のセーブに追加または削除しても安全です。
+
+Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.
+
+CCTO patches existing plant definitions and behavior; it does not introduce save-owned plant classes or custom serialized components. This statement is based on the current implementation review, not a separate add/remove runtime test.
+
 ## Framework use
 
 CCTO is not only a balance mod. It can also be used as a framework for assigning explicit cold-death temperatures and cold dormancy behavior to plants added by other mods, without replacing the plant class.
