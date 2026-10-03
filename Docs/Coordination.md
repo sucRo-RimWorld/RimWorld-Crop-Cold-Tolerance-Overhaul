@@ -404,3 +404,23 @@ Release-presentation decisions completed on `main`:
 ### Completed handoffs
 
 - Framework + Vanilla/MO balance + explicit dormancy-temperature UI + Nice Plants Menu compatibility integrated into `main` through PR #2. Merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
+
+
+### BAL-001 — Complete player-sowable plant coverage
+
+**Requested by:** scope audit  
+**Owner:** Balance/XML  
+**Status:** IN PROGRESS
+
+Durable scope decision: CCTO balance coverage is based on whether a plant is player-sowable, not whether it is narrowly a food crop. Supported Core / Medieval Overhaul sets should therefore include agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and other plants exposed through sowing UI. Wild-only unsowable plants remain outside the default balance scope.
+
+Audit result:
+
+- Medieval Overhaul 1.6 contributes 21 sowable plant Defs in its cultivated farm/alchemy definitions; all 21 are already present in CCTO balance XML.
+- Core 1.6 exposes 30 player-sowable plants.
+- CCTO currently covers 12 of those Core plants.
+- The remaining 18 Core sowable plants are: Bamboo tree, Birch tree, Cecropia tree, Cypress tree, Dandelions, Daylily, Drago tree, Maple tree, Oak tree, Palm tree, Pine tree, Poplar tree, Rose, Saguaro cactus, Teak tree, Timbershroom, Tinctoria, and Willow tree.
+
+Next Balance/XML work: verify exact current 1.6 DefNames and source nodes, research/assign minimum-growth plus fixed-death/dormancy behavior for these 18 plants, then expand the Vanilla balance XML and validator/regression expectations.
+
+Durable scope wording: `Docs/Design.md`, commit `9bd409d2e37a69d08f5e575ae46f9aebcd5dea84`.
