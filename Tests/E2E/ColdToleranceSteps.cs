@@ -27,7 +27,7 @@ namespace CropColdToleranceOverhaul.E2E
                 "madeLeaflessTick",
                 BindingFlags.Instance | BindingFlags.NonPublic);
 
-        [Then("loaded Vanilla sowable plant Defs match the CCTO balance table")]
+        [Then("loaded Core living plant Defs match the CCTO balance table")]
         public void AssertLoadedVanillaBalanceDefs(PickleContext ctx)
         {
             AssertLoadedBalanceDef(ctx, "Plant_Rice", 10f, -1f, false);
@@ -60,9 +60,28 @@ namespace CropColdToleranceOverhaul.E2E
             AssertLoadedBalanceDef(ctx, "Plant_Timbershroom", 0f, null, true);
             AssertLoadedBalanceDef(ctx, "Plant_Tinctoria", 5f, -4f, false);
             AssertLoadedBalanceDef(ctx, "Plant_TreeWillow", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "Agarilux", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Agave", 5f, -7f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Alocasia", 10f, -1f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Ambrosia", 0f, -9f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Astragalus", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Berry", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Brambles", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Bryolux", 0f, -12f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Bush", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Chokevine", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Clivia", 8f, -2f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Rafflesia", 12f, 5f, false);
+            AssertLoadedBalanceDef(ctx, "Glowstool", 0f, -8f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Grass", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_ShrubLow", 8f, -2f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Moss", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_PincushionCactus", 5f, -8f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TallGrass", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_HealrootWild", 0f, -9f, false);
         }
 
-        [Then("loaded Medieval Overhaul crop Defs match the CCTO balance table")]
+        [Then("loaded Medieval Overhaul plant Defs match the CCTO balance table")]
         public void AssertLoadedMedievalOverhaulBalanceDefs(PickleContext ctx)
         {
             AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Onions", 5f, -3f, false);
@@ -86,10 +105,18 @@ namespace CropColdToleranceOverhaul.E2E
             AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Poppy", 5f, -5f, false);
             AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Fleawort", 3f, -6f, false);
             AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaric", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_MindwortWild", 5f, -3f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_PoppyWild", 5f, -5f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FleawortWild", 3f, -6f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaricWild", 0f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatOak", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatIter", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatFir", 0f, -35f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatWillow", 5f, null, true);
         }
 
-        [Then("all loaded sowable plant Defs are covered by CCTO balance")]
-        public void AssertAllLoadedSowablePlantsCovered(PickleContext ctx)
+        [Then("all loaded supported living plant Defs are covered by CCTO balance")]
+        public void AssertAllLoadedSupportedLivingPlantsCovered(PickleContext ctx)
         {
             string[] expectedNames =
             {
@@ -123,6 +150,25 @@ namespace CropColdToleranceOverhaul.E2E
                 "Plant_Timbershroom",
                 "Plant_Tinctoria",
                 "Plant_TreeWillow",
+                "Agarilux",
+                "Plant_Agave",
+                "Plant_Alocasia",
+                "Plant_Ambrosia",
+                "Plant_Astragalus",
+                "Plant_Berry",
+                "Plant_Brambles",
+                "Bryolux",
+                "Plant_Bush",
+                "Plant_Chokevine",
+                "Plant_Clivia",
+                "Plant_Rafflesia",
+                "Glowstool",
+                "Plant_Grass",
+                "Plant_ShrubLow",
+                "Plant_Moss",
+                "Plant_PincushionCactus",
+                "Plant_TallGrass",
+                "Plant_HealrootWild",
                 "DankPyon_Plant_Onions",
                 "DankPyon_Plant_Lentils",
                 "DankPyon_Plant_Cabbages",
@@ -143,41 +189,40 @@ namespace CropColdToleranceOverhaul.E2E
                 "DankPyon_Plant_Mindwort",
                 "DankPyon_Plant_Poppy",
                 "DankPyon_Plant_Fleawort",
-                "DankPyon_Plant_FlyAgaric"
+                "DankPyon_Plant_FlyAgaric",
+                "DankPyon_Plant_MindwortWild",
+                "DankPyon_Plant_PoppyWild",
+                "DankPyon_Plant_FleawortWild",
+                "DankPyon_Plant_FlyAgaricWild",
+                "DankPyon_GreatOak",
+                "DankPyon_GreatIter",
+                "DankPyon_GreatFir",
+                "DankPyon_GreatWillow"
             };
 
             HashSet<string> expected =
                 new HashSet<string>(expectedNames, StringComparer.Ordinal);
 
-            List<ThingDef> sowable =
+            List<ThingDef> livingPlants =
                 DefDatabase<ThingDef>.AllDefsListForReading
                     .Where(def =>
                         def != null
                         && def.plant != null
-                        && def.plant.sowTags != null
-                        && def.plant.sowTags.Count > 0
-                        && (
-                            !def.plant.mustBeWildToSow
-                            || (
-                                def.plant.sowResearchPrerequisites != null
-                                && def.plant.sowResearchPrerequisites.Any(
-                                    research =>
-                                        research != null
-                                        && research.defName == "TreeSowing")
-                            )
-                        ))
+                        && def.thingClass != null
+                        && typeof(Plant).IsAssignableFrom(def.thingClass)
+                        && def.thingClass.Name != "DeadPlant")
                     .ToList();
 
             List<string> missingExtension =
-                sowable
+                livingPlants
                     .Where(def =>
                         def.GetModExtension<ColdToleranceExtension>() == null)
                     .Select(def => def.defName)
                     .OrderBy(name => name)
                     .ToList();
 
-            List<string> unexpectedSowable =
-                sowable
+            List<string> unexpectedLivingPlant =
+                livingPlants
                     .Where(def => !expected.Contains(def.defName))
                     .Select(def => def.defName)
                     .OrderBy(name => name)
@@ -186,23 +231,23 @@ namespace CropColdToleranceOverhaul.E2E
             List<string> expectedMissing =
                 expected
                     .Where(name =>
-                        !sowable.Any(def => def.defName == name))
+                        !livingPlants.Any(def => def.defName == name))
                     .OrderBy(name => name)
                     .ToList();
 
             ctx.Assert(
                 missingExtension.Count == 0,
-                "Loaded sowable plant Defs without CCTO balance: "
+                "Loaded living plant Defs without CCTO balance: "
                 + string.Join(", ", missingExtension.ToArray()));
 
             ctx.Assert(
-                unexpectedSowable.Count == 0,
-                "Loaded sowable plant Defs are outside the curated CCTO balance set: "
-                + string.Join(", ", unexpectedSowable.ToArray()));
+                unexpectedLivingPlant.Count == 0,
+                "Loaded living plant Defs are outside the curated Core/MO CCTO balance set: "
+                + string.Join(", ", unexpectedLivingPlant.ToArray()));
 
             ctx.Assert(
                 expectedMissing.Count == 0,
-                "Expected CCTO sowable plant Defs were not loaded as sowable: "
+                "Expected CCTO living plant Defs were not loaded: "
                 + string.Join(", ", expectedMissing.ToArray()));
         }
 
