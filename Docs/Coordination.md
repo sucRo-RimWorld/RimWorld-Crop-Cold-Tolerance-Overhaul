@@ -406,47 +406,65 @@ Release-presentation decisions completed on `main`:
 - Framework + Vanilla/MO balance + explicit dormancy-temperature UI + Nice Plants Menu compatibility integrated into `main` through PR #2. Merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
 
-### BAL-001 — Complete player-sowable plant coverage
+### BAL-001 — Complete living plant coverage
 
 **Requested by:** scope audit  
 **Owner:** Balance/XML  
 **Status:** IN PROGRESS
 
-Durable scope decision: CCTO balance coverage is based on whether a plant is player-sowable, not whether it is narrowly a food crop. Supported Core / Medieval Overhaul sets therefore include agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and special plants exposed through sowing UI. Wild-only plants that cannot be intentionally sown remain outside the default balance scope.
+Durable scope decision: CCTO coverage is based on living PlantDef identity, not player sowability. Within explicitly supported plant sets, every living PlantDef receives an explicit CCTO cold-response model. This includes cultivated crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, grasses, shrubs, wild trees, cave plants, and other wild-only vegetation. Dead stump/remnant Defs are excluded because they are not living vegetation. Unsupported third-party plant sets retain originating behavior unless compatibility is added.
 
-Audit and implementation result:
+Balance rule for wild-only plants: values must remain compatible with the climates/biomes where the plant naturally occurs, so normal seasonal cold does not cause implausible routine die-off or destabilize biome vegetation/grazing.
 
-- Medieval Overhaul 1.6 remains fully covered by the existing 21 MO-specific cultivated plant Defs.
-- MO fungus audit: the player-sowable fungus Defs are `DankPyon_Plant_Mushrooms` and `DankPyon_Plant_FlyAgaric`; both are already included in the 21-target CCTO balance. `DankPyon_Plant_FlyAgaricWild` explicitly clears `sowTags` and remains intentionally out of scope as a wild-only Def. No additional sowable MO fungus Def was found in MO 1.6 compatibility patches.
-- Core coverage was expanded from 12 to 30 player-sowable plants.
-- Added Core targets: Bamboo, Birch, Cecropia, Cypress, Dandelion, Daylily, Drago tree, Maple, Oak, Palm, Pine, Poplar, Rose, Saguaro cactus, Teak, Timbershroom, Tinctoria, and Willow.
-- Bamboo uses a Japanese moso/madake-style baseline: minimum growth 10 C, fixed cold death -18 C.
-- Temperate deciduous/perennial plants use cold dormancy where appropriate; evergreen/boreal or warm-climate plants use fixed death thresholds.
-- `Patches/Vanilla_ColdTolerance.xml`, `Docs/Design.md`, `Docs/ImplementationTable.md`, README, About description, and English/Japanese Workshop presentation sources have been updated.
-- Static validator now expects 30 Core targets; loaded-balance E2E checks assert all 30 Core + 21 MO values.
-- A new coverage regression scans loaded player-plantable Defs (normal sowing plus TreeSowing-gated forestry) and fails on uncovered/unexpected sowable plants.
-- The full integration summary therefore changes from 13 to 14 required Pickle scenarios.
+Current implemented target set:
+- Core / Vanilla RimWorld 1.6: **49 living PlantDefs**. Three dead stump/remnant Defs are intentionally excluded.
+- Medieval Overhaul 1.6: **29 MO-specific living PlantDefs** (21 cultivated + 8 wild-only).
+- Total curated Core+MO target set: **78 living PlantDefs**.
 
-Key commits:
-- scope decision: `9bd409d2e37a69d08f5e575ae46f9aebcd5dea84`
-- initial 18-plant XML expansion: `ce2239c34d6328580760bc7d9825b1dd0f120307`
-- Japanese bamboo correction: `74e4bc41d9748605a9a202f8df0f6dd6519513d5`
-- durable 30-plant design table: `2b5acccf0ff1df44925cd285b83c1dc4df936a18`
-- README/public scope: `a415ba7fb5a0aa377262b053e37af4d3ee4e2b35`
-- all-sowable coverage regression: `a9fb69847970db78045c6ce60073a1e3a9a3315e`, refined `5a88ef644fb19dd4e80d6c1dc341f454f23d5668`
-- 14-scenario gate: `a5fd1fa1f8d18f1962efdc3209bbc06a79c611fe`, `b13bd202020025ae253c6ba457f1d0aeb84640b9`
-- implementation mapping: `513a0ea8f75bf79e5f990ffe9667f094984814f6`
-- Workshop English/Japanese maintained descriptions: `051561e1408431342e1c1830fb6cfb0beba17d50`, `fe74a7f6ef15069d6dd8bc3567b6dcbb16502f90`, `4ed67c0daeca56a088527bb2ecc71af1585291fa`
+New Core wild-only coverage added:
+- `Agarilux`, `Plant_Agave`, `Plant_Alocasia`, `Plant_Ambrosia`, `Plant_Astragalus`, `Plant_Berry`, `Plant_Brambles`, `Bryolux`, `Plant_Bush`, `Plant_Chokevine`, `Plant_Clivia`, `Plant_Rafflesia`, `Glowstool`, `Plant_Grass`, `Plant_ShrubLow`, `Plant_Moss`, `Plant_PincushionCactus`, `Plant_TallGrass`, `Plant_HealrootWild`.
+
+New MO wild-only coverage added:
+- `DankPyon_Plant_MindwortWild`, `DankPyon_Plant_PoppyWild`, `DankPyon_Plant_FleawortWild`, `DankPyon_Plant_FlyAgaricWild`, `DankPyon_GreatOak`, `DankPyon_GreatIter`, `DankPyon_GreatFir`, `DankPyon_GreatWillow`.
+
+Notable balance decisions:
+- Japanese bamboo baseline remains minimum growth 10 C / fixed cold death -18 C.
+- Wild counterparts of MO alchemy crops use the same species-level values as their cultivated counterparts.
+- Great Oak / Great Iter / Great Willow use cold dormancy; Great Fir uses minimum growth 0 C / fixed cold death -35 C.
+- Tundra/boreal/cold-bog Core vegetation generally uses dormancy or strong frost tolerance; explicitly tropical plants use warmer fixed death thresholds.
+
+Implementation/status:
+- Core balance XML now contains 49 minimum-growth patches + 49 CCTO extensions.
+- MO balance XML now contains 29 minimum-growth patches + 29 CCTO extensions.
+- Static validator expects 49 Core + 29 MO entries and checks all four relevant MO 1.6 source files (cultivated farm/alchemy + wild alchemy + wild Dark Forest).
+- MO E2E fixture contains 29 target Defs.
+- Loaded-value E2E assertions cover all 49 Core + 29 MO targets.
+- Coverage regression expects exactly 78 living Core/MO PlantDefs in the isolated profile and excludes dead plant remnants.
+- Full integration suite remains 14 scenarios; scenario names now refer to Core living plants, MO plants, and all supported living-plant coverage.
+- README, Design, ImplementationTable, About.xml, Workshop English/Japanese descriptions, ReleaseChecklist, DevelopmentTools, and PatchPlan are synchronized to the all-living-PlantDef scope.
+- Workshop maintained descriptions remain within Steam's 8,000-byte description limit (English 6,424 bytes; Japanese 5,588 bytes at current main).
+
+Key commits for the all-living-plant scope:
+- durable scope change: `73351ca2e7931d5a25d0883a69358a5bf9d4a83e`
+- Core wild plant XML: `62406b18d0ef06b216a1776bf1d98c13837a485a`
+- MO wild plant XML: `c7e3f8ebf1e382daec83a430f9f3d9d71f6e575f`
+- 49/29 validator: `0c75b0885b4ab8550674666d71964d374cd5125e`
+- MO 29-Def fixture: `719a17a0efc1dfc2669690cda8001d1b9f893c9d`
+- E2E 49/29 + 78 coverage: `64ee4de1d0fdb0185ec815d0f83be5a33ad2e070`
+- scenario renames: `c160d9d4cced1af1a724a261c4f6ff1b0bd75834`, `7320a0ab2bf2ec2305309094f33f3ca8dd91d7a5`
+- design wild-value tables: `d97128ab26695a8f7db82644748b2048d7a25ea8`
+- implementation mapping: `c4c7ae4aad7059cbc1ae11c5bd66761752caedbd`
+- README: `245800a9cfb5aea2892adca1085a78291aa70b32`
+- About / Workshop scope sync: `0564c9d23a770d585bb15c4ec29ce32931dbdb6a`, `0848f84437fa19c4b0a36e5cf2a523785edfa116`, `7c6c8886177e693823cff67b853774200c03b7b1`, `f0f8a9ff3bc92f92cc53fc20ea7a6961a49c2245`
+- release/dev/patch docs: `9c9f4779077b87c8c1ea06125baf77109555f87c`, `0abd3e35b91079f38e46be206f167240c0ef0873`, `42cce60bdbbe0999f83e3563d3a46de1de278ffc`
 
 Static consistency audit: PASS.
-
-- Vanilla XML: 30 CCTO extensions / 30 minimum-growth patches.
-- Validator: 30 Core expected entries.
-- E2E loaded-value assertions: 30 Core + 21 MO.
-- Bamboo is consistently 10 C minimum growth / -18 C fixed death across XML, validator, E2E and design mapping.
+- Core XML 49 / validator 49 / loaded-value E2E 49.
+- MO XML 29 / validator 29 / fixture 29 / loaded-value E2E 29.
+- Coverage expected set: 78.
+- Required 14-scenario summary names are synchronized.
 
 Remaining release gate:
-
 - run `run-tests.bat "D:\\SteamLibrary\\steamapps\\common\\RimWorld"` and require a fresh **14/14** pass;
-- then run normal-profile smoke with one newly covered forestry plant (bamboo recommended);
-- only after those pass, update/re-upload the live Steam Workshop item.
+- run normal-profile smoke including at least one newly covered wild-only plant;
+- after those pass, rebuild/re-upload the Workshop package and update the live English/Japanese descriptions.
