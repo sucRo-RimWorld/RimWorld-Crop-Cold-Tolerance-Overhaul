@@ -14,9 +14,9 @@ Vanilla RimWorld derives cold death from the growth minimum with deterministic p
 
 ## Scope
 
-CCTO changes only cold-tolerance behavior.
+CCTO **rebalances cold-tolerance-related values only**: minimum growth temperature, cold-death temperature, and cold dormancy behavior where appropriate.
 
-It does **not** rebalance:
+It does **not** rebalance other crop properties such as:
 
 - harvest yield;
 - growth time;
@@ -40,6 +40,57 @@ The current Beta includes balance data for:
 - Medieval Overhaul 1.6 crops.
 
 Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs rather than making CCTO depend on AMJ.
+
+
+## Current rebalance values
+
+These are the final cold-tolerance values currently applied by CCTO. They are the values CCTO uses in game, not candidate ranges.
+
+For dormancy crops, the listed minimum growth temperature is also the cold-dormancy threshold.
+
+### Vanilla RimWorld
+
+| Crop | Minimum growth temperature | Cold-death temperature / behavior |
+|---|---:|---:|
+| Rice | 10°C | -1°C |
+| Potato | 5°C | -2°C |
+| Corn | 8°C | -2°C |
+| Strawberry | 5°C | -9°C |
+| Haygrass | 0°C | -9°C |
+| Cotton | 10°C | -1°C |
+| Devilstrand | 8°C | -1°C |
+| Healroot | 0°C | -9°C |
+| Hops | 5°C | cold dormancy |
+| Smokeleaf | 5°C | -4°C |
+| Psychoid | 8°C | -1°C |
+| Cocoa | 12°C | 0°C |
+
+### Medieval Overhaul 1.6
+
+| Crop | Minimum growth temperature | Cold-death temperature / behavior |
+|---|---:|---:|
+| Healroot | 0°C | -9°C |
+| Mindwort | 5°C | -3°C |
+| Poppy | 5°C | -5°C |
+| Fleawort | 3°C | -6°C |
+| Fly agaric | 0°C | cold dormancy |
+| Onion | 5°C | -3°C |
+| Lentil | 5°C | -4°C |
+| Cabbage | 0°C | -6°C |
+| Garlic | 0°C | cold dormancy |
+| Mushroom | 5°C | -1°C |
+| Wheat | 0°C | -6°C |
+| Flax | 5°C | -5°C |
+| Sugarcane | 10°C | -5°C |
+| Carrot | 0°C | -4°C |
+| Herb | 5°C | -3°C |
+| Tomato | 10°C | -1°C |
+| Pumpkin | 10°C | -1°C |
+| Grape | 5°C | cold dormancy |
+| Apple | 5°C | cold dormancy |
+| Mulberry | 5°C | cold dormancy |
+| Griffon berry | 5°C | cold dormancy |
+| Lemon | 10°C | -4°C |
 
 ## Dependencies
 
