@@ -65,7 +65,7 @@ Because real plants vary by cultivar, growth stage, acclimation, and exposure du
 
 [h2]Supported plant sets[/h2]
 [list]
-[*]All 30 player-sowable Core plants in Vanilla RimWorld 1.6, including crops, decorative plants and forestry trees
+[*]All 30 player-sowable Core plants in Vanilla RimWorld 1.6, including crops, decorative plants, forestry trees and fungi
 [*]All 21 Medieval Overhaul 1.6-specific cultivated plant Defs used by CCTO
 [/list]
 
