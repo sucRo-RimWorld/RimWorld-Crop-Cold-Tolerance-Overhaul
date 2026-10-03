@@ -465,6 +465,6 @@ Static consistency audit: PASS.
 - Required 14-scenario summary names are synchronized.
 
 Remaining release gate:
-- run `run-tests.bat "D:\\SteamLibrary\\steamapps\\common\\RimWorld"` and require a fresh **14/14** pass;
-- run normal-profile smoke including at least one newly covered wild-only plant;
-- after those pass, rebuild/re-upload the Workshop package and update the live English/Japanese descriptions.
+- full `run-tests.bat` rerun: **PASS, 14/14** (user-reported 2026-10-03), including the all-supported-living-plant coverage scenario;
+- remaining: run normal-profile smoke including at least one newly covered wild-only plant;
+- after that passes, rebuild/re-upload the Workshop package and update the live English/Japanese descriptions.
