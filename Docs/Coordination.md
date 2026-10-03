@@ -256,6 +256,8 @@ Implementation on `balance-xml`:
 
 The visual part of CODE-006 must be rerun after rebuilding because the displayed dormancy row has changed.
 
+**Post-change automated rerun:** PASS. The user reran the full integrated gate after the explicit dormancy-temperature implementation and all **13/13** scenarios passed again. The automated blocker remains cleared for the current code.
+
 A separate compact plant-information panel from another mod does not surface CCTO's `SpecialDisplayStats` rows and also showed unrelated garbled text. This is not a failure of the standard RimWorld Info Card path and is outside the current CCTO release gate.
 
 **Remaining check:** confirm the normal startup/runtime log contains no new CCTO-origin error.
