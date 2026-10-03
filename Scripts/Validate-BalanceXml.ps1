@@ -37,6 +37,24 @@ $vanilla = @{
   Plant_Smokeleaf   = Spec 5  (-4) $false
   Plant_Psychoid    = Spec 8  (-1) $false
   Plant_TreeCocoa   = Spec 12 0 $false
+  Plant_TreeBamboo   = Spec 8  (-5) $false
+  Plant_TreeBirch    = Spec 5  $null $true
+  Plant_TreeCecropia = Spec 10 0 $false
+  Plant_TreeCypress  = Spec 5  $null $true
+  Plant_Dandelion    = Spec 0  $null $true
+  Plant_Daylily      = Spec 0  $null $true
+  Plant_TreeDrago    = Spec 8  0 $false
+  Plant_TreeMaple    = Spec 5  $null $true
+  Plant_TreeOak      = Spec 5  $null $true
+  Plant_TreePalm     = Spec 10 0 $false
+  Plant_TreePine     = Spec 0  (-35) $false
+  Plant_TreePoplar   = Spec 5  $null $true
+  Plant_Rose         = Spec 5  $null $true
+  Plant_SaguaroCactus = Spec 8 (-6) $false
+  Plant_TreeTeak     = Spec 12 3 $false
+  Plant_Timbershroom = Spec 0  $null $true
+  Plant_Tinctoria    = Spec 5  (-4) $false
+  Plant_TreeWillow   = Spec 5  $null $true
 }
 
 $mo = @{
