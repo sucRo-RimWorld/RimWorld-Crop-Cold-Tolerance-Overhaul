@@ -188,9 +188,9 @@ Then launch RimWorld normally, without `-savedatafolder`, and perform this repre
 | Case | Expected Info Card |
 |---|---|
 | Vanilla rice | minimum growth temperature 10 C; `枯死温度` -1 C; no `低温反応: 休眠` |
-| Vanilla hops | minimum growth temperature 5 C; `低温反応: 休眠`; no `枯死温度` |
-| MO wheat | minimum growth temperature 0 C; `枯死温度` -6 C; no `低温反応: 休眠` |
-| MO apple tree | minimum growth temperature 5 C; `低温反応: 休眠`; no `枯死温度` |
+| Vanilla hops | minimum growth temperature 5 C; `休眠温度` 5 C; no `枯死温度` |
+| MO wheat | minimum growth temperature 0 C; `枯死温度` -6 C; no `休眠温度` |
+| MO apple tree | minimum growth temperature 5 C; `休眠温度` 5 C; no `枯死温度` |
 
 The exact spacing/unit formatting around Celsius is RimWorld-native and is not a CCTO wording requirement.
 
@@ -198,7 +198,7 @@ Pass criteria:
 
 1. normal startup completes with the real gameplay mod profile and no new CCTO-origin error;
 2. the four representative cards show the expected data above;
-3. `枯死温度` and `低温反応 / 休眠` are readable and visually grouped sensibly with RimWorld's native plant temperature entries;
+3. `枯死温度` and `休眠温度` are readable and visually grouped sensibly with RimWorld's native plant temperature entries;
 4. no duplicate CCTO temperature rows appear;
 5. opening/closing the Info Card and returning to play causes no visible error or UI breakage.
 
