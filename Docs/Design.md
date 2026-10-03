@@ -155,6 +155,23 @@ MO fungus coverage follows the same all-PlantDef rule as every other plant. `Dan
 
 Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, mulberry, and Griffon berry already have leafless-survival behavior in Medieval Overhaul and retain the same conceptual role. Lemon remains a warm-climate perennial and receives a real low-temperature death threshold rather than unlimited dormancy survival.
 
+
+### 4.4 Wild-only Medieval Overhaul plants
+
+Wild counterparts of cultivated alchemy plants use the same cold model as the cultivated form because they represent the same species. Dark Forest giant trees are balanced to survive routine snowy winters in their native biome.
+
+| Plant | Minimum growth temperature | Fixed death threshold / behavior | Role |
+|---|---:|---:|---|
+| Wild mindwort | 5°C | -3°C | same species model as cultivated mindwort |
+| Wild poppy | 5°C | -5°C | same species model as cultivated poppy |
+| Wild fleawort | 3°C | -6°C | same species model as cultivated fleawort |
+| Wild fly agaric | 0°C | cold dormancy | same species model as cultivated fly agaric |
+| Great oak | 5°C | cold dormancy | ancient deciduous Dark Forest tree |
+| Great Iter | 5°C | cold dormancy | giant leaf-shedding Dark Forest tree |
+| Great fir | 0°C | -35°C | evergreen snow-forest giant; aligned with Core pine-class severe-cold survival |
+| Great willow | 5°C | cold dormancy | ancient deciduous willow |
+
+
 ## 5. Fixed implementation values — Core / Vanilla RimWorld 1.6
 
 | Crop | Minimum growth temperature | Fixed death threshold / behavior | Role |
@@ -190,11 +207,40 @@ Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, 
 | Tinctoria | 5°C | -4°C | fictional engineered dye crop; temperate annual-style gameplay baseline |
 | Willow | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
 
+
+### 5.1 Core wild-only plants
+
+Wild plants are not tuned as if they were farm crops. Their cold values must preserve the ecology of the biomes where they naturally spawn. Plants present in tundra, boreal forest, cold bog, or multiple climate bands generally use dormancy or strong frost tolerance; explicitly tropical plants use warmer lethal thresholds.
+
+| Plant | Minimum growth temperature | Fixed death threshold / behavior | Role |
+|---|---:|---:|---|
+| Agarilux | 0°C | cold dormancy | cave fungus; survives ordinary cold rather than disappearing from cold-region caves |
+| Agave | 5°C | -7°C | arid/desert succulent with moderate frost tolerance |
+| Alocasia | 10°C | -1°C | tropical foliage plant; frost-sensitive |
+| Ambrosia bush | 0°C | -9°C | rare wild harvest plant; retains strong generic wild cold survival |
+| Astragalus | 0°C | cold dormancy | alpine/tundra perennial |
+| Berry bush | 0°C | cold dormancy | occurs from tundra/boreal through temperate climates |
+| Brambles | 0°C | cold dormancy | temperate/boreal woody perennial |
+| Bryolux | 0°C | -12°C | cave moss/fungus with explicit lethal cold response |
+| Bush | 0°C | cold dormancy | generic wild bush used across several climate bands |
+| Chokevine | 0°C | cold dormancy | wetland vine present in cold bog as well as warmer swamps |
+| Clivia | 8°C | -2°C | warm/tropical ornamental wild plant |
+| Giant rafflesia | 12°C | 5°C | strongly tropical, highly cold-sensitive plant |
+| Glowstool | 0°C | -8°C | cave fungus with explicit lethal cold response |
+| Grass | 0°C | cold dormancy | ubiquitous grazing layer including tundra |
+| Low shrubs | 8°C | -2°C | tropical low-shrub layer |
+| Moss | 0°C | cold dormancy | tundra/boreal/cold-bog ground cover |
+| Pincushion cactus | 5°C | -8°C | arid/desert cactus with meaningful frost tolerance |
+| Tall grass | 0°C | cold dormancy | wild grass occurring in cold bog and warm wetlands |
+| Wild healroot | 0°C | -9°C | same species-level cold model as cultivated healroot |
+
+Core stump/remnant Defs are intentionally excluded. They are dead plant remnants rather than living vegetation and have no meaningful cold-tolerance gameplay model.
+
 ## 6. Compatibility principle
 
 Unknown third-party plants are not automatically overwritten. The all-PlantDef rule applies within plant sets that CCTO explicitly supports; it is not a blanket patch over every third-party mod.
 
-Explicit compatibility/balance data should be provided for supported plant sets such as Core, Medieval Overhaul, and AMJ. Unsupported plants retain their originating behavior unless a compatibility patch is added.
+Explicit compatibility/balance data should be provided for supported plant sets such as Core, Medieval Overhaul, and AMJ. Within a supported set, all living PlantDefs are expected to receive CCTO data. Unsupported third-party plant sets retain their originating behavior unless a compatibility patch is added.
 
 ## 7. Archived candidate ranges and future randomized mode
 
