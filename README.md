@@ -234,7 +234,7 @@ The published 0.1 Beta baseline previously passed:
 - Dubs Mint Menus display verification;
 - Nice Plants Menu compatibility smoke checks.
 
-The subsequent expansion from 12 to 30 Core player-sowable plants changes balance XML and loaded-Def expectations, so the full release gate must be rerun before that expanded balance is treated as verified for publication.
+The subsequent expansion to all 49 living Core PlantDefs and all 29 MO-specific PlantDefs changes balance XML and loaded-Def expectations, so the full 14/14 release gate must be rerun before that expanded balance is treated as verified for publication.
 
 The tested release source of truth is `main`.
 
