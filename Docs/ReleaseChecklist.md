@@ -30,7 +30,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
 - [ ] Create and add `About/Preview.png` from the approved `Docs/PreviewBrief.md` specification.
 - [x] Steam Workshop title, short description, long description, and tag set drafted in `Docs/WorkshopDescription.md`; final publication-time visual review remains tied to `About/Preview.png`.
-- [x] Paste-ready Workshop BBCode body generated at `Docs/SteamWorkshopDescription.txt` and synchronized with the README's current before/after tables and balance-direction wording.
+- [x] Paste-ready Workshop BBCode body generated at `Docs/SteamWorkshopDescription.txt`. Workshop balance presentation uses representative before/after examples for readability and links to the README for the complete Vanilla/MO tables; balance-direction wording remains synchronized with the README.
 - [x] YADA upload filtering configured through repository-root `.rimignore`; runtime `About/`, `Assemblies/`, `Languages/`, `Patches/`, and `LICENSE` are retained while repository/development files are excluded.
 - [x] License confirmed: existing repository `LICENSE` is MIT License, copyright 2026 sucRo0629.
 - [x] Public version spelling fixed: **0.1 Beta**. Git tag/release tag: **`v0.1.0-beta`**.
