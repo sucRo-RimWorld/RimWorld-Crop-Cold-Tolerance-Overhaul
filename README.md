@@ -44,56 +44,62 @@ Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs 
 
 ## Current rebalance values
 
-These are the final cold-tolerance values currently applied by CCTO. They are the values CCTO uses in game, not candidate ranges.
+The tables below compare the original RimWorld / Medieval Overhaul values and behavior with the values applied by CCTO.
 
-For dormancy crops, the listed minimum growth temperature is also the cold-dormancy threshold.
+Vanilla RimWorld does not store a fixed species-level cold-death temperature. Its normal cold-leafless threshold is calculated per individual plant as:
+
+`minGrowthTemperature + deterministic random offset from -18°C to -10°C`
+
+If `dieIfLeafless=true`, crossing that threshold kills the plant. If `dieIfLeafless=false`, the plant enters the leafless state but survives. CCTO replaces this generic behavior for supported plants with explicit species-level fixed death temperatures or cold dormancy.
+
+For CCTO dormancy crops, the CCTO minimum growth temperature is also the dormancy threshold.
 
 ### Vanilla RimWorld
 
-| Crop | Minimum growth temperature | Cold-death temperature / behavior |
-|---|---:|---:|
-| Rice | 10°C | -1°C |
-| Potato | 5°C | -2°C |
-| Corn | 8°C | -2°C |
-| Strawberry | 5°C | -9°C |
-| Haygrass | 0°C | -9°C |
-| Cotton | 10°C | -1°C |
-| Devilstrand | 8°C | -1°C |
-| Healroot | 0°C | -9°C |
-| Hops | 5°C | cold dormancy |
-| Smokeleaf | 5°C | -4°C |
-| Psychoid | 8°C | -1°C |
-| Cocoa | 12°C | 0°C |
+| Crop | Original min growth | CCTO min growth | Original cold behavior | CCTO cold behavior |
+|---|---:|---:|---|---|
+| Rice | 0°C | 10°C | death at -18 to -10°C, per plant | fixed death at -1°C |
+| Potato | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -2°C |
+| Corn | 0°C | 8°C | death at -18 to -10°C, per plant | fixed death at -2°C |
+| Strawberry | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -9°C |
+| Haygrass | 0°C | 0°C | death at -18 to -10°C, per plant | fixed death at -9°C |
+| Cotton | 0°C | 10°C | death at -18 to -10°C, per plant | fixed death at -1°C |
+| Devilstrand | 0°C | 8°C | death at -18 to -10°C, per plant | fixed death at -1°C |
+| Healroot | 0°C | 0°C | leafless below -18 to -10°C, survives | fixed death at -9°C |
+| Hops | 0°C | 5°C | death at -18 to -10°C, per plant | cold dormancy below 5°C |
+| Smokeleaf | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -4°C |
+| Psychoid | 0°C | 8°C | death at -18 to -10°C, per plant | fixed death at -1°C |
+| Cocoa | 0°C | 12°C | death at -18 to -10°C, per plant | fixed death at 0°C |
 
 ### Medieval Overhaul 1.6
 
-Medieval Overhaul's Healroot uses the Vanilla `Plant_Healroot` Def, so it receives the Vanilla CCTO value listed above: 0°C minimum growth, -9°C cold death.
+Medieval Overhaul's Healroot uses the Vanilla `Plant_Healroot` Def, so its before/after values are the Healroot row in the Vanilla table above.
 
 The following are the 21 MO-specific plant Defs patched by CCTO:
 
-| Crop | Minimum growth temperature | Cold-death temperature / behavior |
-|---|---:|---:|
-| Mindwort | 5°C | -3°C |
-| Poppy | 5°C | -5°C |
-| Fleawort | 3°C | -6°C |
-| Fly agaric | 0°C | cold dormancy |
-| Onion | 5°C | -3°C |
-| Lentil | 5°C | -4°C |
-| Cabbage | 0°C | -6°C |
-| Garlic | 0°C | cold dormancy |
-| Mushroom | 5°C | -1°C |
-| Wheat | 0°C | -6°C |
-| Flax | 5°C | -5°C |
-| Sugarcane | 10°C | -5°C |
-| Carrot | 0°C | -4°C |
-| Herb | 5°C | -3°C |
-| Tomato | 10°C | -1°C |
-| Pumpkin | 10°C | -1°C |
-| Grape | 5°C | cold dormancy |
-| Apple | 5°C | cold dormancy |
-| Mulberry | 5°C | cold dormancy |
-| Griffon berry | 5°C | cold dormancy |
-| Lemon | 10°C | -4°C |
+| Crop | Original min growth | CCTO min growth | Original cold behavior | CCTO cold behavior |
+|---|---:|---:|---|---|
+| Mindwort | 0°C | 5°C | leafless below -18 to -10°C, survives | fixed death at -3°C |
+| Poppy | 0°C | 5°C | leafless below -18 to -10°C, survives | fixed death at -5°C |
+| Fleawort | 0°C | 3°C | leafless below -18 to -10°C, survives | fixed death at -6°C |
+| Fly agaric | 0°C | 0°C | leafless below -18 to -10°C, survives | cold dormancy below 0°C |
+| Onion | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -3°C |
+| Lentil | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -4°C |
+| Cabbage | -18°C | 0°C | death at -36 to -28°C, per plant | fixed death at -6°C |
+| Garlic | 0°C | 0°C | death at -18 to -10°C, per plant | cold dormancy below 0°C |
+| Mushroom | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -1°C |
+| Wheat | 0°C | 0°C | death at -18 to -10°C, per plant | fixed death at -6°C |
+| Flax | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -5°C |
+| Sugarcane | 0°C | 10°C | death at -18 to -10°C, per plant | fixed death at -5°C |
+| Carrot | 0°C | 0°C | death at -18 to -10°C, per plant | fixed death at -4°C |
+| Herb | 0°C | 5°C | death at -18 to -10°C, per plant | fixed death at -3°C |
+| Tomato | 0°C | 10°C | death at -18 to -10°C, per plant | fixed death at -1°C |
+| Pumpkin | 0°C | 10°C | death at -18 to -10°C, per plant | fixed death at -1°C |
+| Grape | 0°C | 5°C | death at -18 to -10°C, per plant | cold dormancy below 5°C |
+| Apple | 0°C | 5°C | leafless below -18 to -10°C, survives | cold dormancy below 5°C |
+| Mulberry | 0°C | 5°C | leafless below -18 to -10°C, survives | cold dormancy below 5°C |
+| Griffon berry | 0°C | 5°C | leafless below -18 to -10°C, survives | cold dormancy below 5°C |
+| Lemon | 0°C | 10°C | leafless below -18 to -10°C, survives | fixed death at -4°C |
 
 ## Dependencies
 
