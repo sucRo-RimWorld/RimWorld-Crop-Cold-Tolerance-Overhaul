@@ -410,7 +410,7 @@ Release-presentation decisions completed on `main`:
 
 **Requested by:** scope audit  
 **Owner:** Balance/XML  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Durable scope decision: CCTO coverage is based on living PlantDef identity, not player sowability. Within explicitly supported plant sets, every living PlantDef receives an explicit CCTO cold-response model. This includes cultivated crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, grasses, shrubs, wild trees, cave plants, and other wild-only vegetation. Dead stump/remnant Defs are excluded because they are not living vegetation. Unsupported third-party plant sets retain originating behavior unless compatibility is added.
 
@@ -535,4 +535,6 @@ Implementation commits: `f9c71232c2e2dfaf1f85a404b2c1e12aebff91ef`, `64e5c8508eb
 
 Runtime rerun found a malformed XML regression before the runtime suite: the automated removal of four direct wild-alchemy extension blocks left four orphan `</value></li>` closers in `Patches/MedievalOverhaul_ColdTolerance.xml`. The patch XML was repaired in `be75db88918da1f708889ea7b1506caba2930d1e`. A post-fix structural check confirms balanced XML tags, 25 direct MO extension operations, no direct extension on the four inherited wild-alchemy Defs, and all four minimum-growth patches still present.
 
-**Next action:** pull the fix and rerun the full local `run-tests.bat` gate. Do not close CODE-009 or re-upload until both the scenario gate and the new CCTO-origin runtime ERROR gate pass.
+Final verification: full local `run-tests.bat` gate **PASS, 14/14**, and the new CCTO-origin runtime ERROR gate also passed with no CCTO ERROR entries. CODE-009 is complete.
+
+**Next action:** re-upload the corrected Workshop package for the 0.1.2 Beta update.
