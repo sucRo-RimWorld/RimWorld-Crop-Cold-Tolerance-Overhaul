@@ -464,16 +464,16 @@ Static consistency audit: PASS.
 - Coverage expected set: 78.
 - Required 14-scenario summary names are synchronized.
 
-Remaining release gate:
+Release status:
 - full `run-tests.bat` rerun: **PASS, 14/14** (user-reported 2026-10-03), including the all-supported-living-plant coverage scenario;
 - normal-profile wild-plant Info Card smoke: **PASS**. Verified Wild Healroot (min 0 C / death -9 C), Berry bush (min 0 C / dormancy 0 C), Bush (min 0 C / dormancy 0 C), and Oak (min 5 C / dormancy 5 C); displayed values matched the implemented CCTO balance.
 - BAL-001 implementation/validation is complete.
-- release/presentation remaining: rebuild/re-upload the Workshop package and update the live English/Japanese descriptions.
+- release/presentation complete: the existing Workshop item `3812412548` was updated with the current 0.1.1 Beta build and the maintained English/Japanese descriptions.
 
 Release/presentation maintenance update (2026-10-03):
 - Release notes are now centralized under `Docs/ReleaseNotes/`; root-level `Docs/ReleaseNotes-*.md` copies were removed and checklist references were updated.
 - Japanese Workshop description wording was polished for natural Japanese, updated to 0.1.1 Beta verification status, and remains within Steam's 8,000-byte limit (5,951 bytes).
-- Live Workshop page still requires the maintained Japanese description to be pasted/applied if not already updated after this commit.
+- Live Workshop English/Japanese descriptions are updated.
 - English Workshop presentation and paste-ready description were synchronized to **0.1.1 Beta / 14/14**; no stale 13/13 or 0.1 Beta wording remains in those two maintained English files. Current paste-ready English description size: 6,389 bytes.
 
 UI consistency update (2026-10-03):
@@ -487,3 +487,4 @@ UI consistency update (2026-10-03):
 - Final ordering commits: `7d309d5a475254162112e16186675e82ae47abdc`, `a6244249a17d441f1b0913ba948aca3cefedfb9c`.
 - Full local gate rerun after the UI-only ordering change: **PASS, 14/14** (user-reported 2026-10-03).
 - Standard Info Card visual recheck: **PASS**; cold-death and dormancy thresholds now occupy the intended aligned slot.
+- 0.1.1 Beta publication is complete; no additional release/tag creation is required for this update.
