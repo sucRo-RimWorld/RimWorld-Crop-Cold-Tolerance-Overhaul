@@ -54,6 +54,11 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] Cold death / dormancy row alignment visually rechecked in the standard Info Card.
 - [x] Live Steam Workshop English/Japanese descriptions updated from the maintained paste-ready files.
 - [x] Workshop package updated on existing item `3812412548`; the post-0.1.1 Info Card ordering fix is live.
+- [x] MO wild alchemy inheritance fix implemented: four wild alchemy Defs now inherit the cultivated CCTO extension instead of appending a duplicate.
+- [x] E2E MO fixture now mirrors the real MO Named-Parent inheritance for those four wild alchemy Defs.
+- [x] Automated runtime-log gate added so a CCTO-origin ERROR fails the local E2E gate even if Pickle scenarios otherwise pass.
+- [ ] Rerun `run-tests.bat` after the MO inheritance/runtime-log-gate changes and require a clean scenario result **and** zero CCTO-origin runtime ERROR entries.
+- [ ] Re-upload the corrected Workshop package after the fresh gate passes.
 
 ## Beta feedback targets
 
