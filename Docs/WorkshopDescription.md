@@ -10,6 +10,13 @@ Crop Cold Tolerance Overhaul
 
 RimWorld 1.6 — 0.1 Beta
 
+## Japanese localization
+
+- Title: `作物耐寒性オーバーホール`
+- Paste-ready title: `Docs/SteamWorkshopTitle-ja.txt`
+- Paste-ready description: `Docs/SteamWorkshopDescription-ja.txt`
+- The Japanese description is intentionally shorter than the English version so its UTF-8 byte size remains comfortably below Steam's description limit.
+
 ## Short description
 
 Separates minimum growth temperature from cold-death behavior, rebalances Vanilla and Medieval Overhaul crop cold tolerance, adds explicit cold-death/dormancy temperatures to plant information, and provides a lightweight XML framework for other crop mods.
