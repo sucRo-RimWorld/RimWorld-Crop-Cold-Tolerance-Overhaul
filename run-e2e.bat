@@ -7,9 +7,9 @@ if not defined RIMWORLD_DIR set "RIMWORLD_DIR=D:\SteamLibrary\steamapps\common\R
 set "TEST_MODE=%~2"
 set "PICKLE_FILTER=framework.feature,cold-tolerance.feature"
 set "PREPARE_MO_ARG="
-if /I "%TEST_MODE%"=="with-mo" (
+if /I "%TEST_MODE%"=="with-mo-fixture" (
     set "PICKLE_FILTER=framework.feature,cold-tolerance.feature,balance.feature"
-    set "PREPARE_MO_ARG=-IncludeMedievalOverhaul"
+    set "PREPARE_MO_ARG=-IncludeMedievalOverhaulFixture"
 )
 
 set "ROOT=%~dp0"
@@ -23,6 +23,21 @@ if errorlevel 1 exit /b 1
 if not exist "%RIMWORLD_EXE%" (
     echo [ERROR] RimWorld executable was not found:
     echo         %RIMWORLD_EXE%
+    exit /b 1
+)
+
+echo.
+echo Resetting isolated test output...
+if exist "%REPORT_DIR%" rmdir /S /Q "%REPORT_DIR%"
+if errorlevel 1 (
+    echo [ERROR] Failed to clear stale Pickle reports:
+    echo         %REPORT_DIR%
+    exit /b 1
+)
+if exist "%TEST_SAVEDATA%" rmdir /S /Q "%TEST_SAVEDATA%"
+if errorlevel 1 (
+    echo [ERROR] Failed to clear isolated save data:
+    echo         %TEST_SAVEDATA%
     exit /b 1
 )
 
