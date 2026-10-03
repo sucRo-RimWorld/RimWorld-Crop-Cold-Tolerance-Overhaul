@@ -24,6 +24,12 @@ This makes crop choice, seasonal timing, heating, greenhouses, and cold snaps mo
 
 This is not a universal nerf: selected perennial and overwintering crops gain dormancy and can survive ordinary winter cold.
 
+[h2]How the values were chosen[/h2]
+
+The numbers are based on real-world crop cold-tolerance information, including frost-damage and lethal-temperature data where available.
+
+Because real plants vary by cultivar, growth stage, acclimation, and exposure duration, CCTO uses those temperatures as reference points rather than copying a single reported value literally. They are rounded and tuned into clear gameplay thresholds while preserving meaningful differences between crops.
+
 [h2]Supported crop sets[/h2]
 [list]
 [*]Vanilla RimWorld 1.6
