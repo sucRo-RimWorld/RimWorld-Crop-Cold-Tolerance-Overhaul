@@ -1,4 +1,5 @@
 using System.Linq;
+using CropColdToleranceOverhaul.Compatibility;
 using HarmonyLib;
 using Verse;
 
@@ -11,7 +12,9 @@ namespace CropColdToleranceOverhaul
 
         static Bootstrap()
         {
-            new Harmony(HarmonyId).PatchAll();
+            Harmony harmony = new Harmony(HarmonyId);
+            harmony.PatchAll();
+            NicePlantsMenuCompatibility.TryPatch(harmony);
             LongEventHandler.ExecuteWhenFinished(ValidateDefinitions);
         }
 
