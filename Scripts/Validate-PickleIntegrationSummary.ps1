@@ -22,7 +22,7 @@ catch {
 }
 
 $required = @(
-  "Loaded Vanilla crop Defs match the CCTO balance table",
+  "Loaded Vanilla sowable plant Defs match the CCTO balance table",
   "Loaded Medieval Overhaul crop Defs match the CCTO balance table"
 )
 
