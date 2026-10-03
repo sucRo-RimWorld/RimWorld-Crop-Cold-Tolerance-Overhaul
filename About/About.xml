@@ -21,7 +21,7 @@
 
   <description>Beta release.
 
-Separates crop minimum-growth temperature from cold-death behavior. Supported crops use either an explicit fixed cold-death temperature or cold dormancy below their minimum growth temperature, with the relevant temperature shown in the plant Info Card.
+Rebalances crop cold tolerance by separating minimum-growth temperature from cold-death behavior. Supported crops receive explicit minimum-growth values plus either a fixed cold-death temperature or cold dormancy below their minimum growth temperature, with the relevant temperature shown in the plant Info Card.
 
 Includes Vanilla balance and optional Medieval Overhaul 1.6 balance. Nice Plants Menu compatibility is applied when that mod is present; Dubs Mint Menus works through the standard Info Card path.
 
