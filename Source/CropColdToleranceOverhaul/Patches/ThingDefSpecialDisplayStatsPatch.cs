@@ -8,6 +8,8 @@ namespace CropColdToleranceOverhaul.Patches
     [HarmonyPatch(typeof(ThingDef), "SpecialDisplayStats")]
     internal static class ThingDefSpecialDisplayStatsPatch
     {
+        private const int TemperatureDisplayPriority = 4150;
+
         [HarmonyPostfix]
         private static void Postfix(
             ThingDef __instance,
@@ -49,7 +51,7 @@ namespace CropColdToleranceOverhaul.Patches
                     "CCTO_DormancyTemperature".Translate(),
                     dormancyTemperature.ToStringTemperature(),
                     "CCTO_DormancyTemperature_Desc".Translate(),
-                    4151);
+                    TemperatureDisplayPriority);
             }
 
             if (extension.HasColdDeathTemperature)
@@ -59,7 +61,7 @@ namespace CropColdToleranceOverhaul.Patches
                     "CCTO_ColdDeathTemperature".Translate(),
                     extension.coldDeathTemperature.ToStringTemperature(),
                     "CCTO_ColdDeathTemperature_Desc".Translate(),
-                    4150);
+                    TemperatureDisplayPriority);
             }
         }
     }
