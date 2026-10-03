@@ -30,9 +30,11 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
 - [ ] Create and add `About/Preview.png` from the approved `Docs/PreviewBrief.md` specification.
 - [x] Steam Workshop title, short description, long description, and tag set drafted in `Docs/WorkshopDescription.md`; final publication-time visual review remains tied to `About/Preview.png`.
+- [x] Paste-ready Workshop BBCode body generated at `Docs/SteamWorkshopDescription.txt` and synchronized with the README's current before/after tables and balance-direction wording.
+- [x] YADA upload filtering configured through repository-root `.rimignore`; runtime `About/`, `Assemblies/`, `Languages/`, `Patches/`, and `LICENSE` are retained while repository/development files are excluded.
 - [x] License confirmed: existing repository `LICENSE` is MIT License, copyright 2026 sucRo0629.
 - [x] Public version spelling fixed: **0.1 Beta**. Git tag/release tag: **`v0.1.0-beta`**.
-- [ ] Create the GitHub release/tag only after the public version string is confirmed.
+- [ ] Create GitHub release/tag `v0.1.0-beta`.
 - [ ] Upload/publish the Steam Workshop item only after the presentation assets and description are approved.
 - [ ] After publication, perform one clean install/subscription smoke test from the published package.
 
