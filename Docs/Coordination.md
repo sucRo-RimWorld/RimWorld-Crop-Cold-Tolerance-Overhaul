@@ -352,11 +352,17 @@ Completed release-preparation work:
 
 - public-facing `README.md` added: `3e46342e13b2baae570be30dab76e5cc396d1681`;
 - `About/About.xml` description was updated for the public feature set and optional UI compatibility; release classification is now **Beta**;
-- `Docs/ReleaseChecklist.md` added: `a430ca6252a88d2ff7e9820a7cf276432237d22e`.
+- `Docs/ReleaseChecklist.md` added: `a430ca6252a88d2ff7e9820a7cf276432237d22e`;
+- README now explicitly presents CCTO as a framework for other mods to assign fixed cold-death temperatures / dormancy, and includes an AI-assisted development disclosure: `a69972f21d26900b0023e91957317b5baecc58dd`;
+- `About/About.xml` now explicitly states the framework role: `3462030feac0779d9ee9e34e6b5c2efd30607f1f`;
+- `Docs/Framework.md` now defines the framework purpose in terms of plant-specific cold-death temperatures and dormancy: `aa08d59ad4b62d546373e0410be49eb1ef60d01c`;
+- release checklist now requires the Steam Workshop description to carry the framework role and the same AI-assisted development disclosure: `f51e322c658ced558336101fc6947b0dd021ce0f`.
 
 Public-description decisions:
 
 - CCTO should state that it was split out while designing the planned Ancient & Medieval Japan (AMJ) mod because the cold-tolerance mechanic is independently useful;
+- public descriptions should explicitly state that CCTO also functions as a lightweight framework for other mods to assign explicit cold-death temperatures and cold dormancy to their plants;
+- the README and Steam Workshop long description should disclose AI-assisted development: AI was used primarily for code implementation, documentation, research, and test development, while design decisions, balance decisions, and final testing/review remain the author's responsibility;
 - no separate display-only edition is currently planned. Vanilla uses a common derived cold-threshold rule rather than independently balanced fixed death temperatures per crop, so the display is intended to report CCTO's underlying species-specific behavior rather than exist as an isolated UI-only product.
 
 Remaining public-release decisions/tasks:
