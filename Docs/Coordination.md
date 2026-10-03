@@ -493,3 +493,18 @@ Release note separation correction (2026-10-03):
 - 0.1.1 Beta release notes were restored to the scope actually published in 0.1.1 (all-living-PlantDef expansion).
 - The subsequent standard Info Card row-order fix is a separate 0.1.2 Beta update, not part of the historical 0.1.1 notes.
 - 0.1.2 verification: post-fix full gate **14/14 PASS** and standard Info Card visual recheck **PASS**.
+
+
+### CODE-008 — Balance validator PowerShell parser regression
+
+**Requested by:** local full-gate rerun  
+**Owner:** Code/framework  
+**Status:** DONE
+
+A local `run-tests.bat` rerun stopped before validation because `Scripts/Validate-BalanceXml.ps1` contained an interpolated string with `$defName:`. PowerShell parses the colon immediately after an unbraced variable name as part of a drive-qualified variable reference, producing `InvalidVariableReferenceWithDrive`.
+
+The validator now uses `${defName}:` in that error message. A scan of the script found no other unbraced variable immediately followed by a colon.
+
+Fix commit: `502fcb3b7c90d0ceb7c9b22426718d29afff6d7e`.
+
+**Next action:** rerun the full local gate. Do not report the gate as passing until the user supplies the rerun result.
