@@ -40,7 +40,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] Public version spelling fixed: **0.1 Beta**. Git tag/release tag: **`v0.1.0-beta`**.
 - [ ] Create GitHub release/tag `v0.1.0-beta`.
 - [x] Steam Workshop item published publicly: `https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548`.
-- [ ] After publication, perform one clean install/subscription smoke test from the published package.
+- [x] Post-publication subscribed Workshop package checked; representative CCTO balance values were confirmed correct with no apparent issue.
 
 ## Beta feedback targets
 
