@@ -141,5 +141,5 @@ MIT License.
 0.1 Beta
 [b]Support[/b]
 
-[url=https://ko-fi.com/sucro0629]Ko-fi[/url]
+[url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]
 
