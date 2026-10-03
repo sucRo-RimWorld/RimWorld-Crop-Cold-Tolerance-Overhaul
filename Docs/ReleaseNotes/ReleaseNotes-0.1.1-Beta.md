@@ -2,8 +2,6 @@
 
 Git tag: `v0.1.1-beta`
 
-Release status: **Published**. The existing Steam Workshop item `3812412548` has been updated with the current 0.1.1 Beta build.
-
 ## Summary
 
 This Beta update expands CCTO from selected crops and player-sowable plants to **all living PlantDefs in the supported Core and Medieval Overhaul sets**.
@@ -21,18 +19,15 @@ Cold tolerance is now treated as a property of the plant itself rather than bein
 - Added cold behavior for MO Dark Forest trees, including Great Oak, Great Iter, Great Fir, and Great Willow.
 - Bamboo now uses a Japanese moso/madake-style baseline: minimum growth temperature 10°C and fixed cold-death temperature -18°C.
 - Updated English/Japanese Workshop descriptions and public documentation for the expanded scope.
-- Aligned `Cold death temperature` and `Dormancy temperature` to the same Info Card priority directly below minimum growth temperature, so harvest yield/lifespan rows no longer separate the two cold-threshold displays.
 
 ## Verification
 
-The expanded balance has passed:
+The expanded balance passed:
 
-- full automated integration gate: **14/14**, including the rerun after the Info Card ordering change;
+- full automated integration gate: **14/14**;
 - loaded-value validation for all **49 Core + 29 MO** targets;
 - complete supported-living-PlantDef coverage regression for all **78** curated targets;
-- normal-profile wild-plant Info Card smoke checks;
-- Info Card ordering was visually rechecked after the display-priority fix;
-- the post-fix automated gate rerun passed **14/14** before the Workshop update.
+- normal-profile wild-plant Info Card smoke checks.
 
 Representative normal-profile checks included:
 
