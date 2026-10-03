@@ -183,3 +183,7 @@ The tested release source of truth is `main`.
 Current target: **0.1 Beta**.
 
 This is a Beta release: the core feature set is implemented and has passed the documented automated and normal-game smoke gates. The Beta phase is for wider real-play validation, compatibility reports, and feedback on the fixed-threshold balance model.
+
+## Support
+
+[Ko-fi](https://ko-fi.com/sucro0629)
