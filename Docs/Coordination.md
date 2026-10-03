@@ -485,4 +485,5 @@ UI consistency update (2026-10-03):
 - RimTest regression locks both CCTO entries to priority 4151.
 - Superseded intermediate ordering commits: `e24af7ea7e3ad9a50f6384b9978161def5b66751`, `cad86c5a55a8c4de2ca04999fb3b2b76f1ee3790`, `97af3d4187271ed7dc8ee9ede8f901cedbb2923f`, `d4642c1cc4163d9730cb336113d04fb0441712f1`.
 - Final ordering commits: `7d309d5a475254162112e16186675e82ae47abdc`, `a6244249a17d441f1b0913ba948aca3cefedfb9c`.
-- Full local gate and normal-profile visual recheck are pending after this UI-only code change.
+- Full local gate rerun after the UI-only ordering change: **PASS, 14/14** (user-reported 2026-10-03).
+- Standard Info Card visual recheck: **PASS**; cold-death and dormancy thresholds now occupy the intended aligned slot.
