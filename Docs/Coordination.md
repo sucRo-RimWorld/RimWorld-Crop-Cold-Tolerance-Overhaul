@@ -376,6 +376,7 @@ Completed release-preparation work:
 - Supported languages (English and Japanese) are now listed in the README and Steam Workshop presentation. README: `e4abc8aa0c0eb3a9515bf9b1e9713228264e9d9b`; Workshop presentation: `7527e5e1645cce110fc75b7985a65125e5f24cc1`; paste-ready BBCode: `835d25959b6fdf7c64c141ba62b265425b4c7d5e`; release checklist: `5c5f17ad01b33cb82f2c079fc6a7b3048a7ebab4`.
 - Japanese Steam Workshop localization added. Localized title: `作物耐寒性オーバーホール`; paste-ready title file: `Docs/SteamWorkshopTitle-ja.txt` (`4f6f5767fa3982b222a7f2992c2501ce5f4ecccb`); paste-ready Japanese BBCode description: `Docs/SteamWorkshopDescription-ja.txt` (`56aaf0d8cb9046e5e54a08dae2d813eea140240e`). Workshop presentation records the localization workflow: `59df0e8688f9a6811125b4c53f0938a3fdf3e8c3`; release checklist: `1f1fc23a7b36e23fd1cdc54dcacb4d56b7bb38aa`.
 - User completed a subscription smoke check against the private Steam Workshop package and reported no apparent issues. This counts as a pre-publication package sanity check; the checklist still keeps the final post-publication clean-subscription smoke pending. Release checklist update: `9a73701332e2f9b6e38ad323915db36fcc29aaea`.
+- `About/Preview.png` is now present on `main`. The binary was copied from the existing `balance-xml` branch blob `c3b690262b92ce06e753fb0ac6e6929ff96bcf73` into `main` in commit `30dae3c1c541e185be98fcb67a6fc1bc435b53b7`; release checklist marked complete in `91acc72b6418bc989b83f0ec2a0d5c538a494745`.
 
 Public-description decisions:
 
