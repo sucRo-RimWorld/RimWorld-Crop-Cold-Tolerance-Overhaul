@@ -320,13 +320,13 @@
     <match Class="PatchOperationReplace">
       <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/plant/minGrowthTemperature</xpath>
       <value>
-        <minGrowthTemperature>8</minGrowthTemperature>
+        <minGrowthTemperature>10</minGrowthTemperature>
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
       <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/plant</xpath>
       <value>
-        <minGrowthTemperature>8</minGrowthTemperature>
+        <minGrowthTemperature>10</minGrowthTemperature>
       </value>
     </nomatch>
   </Operation>
@@ -335,7 +335,7 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-5</coldDeathTemperature>
+        <coldDeathTemperature>-18</coldDeathTemperature>
       </li>
     </value>
   </Operation>
