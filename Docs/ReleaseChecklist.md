@@ -12,7 +12,7 @@ This is the release-preparation checklist for the first public Beta.
 - [x] Dormancy recovery semantics covered by regression tests.
 - [x] Indoor actual-ambient-temperature behavior covered by regression tests.
 - [x] Published 0.1 Beta baseline integrated automated gate passed: 13/13.
-- [ ] Expanded all-living-plant balance full automated gate passes: 14/14.
+- [x] Expanded all-living-plant balance full automated gate passes: 14/14.
 - [x] Normal-game startup/Info Card smoke passed.
 - [x] Dubs Mint Menus display verified through the standard Info Card path.
 - [x] Nice Plants Menu soft compatibility implemented and visually verified.
@@ -45,7 +45,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
 ## Expanded all-living-plant publication refresh
 
-- [ ] Run `run-tests.bat` and confirm the 14/14 gate, including the all-loaded-supported-living-plant coverage scenario.
+- [x] `run-tests.bat` completed with **14/14** passing scenarios, including the all-loaded-supported-living-plant coverage scenario.
 - [ ] Run normal-profile smoke checks with at least one newly covered wild-only plant (recommended: wild healroot, grass, or MO Great Oak) in addition to the existing representative cases.
 - [ ] Update the live Steam Workshop English/Japanese descriptions from the maintained paste-ready files after the fresh gate passes.
 - [ ] Rebuild/upload the Workshop package so the expanded Vanilla XML and updated `About/About.xml` are live.
