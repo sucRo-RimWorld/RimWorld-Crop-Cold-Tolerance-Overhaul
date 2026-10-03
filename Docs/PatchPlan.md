@@ -156,8 +156,8 @@ Compatibility rules:
 - neither UI mod is a hard dependency;
 - compatibility must be soft/conditional;
 - Nice Plants Menu uses its own compact plant-summary panel and therefore needs a dedicated compatibility path for `枯死温度` / `休眠温度`;
-- Dubs Mint Menus exposes an Info Card on plant-menu mouse-over. Verify whether CCTO's standard `SpecialDisplayStats` rows already appear there before adding any Dubs-specific patch;
-- if the standard Info Card path already works in Dubs Mint Menus, do not add redundant compatibility code;
+- Dubs Mint Menus exposes RimWorld's standard Info Card on plant-menu mouse-over. Normal-game verification confirmed CCTO's `SpecialDisplayStats` rows already appear there, so **no Dubs-specific compatibility patch is required**;
+- Dubs Mint Menus compatibility is satisfied through the canonical standard Info Card path;
 - other plant-selection UI mods remain best-effort/on-request rather than release blockers.
 
 ## 6. Balance XML integration
@@ -205,4 +205,4 @@ As of 2026-10-03:
 - Draft PR #1 no longer has an automated-test blocker; Draft status may now be removed when review/merge is desired.
 - The integrated balance branch subsequently passed the complete `run-tests.bat` gate with a fresh **13/13 Pickle pass**, including the two loaded-balance scenarios.
 - The integration gate verified the final loaded CCTO values for all 12 targeted Vanilla plants and all 21 targeted Medieval Overhaul plants, while also validating the target DefNames and required local `<plant>` nodes against the installed real MO 1.6 source.
-- After the dormancy UI was changed from `低温反応: 休眠` to explicit `休眠温度 <minGrowthTemperature>`, the full integrated `run-tests.bat` gate was rerun locally and again passed **13/13**. The automated framework + Vanilla/MO balance verification is therefore green for the current dormancy-temperature implementation. Remaining pre-beta work is limited to the documented normal-game smoke/visual recheck and priority plant-menu compatibility work.
+- After the dormancy UI was changed from `低温反応: 休眠` to explicit `休眠温度 <minGrowthTemperature>`, the full integrated `run-tests.bat` gate was rerun locally and again passed **13/13**. The automated framework + Vanilla/MO balance verification is therefore green for the current dormancy-temperature implementation. The documented normal-game smoke/visual recheck also passed. Dubs Mint Menus was verified to show CCTO through the standard Info Card path without dedicated code. Remaining pre-beta work is limited to Nice Plants Menu compatibility.
