@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Medieval Overhaul</name>
+  <author>CCTO test fixture</author>
+  <packageId>sucro.cropcoldtoleranceoverhaul.mofixture</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>
+Developer-only lightweight Medieval Overhaul Def fixture for CCTO integration tests.
+It intentionally contains no Medieval Overhaul assemblies or gameplay content.
+Do not publish this fixture.
+  </description>
+</ModMetaData>
