@@ -25,7 +25,10 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
 ## Public-release preparation still required
 
-- [ ] Add an `About/Preview.png` suitable for the RimWorld mod list / public presentation.
+- [x] GitHub release notes drafted in `Docs/ReleaseNotes-0.1-Beta.md`.
+- [x] Preview image technical/art brief fixed in `Docs/PreviewBrief.md`: 640×360 PNG, 16:9, under 1 MB.
+
+- [ ] Create and add `About/Preview.png` from the approved `Docs/PreviewBrief.md` specification.
 - [x] Steam Workshop title, short description, long description, and tag set drafted in `Docs/WorkshopDescription.md`; final publication-time visual review remains tied to `About/Preview.png`.
 - [x] License confirmed: existing repository `LICENSE` is MIT License, copyright 2026 sucRo0629.
 - [x] Public version spelling fixed: **0.1 Beta**. Git tag/release tag: **`v0.1.0-beta`**.
