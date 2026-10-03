@@ -171,13 +171,19 @@ namespace CropColdToleranceOverhaul.E2E
             both.coldDeathTemperature = -25f;
 
             ctx.Assert(
-                BuildCctoStats(deathOnly).Count == 1,
+                BuildCctoStats(deathOnly, 5f).Count == 1,
                 "Fixed-death-only configuration should add one CCTO Info Card stat.");
+            List<StatDrawEntry> dormancyStats =
+                BuildCctoStats(dormancyOnly, 5f);
+
             ctx.Assert(
-                BuildCctoStats(dormancyOnly).Count == 1,
+                dormancyStats.Count == 1,
                 "Dormancy-only configuration should add one CCTO Info Card stat.");
             ctx.Assert(
-                BuildCctoStats(both).Count == 2,
+                dormancyStats[0].ValueString == 5f.ToStringTemperature(),
+                "Dormancy Info Card stat should show the minimum-growth temperature as the explicit dormancy threshold.");
+            ctx.Assert(
+                BuildCctoStats(both, 5f).Count == 2,
                 "Dormancy plus extreme-cold death should add two CCTO Info Card stats.");
         }
 
@@ -887,7 +893,8 @@ namespace CropColdToleranceOverhaul.E2E
         }
 
         private static List<StatDrawEntry> BuildCctoStats(
-            ColdToleranceExtension extension)
+            ColdToleranceExtension extension,
+            float dormancyTemperature)
         {
             Type patchType =
                 typeof(ColdToleranceExtension)
@@ -923,7 +930,8 @@ namespace CropColdToleranceOverhaul.E2E
                     new object[]
                     {
                         original,
-                        extension
+                        extension,
+                        dormancyTemperature
                     });
 
             return ((IEnumerable<StatDrawEntry>)result)
