@@ -331,7 +331,9 @@ Fixes on `balance-xml`:
 
 The compatibility source was made legacy-compiler-safe by replacing the `nameof` expression with the literal method name. Fix on `balance-xml`: `ede65a8b15334f6f5423af2d9da9a1ececee6dff`.
 
-**Remaining verification:** rerun the integrated automated gate, then verify the four representative crops in the actual Nice Plants Menu panel. CODE-007 remains IN PROGRESS until that manual UI check passes.
+**Post-fix automated rerun:** PASS. The full integrated `run-tests.bat` gate completed successfully with **13/13** passing scenarios after the Nice Plants Menu compatibility implementation, `netstandard.dll` reference fix, and legacy-compiler `nameof` fix.
+
+**Remaining verification:** verify the four representative crops in the actual Nice Plants Menu panel. CODE-007 remains IN PROGRESS until that manual UI check passes.
 
 ## Completed handoffs
 
