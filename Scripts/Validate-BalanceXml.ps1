@@ -147,7 +147,7 @@ function ValidatePatch([string]$Path, [hashtable]$Expected, [string]$Label) {
     }
   }
 
-  Ok "$Label balance XML matches expected data ($($Expected.Count) crops)"
+  Ok "$Label balance XML matches expected data ($($Expected.Count) plants)"
 }
 
 ValidatePatch (Join-Path $RepoRoot "Patches/Vanilla_ColdTolerance.xml") $vanilla "Vanilla"
