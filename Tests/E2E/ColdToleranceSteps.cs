@@ -42,7 +42,7 @@ namespace CropColdToleranceOverhaul.E2E
             AssertLoadedBalanceDef(ctx, "Plant_Smokeleaf", 5f, -4f, false);
             AssertLoadedBalanceDef(ctx, "Plant_Psychoid", 8f, -1f, false);
             AssertLoadedBalanceDef(ctx, "Plant_TreeCocoa", 12f, 0f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeBamboo", 8f, -5f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeBamboo", 10f, -18f, false);
             AssertLoadedBalanceDef(ctx, "Plant_TreeBirch", 5f, null, true);
             AssertLoadedBalanceDef(ctx, "Plant_TreeCecropia", 10f, 0f, false);
             AssertLoadedBalanceDef(ctx, "Plant_TreeCypress", 5f, null, true);
