@@ -1,4 +1,4 @@
-# Steam Workshop Presentation — CCTO 0.1.3 Beta
+# Steam Workshop Presentation — CCTO
 
 `README.md` is the public-content source of truth. Keep this Workshop presentation synchronized with it. The paste-ready BBCode body is also stored in `Docs/SteamWorkshopDescription.txt`.
 
@@ -6,9 +6,9 @@
 
 Crop Cold Tolerance Overhaul
 
-## Version line
+## Release stage
 
-RimWorld 1.6 — 0.1.3 Beta
+RimWorld 1.6 — Beta
 
 ## Japanese localization
 
@@ -134,7 +134,7 @@ CCTO began as part of AMJ planning. The cold-tolerance system was broadly useful
 
 [h2]Beta feedback wanted[/h2]
 
-0.1.3 Beta intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
+The current balance intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
 
 Feedback is especially useful on:
 [list]
@@ -171,18 +171,12 @@ No separate display-only edition is currently planned. Vanilla does not contain 
 
 Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.
 
-[h2]Verification[/h2]
-The [b]0.1.3 Beta[/b] build passed the [b]14/14[/b] automated integration gate, including loaded-value validation for all 49 Core + 29 Medieval Overhaul targets and the complete supported-living-PlantDef coverage check. The runtime-log gate also passed with [b]no CCTO-origin ERROR entries[/b]. In-game verification of the corrected build passed. Earlier normal-profile wild-plant Info Card smoke checks also passed.
-
 [h2]AI-assisted development[/h2]
 
 AI was used primarily for code implementation, documentation, research, and test development. Design decisions, balance decisions, and final testing/review remain the author's responsibility.
 
 [h2]License[/h2]
 MIT License.
-
-[h2]Version[/h2]
-0.1.3 Beta
 
 [h2]Support[/h2]
 [url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]

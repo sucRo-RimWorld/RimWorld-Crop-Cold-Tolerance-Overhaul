@@ -564,3 +564,16 @@ README, About.xml, Workshop presentation, and paste-ready English/Japanese descr
 README and the maintained Workshop presentation plus English/Japanese paste-ready descriptions now identify the verified current build as **0.1.3 Beta**, not 0.1.1 Beta or the original 0.1 Beta baseline. The verification summary uses CODE-009's completed full local gate **14/14 PASS**, **no CCTO-origin ERROR entries**, and corrected-build in-game verification. README's obsolete expanded-balance rerun-pending statement was removed. Historical release notes and earlier coordination results retain their original versions.
 
 **Next action:** apply the maintained English/Japanese text to the live Workshop description; this repository update does not itself publish to Steam.
+
+
+### DOC-003 — Workshop descriptions omit detailed versions and test results
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+The shared public-description policy now omits detailed mod version numbers, Version sections, and test counts/results from Workshop descriptions. Keep the supported RimWorld version and Alpha/Beta stage, features, dependencies, supported content, and save compatibility. Detailed release numbers and validation evidence belong in README/development/release records; changes belong in Workshop changelogs and GitHub releases.
+
+This supersedes DOC-002's Workshop version/verification presentation requirement. Both maintained English/Japanese descriptions and WorkshopDescription.md have had Verification/検証状況 and Version sections removed; the remaining numbered Beta wording is generic. README's accurate validation record remains in place.
+
+**Next action:** Apply the simplified maintained English/Japanese descriptions to the live Workshop page. This repository update does not itself change Steam.
