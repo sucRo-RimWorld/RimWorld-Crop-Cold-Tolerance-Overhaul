@@ -2,7 +2,9 @@
 
 ## 1. Scope
 
-This mod rebalances only cold tolerance for sowable crops.
+This mod rebalances only cold tolerance for player-sowable plants in supported plant sets.
+
+Scope is determined by whether the player can intentionally sow the plant, not by whether it is a food crop. For supported sets such as Core and Medieval Overhaul, this includes agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and other plants exposed through sowing UI. Wild-only plants that cannot be sown by the player are outside the default balance scope.
 
 It is responsible for:
 
