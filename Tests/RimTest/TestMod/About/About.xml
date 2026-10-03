@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>[DEV] Crop Cold Tolerance Overhaul Tests</name>
+  <author>sucRo0629</author>
+  <packageId>sucro.cropcoldtoleranceoverhaul.tests</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+
+  <modDependencies>
+    <li>
+      <packageId>sucro.cropcoldtoleranceoverhaul</packageId>
+      <displayName>Crop Cold Tolerance Overhaul</displayName>
+    </li>
+    <li>
+      <packageId>ilyvion.rimtestredux</packageId>
+      <displayName>RimTest Redux</displayName>
+      <downloadUrl>https://github.com/ilyvion/rimtest-redux</downloadUrl>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3762405308</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+
+  <loadAfter>
+    <li>sucro.cropcoldtoleranceoverhaul</li>
+    <li>ilyvion.rimtestredux</li>
+  </loadAfter>
+
+  <description>
+Developer-only RimTest Redux suite for Crop Cold Tolerance Overhaul.
+Do not publish this companion test mod to the Steam Workshop.
+  </description>
+</ModMetaData>

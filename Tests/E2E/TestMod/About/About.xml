@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>[DEV] Crop Cold Tolerance Overhaul E2E</name>
+  <author>sucRo0629</author>
+  <packageId>sucro.cropcoldtoleranceoverhaul.e2e</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+
+  <modDependencies>
+    <li>
+      <packageId>sucro.cropcoldtoleranceoverhaul</packageId>
+      <displayName>Crop Cold Tolerance Overhaul</displayName>
+    </li>
+    <li>
+      <packageId>rimworks.pickle</packageId>
+      <displayName>Pickle</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3791648678</steamWorkshopUrl>
+      <downloadUrl>https://github.com/RimWorks/Rimworld-Pickle</downloadUrl>
+    </li>
+    <li>
+      <packageId>rimworks.quickstarts</packageId>
+      <displayName>Quickstarts</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3793646067</steamWorkshopUrl>
+      <downloadUrl>https://github.com/RimWorks/Rimworld-Quickstarts</downloadUrl>
+    </li>
+  </modDependencies>
+
+  <loadAfter>
+    <li>sucro.cropcoldtoleranceoverhaul</li>
+    <li>rimworks.pickle</li>
+    <li>rimworks.quickstarts</li>
+  </loadAfter>
+
+  <description>
+Developer-only Pickle/Quickstarts end-to-end test suite for Crop Cold Tolerance Overhaul.
+Do not publish this companion test mod to the Steam Workshop.
+  </description>
+</ModMetaData>

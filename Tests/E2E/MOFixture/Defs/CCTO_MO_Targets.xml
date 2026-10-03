@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Onions</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Onions</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Lentils</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Lentils</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Cabbages</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Cabbages</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Garlic</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Garlic</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Mushrooms</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Mushrooms</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Wheat</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Wheat</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Flax</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Flax</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Sugarcane</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Sugarcane</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Carrots</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Carrots</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Herb</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Herb</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Tomatoes</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Tomatoes</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Grape</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Grape</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Pumpkins</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Pumpkins</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Tree_Apple</defName>
+    <label>CCTO MO fixture DankPyon_Tree_Apple</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Tree_Lemon</defName>
+    <label>CCTO MO fixture DankPyon_Tree_Lemon</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Tree_Mulberry</defName>
+    <label>CCTO MO fixture DankPyon_Tree_Mulberry</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Tree_GriffonBerry</defName>
+    <label>CCTO MO fixture DankPyon_Tree_GriffonBerry</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Mindwort</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Mindwort</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Poppy</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Poppy</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_Fleawort</defName>
+    <label>CCTO MO fixture DankPyon_Plant_Fleawort</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_FlyAgaric</defName>
+    <label>CCTO MO fixture DankPyon_Plant_FlyAgaric</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+</Defs>
