@@ -4,7 +4,7 @@
 
 ### Vanilla
 
-Vanilla crop cold-tolerance data is always applied.
+Core living-plant cold-tolerance data is always applied.
 
 CCTO changes only:
 
@@ -17,13 +17,13 @@ It does not touch harvest, growth time, fertility, research, products, or proces
 
 Medieval Overhaul support is optional and applies only when MO is present.
 
-The uploaded MO 1.6 data was audited. Its Vanilla crop changes do not conflict with CCTO's temperature responsibility:
+The uploaded MO 1.6 data was audited. Its Core plant changes do not conflict with CCTO's temperature responsibility:
 
 - `Plant_Corn`: MO changes graphics and adds an agriculture research prerequisite.
 - `Plant_Cotton`: MO's cloth-chain setting may change `harvestedThingDef`.
 - MO does not need CCTO to replace those changes.
 
-Therefore CCTO can apply the normal Vanilla temperature data regardless of MO, then add MO-specific cold-tolerance data only to MO's own crop Defs.
+Therefore CCTO can apply the normal Core temperature data regardless of MO, then add MO-specific cold-tolerance data to MO's own living PlantDefs.
 
 The balance/XML workstream uses an optional `loadAfter` entry for `DankPyon.Medieval.Overhaul` so MO Defs exist before CCTO's MO-specific XML patches are applied.
 
@@ -167,7 +167,7 @@ Compatibility rules:
 
 The balance/XML workstream must consume the implemented extension rather than introducing another C# data model.
 
-For each supported player-sowable plant:
+For each supported living PlantDef:
 
 1. set or replace native `plant/minGrowthTemperature`;
 2. add exactly one `CropColdToleranceOverhaul.ColdToleranceExtension`;
@@ -182,7 +182,7 @@ MO-specific values are gated on Medieval Overhaul and target the verified MO 1.6
 
 ## 7. Patch safety
 
-- Unsupported plants keep Vanilla/originating behavior.
+- Living PlantDefs in explicitly supported sets must receive CCTO balance data; unsupported third-party plant sets keep their originating behavior.
 - CCTO must not overwrite unrelated MO or Vanilla fields.
 - Cold handling is keyed by the extension, not by broad tests such as `Sowable`.
 - Fixed thresholds are species/Def-level values in the initial release.
@@ -208,6 +208,6 @@ As of 2026-10-03:
 - PR #2 merged the tested framework + balance integration into `main` at `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - The published 0.1 Beta baseline passed the complete `run-tests.bat` gate with **13/13 Pickle scenarios**, including the two loaded-balance scenarios, and verified all 12 original Vanilla targets plus all 21 Medieval Overhaul targets.
 - That baseline also passed the post-dormancy-UI rerun and the Nice Plants Menu compatibility smoke checks.
-- A later scope audit established that CCTO should cover all player-sowable plants in supported sets, not only the original crop list. Core coverage has therefore been expanded from 12 to 30 targets, including forestry trees and decorative/special sowable plants. Medieval Overhaul remains at 21 MO-specific cultivated targets.
-- The expanded gate now expects **14/14 Pickle scenarios** and includes an explicit loaded player-sowable-plant coverage scenario so future omissions are detected.
-- The 30-Core-plant expansion has not yet received the fresh local `run-tests.bat` + normal-profile smoke rerun required before publishing the updated Workshop package.
+- A later scope audit established that CCTO should cover all living PlantDefs in supported sets regardless of sowability. Current target coverage is 49 living Core PlantDefs plus 29 MO-specific living PlantDefs; dead stump/remnant Defs are intentionally excluded.
+- The expanded gate now expects **14/14 Pickle scenarios** and includes an explicit all-loaded-supported-living-plant coverage scenario so future omissions are detected.
+- The 49-Core / 29-MO all-living-plant expansion has not yet received the fresh local `run-tests.bat` + normal-profile smoke rerun required before publishing the updated Workshop package.
