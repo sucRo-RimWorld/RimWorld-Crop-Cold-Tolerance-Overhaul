@@ -412,15 +412,40 @@ Release-presentation decisions completed on `main`:
 **Owner:** Balance/XML  
 **Status:** IN PROGRESS
 
-Durable scope decision: CCTO balance coverage is based on whether a plant is player-sowable, not whether it is narrowly a food crop. Supported Core / Medieval Overhaul sets should therefore include agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and other plants exposed through sowing UI. Wild-only unsowable plants remain outside the default balance scope.
+Durable scope decision: CCTO balance coverage is based on whether a plant is player-sowable, not whether it is narrowly a food crop. Supported Core / Medieval Overhaul sets therefore include agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and special plants exposed through sowing UI. Wild-only plants that cannot be intentionally sown remain outside the default balance scope.
 
-Audit result:
+Audit and implementation result:
 
-- Medieval Overhaul 1.6 contributes 21 sowable plant Defs in its cultivated farm/alchemy definitions; all 21 are already present in CCTO balance XML.
-- Core 1.6 exposes 30 player-sowable plants.
-- CCTO currently covers 12 of those Core plants.
-- The remaining 18 Core sowable plants are: Bamboo tree, Birch tree, Cecropia tree, Cypress tree, Dandelions, Daylily, Drago tree, Maple tree, Oak tree, Palm tree, Pine tree, Poplar tree, Rose, Saguaro cactus, Teak tree, Timbershroom, Tinctoria, and Willow tree.
+- Medieval Overhaul 1.6 remains fully covered by the existing 21 MO-specific cultivated plant Defs.
+- Core coverage was expanded from 12 to 30 player-sowable plants.
+- Added Core targets: Bamboo, Birch, Cecropia, Cypress, Dandelion, Daylily, Drago tree, Maple, Oak, Palm, Pine, Poplar, Rose, Saguaro cactus, Teak, Timbershroom, Tinctoria, and Willow.
+- Bamboo uses a Japanese moso/madake-style baseline: minimum growth 10 C, fixed cold death -18 C.
+- Temperate deciduous/perennial plants use cold dormancy where appropriate; evergreen/boreal or warm-climate plants use fixed death thresholds.
+- `Patches/Vanilla_ColdTolerance.xml`, `Docs/Design.md`, `Docs/ImplementationTable.md`, README, About description, and English/Japanese Workshop presentation sources have been updated.
+- Static validator now expects 30 Core targets; loaded-balance E2E checks assert all 30 Core + 21 MO values.
+- A new coverage regression scans loaded player-plantable Defs (normal sowing plus TreeSowing-gated forestry) and fails on uncovered/unexpected sowable plants.
+- The full integration summary therefore changes from 13 to 14 required Pickle scenarios.
 
-Next Balance/XML work: verify exact current 1.6 DefNames and source nodes, research/assign minimum-growth plus fixed-death/dormancy behavior for these 18 plants, then expand the Vanilla balance XML and validator/regression expectations.
+Key commits:
+- scope decision: `9bd409d2e37a69d08f5e575ae46f9aebcd5dea84`
+- initial 18-plant XML expansion: `ce2239c34d6328580760bc7d9825b1dd0f120307`
+- Japanese bamboo correction: `74e4bc41d9748605a9a202f8df0f6dd6519513d5`
+- durable 30-plant design table: `2b5acccf0ff1df44925cd285b83c1dc4df936a18`
+- README/public scope: `a415ba7fb5a0aa377262b053e37af4d3ee4e2b35`
+- all-sowable coverage regression: `a9fb69847970db78045c6ce60073a1e3a9a3315e`, refined `5a88ef644fb19dd4e80d6c1dc341f454f23d5668`
+- 14-scenario gate: `a5fd1fa1f8d18f1962efdc3209bbc06a79c611fe`, `b13bd202020025ae253c6ba457f1d0aeb84640b9`
+- implementation mapping: `513a0ea8f75bf79e5f990ffe9667f094984814f6`
+- Workshop English/Japanese maintained descriptions: `051561e1408431342e1c1830fb6cfb0beba17d50`, `fe74a7f6ef15069d6dd8bc3567b6dcbb16502f90`, `4ed67c0daeca56a088527bb2ecc71af1585291fa`
 
-Durable scope wording: `Docs/Design.md`, commit `9bd409d2e37a69d08f5e575ae46f9aebcd5dea84`.
+Static consistency audit: PASS.
+
+- Vanilla XML: 30 CCTO extensions / 30 minimum-growth patches.
+- Validator: 30 Core expected entries.
+- E2E loaded-value assertions: 30 Core + 21 MO.
+- Bamboo is consistently 10 C minimum growth / -18 C fixed death across XML, validator, E2E and design mapping.
+
+Remaining release gate:
+
+- run `run-tests.bat "D:\\SteamLibrary\\steamapps\\common\\RimWorld"` and require a fresh **14/14** pass;
+- then run normal-profile smoke with one newly covered forestry plant (bamboo recommended);
+- only after those pass, update/re-upload the live Steam Workshop item.
