@@ -236,16 +236,25 @@ Then launch RimWorld normally and verify representative Info Cards:
 
 Also require normal startup with no new CCTO-origin error, no duplicate CCTO rows, and acceptable visual grouping/wording of `枯死温度` / `低温反応: 休眠` next to native plant-temperature entries.
 
-**Visual check result:** PASS.
+**Initial visual check result:** the standard Info Card path itself passed, but the dormancy wording exposed a UX defect.
 
-User-provided normal-game screenshots confirmed all four representative standard Info Cards:
+User-provided normal-game screenshots confirmed the numeric balance values for all four representative standard Info Cards:
 
 - Vanilla rice: min growth 10 C, cold death -1 C;
-- Vanilla hops: min growth 5 C, dormancy;
+- Vanilla hops: min growth 5 C, dormancy behavior present;
 - MO wheat: min growth 0 C, cold death -6 C;
-- MO apple tree: min growth 5 C, dormancy.
+- MO apple tree: min growth 5 C, dormancy behavior present.
 
-No duplicate CCTO rows were visible, and the CCTO rows were readable in the normal Info Card.
+No duplicate CCTO rows were visible. However, `低温反応: 休眠` did not make the actual dormancy threshold obvious even to the developer. The UI specification has therefore changed: dormancy crops now display `休眠温度 <minGrowthTemperature>` directly. This reuses the native minimum-growth value; it does not add a third balance parameter.
+
+Implementation on `balance-xml`:
+- Info Card logic: `381d67873d88f2125f0bdb1806670e638dc91c51`;
+- Japanese text: `087a5e078ed788878293b4ed74804198d733aef4`;
+- English text: `b2ab2621fae41fb055ec9d86c5487ba2f19c5460`;
+- E2E / RimTest coverage: `7c8ed7bd417bb4f0d15ea3985a2baad63242ac7c`, `ab53c9772392a95169150f9f3053d182f3789f4e`, `c688d4bbd4080c40a117a8411a260fcb2d5b3a28`;
+- smoke checklist/output: `410b6c1b69615da3744e562130f13ecdb03b24ba`, `141cc40fe0b0b6281fc2ba009a8cbb0aa35f9c0e`.
+
+The visual part of CODE-006 must be rerun after rebuilding because the displayed dormancy row has changed.
 
 A separate compact plant-information panel from another mod does not surface CCTO's `SpecialDisplayStats` rows and also showed unrelated garbled text. This is not a failure of the standard RimWorld Info Card path and is outside the current CCTO release gate.
 
