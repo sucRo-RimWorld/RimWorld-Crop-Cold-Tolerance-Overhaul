@@ -39,7 +39,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] License confirmed: existing repository `LICENSE` is MIT License, copyright 2026 sucRo0629.
 - [x] Public version spelling fixed: **0.1 Beta**. Git tag/release tag: **`v0.1.0-beta`**.
 - [ ] Create GitHub release/tag `v0.1.0-beta`.
-- [ ] Upload/publish the Steam Workshop item only after the presentation assets and description are approved.
+- [x] Steam Workshop item published publicly: `https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548`.
 - [ ] After publication, perform one clean install/subscription smoke test from the published package.
 
 ## Beta feedback targets
