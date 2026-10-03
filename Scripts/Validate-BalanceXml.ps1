@@ -55,6 +55,25 @@ $vanilla = @{
   Plant_Timbershroom = Spec 0  $null $true
   Plant_Tinctoria    = Spec 5  (-4) $false
   Plant_TreeWillow   = Spec 5  $null $true
+  Agarilux               = Spec 0  $null $true
+  Plant_Agave            = Spec 5  (-7) $false
+  Plant_Alocasia         = Spec 10 (-1) $false
+  Plant_Ambrosia         = Spec 0  (-9) $false
+  Plant_Astragalus       = Spec 0  $null $true
+  Plant_Berry            = Spec 0  $null $true
+  Plant_Brambles         = Spec 0  $null $true
+  Bryolux                = Spec 0  (-12) $false
+  Plant_Bush             = Spec 0  $null $true
+  Plant_Chokevine        = Spec 0  $null $true
+  Plant_Clivia           = Spec 8  (-2) $false
+  Plant_Rafflesia        = Spec 12 5 $false
+  Glowstool              = Spec 0  (-8) $false
+  Plant_Grass            = Spec 0  $null $true
+  Plant_ShrubLow         = Spec 8  (-2) $false
+  Plant_Moss             = Spec 0  $null $true
+  Plant_PincushionCactus = Spec 5  (-8) $false
+  Plant_TallGrass        = Spec 0  $null $true
+  Plant_HealrootWild     = Spec 0  (-9) $false
 }
 
 $mo = @{
@@ -79,6 +98,14 @@ $mo = @{
   DankPyon_Plant_Poppy       = Spec 5  (-5) $false
   DankPyon_Plant_Fleawort    = Spec 3  (-6) $false
   DankPyon_Plant_FlyAgaric   = Spec 0  $null $true
+  DankPyon_Plant_MindwortWild  = Spec 5  (-3) $false
+  DankPyon_Plant_PoppyWild     = Spec 5  (-5) $false
+  DankPyon_Plant_FleawortWild  = Spec 3  (-6) $false
+  DankPyon_Plant_FlyAgaricWild = Spec 0  $null $true
+  DankPyon_GreatOak            = Spec 5  $null $true
+  DankPyon_GreatIter           = Spec 5  $null $true
+  DankPyon_GreatFir            = Spec 0  (-35) $false
+  DankPyon_GreatWillow         = Spec 5  $null $true
 }
 
 function DefFromXPath([string]$Text) {
@@ -163,9 +190,11 @@ Ok "About.xml load order is correct"
 if ($MedievalOverhaulRoot) {
   [xml]$farm = LoadXml (Join-Path $MedievalOverhaulRoot "1.6/Defs/ThingDefs_Plants/Plants_Cultivated_Farm.xml")
   [xml]$alchemy = LoadXml (Join-Path $MedievalOverhaulRoot "1.6/Defs/ThingDefs_Plants/Plants_Cultivated_Alchemy.xml")
+  [xml]$wildAlchemy = LoadXml (Join-Path $MedievalOverhaulRoot "1.6/Defs/ThingDefs_Plants/Plants_Wild_Alchemy.xml")
+  [xml]$wildDarkForest = LoadXml (Join-Path $MedievalOverhaulRoot "1.6/Defs/ThingDefs_Plants/Plants_Wild_DarkForest.xml")
 
   $sourceDefs = @{}
-  foreach ($def in @($farm.Defs.ThingDef) + @($alchemy.Defs.ThingDef)) {
+  foreach ($def in @($farm.Defs.ThingDef) + @($alchemy.Defs.ThingDef) + @($wildAlchemy.Defs.ThingDef) + @($wildDarkForest.Defs.ThingDef)) {
     if ($null -ne $def.defName) { $sourceDefs[[string]$def.defName] = $def }
   }
 
