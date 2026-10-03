@@ -513,7 +513,7 @@ Fix commit: `502fcb3b7c90d0ceb7c9b22426718d29afff6d7e`.
 
 **Requested by:** runtime error report / AMJ-wide test policy  
 **Owner:** Code/framework + Balance/XML  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 A normal runtime load reported duplicate `ColdToleranceExtension` entries on `DankPyon_Plant_FlyAgaricWild`. Inspection of the installed Medieval Overhaul 1.6 source confirmed that all four wild alchemy plants inherit from named cultivated parents:
 
@@ -537,4 +537,6 @@ Runtime rerun found a malformed XML regression before the runtime suite: the aut
 
 Final verification: full local `run-tests.bat` gate **PASS, 14/14**, and the new CCTO-origin runtime ERROR gate also passed with no CCTO ERROR entries. CODE-009 is complete.
 
-**Next action:** re-upload the corrected Workshop package for the 0.1.2 Beta update.
+In-game verification of the corrected build also passed. The error fix is assigned to **0.1.3 Beta**, with release notes at `Docs/ReleaseNotes/ReleaseNotes-0.1.3-Beta.md`.
+
+**Next action:** re-upload the corrected Workshop package as the 0.1.3 Beta update.
