@@ -2,7 +2,7 @@
 
 **RimWorld 1.6 — Beta**
 
-Crop Cold Tolerance Overhaul (CCTO) separates a crop's **minimum growth temperature** from its **cold-death behavior**.
+Crop Cold Tolerance Overhaul (CCTO) separates a crop's **minimum growth temperature** from its **cold-death behavior**, and adds a non-lethal **cold dormancy** response for selected crops: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
 
 CCTO also functions as a lightweight cold-tolerance framework: other mods can define explicit **cold-death temperatures** and cold dormancy for their own plants through XML without replacing the plant class.
 
