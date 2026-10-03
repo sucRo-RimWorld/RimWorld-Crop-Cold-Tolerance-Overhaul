@@ -208,7 +208,7 @@ CODE-005 is complete. No balance numbers were changed during test-harness repair
 
 **Integration status update:** the latest `main` canonical docs/coordination state has been merged into `balance-xml` without changing tested code or balance XML. Integration merge commit: `efa6461c2302054f998e531b8f6e9fe554f5523a`.
 
-PR #2 has been retargeted to `main` and renamed **Integrate CCTO framework and cold-tolerance balance**. CODE-006 and CODE-007 are complete. PR #2 has cleared the automated and manual pre-merge gates and is ready for final integration. PR #1 remains open only for framework history; PR #2 is the intended final integration path.
+PR #2 **Integrate CCTO framework and cold-tolerance balance** passed all automated/manual gates and was merged into `main`. Merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`. The integrated `main` state is now the release source of truth.
 
 ### CODE-006 — Normal-game pre-beta smoke and Info Card visual check
 
@@ -341,4 +341,4 @@ CODE-007 is complete. Dubs Mint Menus remains supported through the standard Inf
 
 ## Completed handoffs
 
-None yet.
+- Framework + Vanilla/MO balance + explicit dormancy-temperature UI + Nice Plants Menu compatibility integrated into `main` through PR #2. Merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
