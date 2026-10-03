@@ -4,12 +4,12 @@
 
 This mod rebalances only cold tolerance for player-sowable plants in supported plant sets.
 
-Scope is determined by whether the player can intentionally sow the plant, not by whether it is a food crop. For supported sets such as Core and Medieval Overhaul, this includes agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, and other plants exposed through sowing UI. Wild-only plants that cannot be sown by the player are outside the default balance scope.
+Scope is determined by whether the player can intentionally sow the plant, not by whether it is a food crop. For supported sets such as Core and Medieval Overhaul, this includes agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, and other plants exposed through sowing UI. Player-sowable fungi are treated exactly like other sowable PlantDefs for coverage purposes. Wild-only plants and fungi that cannot be sown by the player are outside the default balance scope.
 
 It is responsible for:
 
 - minimum growth temperature (`minGrowthTemperature`)
-- crop-specific low-temperature death thresholds
+- plant-specific low-temperature death thresholds
 - displaying low-temperature death behavior in the plant information card
 - special low-temperature behavior such as dormancy where appropriate
 
@@ -22,9 +22,9 @@ It does **not** rebalance:
 - processing
 - research progression
 
-The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that crops have clear gameplay identities and meaningful climate/season tradeoffs. Where available, real-world frost-damage and lethal-temperature information is used as a reference for crop-specific death thresholds. Because actual plant response varies by cultivar, growth stage, acclimation, and exposure duration, CCTO treats those temperatures as guidelines rather than copying a single reported value literally; values are rounded/tuned into clear gameplay thresholds. Values defined here are intended to be usable by AMJ without a second, conflicting balance layer.
+The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that plants have clear gameplay identities and meaningful climate/season tradeoffs. Where available, real-world frost-damage and lethal-temperature information is used as a reference for plant-specific death thresholds. Because actual plant response varies by cultivar, growth stage, acclimation, and exposure duration, CCTO treats those temperatures as guidelines rather than copying a single reported value literally; values are rounded/tuned into clear gameplay thresholds. Values defined here are intended to be usable by AMJ without a second, conflicting balance layer.
 
-The intended difficulty direction is generally upward relative to the original Vanilla / Medieval Overhaul settings. Most supported crops should require warmer conditions for active growth, and ordinary crops should usually face lethal cold at substantially warmer temperatures than the original generic derived threshold. The gameplay purpose is to make crop selection, seasonal timing, and temperature management matter more. This is an overall balance direction rather than a universal nerf: selected perennial/overwintering crops intentionally gain cold dormancy and winter survival.
+The intended difficulty direction is generally upward relative to the original Vanilla / Medieval Overhaul settings. Most supported plants should require warmer conditions for active growth, and ordinary plants should usually face lethal cold at substantially warmer temperatures than the original generic derived threshold. The gameplay purpose is to make plant selection, seasonal timing, and temperature management matter more. This is an overall balance direction rather than a universal nerf: selected perennial/overwintering plants intentionally gain cold dormancy and winter survival.
 
 ## 1.1 Standalone-mod rationale
 
@@ -46,16 +46,16 @@ Vanilla RimWorld 1.6 does not store a species-specific fixed cold-death temperat
 
 Therefore a display-only extraction would mainly expose Vanilla's generic derived rule, not the crop-specific cold-death data that CCTO introduces.
 
-CCTO's temperature display is intentionally coupled to its behavior model: supported crops receive explicit species-level death thresholds or dormancy behavior, and the UI reports those actual CCTO semantics.
+CCTO's temperature display is intentionally coupled to its behavior model: supported plants receive explicit species-level death thresholds or dormancy behavior, and the UI reports those actual CCTO semantics.
 
 ## 2. Temperature model
 
 Growth stopping and plant death are separate concepts.
 
-- **Minimum growth temperature**: below this temperature the crop stops growing.
-- **Low-temperature death threshold**: each supported crop has one fixed species-level threshold. Below this temperature the crop may die.
+- **Minimum growth temperature**: below this temperature the plant stops growing.
+- **Low-temperature death threshold**: each supported plant has one fixed species-level threshold. Below this temperature the crop may die.
 - The initial release does **not** randomize the death threshold per plant. All plants of the same Def use the same configured threshold.
-- Where appropriate, a crop enters **cold dormancy** instead of dying.
+- Where appropriate, a plant enters **cold dormancy** instead of dying.
 - Range-based values used during balancing are archived in §7. They remain candidate data for a possible future randomized mode.
 
 AMJ crop minimum growth temperatures that have already been decided remain unchanged.
@@ -64,15 +64,15 @@ AMJ crop minimum growth temperatures that have already been decided remain uncha
 
 CCTO owns the common cold-tolerance mechanism. It should not depend on AMJ.
 
-- Vanilla and Medieval Overhaul crops are patched by CCTO because those are supported external Defs.
-- AMJ crops consume the same CCTO extension/API from their own PlantDefs.
+- Vanilla/Core and Medieval Overhaul player-sowable plants are patched by CCTO because those are supported external Defs.
+- AMJ plants consume the same CCTO extension/API from their own PlantDefs.
 - CCTO therefore does not need to hard-code AMJ DefNames.
 - This keeps the dependency direction one-way: **AMJ -> CCTO mechanism**, never CCTO -> AMJ.
 - Other third-party crop mods can later add compatibility by attaching the same extension without CCTO needing to know their internal DefNames.
 
-For ordinary crops, the extension stores one fixed low-temperature death threshold. For dormancy crops, the extension marks cold behavior as dormancy rather than supplying a lethal threshold.
+For ordinary plants, the extension stores one fixed low-temperature death threshold. For dormancy plants, the extension marks cold behavior as dormancy rather than supplying a lethal threshold.
 
-A dormancy crop should enter its cold/leafless state when temperature falls below its configured minimum growth temperature and should survive that state. This avoids introducing a third temperature axis solely for dormancy.
+A dormancy plant should enter its cold/leafless state when temperature falls below its configured minimum growth temperature and should survive that state. This avoids introducing a third temperature axis solely for dormancy.
 
 
 ## 3. Fixed implementation values — AMJ crops
@@ -139,6 +139,8 @@ Design notes:
 
 The Medieval Overhaul 1.6 cabbage value `minGrowthTemperature=-18°C` is treated as a balance error for this overhaul and is replaced with 0°C. Cold survival and active growth are intentionally kept separate.
 
+MO fungus coverage follows the same sowability rule as every other plant. `DankPyon_Plant_Mushrooms` is player-sowable and is therefore covered here. `DankPyon_Plant_FlyAgaric` is likewise covered in §4.1. The separate `DankPyon_Plant_FlyAgaricWild` Def explicitly clears its inherited `sowTags`, so it is wild-only and intentionally remains outside CCTO balance coverage.
+
 ### 4.3 Perennial crops
 
 | Crop | Minimum growth temperature | Fixed death threshold / behavior |
@@ -151,7 +153,7 @@ The Medieval Overhaul 1.6 cabbage value `minGrowthTemperature=-18°C` is treated
 
 Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, mulberry, and Griffon berry already have leafless-survival behavior in Medieval Overhaul and retain the same conceptual role. Lemon remains a warm-climate perennial and receives a real low-temperature death threshold rather than unlimited dormancy survival.
 
-## 5. Fixed implementation values — Vanilla
+## 5. Fixed implementation values — Core / Vanilla RimWorld 1.6
 
 | Crop | Minimum growth temperature | Fixed death threshold / behavior | Role |
 |---|---:|---:|---|
@@ -188,9 +190,9 @@ Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, 
 
 ## 6. Compatibility principle
 
-Unknown third-party crops are not automatically overwritten.
+Unknown third-party plants are not automatically overwritten.
 
-Explicit compatibility/balance data should be provided for supported crop sets such as Vanilla, Medieval Overhaul, and AMJ crops. Unsupported crops retain their originating behavior unless a compatibility patch is added.
+Explicit compatibility/balance data should be provided for supported plant sets such as Core, Medieval Overhaul, and AMJ. Unsupported plants retain their originating behavior unless a compatibility patch is added.
 
 ## 7. Archived candidate ranges and future randomized mode
 
