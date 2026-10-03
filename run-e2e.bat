@@ -17,15 +17,6 @@ set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
 set "REPORT_DIR=%ROOT%TestResults\Pickle"
 set "TEST_SAVEDATA=%ROOT%TestResults\SaveData"
 
-call "%ROOT%build-e2e.bat" "%RIMWORLD_DIR%"
-if errorlevel 1 exit /b 1
-
-if not exist "%RIMWORLD_EXE%" (
-    echo [ERROR] RimWorld executable was not found:
-    echo         %RIMWORLD_EXE%
-    exit /b 1
-)
-
 echo.
 echo Resetting isolated test output...
 if exist "%REPORT_DIR%" rmdir /S /Q "%REPORT_DIR%"
@@ -38,6 +29,15 @@ if exist "%TEST_SAVEDATA%" rmdir /S /Q "%TEST_SAVEDATA%"
 if errorlevel 1 (
     echo [ERROR] Failed to clear isolated save data:
     echo         %TEST_SAVEDATA%
+    exit /b 1
+)
+
+call "%ROOT%build-e2e.bat" "%RIMWORLD_DIR%"
+if errorlevel 1 exit /b 1
+
+if not exist "%RIMWORLD_EXE%" (
+    echo [ERROR] RimWorld executable was not found:
+    echo         %RIMWORLD_EXE%
     exit /b 1
 )
 
