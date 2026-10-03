@@ -417,6 +417,7 @@ Durable scope decision: CCTO balance coverage is based on whether a plant is pla
 Audit and implementation result:
 
 - Medieval Overhaul 1.6 remains fully covered by the existing 21 MO-specific cultivated plant Defs.
+- MO fungus audit: the player-sowable fungus Defs are `DankPyon_Plant_Mushrooms` and `DankPyon_Plant_FlyAgaric`; both are already included in the 21-target CCTO balance. `DankPyon_Plant_FlyAgaricWild` explicitly clears `sowTags` and remains intentionally out of scope as a wild-only Def. No additional sowable MO fungus Def was found in MO 1.6 compatibility patches.
 - Core coverage was expanded from 12 to 30 player-sowable plants.
 - Added Core targets: Bamboo, Birch, Cecropia, Cypress, Dandelion, Daylily, Drago tree, Maple, Oak, Palm, Pine, Poplar, Rose, Saguaro cactus, Teak, Timbershroom, Tinctoria, and Willow.
 - Bamboo uses a Japanese moso/madake-style baseline: minimum growth 10 C, fixed cold death -18 C.
