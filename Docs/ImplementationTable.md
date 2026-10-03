@@ -5,14 +5,14 @@ This file is the implementation-facing mapping for the initial fixed-threshold r
 ## Rules
 
 - `minGrowthTemperature` is the minimum temperature for active growth.
-- Ordinary crops receive one fixed low-temperature death threshold.
-- Dormancy crops do not receive a lethal cold threshold. They enter a survivable cold/leafless state below `minGrowthTemperature`.
+- Ordinary plants receive one fixed low-temperature death threshold.
+- Dormancy plants do not receive a lethal cold threshold. They enter a survivable cold/leafless state below `minGrowthTemperature`.
 - CCTO directly patches supported Vanilla and Medieval Overhaul Defs.
 - AMJ DefNames are not hard-coded here because AMJ consumes the CCTO extension from its own PlantDefs.
 
-## Vanilla
+## Core / Vanilla RimWorld 1.6
 
-| DefName | Crop | minGrowthTemperature | Cold behavior | Fixed death threshold |
+| DefName | Plant | minGrowthTemperature | Cold behavior | Fixed death threshold |
 |---|---|---:|---|---:|
 | `Plant_Rice` | Rice | 10°C | death | -1°C |
 | `Plant_Potato` | Potato | 5°C | death | -2°C |
@@ -26,6 +26,24 @@ This file is the implementation-facing mapping for the initial fixed-threshold r
 | `Plant_Smokeleaf` | Smokeleaf | 5°C | death | -4°C |
 | `Plant_Psychoid` | Psychoid | 8°C | death | -1°C |
 | `Plant_TreeCocoa` | Cocoa | 12°C | death | 0°C |
+| `Plant_TreeBamboo` | Bamboo | 10°C | death | -18°C |
+| `Plant_TreeBirch` | Birch | 5°C | dormancy | — |
+| `Plant_TreeCecropia` | Cecropia | 10°C | death | 0°C |
+| `Plant_TreeCypress` | Cypress | 5°C | dormancy | — |
+| `Plant_Dandelion` | Dandelion | 0°C | dormancy | — |
+| `Plant_Daylily` | Daylily | 0°C | dormancy | — |
+| `Plant_TreeDrago` | Drago tree | 8°C | death | 0°C |
+| `Plant_TreeMaple` | Maple | 5°C | dormancy | — |
+| `Plant_TreeOak` | Oak | 5°C | dormancy | — |
+| `Plant_TreePalm` | Palm | 10°C | death | 0°C |
+| `Plant_TreePine` | Pine | 0°C | death | -35°C |
+| `Plant_TreePoplar` | Poplar | 5°C | dormancy | — |
+| `Plant_Rose` | Rose | 5°C | dormancy | — |
+| `Plant_SaguaroCactus` | Saguaro cactus | 8°C | death | -6°C |
+| `Plant_TreeTeak` | Teak | 12°C | death | 3°C |
+| `Plant_Timbershroom` | Timbershroom | 0°C | dormancy | — |
+| `Plant_Tinctoria` | Tinctoria | 5°C | death | -4°C |
+| `Plant_TreeWillow` | Willow | 5°C | dormancy | — |
 
 ## Medieval Overhaul 1.6 — cultivated farm crops
 
