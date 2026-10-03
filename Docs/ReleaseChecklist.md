@@ -1,4 +1,4 @@
-# CCTO 0.1 Beta Release Checklist
+# CCTO Beta Release Checklist
 
 This is the release-preparation checklist for the first public Beta.
 
@@ -28,10 +28,11 @@ This is the release-preparation checklist for the first public Beta.
 
 Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
-## Public-release preparation still required
+## Public-release status
 
 - [x] GitHub release notes drafted in `Docs/ReleaseNotes/ReleaseNotes-0.1-Beta.md`.
-- [x] `v0.1.1-beta` update release notes drafted in `Docs/ReleaseNotes/ReleaseNotes-0.1.1-Beta.md`.
+- [x] `v0.1.1-beta` release notes finalized in `Docs/ReleaseNotes/ReleaseNotes-0.1.1-Beta.md`.
+- [x] GitHub release/tag `v0.1.1-beta` already published.
 - [x] Preview image technical/art brief fixed in `Docs/PreviewBrief.md`: 640×360 PNG, 16:9, under 1 MB.
 
 - [x] `About/Preview.png` added to `main` from the approved preview image; current blob SHA `c3b690262b92ce06e753fb0ac6e6929ff96bcf73`.
@@ -50,8 +51,8 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] Normal-profile wild-plant Info Card smoke passed. Verified Wild Healroot (0 C / death -9 C), Berry bush (0 C / dormancy 0 C), Bush (0 C / dormancy 0 C), and Oak (5 C / dormancy 5 C).
 - [x] Post-Info-Card-ordering-change `run-tests.bat` rerun passed: **14/14**.
 - [x] Cold death / dormancy row alignment visually rechecked in the standard Info Card.
-- [ ] Update the live Steam Workshop English/Japanese descriptions from the maintained paste-ready files after the fresh gate passes.
-- [ ] Rebuild/upload the Workshop package so the expanded Vanilla XML and updated `About/About.xml` are live.
+- [x] Live Steam Workshop English/Japanese descriptions updated from the maintained paste-ready files.
+- [x] Workshop package rebuilt/uploaded to the existing item `3812412548`; expanded plant coverage and the final Info Card ordering fix are live.
 
 ## Beta feedback targets
 
