@@ -8,7 +8,7 @@ namespace CropColdToleranceOverhaul.Patches
     [HarmonyPatch(typeof(ThingDef), "SpecialDisplayStats")]
     internal static class ThingDefSpecialDisplayStatsPatch
     {
-        private const int TemperatureDisplayPriority = 4149;
+        private const int TemperatureDisplayPriority = 4151;
 
         [HarmonyPostfix]
         private static void Postfix(
