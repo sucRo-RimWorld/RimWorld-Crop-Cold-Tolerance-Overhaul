@@ -342,7 +342,7 @@ CODE-007 is complete. Dubs Mint Menus remains supported through the standard Inf
 ### RELEASE-001 — 0.1 Beta public release preparation
 
 **Owner:** release/presentation  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 The tested implementation is integrated on `main`.
 
@@ -466,5 +466,6 @@ Static consistency audit: PASS.
 
 Remaining release gate:
 - full `run-tests.bat` rerun: **PASS, 14/14** (user-reported 2026-10-03), including the all-supported-living-plant coverage scenario;
-- remaining: run normal-profile smoke including at least one newly covered wild-only plant;
-- after that passes, rebuild/re-upload the Workshop package and update the live English/Japanese descriptions.
+- normal-profile wild-plant Info Card smoke: **PASS**. Verified Wild Healroot (min 0 C / death -9 C), Berry bush (min 0 C / dormancy 0 C), Bush (min 0 C / dormancy 0 C), and Oak (min 5 C / dormancy 5 C); displayed values matched the implemented CCTO balance.
+- BAL-001 implementation/validation is complete.
+- release/presentation remaining: rebuild/re-upload the Workshop package and update the live English/Japanese descriptions.
