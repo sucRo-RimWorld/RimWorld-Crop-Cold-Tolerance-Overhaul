@@ -552,6 +552,215 @@
             </li>
           </value>
         </li>
+
+        <!-- DankPyon_Plant_MindwortWild -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_MindwortWild"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_MindwortWild"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_MindwortWild"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_MindwortWild"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDeathTemperature>-3</coldDeathTemperature>
+            </li>
+          </value>
+        </li>
+
+        <!-- DankPyon_Plant_PoppyWild -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_PoppyWild"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_PoppyWild"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_PoppyWild"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_PoppyWild"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDeathTemperature>-5</coldDeathTemperature>
+            </li>
+          </value>
+        </li>
+
+        <!-- DankPyon_Plant_FleawortWild -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FleawortWild"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FleawortWild"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>3</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FleawortWild"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>3</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FleawortWild"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDeathTemperature>-6</coldDeathTemperature>
+            </li>
+          </value>
+        </li>
+
+        <!-- DankPyon_Plant_FlyAgaricWild -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FlyAgaricWild"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FlyAgaricWild"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>0</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FlyAgaricWild"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>0</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_FlyAgaricWild"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDormancy>true</coldDormancy>
+            </li>
+          </value>
+        </li>
+
+        <!-- DankPyon_GreatOak -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatOak"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatOak"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatOak"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatOak"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDormancy>true</coldDormancy>
+            </li>
+          </value>
+        </li>
+
+        <!-- DankPyon_GreatIter -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatIter"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatIter"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatIter"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatIter"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDormancy>true</coldDormancy>
+            </li>
+          </value>
+        </li>
+
+        <!-- DankPyon_GreatFir -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatFir"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatFir"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>0</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatFir"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>0</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatFir"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDeathTemperature>-35</coldDeathTemperature>
+            </li>
+          </value>
+        </li>
+
+        <!-- DankPyon_GreatWillow -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatWillow"]/plant/minGrowthTemperature</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatWillow"]/plant/minGrowthTemperature</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="DankPyon_GreatWillow"]/plant</xpath>
+            <value>
+              <minGrowthTemperature>5</minGrowthTemperature>
+            </value>
+          </nomatch>
+        </li>
+
+        <li Class="PatchOperationAddModExtension">
+          <xpath>/Defs/ThingDef[defName="DankPyon_GreatWillow"]</xpath>
+          <value>
+            <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+              <coldDormancy>true</coldDormancy>
+            </li>
+          </value>
+        </li>
+
       </operations>
     </match>
   </Operation>
