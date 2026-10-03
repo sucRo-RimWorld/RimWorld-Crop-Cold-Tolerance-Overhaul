@@ -33,6 +33,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] GitHub release notes drafted in `Docs/ReleaseNotes/ReleaseNotes-0.1-Beta.md`.
 - [x] `v0.1.1-beta` release notes finalized in `Docs/ReleaseNotes/ReleaseNotes-0.1.1-Beta.md`.
 - [x] GitHub release/tag `v0.1.1-beta` already published.
+- [x] Current post-0.1.1 UI-ordering update documented separately in `Docs/ReleaseNotes/ReleaseNotes-0.1.2-Beta.md`.
 - [x] Preview image technical/art brief fixed in `Docs/PreviewBrief.md`: 640×360 PNG, 16:9, under 1 MB.
 
 - [x] `About/Preview.png` added to `main` from the approved preview image; current blob SHA `c3b690262b92ce06e753fb0ac6e6929ff96bcf73`.
@@ -52,7 +53,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] Post-Info-Card-ordering-change `run-tests.bat` rerun passed: **14/14**.
 - [x] Cold death / dormancy row alignment visually rechecked in the standard Info Card.
 - [x] Live Steam Workshop English/Japanese descriptions updated from the maintained paste-ready files.
-- [x] Workshop package rebuilt/uploaded to the existing item `3812412548`; expanded plant coverage and the final Info Card ordering fix are live.
+- [x] Workshop package updated on existing item `3812412548`; the post-0.1.1 Info Card ordering fix is live.
 
 ## Beta feedback targets
 
