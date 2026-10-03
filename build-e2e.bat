@@ -6,6 +6,7 @@ if not defined RIMWORLD_DIR set "RIMWORLD_DIR=D:\SteamLibrary\steamapps\common\R
 
 set "E2E_MOD_DIR=%~2"
 if not defined E2E_MOD_DIR set "E2E_MOD_DIR=%RIMWORLD_DIR%\Mods\CropColdToleranceOverhaul.E2E"
+set "MO_FIXTURE_DIR=%RIMWORLD_DIR%\Mods\CropColdToleranceOverhaul.MOFixture"
 
 set "CSC=%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 if not exist "%CSC%" set "CSC=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\csc.exe"
@@ -91,11 +92,34 @@ set "ABOUT_DIR=%E2E_MOD_DIR%\About"
 set "ASSEMBLIES_DIR=%E2E_MOD_DIR%\Assemblies"
 set "PICKLE_ASSEMBLIES_DIR=%E2E_MOD_DIR%\Pickle\Assemblies"
 set "FEATURES_DIR=%E2E_MOD_DIR%\Pickle\Features"
+set "MO_FIXTURE_ABOUT=%MO_FIXTURE_DIR%\About"
+set "MO_FIXTURE_DEFS=%MO_FIXTURE_DIR%\Defs"
 
 if not exist "%ABOUT_DIR%" mkdir "%ABOUT_DIR%"
 if not exist "%ASSEMBLIES_DIR%" mkdir "%ASSEMBLIES_DIR%"
 if not exist "%PICKLE_ASSEMBLIES_DIR%" mkdir "%PICKLE_ASSEMBLIES_DIR%"
 if not exist "%FEATURES_DIR%" mkdir "%FEATURES_DIR%"
+
+if exist "%MO_FIXTURE_DIR%" rmdir /S /Q "%MO_FIXTURE_DIR%"
+if errorlevel 1 (
+    echo [ERROR] Failed to reset Medieval Overhaul test fixture:
+    echo         %MO_FIXTURE_DIR%
+    exit /b 1
+)
+mkdir "%MO_FIXTURE_ABOUT%" >nul 2>nul
+mkdir "%MO_FIXTURE_DEFS%" >nul 2>nul
+
+copy /Y "%ROOT%Tests\E2E\MOFixture\About\About.xml" "%MO_FIXTURE_ABOUT%\About.xml" >nul
+if errorlevel 1 (
+    echo [ERROR] Failed to stage Medieval Overhaul fixture metadata.
+    exit /b 1
+)
+
+copy /Y "%ROOT%Tests\E2E\MOFixture\Defs\CCTO_MO_Targets.xml" "%MO_FIXTURE_DEFS%\CCTO_MO_Targets.xml" >nul
+if errorlevel 1 (
+    echo [ERROR] Failed to stage Medieval Overhaul fixture Defs.
+    exit /b 1
+)
 
 copy /Y "%ROOT%Tests\E2E\TestMod\About\About.xml" "%ABOUT_DIR%\About.xml" >nul
 if errorlevel 1 exit /b 1
@@ -174,10 +198,13 @@ if not exist "%FEATURES_DIR%\framework.feature" exit /b 1
 if exist "%ROOT%Tests\E2E\TestMod\Pickle\Features\balance.feature" (
     if not exist "%FEATURES_DIR%\balance.feature" exit /b 1
 )
+if not exist "%MO_FIXTURE_ABOUT%\About.xml" exit /b 1
+if not exist "%MO_FIXTURE_DEFS%\CCTO_MO_Targets.xml" exit /b 1
 
 echo.
-echo [5/5] CCTO E2E test mod is ready:
+echo [5/5] CCTO E2E test mods are ready:
 echo       %E2E_MOD_DIR%
+echo       %MO_FIXTURE_DIR%
 echo.
 echo Enable these mods before running:
 echo   - Harmony
