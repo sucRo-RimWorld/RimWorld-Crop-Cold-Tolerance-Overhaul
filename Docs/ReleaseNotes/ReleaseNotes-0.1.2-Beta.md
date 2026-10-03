@@ -17,7 +17,8 @@ This update fixes the standard Info Card ordering of CCTO's cold-threshold rows 
 ## Verification
 
 - Standard Info Card visual recheck: **PASS**.
-- Full automated integration gate: rerun required after the Medieval Overhaul compatibility fix.
+- Full automated integration gate after the Medieval Overhaul compatibility fix: **14/14 PASS**.
+- CCTO-origin runtime ERROR gate: **PASS** (no CCTO ERROR entries detected).
 
 ## Compatibility
 
