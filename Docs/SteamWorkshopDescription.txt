@@ -1,6 +1,6 @@
 [h1]Crop Cold Tolerance Overhaul (CCTO)[/h1]
 
-CCTO separates a plant's [b]minimum growth temperature[/b] from its [b]cold-death behavior[/b].
+CCTO separates a plant's [b]minimum growth temperature[/b] from its [b]cold-death behavior[/b], and adds non-lethal [b]cold dormancy[/b] for selected plants: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
 
 Vanilla RimWorld derives cold leafless/death from minimum growth temperature with a deterministic per-plant offset. CCTO instead gives supported crops explicit species-level behavior: fixed cold-death temperatures or cold dormancy.
 
