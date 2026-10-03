@@ -67,9 +67,12 @@ For dormancy crops, the listed minimum growth temperature is also the cold-dorma
 
 ### Medieval Overhaul 1.6
 
+Medieval Overhaul's Healroot uses the Vanilla `Plant_Healroot` Def, so it receives the Vanilla CCTO value listed above: 0°C minimum growth, -9°C cold death.
+
+The following are the 21 MO-specific plant Defs patched by CCTO:
+
 | Crop | Minimum growth temperature | Cold-death temperature / behavior |
 |---|---:|---:|
-| Healroot | 0°C | -9°C |
 | Mindwort | 5°C | -3°C |
 | Poppy | 5°C | -5°C |
 | Fleawort | 3°C | -6°C |
