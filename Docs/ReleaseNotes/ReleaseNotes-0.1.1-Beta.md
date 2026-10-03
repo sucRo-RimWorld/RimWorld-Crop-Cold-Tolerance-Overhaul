@@ -25,10 +25,11 @@ Cold tolerance is now treated as a property of the plant itself rather than bein
 
 The expanded balance has passed:
 
-- full automated integration gate: **14/14**;
+- full automated integration gate: **14/14**, including the rerun after the Info Card ordering change;
 - loaded-value validation for all **49 Core + 29 MO** targets;
 - complete supported-living-PlantDef coverage regression for all **78** curated targets;
-- normal-profile wild-plant Info Card smoke checks.
+- normal-profile wild-plant Info Card smoke checks;
+- Info Card ordering was visually rechecked after the display-priority fix.
 
 Representative normal-profile checks included:
 
