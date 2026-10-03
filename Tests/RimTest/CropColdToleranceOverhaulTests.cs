@@ -167,7 +167,7 @@ namespace CropColdToleranceOverhaul.Tests
             ColdToleranceExtension extension = new ColdToleranceExtension();
             extension.coldDormancy = true;
 
-            List<StatDrawEntry> entries = BuildCctoStats(extension);
+            List<StatDrawEntry> entries = BuildCctoStats(extension, 5f);
 
             Assert.ThatCollection(entries).Has.Count(1);
             Assert.That(entries[0].ValueString).Is.EqualTo(5f.ToStringTemperature());
@@ -180,7 +180,7 @@ namespace CropColdToleranceOverhaul.Tests
             extension.coldDormancy = true;
             extension.coldDeathTemperature = -25f;
 
-            List<StatDrawEntry> entries = BuildCctoStats(extension);
+            List<StatDrawEntry> entries = BuildCctoStats(extension, 5f);
 
             Assert.ThatCollection(entries).Has.Count(2);
         }
