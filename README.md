@@ -186,4 +186,4 @@ This is a Beta release: the core feature set is implemented and has passed the d
 
 ## Support
 
-[Ko-fi](https://ko-fi.com/sucro0629)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white)](https://ko-fi.com/sucro0629)
