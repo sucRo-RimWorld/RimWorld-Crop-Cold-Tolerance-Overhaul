@@ -19,6 +19,7 @@ This is the release-preparation checklist for the first public Beta.
 - [x] Public README states that CCTO is a cold-tolerance rebalance and can also be used as a framework for assigning explicit cold-death temperatures / dormancy to other mods' plants.
 - [x] Public README shows before/after cold-tolerance values and behavior for all 12 Vanilla targets and 21 Medieval Overhaul-specific targets, with MO Healroot documented as using the Vanilla `Plant_Healroot` value.
 - [x] Public descriptions state that the current balance is generally higher difficulty than the original Vanilla / Medieval Overhaul cold settings, while noting dormancy crops as intentional exceptions rather than treating every change as a nerf.
+- [x] Public descriptions explain that crop-specific thresholds are informed by real-world cold-tolerance / frost-damage / lethal-temperature data, then rounded and tuned for gameplay rather than treated as exact universal biological constants.
 - [x] Public README includes an AI-assisted development disclosure covering implementation, documentation, research, and test assistance while retaining author control over design, balance, and final review.
 
 Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
