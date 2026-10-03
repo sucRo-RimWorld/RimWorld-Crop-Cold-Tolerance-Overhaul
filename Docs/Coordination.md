@@ -372,12 +372,20 @@ Public-description decisions:
 
 Remaining public-release decisions/tasks:
 
-- add `About/Preview.png`;
-- finalize exact public version/tag spelling (design target is currently **0.1 Beta**);
-- finalize Steam Workshop presentation text/tags;
-- decide whether to add a license;
-- create GitHub release/tag and publish to Steam Workshop only after those presentation decisions are approved;
+- create and add `About/Preview.png` using the approved preview brief;
+- create GitHub release/tag `v0.1.0-beta`;
+- publish to Steam Workshop using the finalized Workshop presentation;
 - perform a clean published-package smoke test after publication.
+
+Release-presentation decisions completed on `main`:
+
+- existing repository license confirmed as MIT; checklist update: `a725a09fb24840291a6038ba757f4b607c5b7bc7`;
+- public display version fixed to **0.1 Beta**, Git tag fixed to **v0.1.0-beta** in the same checklist update;
+- Steam Workshop title/long description/value tables/framework disclosure/AI-assisted-development disclosure drafted in `Docs/WorkshopDescription.md`: `3f860d1b981dff33e202c9e6c0346a18bb9f53dd`;
+- RimWorld Workshop categories fixed to `Mod` + `1.6`, no required DLC: `5936b2108d63a6a9d04aa6de2970ebff68376f24`;
+- GitHub release notes drafted: `8fff8f7728f6e44b03239896f5e54ddf14fbb722`;
+- Preview image specification fixed at 640×360 PNG / 16:9 / under 1 MB: `8c6fada61bf9fcd93f3fa6908a81c0f17797e3d6`;
+- release checklist narrowed to remaining publication steps: `d80786082bb3dfe0aa35ac45cb1cce98272dcea3`.
 
 ### Completed handoffs
 
