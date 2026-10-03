@@ -46,7 +46,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 ## Expanded all-living-plant publication refresh
 
 - [x] `run-tests.bat` completed with **14/14** passing scenarios, including the all-loaded-supported-living-plant coverage scenario.
-- [ ] Run normal-profile smoke checks with at least one newly covered wild-only plant (recommended: wild healroot, grass, or MO Great Oak) in addition to the existing representative cases.
+- [x] Normal-profile wild-plant Info Card smoke passed. Verified Wild Healroot (0 C / death -9 C), Berry bush (0 C / dormancy 0 C), Bush (0 C / dormancy 0 C), and Oak (5 C / dormancy 5 C).
 - [ ] Update the live Steam Workshop English/Japanese descriptions from the maintained paste-ready files after the fresh gate passes.
 - [ ] Rebuild/upload the Workshop package so the expanded Vanilla XML and updated `About/About.xml` are live.
 
