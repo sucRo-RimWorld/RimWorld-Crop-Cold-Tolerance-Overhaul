@@ -108,7 +108,7 @@ The full gate requires the installed Medieval Overhaul source tree (Workshop 321
 
 It intentionally does **not** activate Medieval Overhaul's runtime assemblies in the isolated Pickle profile. MO's own Harmony startup is outside CCTO's responsibility and can fail under an artificially stripped mod set even when the Def XML CCTO patches is valid. Instead, the gate stages a developer-only mod named `Medieval Overhaul` containing lightweight versions of the 29 MO-specific target plant Defs. RimWorld's `PatchOperationFindMod` matches active mods by display name, so CCTO's real MO patch file executes against these fixture Defs.
 
-This is paired with static checks against the installed real MO 1.6 source: every target DefName must exist and must contain the local `<plant>` node required by CCTO's XPath. Thus the runtime fixture tests CCTO patch application while the static validator protects against drift in the actual MO source structure.
+This is paired with static checks against the installed real MO 1.6 source: every target DefName must exist and must contain the local `<plant>` node required by CCTO's XPath. The four wild alchemy Defs are also checked for their real Named-Parent links to the cultivated alchemy Defs. Their CCTO extension is inherited from that parent rather than appended a second time. Thus the runtime fixture tests CCTO patch application and inheritance while the static validator protects against drift in the actual MO source structure.
 
 `run-e2e.bat` remains usable by itself for framework-only testing. `run-tests.bat` invokes its `with-mo-fixture` mode for the complete balance integration gate.
 
@@ -124,12 +124,13 @@ The underlying E2E runner:
 - prepares an isolated RimWorld save-data profile under `TestResults\SaveData`;
 - copies the normal `Prefs.xml` into that isolated profile and forces only `devMode=True`, because Quickstarts does nothing when RimWorld dev mode is off;
 - gives that profile a minimal test-only mod list; framework-only runs contain Harmony, Core, RimLogging, Pickle, Quickstarts, CCTO, and the CCTO E2E companion mod, while the full balance gate additionally enables only the lightweight MO Def fixture before CCTO;
-- launches RimWorld with `-savedatafolder` pointing at that isolated profile;
+- launches RimWorld with `-savedatafolder` pointing at that isolated profile and redirects Unity/RimWorld output to an isolated `TestResults\Pickle\Player.log`;
 - runs framework regression scenarios and live cold-behavior scenarios;
 - clears the previous isolated save-data and Pickle report directories before every run, preventing a startup failure from being mistaken for a stale earlier PASS;
 - writes fresh reports to `TestResults\Pickle`;
 - in full balance mode, parses the fresh `summary.json` and requires exactly 14 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-supported-living-plant coverage scenario;
-- exits with Pickle's pass/fail/error result, or an integration-summary error if the expected balance scenarios were not actually run;
+- after scenario validation, scans the isolated runtime log and fails the full gate if CCTO itself emitted any ERROR-level entry; a clean 14/14 scenario count is not sufficient when the mod logged an error;
+- exits with Pickle's pass/fail/error result, an integration-summary error if the expected balance scenarios were not actually run, or a runtime-log error-gate failure;
 - is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
 The user's normal RimWorld `ModsConfig.xml` is read only to reuse the current RimWorld version/known-expansion metadata. It is not rewritten. This prevents unrelated gameplay mods and their log errors from causing false Pickle failures.
@@ -149,9 +150,10 @@ The normal gameplay preset is therefore left untouched, and unrelated mods do no
 Loaded balance-Def scenarios in the full integration gate check:
 
 - all 49 living Core PlantDefs have the final expected `minGrowthTemperature`, exactly one CCTO extension, and the expected fixed death temperature or dormancy flag;
-- all 29 targeted Medieval Overhaul fixture Defs have the same final loaded-value checks after CCTO's real `PatchOperationFindMod`/XPath patch runs;
+- all 29 targeted Medieval Overhaul fixture Defs have the same final loaded-value checks after CCTO's real `PatchOperationFindMod`/XPath patch runs; the fixture mirrors MO's four wild-alchemy Named-Parent links, so the loaded checks also require exactly one inherited/direct CCTO extension per Def;
 - a coverage scenario scans all loaded living PlantDefs in the isolated Core/MO profile and fails if a living plant lacks CCTO balance or falls outside the curated 49-Core / 29-MO target set; dead stump/remnant Defs are excluded;
-- Medieval Overhaul's installed 1.6 source XML contains every targeted DefName **and** a local `<plant>` node before the runtime suite starts.
+- Medieval Overhaul's installed 1.6 source XML contains every targeted DefName **and** a local `<plant>` node before the runtime suite starts;
+- the MO patch contains **25 direct CCTO extension additions + 4 inherited wild-alchemy extensions**, preventing duplicate `ColdToleranceExtension` entries on the four wild alchemy Defs.
 
 Framework regression scenarios check:
 
