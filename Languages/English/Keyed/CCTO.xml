@@ -3,7 +3,6 @@
   <CCTO_ColdDeathTemperature>Cold death temperature</CCTO_ColdDeathTemperature>
   <CCTO_ColdDeathTemperature_Desc>The plant dies when its ambient temperature falls below this value.</CCTO_ColdDeathTemperature_Desc>
 
-  <CCTO_ColdResponse>Low-temperature response</CCTO_ColdResponse>
-  <CCTO_ColdResponse_Desc>How the plant responds to temperatures below its minimum growth temperature.</CCTO_ColdResponse_Desc>
-  <CCTO_ColdDormancy>Dormancy</CCTO_ColdDormancy>
+  <CCTO_DormancyTemperature>Dormancy temperature</CCTO_DormancyTemperature>
+  <CCTO_DormancyTemperature_Desc>When ambient temperature falls below this value, the plant enters cold dormancy. This value is the same as its minimum growth temperature.</CCTO_DormancyTemperature_Desc>
 </LanguageData>
