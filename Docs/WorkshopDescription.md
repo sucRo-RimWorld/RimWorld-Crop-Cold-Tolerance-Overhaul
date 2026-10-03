@@ -58,57 +58,43 @@ This is not a universal nerf: selected perennial and overwintering crops gain do
 
 Medieval Overhaul is optional. Its patches are applied only when MO is present.
 
-[h2]Before / after values[/h2]
+[h2]Representative before / after examples[/h2]
 
-Vanilla's ordinary cold threshold is derived per plant from:
-[code]minGrowthTemperature + -18C..-10C offset[/code]
+Vanilla's ordinary cold threshold is normally derived per plant from minimum growth temperature with an offset of about -18°C to -10°C.
 
-Format below:
-[code]Crop | min growth: original -> CCTO | cold: original -> CCTO[/code]
+[b]Rice[/b]
+Minimum growth: 0°C → 10°C
+Cold: death at -18°C to -10°C per plant → [b]fixed death at -1°C[/b]
 
-[b]Vanilla[/b]
-[code]
-Rice | 0->10C | death -18..-10C -> fixed -1C
-Potato | 0->5C | death -18..-10C -> fixed -2C
-Corn | 0->8C | death -18..-10C -> fixed -2C
-Strawberry | 0->5C | death -18..-10C -> fixed -9C
-Haygrass | 0->0C | death -18..-10C -> fixed -9C
-Cotton | 0->10C | death -18..-10C -> fixed -1C
-Devilstrand | 0->8C | death -18..-10C -> fixed -1C
-Healroot | 0->0C | leafless/survive -> fixed -9C
-Hops | 0->5C | death -18..-10C -> dormancy <5C
-Smokeleaf | 0->5C | death -18..-10C -> fixed -4C
-Psychoid | 0->8C | death -18..-10C -> fixed -1C
-Cocoa | 0->12C | death -18..-10C -> fixed 0C
-[/code]
+[b]Potato[/b]
+Minimum growth: 0°C → 5°C
+Cold: death at -18°C to -10°C per plant → [b]fixed death at -2°C[/b]
 
-[b]Medieval Overhaul[/b]
+[b]Healroot[/b]
+Minimum growth: 0°C → 0°C
+Cold: leafless but survives → [b]fixed death at -9°C[/b]
 
-MO Healroot uses the Vanilla Plant_Healroot entry above.
+[b]Hops[/b]
+Minimum growth: 0°C → 5°C
+Cold: death at -18°C to -10°C per plant → [b]cold dormancy below 5°C[/b]
 
-[code]
-Mindwort | 0->5C | leafless/survive -> fixed -3C
-Poppy | 0->5C | leafless/survive -> fixed -5C
-Fleawort | 0->3C | leafless/survive -> fixed -6C
-Fly agaric | 0->0C | leafless/survive -> dormancy <0C
-Onion | 0->5C | death -18..-10C -> fixed -3C
-Lentil | 0->5C | death -18..-10C -> fixed -4C
-Cabbage | -18->0C | death -36..-28C -> fixed -6C
-Garlic | 0->0C | death -18..-10C -> dormancy <0C
-Mushroom | 0->5C | death -18..-10C -> fixed -1C
-Wheat | 0->0C | death -18..-10C -> fixed -6C
-Flax | 0->5C | death -18..-10C -> fixed -5C
-Sugarcane | 0->10C | death -18..-10C -> fixed -5C
-Carrot | 0->0C | death -18..-10C -> fixed -4C
-Herb | 0->5C | death -18..-10C -> fixed -3C
-Tomato | 0->10C | death -18..-10C -> fixed -1C
-Pumpkin | 0->10C | death -18..-10C -> fixed -1C
-Grape | 0->5C | death -18..-10C -> dormancy <5C
-Apple | 0->5C | leafless/survive -> dormancy <5C
-Mulberry | 0->5C | leafless/survive -> dormancy <5C
-Griffon berry | 0->5C | leafless/survive -> dormancy <5C
-Lemon | 0->10C | leafless/survive -> fixed -4C
-[/code]
+[b]Cocoa[/b]
+Minimum growth: 0°C → 12°C
+Cold: death at -18°C to -10°C per plant → [b]fixed death at 0°C[/b]
+
+[b]Medieval Overhaul — Cabbage[/b]
+Minimum growth: -18°C → 0°C
+Cold: death at -36°C to -28°C per plant → [b]fixed death at -6°C[/b]
+
+[b]Medieval Overhaul — Apple[/b]
+Minimum growth: 0°C → 5°C
+Cold: leafless but survives → [b]cold dormancy below 5°C[/b]
+
+[b]Medieval Overhaul — Lemon[/b]
+Minimum growth: 0°C → 10°C
+Cold: leafless but survives → [b]fixed death at -4°C[/b]
+
+[url=https://github.com/sucRo0629/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]Full Vanilla + Medieval Overhaul before/after values on GitHub[/b][/url]
 
 [h2]Framework for other mods[/h2]
 
