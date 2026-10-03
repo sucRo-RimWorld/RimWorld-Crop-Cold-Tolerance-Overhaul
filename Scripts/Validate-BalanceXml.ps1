@@ -15,7 +15,7 @@ function Ok([string]$Message) {
 }
 
 function LoadXml([string]$Path) {
-  if (-not (Test-Path $Path)) { Fail "Missing XML file: $Path" }
+  if (-not (Test-Path -LiteralPath $Path)) { Fail "Missing XML file: $Path" }
   try { return [xml](Get-Content -LiteralPath $Path -Raw -Encoding UTF8) }
   catch { Fail "Invalid XML: $Path" }
 }
@@ -148,13 +148,20 @@ if ($MedievalOverhaulRoot) {
 
   $sourceDefs = @{}
   foreach ($def in @($farm.Defs.ThingDef) + @($alchemy.Defs.ThingDef)) {
-    if ($null -ne $def.defName) { $sourceDefs[[string]$def.defName] = $true }
+    if ($null -ne $def.defName) { $sourceDefs[[string]$def.defName] = $def }
   }
 
   foreach ($defName in $mo.Keys) {
-    if (-not $sourceDefs.ContainsKey($defName)) { Fail "MO source missing target DefName: $defName" }
+    if (-not $sourceDefs.ContainsKey($defName)) {
+      Fail "MO source missing target DefName: $defName"
+    }
+
+    $sourceDef = $sourceDefs[$defName]
+    if ($null -eq $sourceDef.plant) {
+      Fail "MO source target has no local <plant> node required by CCTO XPath: $defName"
+    }
   }
-  Ok "All $($mo.Count) MO target DefNames exist in supplied MO 1.6 source"
+  Ok "All $($mo.Count) MO target DefNames and local plant nodes exist in supplied MO 1.6 source"
 }
 
 Write-Host ""
