@@ -20,6 +20,12 @@ The current balance is **generally more demanding than the original Vanilla / Me
 
 This is not a universal nerf to every plant: selected perennial or overwintering crops gain cold dormancy and can survive ordinary winter cold instead of dying.
 
+### Balance rationale
+
+The values are not arbitrary. CCTO uses real-world crop cold-tolerance information, including frost-damage and lethal-temperature data where available, as reference points for each crop.
+
+Real plants vary by cultivar, growth stage, acclimation, and exposure duration, so CCTO does not copy one real-world temperature literally. The real-world data is used as a guideline, then rounded and tuned into clear gameplay thresholds that preserve meaningful differences between crops.
+
 It does **not** rebalance other crop properties such as:
 
 - harvest yield;
