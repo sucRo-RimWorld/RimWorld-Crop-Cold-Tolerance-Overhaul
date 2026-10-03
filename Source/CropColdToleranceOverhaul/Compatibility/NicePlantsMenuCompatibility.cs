@@ -59,7 +59,7 @@ namespace CropColdToleranceOverhaul.Compatibility
                 drawInfoBlockMethod,
                 postfix: new HarmonyMethod(
                     typeof(NicePlantsMenuCompatibility),
-                    nameof(DrawInfoBlockPostfix)));
+                    "DrawInfoBlockPostfix"));
         }
 
         private static void DrawInfoBlockPostfix(
