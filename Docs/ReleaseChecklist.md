@@ -32,7 +32,7 @@ Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 - [x] GitHub release notes drafted in `Docs/ReleaseNotes-0.1-Beta.md`.
 - [x] Preview image technical/art brief fixed in `Docs/PreviewBrief.md`: 640×360 PNG, 16:9, under 1 MB.
 
-- [ ] Create and add `About/Preview.png` from the approved `Docs/PreviewBrief.md` specification.
+- [x] `About/Preview.png` added to `main` from the approved preview image; current blob SHA `c3b690262b92ce06e753fb0ac6e6929ff96bcf73`.
 - [x] Steam Workshop title, short description, long description, and tag set drafted in `Docs/WorkshopDescription.md`; final publication-time visual review remains tied to `About/Preview.png`.
 - [x] Paste-ready Workshop BBCode body generated at `Docs/SteamWorkshopDescription.txt`. Workshop balance presentation uses representative before/after examples for readability and links to the README for the complete Vanilla/MO tables; balance-direction wording remains synchronized with the README.
 - [x] YADA upload filtering configured through repository-root `.rimignore`; runtime `About/`, `Assemblies/`, `Languages/`, `Patches/`, and `LICENSE` are retained while repository/development files are excluded.
