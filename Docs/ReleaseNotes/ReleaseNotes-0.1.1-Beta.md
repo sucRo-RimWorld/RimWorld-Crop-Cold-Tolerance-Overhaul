@@ -19,6 +19,7 @@ Cold tolerance is now treated as a property of the plant itself rather than bein
 - Added cold behavior for MO Dark Forest trees, including Great Oak, Great Iter, Great Fir, and Great Willow.
 - Bamboo now uses a Japanese moso/madake-style baseline: minimum growth temperature 10°C and fixed cold-death temperature -18°C.
 - Updated English/Japanese Workshop descriptions and public documentation for the expanded scope.
+- Aligned the standard Info Card position of `Cold death temperature` and `Dormancy temperature` so the relevant cold threshold appears in the same place when comparing plants.
 
 ## Verification
 
