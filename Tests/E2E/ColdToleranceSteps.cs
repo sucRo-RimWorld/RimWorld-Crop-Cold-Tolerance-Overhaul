@@ -155,7 +155,17 @@ namespace CropColdToleranceOverhaul.E2E
                         def != null
                         && def.plant != null
                         && def.plant.sowTags != null
-                        && def.plant.sowTags.Count > 0)
+                        && def.plant.sowTags.Count > 0
+                        && (
+                            !def.plant.mustBeWildToSow
+                            || (
+                                def.plant.sowResearchPrerequisites != null
+                                && def.plant.sowResearchPrerequisites.Any(
+                                    research =>
+                                        research != null
+                                        && research.defName == "TreeSowing")
+                            )
+                        ))
                     .ToList();
 
             List<string> missingExtension =
