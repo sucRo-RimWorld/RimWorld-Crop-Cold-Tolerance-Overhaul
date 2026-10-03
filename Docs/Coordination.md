@@ -367,6 +367,7 @@ Completed release-preparation work:
 - YADA Workshop upload filtering added through repository-root `.rimignore`, preserving runtime `About/`, `Assemblies/`, `Languages/`, `Patches/`, and `LICENSE` while excluding repository/development assets: `077e7bd563cc4ee2a079ab8df981dff2682cc93e`;
 - CCTO development workflow documents the YADA upload path and the README -> Workshop presentation -> paste-ready BBCode maintenance chain: `c913cbd7dda7024e7d3f4fe6d9d942b77f2438a3`;
 - release checklist records the paste-ready BBCode and YADA filter as complete and simplifies the remaining GitHub release task to the already-fixed tag `v0.1.0-beta`: `e87bf804e8c06c68102e5b6effe63d792090b2ae`.
+- Ko-fi support link added to the README and synchronized to both Workshop presentation files. README: `ad16b572f9e8086a488aea19d85021e3c5d521bd`; Workshop presentation: `6aa9b6d8713c77ba85043967336e658bc00a40f7`; paste-ready BBCode: `4911dea2778eb569ee57f232efa30b6c5db20a9c`.
 
 Public-description decisions:
 
