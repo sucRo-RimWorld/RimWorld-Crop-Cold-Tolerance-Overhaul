@@ -184,3 +184,6 @@ As of 2026-10-02:
 - The final isolated Pickle run completed successfully with the full 11/11 suite passing.
 - The automated release gate is now green. The framework implementation has passed fixed-threshold, Vanilla fallback, validation, Info Card, live cold-death, strict boundary, dormancy, delayed recovery, extreme-cold, and indoor actual-room-temperature regression coverage.
 - Draft PR #1 no longer has an automated-test blocker; Draft status may now be removed when review/merge is desired.
+- The integrated balance branch subsequently passed the complete `run-tests.bat` gate with a fresh **13/13 Pickle pass**, including the two loaded-balance scenarios.
+- The integration gate verified the final loaded CCTO values for all 12 targeted Vanilla plants and all 21 targeted Medieval Overhaul plants, while also validating the target DefNames and required local `<plant>` nodes against the installed real MO 1.6 source.
+- Automated framework + Vanilla/MO balance verification is therefore green. Remaining pre-beta work is limited to the documented normal-game smoke test and final in-game visual/wording checks.
