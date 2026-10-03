@@ -142,6 +142,24 @@ Current Japanese labels are:
 
 The previous `低温反応: 休眠` display was replaced because it did not tell the player at what temperature dormancy begins. The display is covered by framework tests and must be rechecked visually in-game before release.
 
+## 5.1 Plant-selection UI compatibility
+
+CCTO's canonical display path is RimWorld's standard `ThingDef.SpecialDisplayStats` / Info Card.
+
+Priority compatibility set for alternate plant-selection displays:
+
+1. **Nice Plants Menu** — Steam Workshop 3685058533, packageId `Andromeda.NicePlantsMenu`;
+2. **Dubs Mint Menus** — Steam Workshop 1446523594, packageId `Dubwise.DubsMintMenus`.
+
+Compatibility rules:
+
+- neither UI mod is a hard dependency;
+- compatibility must be soft/conditional;
+- Nice Plants Menu uses its own compact plant-summary panel and therefore needs a dedicated compatibility path for `枯死温度` / `休眠温度`;
+- Dubs Mint Menus exposes an Info Card on plant-menu mouse-over. Verify whether CCTO's standard `SpecialDisplayStats` rows already appear there before adding any Dubs-specific patch;
+- if the standard Info Card path already works in Dubs Mint Menus, do not add redundant compatibility code;
+- other plant-selection UI mods remain best-effort/on-request rather than release blockers.
+
 ## 6. Balance XML integration
 
 The balance/XML workstream must consume the implemented extension rather than introducing another C# data model.
