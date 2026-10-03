@@ -15,6 +15,7 @@ if not exist "%CSC%" (
 set "MANAGED=%RIMWORLD_DIR%\RimWorldWin64_Data\Managed"
 set "ASSEMBLY_CSHARP=%MANAGED%\Assembly-CSharp.dll"
 set "UNITY_CORE=%MANAGED%\UnityEngine.CoreModule.dll"
+set "NETSTANDARD=%MANAGED%\netstandard.dll"
 
 if not exist "%ASSEMBLY_CSHARP%" (
     echo [ERROR] Assembly-CSharp.dll was not found:
@@ -22,6 +23,12 @@ if not exist "%ASSEMBLY_CSHARP%" (
     echo.
     echo Usage:
     echo   build.bat "D:\SteamLibrary\steamapps\common\RimWorld"
+    exit /b 1
+)
+
+if not exist "%NETSTANDARD%" (
+    echo [ERROR] netstandard.dll was not found:
+    echo         %NETSTANDARD%
     exit /b 1
 )
 
@@ -73,6 +80,7 @@ if exist "%UNITY_CORE%" (
     "%CSC%" /nologo /target:library /optimize+ /out:"%OUTPUT_DLL%" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
+        /reference:"%NETSTANDARD%" ^
         /reference:"%HARMONY_DLL%" ^
         !SOURCES!
 ) else (
