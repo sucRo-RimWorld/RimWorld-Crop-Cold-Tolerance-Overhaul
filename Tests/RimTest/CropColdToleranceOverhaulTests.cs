@@ -156,7 +156,7 @@ namespace CropColdToleranceOverhaul.Tests
             ColdToleranceExtension extension = new ColdToleranceExtension();
             extension.coldDeathTemperature = -12f;
 
-            List<StatDrawEntry> entries = BuildCctoStats(extension);
+            List<StatDrawEntry> entries = BuildCctoStats(extension, 5f);
 
             Assert.ThatCollection(entries).Has.Count(1);
         }
@@ -170,6 +170,7 @@ namespace CropColdToleranceOverhaul.Tests
             List<StatDrawEntry> entries = BuildCctoStats(extension);
 
             Assert.ThatCollection(entries).Has.Count(1);
+            Assert.That(entries[0].ValueString).Is.EqualTo(5f.ToStringTemperature());
         }
 
         [Test]
@@ -201,7 +202,8 @@ namespace CropColdToleranceOverhaul.Tests
         }
 
         private static List<StatDrawEntry> BuildCctoStats(
-            ColdToleranceExtension extension)
+            ColdToleranceExtension extension,
+            float dormancyTemperature)
         {
             if (AppendCctoStatsMethod == null)
             {
@@ -214,7 +216,7 @@ namespace CropColdToleranceOverhaul.Tests
 
             object result = AppendCctoStatsMethod.Invoke(
                 null,
-                new object[] { original, extension });
+                new object[] { original, extension, dormancyTemperature });
 
             return ((IEnumerable<StatDrawEntry>)result).ToList();
         }
