@@ -204,7 +204,7 @@ Pass criteria:
 
 Things Explorer/XML Patch Helper are optional diagnostics only if a discrepancy is found; exact underlying Vanilla/MO values are already asserted by the automated loaded-`DefDatabase` gate.
 
-Keep the relevant PR Draft until this normal-game smoke/visual check is complete.
+The normal-game smoke/visual check has passed for the current dormancy-temperature implementation. Keep the integration PR Draft while the remaining Nice Plants Menu compatibility work is in progress.
 
 ## 5. Framework behavior that tests must protect
 
