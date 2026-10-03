@@ -236,6 +236,21 @@ Then launch RimWorld normally and verify representative Info Cards:
 
 Also require normal startup with no new CCTO-origin error, no duplicate CCTO rows, and acceptable visual grouping/wording of `枯死温度` / `低温反応: 休眠` next to native plant-temperature entries.
 
+**Visual check result:** PASS.
+
+User-provided normal-game screenshots confirmed all four representative standard Info Cards:
+
+- Vanilla rice: min growth 10 C, cold death -1 C;
+- Vanilla hops: min growth 5 C, dormancy;
+- MO wheat: min growth 0 C, cold death -6 C;
+- MO apple tree: min growth 5 C, dormancy.
+
+No duplicate CCTO rows were visible, and the CCTO rows were readable in the normal Info Card.
+
+A separate compact plant-information panel from another mod does not surface CCTO's `SpecialDisplayStats` rows and also showed unrelated garbled text. This is not a failure of the standard RimWorld Info Card path and is outside the current CCTO release gate.
+
+**Remaining check:** confirm the normal startup/runtime log contains no new CCTO-origin error.
+
 Durable checklist: `Docs/DevelopmentTools.md` on `balance-xml`.
 
 ## Completed handoffs
