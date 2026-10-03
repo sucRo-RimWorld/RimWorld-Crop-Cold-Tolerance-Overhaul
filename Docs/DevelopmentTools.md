@@ -206,6 +206,28 @@ Things Explorer/XML Patch Helper are optional diagnostics only if a discrepancy 
 
 The normal-game smoke/visual check has passed for the current dormancy-temperature implementation. Keep the integration PR Draft while the remaining Nice Plants Menu compatibility work is in progress.
 
+### Nice Plants Menu compatibility smoke
+
+When **Nice Plants Menu** (Workshop 3685058533) is active, repeat the normal-game visual check in its compact plant-summary panel:
+
+| Case | Expected Nice Plants Menu additions |
+|---|---|
+| Vanilla rice | `枯死温度` -1 C |
+| Vanilla hops | `休眠温度` 5 C |
+| MO wheat | `枯死温度` -6 C |
+| MO apple tree | `休眠温度` 5 C |
+
+Pass criteria:
+
+1. CCTO rows appear immediately after Nice Plants Menu's growth-temperature row;
+2. fixed-death crops show only `枯死温度`;
+3. dormancy-only crops show only `休眠温度`;
+4. there are no duplicate CCTO rows;
+5. opening/closing the plant menu produces no new CCTO error;
+6. Nice Plants Menu remains optional: the same CCTO build starts normally when that mod is absent.
+
+Dubs Mint Menus needs no dedicated compatibility smoke beyond confirming that its mouse-over standard Info Card continues to show CCTO rows; that path has already been verified.
+
 ## 5. Framework behavior that tests must protect
 
 Regression tests should cover at least:
