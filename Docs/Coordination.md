@@ -355,11 +355,13 @@ Completed release-preparation work:
 - `Docs/ReleaseChecklist.md` added: `a430ca6252a88d2ff7e9820a7cf276432237d22e`;
 - README now explicitly presents CCTO as a framework for other mods to assign fixed cold-death temperatures / dormancy, and includes an AI-assisted development disclosure: `a69972f21d26900b0023e91957317b5baecc58dd`;
 - README now also describes CCTO explicitly as a cold-tolerance rebalance and publishes before/after minimum-growth values plus original/CCTO cold behavior for all 12 Vanilla targets and 21 MO-specific targets; MO Healroot is documented as using the Vanilla `Plant_Healroot` value. The comparison reflects Vanilla's per-plant derived threshold (`minGrowthTemperature + -18..-10°C`) and MO's original `dieIfLeafless` behavior: `f4fff83ca546a9027064d546687cc26d902b4a01`;
+- public positioning now states that the current balance is generally higher difficulty than the original Vanilla/MO cold settings because most supported crops require warmer active-growth conditions and ordinary crops often die at much warmer temperatures; dormancy crops are explicitly described as exceptions rather than universal nerfs. README: `af44a136568b8b3c8fca9cd2d07b24089ed00c6e`; design source of truth: `9388272a79dee24bb8178d67849f540ab819baad`; About description: `626aa4ad2af16fe14ba1548888c2450d50dd0e49`;
 - `About/About.xml` public description now explicitly says CCTO rebalances cold tolerance: `96c4362fec8a49d55e658b901c0cf9e8935e5cd1`;
 - `About/About.xml` now explicitly states the framework role: `3462030feac0779d9ee9e34e6b5c2efd30607f1f`;
 - `Docs/Framework.md` now defines the framework purpose in terms of plant-specific cold-death temperatures and dormancy: `aa08d59ad4b62d546373e0410be49eb1ef60d01c`;
 - release checklist now requires the Steam Workshop description to carry the framework role and the same AI-assisted development disclosure: `f51e322c658ced558336101fc6947b0dd021ce0f`;
-- release checklist now requires the public Workshop presentation to expose the Vanilla/MO rebalance as a before/after comparison: `3397dcba575fb00785fda7a574bdffe531b7dee7`.
+- release checklist now requires the public Workshop presentation to expose the Vanilla/MO rebalance as a before/after comparison: `3397dcba575fb00785fda7a574bdffe531b7dee7`;
+- release checklist now also requires the higher-difficulty direction and dormancy exception to be disclosed in the Workshop description: `7e6524cc07c9a54cfeb49e045b24799d6094005b`.
 
 Public-description decisions:
 
