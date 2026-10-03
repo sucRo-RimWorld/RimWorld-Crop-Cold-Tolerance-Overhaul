@@ -185,6 +185,28 @@ namespace CropColdToleranceOverhaul.Tests
             Assert.ThatCollection(entries).Has.Count(2);
         }
 
+        [Test]
+        public static void ColdDeathAndDormancyUseTheSameInfoCardPriority()
+        {
+            ColdToleranceExtension deathExtension = new ColdToleranceExtension();
+            deathExtension.coldDeathTemperature = -12f;
+
+            ColdToleranceExtension dormancyExtension = new ColdToleranceExtension();
+            dormancyExtension.coldDormancy = true;
+
+            List<StatDrawEntry> deathEntries =
+                BuildCctoStats(deathExtension, 5f);
+            List<StatDrawEntry> dormancyEntries =
+                BuildCctoStats(dormancyExtension, 5f);
+
+            Assert.ThatCollection(deathEntries).Has.Count(1);
+            Assert.ThatCollection(dormancyEntries).Has.Count(1);
+            Assert.That(
+                deathEntries[0].DisplayPriorityWithinCategory)
+                .Is.EqualTo(
+                    dormancyEntries[0].DisplayPriorityWithinCategory);
+        }
+
         private static MethodInfo FindAppendCctoStatsMethod()
         {
             Type patchType = typeof(ColdToleranceExtension).Assembly.GetType(
