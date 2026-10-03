@@ -187,6 +187,12 @@ This was a runner-only defect, not a balance-data failure. `Validate-BalanceXml.
 
 Fix on `balance-xml`: `65237a894568cc753e2f03b09043dfe21d0769fd`.
 
+The next local launch reached RimWorld, but the stripped profile failed during Medieval Overhaul's own mod-class startup before Pickle wrote a fresh report. The uploaded 11/11 report was therefore stale and did not contain the new balance scenarios.
+
+The integration gate now keeps the installed real MO 1.6 XML as the source check, but uses a lightweight developer-only mod named `Medieval Overhaul` for runtime Def patch verification. This avoids unrelated MO runtime code while still exercising CCTO's real `PatchOperationFindMod` and XPath patches. The validator now also requires every real MO target to contain the local `<plant>` node that CCTO patches. Test save data and Pickle reports are cleared before each run so a failed startup cannot leave an old PASS behind.
+
+Relevant `balance-xml` commits: `f5693133d5798d6458032db4361d348a13d0560b`, `0c81243ca5b0acf00ab10846b9e2c67331956790`, `45cfd4abe43519632ba71db59325f849f1cba992`, `25c0c738d4583f1daac2c5e8072cf34aff42882f`, `dae2b6e917a55f7d2b16e078412a82a9330cbb2f`, `847ea987f8e1c59c2e9b24d6acfb01f8087de9ab`, `6defb486478695266122722cce4d6cde4a78a48d`, `c2b1b2ef22e23bf371e101092f1733e53fe77d52`, `4a30636db4cf225492db930dfaa76358ff6c3297`.
+
 **Next action:** rerun the full gate locally from `balance-xml`:
 
 `run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
