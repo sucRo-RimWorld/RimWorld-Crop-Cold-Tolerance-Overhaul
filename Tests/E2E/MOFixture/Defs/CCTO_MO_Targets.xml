@@ -168,4 +168,68 @@
     </plant>
   </ThingDef>
 
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_MindwortWild</defName>
+    <label>CCTO MO fixture DankPyon_Plant_MindwortWild</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_PoppyWild</defName>
+    <label>CCTO MO fixture DankPyon_Plant_PoppyWild</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_FleawortWild</defName>
+    <label>CCTO MO fixture DankPyon_Plant_FleawortWild</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_Plant_FlyAgaricWild</defName>
+    <label>CCTO MO fixture DankPyon_Plant_FlyAgaricWild</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_GreatOak</defName>
+    <label>CCTO MO fixture DankPyon_GreatOak</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_GreatIter</defName>
+    <label>CCTO MO fixture DankPyon_GreatIter</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_GreatFir</defName>
+    <label>CCTO MO fixture DankPyon_GreatFir</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>DankPyon_GreatWillow</defName>
+    <label>CCTO MO fixture DankPyon_GreatWillow</label>
+    <plant>
+      <minGrowthTemperature>99</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+
 </Defs>
