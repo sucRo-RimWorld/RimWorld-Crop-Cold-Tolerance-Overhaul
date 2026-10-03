@@ -1,6 +1,6 @@
 # Crop Cold Tolerance Overhaul
 
-**RimWorld 1.6 — Alpha**
+**RimWorld 1.6 — Beta**
 
 Crop Cold Tolerance Overhaul (CCTO) separates a crop's **minimum growth temperature** from its **cold-death behavior**.
 
@@ -25,7 +25,7 @@ It does **not** rebalance:
 
 ## Supported crop sets
 
-The current Alpha includes balance data for:
+The current Beta includes balance data for:
 
 - Vanilla RimWorld crops;
 - Medieval Overhaul 1.6 crops.
@@ -68,9 +68,9 @@ Dormancy begins below the plant's native `minGrowthTemperature`.
 
 See [Docs/Framework.md](Docs/Framework.md) for the XML-facing API and [Docs/Design.md](Docs/Design.md) for the balance rationale.
 
-## Alpha feedback
+## Beta feedback
 
-The initial Alpha intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
+The initial Beta intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
 
 Useful feedback includes:
 
@@ -79,7 +79,7 @@ Useful feedback includes:
 - whether deterministic individual variation would add useful gameplay;
 - whether the Info Card and plant-menu temperature information is sufficiently clear.
 
-A possible future deterministic per-plant range mode is documented, but is **not** part of the current Alpha.
+A possible future deterministic per-plant range mode is documented, but is **not** part of the current Beta.
 
 ## Verification
 
@@ -94,6 +94,6 @@ The tested release source of truth is `main`.
 
 ## Status
 
-Current target: **0.1 Alpha**.
+Current target: **0.1 Beta**.
 
-This is an Alpha release intended for real play and feedback, not a Beta declaration.
+This is a Beta release: the core feature set is implemented and has passed the documented automated and normal-game smoke gates. The Beta phase is for wider real-play validation, compatibility reports, and feedback on the fixed-threshold balance model.
