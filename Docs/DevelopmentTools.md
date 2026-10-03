@@ -104,7 +104,8 @@ The underlying E2E runner:
 - runs framework regression scenarios and live cold-behavior scenarios;
 - clears the previous isolated save-data and Pickle report directories before every run, preventing a startup failure from being mistaken for a stale earlier PASS;
 - writes fresh reports to `TestResults\Pickle`;
-- exits with Pickle's pass/fail/error exit code;
+- in full balance mode, parses the fresh `summary.json` and requires exactly 13 clean passes plus explicit presence of both loaded-balance scenarios;
+- exits with Pickle's pass/fail/error result, or an integration-summary error if the expected balance scenarios were not actually run;
 - is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
 The user's normal RimWorld `ModsConfig.xml` is read only to reuse the current RimWorld version/known-expansion metadata. It is not rewritten. This prevents unrelated gameplay mods and their log errors from causing false Pickle failures.
