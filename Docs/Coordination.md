@@ -181,7 +181,13 @@ Implementation commits on `balance-xml`:
 - full integration runner: `9da133b1732cb867c4d39ee381f1cbf9fa058d3f`;
 - generated test-mod verification: `5ed6caa02ba1da0a0107fa1e020b3dc7edd64dcb`.
 
-**Next action:** run the full gate locally from `balance-xml`:
+First local integration attempt stopped in `Validate-BalanceXml.ps1` before any balance assertion because `validate-balance.bat` passed `%~dp0` (which ends in a backslash) as a quoted `-RepoRoot` argument. PowerShell then received an invalid path string.
+
+This was a runner-only defect, not a balance-data failure. `Validate-BalanceXml.ps1` already derives the repository root safely from its own `Scripts` directory, so the redundant batch-level `-RepoRoot` argument has been removed.
+
+Fix on `balance-xml`: `65237a894568cc753e2f03b09043dfe21d0769fd`.
+
+**Next action:** rerun the full gate locally from `balance-xml`:
 
 `run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
 
