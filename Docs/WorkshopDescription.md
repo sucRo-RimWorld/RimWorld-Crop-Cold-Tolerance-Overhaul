@@ -19,7 +19,7 @@ RimWorld 1.6 — 0.1 Beta
 
 ## Short description
 
-Separates minimum growth temperature from cold-death behavior, rebalances cold tolerance for player-sowable Vanilla and Medieval Overhaul plants including forestry/decorative plants, adds explicit cold-death/dormancy temperatures to plant information, and provides a lightweight XML framework for other plant mods.
+Separates minimum growth temperature from cold-death behavior, rebalances cold tolerance for all living Core and Medieval Overhaul PlantDefs, including wild vegetation, adds explicit cold-death/dormancy temperatures to plant information, and provides a lightweight XML framework for other plant mods.
 
 ## Workshop categories / tags
 
@@ -35,7 +35,7 @@ Use the actual RimWorld Workshop categories rather than inventing free-form game
 
 CCTO separates a plant's [b]minimum growth temperature[/b] from its [b]cold-death behavior[/b], and adds non-lethal [b]cold dormancy[/b] for selected plants: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
 
-Vanilla RimWorld derives cold leafless/death from minimum growth temperature with a deterministic per-plant offset. CCTO instead gives supported player-sowable plants explicit species-level behavior: fixed cold-death temperatures or cold dormancy.
+Vanilla RimWorld derives cold leafless/death from minimum growth temperature with a deterministic per-plant offset. CCTO instead gives every living PlantDef in its supported sets explicit species-level behavior: fixed cold-death temperatures or cold dormancy.
 
 [h2]What CCTO changes[/h2]
 [list]
@@ -55,19 +55,21 @@ The current balance is generally [b]more demanding[/b] than the original Vanilla
 
 This makes plant choice, seasonal timing, heating, greenhouses, forestry planning, and cold snaps more important.
 
-This is not a universal nerf: selected perennial and overwintering crops gain dormancy and can survive ordinary winter cold.
+This is not a universal nerf: selected perennial and overwintering plants gain dormancy and can survive ordinary winter cold.
 
 [h2]How the values were chosen[/h2]
 
-The numbers are based on real-world crop cold-tolerance information, including frost-damage and lethal-temperature data where available.
+The numbers are based on real-world plant cold-tolerance information, including frost-damage and lethal-temperature data where available.
 
-Because real plants vary by cultivar, growth stage, acclimation, and exposure duration, CCTO uses those temperatures as reference points rather than copying a single reported value literally. They are rounded and tuned into clear gameplay thresholds while preserving meaningful differences between crops.
+Because real plants vary by cultivar, growth stage, acclimation, and exposure duration, CCTO uses those temperatures as reference points rather than copying a single reported value literally. They are rounded and tuned into clear gameplay thresholds while preserving meaningful differences between plants.
 
 [h2]Supported plant sets[/h2]
 [list]
-[*]All 30 player-sowable Core plants in Vanilla RimWorld 1.6, including crops, decorative plants, forestry trees and fungi
-[*]All 21 Medieval Overhaul 1.6-specific cultivated plant Defs used by CCTO
+[*]All 49 living Core PlantDefs in RimWorld 1.6
+[*]All 29 Medieval Overhaul 1.6-specific PlantDefs, including wild-only plants
 [/list]
+
+Dead stump/remnant Defs are excluded because they are not living vegetation. Wild plants are balanced to remain compatible with the climates and biomes where they naturally occur.
 
 Medieval Overhaul is optional. Its patches are applied only when MO is present.
 
@@ -163,7 +165,7 @@ No separate display-only edition is currently planned. Vanilla does not contain 
 [/list]
 
 [h2]Verification[/h2]
-The published 0.1 Beta baseline passed the 13/13 automated integration gate and the documented UI smoke checks. The later expansion from 12 to 30 Core player-sowable plants changes the balance data and loaded-Def expectations, so that expanded balance requires a fresh full-gate rerun before publication.
+The published 0.1 Beta baseline passed the 13/13 automated integration gate and the documented UI smoke checks. The later scope expansion to all 49 living Core PlantDefs and all 29 MO-specific PlantDefs changes the balance data and loaded-Def expectations, so the expanded balance requires a fresh full-gate rerun before publication.
 
 [h2]AI-assisted development[/h2]
 
