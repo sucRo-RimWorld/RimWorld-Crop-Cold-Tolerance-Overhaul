@@ -435,7 +435,7 @@ Notable balance decisions:
 
 Implementation/status:
 - Core balance XML now contains 49 minimum-growth patches + 49 CCTO extensions.
-- MO balance XML now contains 29 minimum-growth patches + 29 CCTO extensions.
+- MO balance XML now contains 29 minimum-growth patches + **25 direct CCTO extension additions + 4 inherited extensions** for the wild alchemy Defs.
 - Static validator expects 49 Core + 29 MO entries and checks all four relevant MO 1.6 source files (cultivated farm/alchemy + wild alchemy + wild Dark Forest).
 - MO E2E fixture contains 29 target Defs.
 - Loaded-value E2E assertions cover all 49 Core + 29 MO targets.
@@ -508,3 +508,29 @@ The validator now uses `${defName}:` in that error message. A scan of the script
 Fix commit: `502fcb3b7c90d0ceb7c9b22426718d29afff6d7e`.
 
 **Next action:** rerun the full local gate. Do not report the gate as passing until the user supplies the rerun result.
+
+### CODE-009 — MO wild alchemy extension inheritance + runtime ERROR gate
+
+**Requested by:** runtime error report / AMJ-wide test policy  
+**Owner:** Code/framework + Balance/XML  
+**Status:** IN PROGRESS
+
+A normal runtime load reported duplicate `ColdToleranceExtension` entries on `DankPyon_Plant_FlyAgaricWild`. Inspection of the installed Medieval Overhaul 1.6 source confirmed that all four wild alchemy plants inherit from named cultivated parents:
+
+- `DankPyon_Plant_MindwortWild` -> `DankPyon_MindwortBase`;
+- `DankPyon_Plant_PoppyWild` -> `DankPyon_PoppyBase`;
+- `DankPyon_Plant_FleawortWild` -> `DankPyon_FleawortBase`;
+- `DankPyon_Plant_FlyAgaricWild` -> `DankPyon_FlyAgaricBase`.
+
+CCTO previously added an extension to the cultivated named parent and then appended another extension directly to each wild child. The four direct wild-child extension additions were removed; their minimum-growth patches remain explicit and their cold-response extension is inherited from the cultivated parent.
+
+Regression protection now includes:
+- static validator expects 25 direct MO extension additions + 4 inherited wild-alchemy extensions;
+- validator checks the four real MO 1.6 ParentName links;
+- E2E MO fixture mirrors those inheritance links;
+- existing loaded-value assertions require exactly one CCTO extension on every MO target;
+- the E2E runner captures an isolated runtime log and fails if CCTO emits an ERROR-level entry, even when Pickle scenario counts otherwise pass.
+
+Implementation commits: `f9c71232c2e2dfaf1f85a404b2c1e12aebff91ef`, `64e5c8508eba53809d79b552211369801de553f8`, `3e9f292a253817bf09ff15883faf11afcda79bf5`, `c08e2ae7f6d1308203757b2ae4ab10f88d5fa93c`, `465e54d0c4f75b9e7340d3aa0cb9f41cd60d58eb`, `2ddccc445aa74c7ff37373c98605900ba1d6b962`, `74c7ed1af6dad7337e401f5fd0d321da33eaa911`.
+
+**Next action:** rerun the full local `run-tests.bat` gate. Do not close CODE-009 or re-upload until both the scenario gate and the new CCTO-origin runtime ERROR gate pass.
