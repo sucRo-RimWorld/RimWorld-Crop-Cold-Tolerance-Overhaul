@@ -2,9 +2,11 @@
 
 ## 1. Scope
 
-This mod rebalances only cold tolerance for player-sowable plants in supported plant sets.
+This mod rebalances cold tolerance for all plant Defs in supported plant sets.
 
-Scope is determined by whether the player can intentionally sow the plant, not by whether it is a food crop. For supported sets such as Core and Medieval Overhaul, this includes agricultural crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, and other plants exposed through sowing UI. Player-sowable fungi are treated exactly like other sowable PlantDefs for coverage purposes. Wild-only plants and fungi that cannot be sown by the player are outside the default balance scope.
+Scope is determined by plant identity, not by player sowability. For supported sets such as Core and Medieval Overhaul, every gameplay PlantDef is in scope: cultivated crops, medicinal/fiber plants, fruit trees, forestry trees, decorative plants, fungi, grasses, shrubs, wild trees, and other wild-only plants. Sowability affects gameplay use but does not determine whether a plant receives an explicit CCTO cold-response model.
+
+Wild plants are balanced differently from crops: their values must remain compatible with the climates/biomes in which they naturally occur so that CCTO does not cause implausible routine winter die-off or destabilize biome vegetation and grazing. The same temperature model still applies, but biome survival is a primary constraint for wild-only species.
 
 It is responsible for:
 
@@ -64,7 +66,7 @@ AMJ crop minimum growth temperatures that have already been decided remain uncha
 
 CCTO owns the common cold-tolerance mechanism. It should not depend on AMJ.
 
-- Vanilla/Core and Medieval Overhaul player-sowable plants are patched by CCTO because those are supported external Defs.
+- All gameplay PlantDefs in the supported Core and Medieval Overhaul sets are patched by CCTO, including wild-only plants.
 - AMJ plants consume the same CCTO extension/API from their own PlantDefs.
 - CCTO therefore does not need to hard-code AMJ DefNames.
 - This keeps the dependency direction one-way: **AMJ -> CCTO mechanism**, never CCTO -> AMJ.
@@ -139,7 +141,7 @@ Design notes:
 
 The Medieval Overhaul 1.6 cabbage value `minGrowthTemperature=-18°C` is treated as a balance error for this overhaul and is replaced with 0°C. Cold survival and active growth are intentionally kept separate.
 
-MO fungus coverage follows the same sowability rule as every other plant. `DankPyon_Plant_Mushrooms` is player-sowable and is therefore covered here. `DankPyon_Plant_FlyAgaric` is likewise covered in §4.1. The separate `DankPyon_Plant_FlyAgaricWild` Def explicitly clears its inherited `sowTags`, so it is wild-only and intentionally remains outside CCTO balance coverage.
+MO fungus coverage follows the same all-PlantDef rule as every other plant. `DankPyon_Plant_Mushrooms` and `DankPyon_Plant_FlyAgaric` are cultivated targets. The separate `DankPyon_Plant_FlyAgaricWild` Def explicitly clears its inherited `sowTags`, but it is still in scope because wild-only PlantDefs now receive explicit CCTO cold behavior as well.
 
 ### 4.3 Perennial crops
 
@@ -190,7 +192,7 @@ Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, 
 
 ## 6. Compatibility principle
 
-Unknown third-party plants are not automatically overwritten.
+Unknown third-party plants are not automatically overwritten. The all-PlantDef rule applies within plant sets that CCTO explicitly supports; it is not a blanket patch over every third-party mod.
 
 Explicit compatibility/balance data should be provided for supported plant sets such as Core, Medieval Overhaul, and AMJ. Unsupported plants retain their originating behavior unless a compatibility patch is added.
 
