@@ -1,6 +1,6 @@
 # Crop Cold Tolerance Overhaul
 
-**RimWorld 1.6 — Beta**
+**RimWorld 1.6 — 0.1.3 Beta**
 
 Crop Cold Tolerance Overhaul (CCTO) separates a plant's **minimum growth temperature** from its **cold-death behavior**, and adds a non-lethal **cold dormancy** response where appropriate: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
 
@@ -236,20 +236,20 @@ This mod was developed with AI assistance, primarily for code implementation, do
 
 ## Verification
 
-The published 0.1 Beta baseline previously passed:
+The **0.1.3 Beta** corrected build passed:
 
-- the full automated framework + Vanilla/MO integration gate: **13/13**;
-- normal-game Info Card smoke checks;
-- Dubs Mint Menus display verification;
-- Nice Plants Menu compatibility smoke checks.
+- the full automated framework + Core/MO integration gate: **14/14**;
+- loaded-value validation for all **49 living Core + 29 MO-specific PlantDefs**, including complete supported-living-plant coverage;
+- the isolated runtime-log gate, with **no CCTO-origin ERROR entries**;
+- in-game verification of the Medieval Overhaul duplicate-extension error fix.
 
-The subsequent expansion to all 49 living Core PlantDefs and all 29 MO-specific PlantDefs changes balance XML and loaded-Def expectations, so the full 14/14 release gate must be rerun before that expanded balance is treated as verified for publication.
+Earlier normal-game checks also verified wild-plant Info Cards, the standard Info Card ordering, Dubs Mint Menus display, and Nice Plants Menu compatibility.
 
 The tested release source of truth is `main`.
 
 ## Status
 
-Current target: **0.1 Beta**.
+Current version: **0.1.3 Beta**.
 
 This is a Beta release: the core feature set is implemented and has passed the documented automated and normal-game smoke gates. The Beta phase is for wider real-play validation, compatibility reports, and feedback on the fixed-threshold balance model.
 

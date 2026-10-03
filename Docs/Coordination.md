@@ -553,3 +553,14 @@ All AMJ-related mod descriptions must include save compatibility. CCTO is the ev
 README, About.xml, Workshop presentation, and paste-ready English/Japanese descriptions now include the save-compatibility statement. Current implementation review found no custom save-owned plant classes/components. Existing integration passes are not an add/remove save test.
 
 **Next action:** Synchronize the maintained English/Japanese description files to the live Workshop page during publication maintenance. This documentation change does not itself update Steam.
+
+
+### DOC-002 — Current verification/version presentation corrected to 0.1.3 Beta
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+README and the maintained Workshop presentation plus English/Japanese paste-ready descriptions now identify the verified current build as **0.1.3 Beta**, not 0.1.1 Beta or the original 0.1 Beta baseline. The verification summary uses CODE-009's completed full local gate **14/14 PASS**, **no CCTO-origin ERROR entries**, and corrected-build in-game verification. README's obsolete expanded-balance rerun-pending statement was removed. Historical release notes and earlier coordination results retain their original versions.
+
+**Next action:** apply the maintained English/Japanese text to the live Workshop description; this repository update does not itself publish to Steam.
