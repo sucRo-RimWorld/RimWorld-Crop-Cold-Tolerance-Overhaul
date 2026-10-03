@@ -23,6 +23,7 @@ This is the release-preparation checklist for the first public Beta.
 - [x] Public README includes an AI-assisted development disclosure covering implementation, documentation, research, and test assistance while retaining author control over design, balance, and final review.
 - [x] Public README and Steam Workshop description list the supported languages: English and Japanese.
 - [x] Japanese Steam Workshop localization prepared: title `作物耐寒性オーバーホール` plus a paste-ready Japanese BBCode description kept under Steam's UTF-8 size limit.
+- [x] Private Steam Workshop subscribed-package smoke check completed with no apparent issues before public visibility; the post-publication clean subscription check remains pending.
 
 Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
 
