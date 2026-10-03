@@ -362,6 +362,11 @@ Completed release-preparation work:
 - release checklist now requires the Steam Workshop description to carry the framework role and the same AI-assisted development disclosure: `f51e322c658ced558336101fc6947b0dd021ce0f`;
 - release checklist now requires the public Workshop presentation to expose the Vanilla/MO rebalance as a before/after comparison: `3397dcba575fb00785fda7a574bdffe531b7dee7`;
 - release checklist now also requires the higher-difficulty direction and dormancy exception to be disclosed in the Workshop description: `7e6524cc07c9a54cfeb49e045b24799d6094005b`.
+- Workshop presentation is now synchronized with the README's current before/after cold-behavior tables, and explicitly records README as the public-content source of truth: `4d0dbbd8721f45eca4aba8bbba4f2f66709727f6`;
+- paste-ready Steam Workshop BBCode body added at `Docs/SteamWorkshopDescription.txt`: `837f0b086f230940ac202e1275abd269011f0264`;
+- YADA Workshop upload filtering added through repository-root `.rimignore`, preserving runtime `About/`, `Assemblies/`, `Languages/`, `Patches/`, and `LICENSE` while excluding repository/development assets: `077e7bd563cc4ee2a079ab8df981dff2682cc93e`;
+- CCTO development workflow documents the YADA upload path and the README -> Workshop presentation -> paste-ready BBCode maintenance chain: `c913cbd7dda7024e7d3f4fe6d9d942b77f2438a3`;
+- release checklist records the paste-ready BBCode and YADA filter as complete and simplifies the remaining GitHub release task to the already-fixed tag `v0.1.0-beta`: `e87bf804e8c06c68102e5b6effe63d792090b2ae`.
 
 Public-description decisions:
 
