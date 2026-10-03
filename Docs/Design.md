@@ -20,7 +20,7 @@ It does **not** rebalance:
 - processing
 - research progression
 
-The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that crops have clear gameplay identities and meaningful climate/season tradeoffs. Values defined here are intended to be usable by AMJ without a second, conflicting balance layer.
+The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that crops have clear gameplay identities and meaningful climate/season tradeoffs. Where available, real-world frost-damage and lethal-temperature information is used as a reference for crop-specific death thresholds. Because actual plant response varies by cultivar, growth stage, acclimation, and exposure duration, CCTO treats those temperatures as guidelines rather than copying a single reported value literally; values are rounded/tuned into clear gameplay thresholds. Values defined here are intended to be usable by AMJ without a second, conflicting balance layer.
 
 The intended difficulty direction is generally upward relative to the original Vanilla / Medieval Overhaul settings. Most supported crops should require warmer conditions for active growth, and ordinary crops should usually face lethal cold at substantially warmer temperatures than the original generic derived threshold. The gameplay purpose is to make crop selection, seasonal timing, and temperature management matter more. This is an overall balance direction rather than a universal nerf: selected perennial/overwintering crops intentionally gain cold dormancy and winter survival.
 
