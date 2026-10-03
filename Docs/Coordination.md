@@ -468,7 +468,7 @@ Release status:
 - full `run-tests.bat` rerun: **PASS, 14/14** (user-reported 2026-10-03), including the all-supported-living-plant coverage scenario;
 - normal-profile wild-plant Info Card smoke: **PASS**. Verified Wild Healroot (min 0 C / death -9 C), Berry bush (min 0 C / dormancy 0 C), Bush (min 0 C / dormancy 0 C), and Oak (min 5 C / dormancy 5 C); displayed values matched the implemented CCTO balance.
 - BAL-001 implementation/validation is complete.
-- release/presentation complete: the existing Workshop item `3812412548` was updated with the current 0.1.1 Beta build and the maintained English/Japanese descriptions.
+- release/presentation complete for the all-living-plant update: Workshop item `3812412548` and maintained English/Japanese descriptions were updated. The later Info Card ordering fix is tracked separately as the 0.1.2 Beta update.
 
 Release/presentation maintenance update (2026-10-03):
 - Release notes are now centralized under `Docs/ReleaseNotes/`; root-level `Docs/ReleaseNotes-*.md` copies were removed and checklist references were updated.
@@ -487,4 +487,9 @@ UI consistency update (2026-10-03):
 - Final ordering commits: `7d309d5a475254162112e16186675e82ae47abdc`, `a6244249a17d441f1b0913ba948aca3cefedfb9c`.
 - Full local gate rerun after the UI-only ordering change: **PASS, 14/14** (user-reported 2026-10-03).
 - Standard Info Card visual recheck: **PASS**; cold-death and dormancy thresholds now occupy the intended aligned slot.
-- 0.1.1 Beta publication is complete; no additional release/tag creation is required for this update.
+- `v0.1.1-beta` remains the completed historical all-living-plant release. The later Info Card ordering fix is documented separately in `Docs/ReleaseNotes/ReleaseNotes-0.1.2-Beta.md` (target tag `v0.1.2-beta`).
+
+Release note separation correction (2026-10-03):
+- 0.1.1 Beta release notes were restored to the scope actually published in 0.1.1 (all-living-PlantDef expansion).
+- The subsequent standard Info Card row-order fix is a separate 0.1.2 Beta update, not part of the historical 0.1.1 notes.
+- 0.1.2 verification: post-fix full gate **14/14 PASS** and standard Info Card visual recheck **PASS**.
