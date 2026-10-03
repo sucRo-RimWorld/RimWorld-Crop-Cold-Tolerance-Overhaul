@@ -167,7 +167,7 @@ Compatibility rules:
 
 The balance/XML workstream must consume the implemented extension rather than introducing another C# data model.
 
-For each supported crop:
+For each supported player-sowable plant:
 
 1. set or replace native `plant/minGrowthTemperature`;
 2. add exactly one `CropColdToleranceOverhaul.ColdToleranceExtension`;
@@ -182,7 +182,7 @@ MO-specific values are gated on Medieval Overhaul and target the verified MO 1.6
 
 ## 7. Patch safety
 
-- Unsupported crops keep Vanilla/originating behavior.
+- Unsupported plants keep Vanilla/originating behavior.
 - CCTO must not overwrite unrelated MO or Vanilla fields.
 - Cold handling is keyed by the extension, not by broad tests such as `Sowable`.
 - Fixed thresholds are species/Def-level values in the initial release.
@@ -206,6 +206,8 @@ As of 2026-10-03:
 - The final isolated Pickle run completed successfully with the full 11/11 suite passing.
 - The automated release gate is now green. The framework implementation has passed fixed-threshold, Vanilla fallback, validation, Info Card, live cold-death, strict boundary, dormancy, delayed recovery, extreme-cold, and indoor actual-room-temperature regression coverage.
 - PR #2 merged the tested framework + balance integration into `main` at `a1616054a7d081f3167db501a49dfe3630ce4402`.
-- The integrated balance branch subsequently passed the complete `run-tests.bat` gate with a fresh **13/13 Pickle pass**, including the two loaded-balance scenarios.
-- The integration gate verified the final loaded CCTO values for all 12 targeted Vanilla plants and all 21 targeted Medieval Overhaul plants, while also validating the target DefNames and required local `<plant>` nodes against the installed real MO 1.6 source.
-- After the dormancy UI was changed from `低温反応: 休眠` to explicit `休眠温度 <minGrowthTemperature>`, the full integrated `run-tests.bat` gate was rerun locally and again passed **13/13**. The automated framework + Vanilla/MO balance verification is therefore green for the current dormancy-temperature implementation. The documented normal-game smoke/visual recheck also passed. Dubs Mint Menus was verified to show CCTO through the standard Info Card path without dedicated code. After the Nice Plants Menu compatibility implementation and its legacy-build fixes, the full integrated `run-tests.bat` gate passed **13/13** again. The manual Nice Plants Menu visual smoke check also passed without a new CCTO-origin error. All documented pre-merge automated and manual gates are green.
+- The published 0.1 Beta baseline passed the complete `run-tests.bat` gate with **13/13 Pickle scenarios**, including the two loaded-balance scenarios, and verified all 12 original Vanilla targets plus all 21 Medieval Overhaul targets.
+- That baseline also passed the post-dormancy-UI rerun and the Nice Plants Menu compatibility smoke checks.
+- A later scope audit established that CCTO should cover all player-sowable plants in supported sets, not only the original crop list. Core coverage has therefore been expanded from 12 to 30 targets, including forestry trees and decorative/special sowable plants. Medieval Overhaul remains at 21 MO-specific cultivated targets.
+- The expanded gate now expects **14/14 Pickle scenarios** and includes an explicit loaded player-sowable-plant coverage scenario so future omissions are detected.
+- The 30-Core-plant expansion has not yet received the fresh local `run-tests.bat` + normal-profile smoke rerun required before publishing the updated Workshop package.
