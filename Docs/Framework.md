@@ -1,10 +1,10 @@
 # CCTO Framework API
 
-Crop Cold Tolerance Overhaul can be used as a lightweight XML-facing framework.
+Crop Cold Tolerance Overhaul can be used as a lightweight XML-facing framework for setting explicit cold-death temperatures and cold dormancy behavior on plants added by other mods.
 
 ## What CCTO adds
 
-RimWorld 1.6 already provides `PlantProperties.minGrowthTemperature`. CCTO leaves that native field in place and adds a separate fixed cold-death threshold through a `DefModExtension`.
+RimWorld 1.6 already provides `PlantProperties.minGrowthTemperature`. CCTO leaves that native field in place and adds a separate fixed cold-death threshold through a `DefModExtension`. Other mods can therefore use CCTO to define plant-specific cold-death temperatures instead of relying on RimWorld's derived Vanilla cold-death rule.
 
 CCTO does not replace plant `thingClass`.
 
