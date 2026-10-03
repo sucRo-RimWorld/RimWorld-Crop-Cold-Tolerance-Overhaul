@@ -12,6 +12,14 @@ RimWorld 1.6 — 0.1 Beta
 
 Separates minimum growth temperature from cold-death behavior, rebalances Vanilla and Medieval Overhaul crop cold tolerance, adds explicit cold-death/dormancy temperatures to plant information, and provides a lightweight XML framework for other crop mods.
 
+## Workshop categories / tags
+
+Use the actual RimWorld Workshop categories rather than inventing free-form gameplay tags:
+
+- Category: `Mod`
+- Version: `1.6`
+- Required DLC: none
+
 ## Long description
 
 [b]Crop Cold Tolerance Overhaul (CCTO)[/b] separates a plant's minimum growth temperature from what actually happens when the weather becomes lethally cold.
