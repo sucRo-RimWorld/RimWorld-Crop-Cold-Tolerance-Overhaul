@@ -206,6 +206,10 @@ The full integration mode now also validates the freshly generated `summary.json
 
 CODE-005 is complete. No balance numbers were changed during test-harness repair.
 
+**Integration status update:** the latest `main` canonical docs/coordination state has been merged into `balance-xml` without changing tested code or balance XML. Integration merge commit: `efa6461c2302054f998e531b8f6e9fe554f5523a`.
+
+PR #2 has been retargeted to `main` and renamed **Integrate CCTO framework and cold-tolerance balance**. It remains Draft until CODE-006 completes. PR #1 remains open for framework history but PR #2 is now the intended final integration path.
+
 ### CODE-006 — Normal-game pre-beta smoke and Info Card visual check
 
 **Requested by:** Code/framework  
