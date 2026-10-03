@@ -354,6 +354,11 @@ Completed release-preparation work:
 - `About/About.xml` description was updated for the public feature set and optional UI compatibility; release classification is now **Beta**;
 - `Docs/ReleaseChecklist.md` added: `a430ca6252a88d2ff7e9820a7cf276432237d22e`.
 
+Public-description decisions:
+
+- CCTO should state that it was split out while designing the planned Ancient & Medieval Japan (AMJ) mod because the cold-tolerance mechanic is independently useful;
+- no separate display-only edition is currently planned. Vanilla uses a common derived cold-threshold rule rather than independently balanced fixed death temperatures per crop, so the display is intended to report CCTO's underlying species-specific behavior rather than exist as an isolated UI-only product.
+
 Remaining public-release decisions/tasks:
 
 - add `About/Preview.png`;
