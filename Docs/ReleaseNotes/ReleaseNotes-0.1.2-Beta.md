@@ -4,7 +4,7 @@ Target Git tag: `v0.1.2-beta`
 
 ## Summary
 
-This update fixes the standard Info Card ordering of CCTO's cold-threshold rows.
+This update fixes the standard Info Card ordering of CCTO's cold-threshold rows and a Medieval Overhaul wild-plant compatibility issue.
 
 `Cold death temperature` and `Dormancy temperature` now appear in the same position, making plant-to-plant comparison easier.
 
@@ -12,11 +12,12 @@ This update fixes the standard Info Card ordering of CCTO's cold-threshold rows.
 
 - Aligned the Info Card position of `Cold death temperature` and `Dormancy temperature`.
 - Improved display consistency when comparing plants with different Vanilla stat rows.
+- Fixed duplicate CCTO cold-tolerance extensions on Medieval Overhaul's four wild alchemy plants.
 
 ## Verification
 
-- Full automated integration gate: **14/14 PASS**.
 - Standard Info Card visual recheck: **PASS**.
+- Full automated integration gate: rerun required after the Medieval Overhaul compatibility fix.
 
 ## Compatibility
 
@@ -32,7 +33,7 @@ Optional:
 
 ## Notes
 
-This update changes only Info Card ordering. Plant balance values and cold-tolerance behavior are unchanged from 0.1.1 Beta.
+Plant balance values and intended cold-tolerance behavior are unchanged from 0.1.1 Beta.
 
 ## License
 
