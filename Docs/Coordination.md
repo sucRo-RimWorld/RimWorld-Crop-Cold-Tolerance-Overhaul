@@ -716,4 +716,6 @@ The 2game description emphasizes purpose, current Core/MO scope, cold-tolerance-
 
 Recommended tags: `バランス調整`, `植物`, `農業`, `栽培`, `パッチ`, `Harmony`, `日本語内蔵`, `和製MOD`. Misleading/currently premature tags such as `作物`, `高難易度化`, `UI`, `VPE`, and `中世` are intentionally excluded for now.
 
+2game本文の見出し記号は、サイトで一般的に使われている `▼` に統一し、`◆` は使用しない。
+
 **Result / references:** `Docs/2GamePresentation.md`, `Docs/2GameDescription-ja.txt`; implementation commit is the commit containing this coordination entry.
