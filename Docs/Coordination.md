@@ -655,3 +655,16 @@ Workshop copy is now authored in natural Japanese first, then translated into En
 The Workshop description and README also now distinguish planned VPE compatibility from current support. Vanilla Plants Expanded contains more than 100 plants across its wider catalog, so the first planned compatibility scope is the 20-plant basic set. Additional VPE coverage is a later consideration rather than an immediate full-coverage commitment.
 
 **Result / references:** Japanese-first Workshop restructuring commit `12e6d4df09d14cf90ab689d9f1bbb800beb6ebf2`; VPE/public-copy follow-up recorded in the commit containing this coordination entry.
+
+
+### DOC-006 — Keep AMJ-owned plant plans out of CCTO descriptions
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+CCTO public descriptions may mention AMJ as the origin of the standalone framework, but must not include AMJ-owned crops or plants planned for future AMJ releases in CCTO's supported-content or planned-compatibility lists. AMJ consumes CCTO's public framework from the AMJ side, so AMJ plant plans remain documented and maintained by AMJ.
+
+Current Workshop Japanese/English copy already contains no AMJ crop list; the durable scope boundary is now explicit in README and Workshop presentation policy.
+
+**Result / references:** recorded in the commit containing this coordination entry.

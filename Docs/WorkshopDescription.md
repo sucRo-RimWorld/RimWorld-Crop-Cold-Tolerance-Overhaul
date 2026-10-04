@@ -52,6 +52,8 @@ The Workshop description should emphasize:
 
 Detailed per-plant values, full rationale, implementation details, test results, and release-history detail belong in README/development/release records rather than the Workshop body.
 
+CCTO public descriptions must not list AMJ-owned crops or plants planned for future AMJ releases as CCTO-supported or CCTO-planned content. AMJ consumes CCTO's framework from the AMJ side; those plant plans belong in AMJ documentation.
+
 
 ## Planned compatibility shown on Workshop
 
