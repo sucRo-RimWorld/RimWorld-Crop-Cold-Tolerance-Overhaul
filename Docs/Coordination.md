@@ -702,3 +702,18 @@ This prevents future AMJC crop data from being silently reintroduced into CCTO w
 **Validation:** repository audit before the guard found no `AMJC_` identifiers in the guarded CCTO surfaces. This is a static validation change only; no new RimWorld runtime PASS is claimed.
 
 **Result / references:** implementation commit is the commit containing this coordination entry; prior ownership split: CCTO `e9447f683957d4c7ed0ba4fed2a8280f9859c30a`, AMJC `2c54f642d51edd4c39878b952e395fa8d40b9d38`.
+
+
+### DOC-007 — Maintain a concise 2game description and tags
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+CCTO is now listed on RimWorld Mod データベース (2game), item ID 3812412548. A dedicated Japanese description source and tag policy are maintained separately from the longer Workshop copy.
+
+The 2game description emphasizes purpose, current Core/MO scope, cold-tolerance-only responsibility, framework use, dependencies, save compatibility, and the planned initial 20-plant VPE compatibility scope. AMJC-owned crop plans remain excluded.
+
+Recommended tags: `バランス調整`, `植物`, `農業`, `栽培`, `パッチ`, `Harmony`, `日本語内蔵`, `和製MOD`. Misleading/currently premature tags such as `作物`, `高難易度化`, `UI`, `VPE`, and `中世` are intentionally excluded for now.
+
+**Result / references:** `Docs/2GamePresentation.md`, `Docs/2GameDescription-ja.txt`; implementation commit is the commit containing this coordination entry.

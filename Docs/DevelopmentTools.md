@@ -103,9 +103,11 @@ Workshop presentation sources are kept separately:
 
 - `README.md` — public-content source of truth;
 - `Docs/WorkshopDescription.md` — title, version, categories, and maintained Workshop presentation;
-- `Docs/SteamWorkshopDescription.txt` — paste-ready BBCode body for the Steam Workshop description field.
+- `Docs/SteamWorkshopDescription.txt` — paste-ready BBCode body for the Steam Workshop description field;
+- `Docs/2GamePresentation.md` — RimWorld Mod データベース (2game) presentation/tag policy;
+- `Docs/2GameDescription-ja.txt` — paste-ready Japanese description for 2game.
 
-When the README's public feature/balance description changes, update both Workshop description files before publication.
+When public feature/balance information changes, keep the relevant publication surfaces synchronized without copying README-only development/test detail into them.
 
 ## 4. CCTO validation sequence
 
