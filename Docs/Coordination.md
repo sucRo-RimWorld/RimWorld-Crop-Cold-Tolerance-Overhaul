@@ -718,6 +718,6 @@ Recommended tags: `バランス調整`, `植物`, `農業`, `栽培`, `パッチ
 
 2game本文の見出し記号は、サイトで一般的に使われている `▼` に統一し、`◆` は使用しない。
 
-2game本文は常体で統一する。長文は避け、1文1情報を基本に短く区切る。形式は2gameのAI自動生成要約を参考にし、「MOD名 → 短い要約 → `▼ 見出し` → 箇条書き」を基本とする。
+2game本文は常体で統一する。長文は避け、1文1情報を基本に短く区切る。掲載中の文面を正本として、短い要約の後に `▼ 主な機能` / `▼ バランス方針` / `▼ 対応範囲` / `▼ 対応・互換性` / `▼ セーブ互換性` / `▼ 今後の予定` を置く。関連MODは2game内の詳細ページURLを直接記載する。
 
 **Result / references:** `Docs/2GamePresentation.md`, `Docs/2GameDescription-ja.txt`; implementation commit is the commit containing this coordination entry.
