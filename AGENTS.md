@@ -48,3 +48,11 @@ CCTO remains a generic cold-tolerance framework and data owner for its own Vanil
 ## Framework-consumer data ownership
 
 AMJC and AMJE own their custom plant values, balance/design tables (including archived candidate ranges), Def mappings, and optional CCTO compatibility XML. Do not add those plants to CCTO's data or supported/planned content sets. CCTO provides the reusable API; changes to consumer-owned plant data belong in the owning repository.
+
+## Golden Path closeout rule
+
+Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Core `Docs/DevelopmentGoldenPathGuidelines.md`.
+
+After a non-trivial task succeeds, especially after debugging or failed attempts, do not move on with only the working implementation. Record the successful reusable procedure in the owning repository, automate deterministic/repetitive steps, and add regression guards for failure modes discovered during the work. For recurring work, completion includes the reusable documented/automated path, not only the one successful result.
+
+`Docs/Coordination.md` remains status/handoff only; the procedure itself must live in durable repository documentation/scripts.
