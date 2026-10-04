@@ -733,3 +733,14 @@ CCTO now references the AMJ-wide historical-description policy for any explicitl
 CCTO does not thereby become the owner of historical prose for every Vanilla/MO plant it supports. It remains a generic cold-tolerance framework/data mod; ordinary AMJ historical presentation belongs in the relevant AMJ content repository unless explicitly coordinated otherwise.
 
 **Result / references:** CCTO AGENTS `5b60adbc676f35f98e6c7c9801f22846e5ebf097`; shared policy in Core `Docs/HistoricalDescriptionGuidelines.md` commit `ca17b37eb3cca5266d1f62a2d73f527a503d76e5`.
+
+### POLICY — Golden Path closeout after verified success
+
+**Requested by:** author / AMJ project operations  
+**Owner:** CCTO development policy  
+**Status:** DONE
+
+CCTO now follows the AMJ-wide rule that successful non-trivial/repeatable work must be closed out with a documented Golden Path, automation of deterministic steps, and regression protection for discovered failure modes where practical. The canonical shared policy is Core `Docs/DevelopmentGoldenPathGuidelines.md` (`c54cefd71093edae61035b13793bee372edaa52a`). CCTO `AGENTS.md` references the shared rule in `a85cc8a01f318343eae75659e9759798821fb13c`.
+
+Repository-specific Golden Paths should be added when a CCTO workflow first demonstrates a reusable successful sequence; Coordination remains status/handoff only.
+
