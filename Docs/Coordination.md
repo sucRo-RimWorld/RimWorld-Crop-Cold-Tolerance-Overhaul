@@ -721,3 +721,15 @@ Recommended tags: `バランス調整`, `植物`, `農業`, `栽培`, `パッチ
 2game本文は常体で統一する。長文は避け、1文1情報を基本に短く区切る。掲載中の文面を正本として、短い要約の後に `▼ 主な機能` / `▼ バランス方針` / `▼ 対応範囲` / `▼ 対応・互換性` / `▼ セーブ互換性` / `▼ 今後の予定` を置く。関連MODは2game内の詳細ページURLを直接記載する。
 
 **Result / references:** `Docs/2GamePresentation.md`, `Docs/2GameDescription-ja.txt`; implementation commit is the commit containing this coordination entry.
+
+### DOC-009 — Reference AMJ historical description policy without expanding CCTO ownership
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/localization  
+**Status:** DONE (policy boundary)
+
+CCTO now references the AMJ-wide historical-description policy for any explicitly coordinated AMJ-facing description/localization work. The rule requires historically grounded ancient/medieval-Japan auditing, supported modern comparisons, and Japanese-first author approval before English translation.
+
+CCTO does not thereby become the owner of historical prose for every Vanilla/MO plant it supports. It remains a generic cold-tolerance framework/data mod; ordinary AMJ historical presentation belongs in the relevant AMJ content repository unless explicitly coordinated otherwise.
+
+**Result / references:** CCTO AGENTS `5b60adbc676f35f98e6c7c9801f22846e5ebf097`; shared policy in Core `Docs/HistoricalDescriptionGuidelines.md` commit `ca17b37eb3cca5266d1f62a2d73f527a503d76e5`.
