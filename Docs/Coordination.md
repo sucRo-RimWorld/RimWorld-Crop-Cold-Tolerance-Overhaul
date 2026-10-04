@@ -405,7 +405,7 @@ Release-presentation decisions completed on `main`:
 
 **Requested by:** Ancient & Medieval Japan: Environment / ENV-003  
 **Owner:** Balance/XML  
-**Status:** OPEN
+**Status:** IN PROGRESS
 
 Environment main now defines four Japan-specific structural wild plants:
 
@@ -426,7 +426,9 @@ Candidate behavior for later balance review, not yet locked:
 - Shirabiso: strong fixed frost tolerance without deciduous dormancy;
 - Haimatsu: very strong alpine fixed frost tolerance.
 
-**Next action:** wait for Environment's runtime vegetation smoke result, then choose exact minimum-growth/death/dormancy values and implement optional compatibility without changing standalone Core+MO coverage counts.
+**Environment prerequisite result:** PASS. Environment's isolated four-biome automated runtime gate completed successfully for WarmTemperate, CoolTemperate, Subalpine, and Alpine, including structural-plant generation/dominance checks, Alpine coverage safety limits, complete live log capture, and the Environment-origin ERROR gate. Environment ENV-003 is now DONE for the Alpha structural vegetation stage. Accepted Environment design commit: `4508b0b335d5c5f415a07351dd77b6a6f9671d4d`; Environment coordination closeout: `5c8a5204ea1cff4b303e82f36ce2cb04ed16dcdb`.
+
+**Next action:** choose exact minimum-growth/death/dormancy values for the four optional Environment plants and implement optional compatibility without changing standalone Core+MO coverage counts. Add dedicated static/loaded-value coverage for the optional Environment set.
 
 
 ### Completed handoffs
