@@ -1,148 +1,49 @@
 [h1]Crop Cold Tolerance Overhaul (CCTO)[/h1]
 
-CCTO separates a plant's [b]minimum growth temperature[/b] from its [b]cold-death behavior[/b], and adds non-lethal [b]cold dormancy[/b] for selected plants: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
+CCTO is a [b]realism-focused overhaul of plant cold tolerance[/b]. It uses real-world information on frost injury, chilling sensitivity, overwintering behavior, and lethal temperatures as reference points, then converts those differences into clear RimWorld gameplay thresholds.
 
-Vanilla RimWorld derives cold leafless/death from minimum growth temperature with a deterministic per-plant offset. CCTO instead gives every living PlantDef in its supported sets explicit species-level behavior: fixed cold-death temperatures or cold dormancy.
+Instead of relying mainly on Vanilla's generic relationship between minimum growth temperature and cold death, supported plants receive plant-specific minimum growth temperatures plus either a fixed cold-death temperature or cold dormancy.
 
-[h2]What CCTO changes[/h2]
+[h2]Key features[/h2]
 [list]
+[*]Real-world cold tolerance used as the basis for balance
 [*]Plant-specific minimum growth temperatures
-[*]Fixed cold-death temperatures for ordinary supported plants
-[*]Cold dormancy for selected perennial/overwintering plants
+[*]Explicit fixed cold-death temperatures
+[*]Cold dormancy for selected perennial and overwintering plants
 [*]Cold death / dormancy temperature shown in plant information
-[*]Soft compatibility with Nice Plants Menu
-[*]Dubs Mint Menus support through the normal Info Card path
+[*]Cold-tolerance changes only — yield, growth time, fertility, storage, processing, and research are not rebalanced
 [/list]
 
-CCTO only changes cold-tolerance-related behavior. It does [b]not[/b] rebalance yield, growth time, fertility, storage life, processing, or research.
+The result is generally more demanding than Vanilla / Medieval Overhaul: crop choice, sowing season, forestry, heating, greenhouses, and cold snaps matter more. It is not a blanket nerf; plants suited to overwintering can instead survive through dormancy.
 
-[h2]Balance direction[/h2]
-
-The current balance is generally [b]more demanding[/b] than the original Vanilla / Medieval Overhaul settings. Most supported plants stop growing at warmer temperatures, and many ordinary plants die at much warmer temperatures than Vanilla's generic cold threshold.
-
-This makes plant choice, seasonal timing, heating, greenhouses, forestry planning, and cold snaps more important.
-
-This is not a universal nerf: selected perennial and overwintering plants gain dormancy and can survive ordinary winter cold.
-
-[h2]How the values were chosen[/h2]
-
-The numbers are based on real-world plant cold-tolerance information, including frost-damage and lethal-temperature data where available.
-
-Because real plants vary by cultivar, growth stage, acclimation, and exposure duration, CCTO uses those temperatures as reference points rather than copying a single reported value literally. They are rounded and tuned into clear gameplay thresholds while preserving meaningful differences between plants.
-
-[h2]Supported plant sets[/h2]
+[h2]Supported content[/h2]
 [list]
 [*]All 49 living Core PlantDefs in RimWorld 1.6
-[*]All 29 Medieval Overhaul 1.6-specific PlantDefs, including wild-only plants
+[*]All 29 Medieval Overhaul 1.6-specific PlantDefs when MO is installed
+[*]Wild vegetation is included; dead stump/remnant Defs are excluded
+[*]English and Japanese
 [/list]
 
-Dead stump/remnant Defs are excluded because they are not living vegetation. Wild plants are balanced to remain compatible with the climates and biomes where they naturally occur.
-
-Medieval Overhaul is optional. Its patches are applied only when MO is present.
-
-[h2]Supported languages[/h2]
-[list]
-[*]English
-[*]Japanese
-[/list]
-
-[h2]Representative before / after examples[/h2]
-
-Vanilla's ordinary cold threshold is normally derived per plant from minimum growth temperature with an offset of about -18°C to -10°C.
-
-[b]Rice[/b]
-Minimum growth: 0°C → 10°C
-Cold: death at -18°C to -10°C per plant → [b]fixed death at -1°C[/b]
-
-[b]Potato[/b]
-Minimum growth: 0°C → 5°C
-Cold: death at -18°C to -10°C per plant → [b]fixed death at -2°C[/b]
-
-[b]Healroot[/b]
-Minimum growth: 0°C → 0°C
-Cold: leafless but survives → [b]fixed death at -9°C[/b]
-
-[b]Hops[/b]
-Minimum growth: 0°C → 5°C
-Cold: death at -18°C to -10°C per plant → [b]cold dormancy below 5°C[/b]
-
-[b]Cocoa[/b]
-Minimum growth: 0°C → 12°C
-Cold: death at -18°C to -10°C per plant → [b]fixed death at 0°C[/b]
-
-[b]Vanilla — Bamboo[/b]
-Minimum growth: 0°C → 10°C
-Cold: generic tree cold behavior → [b]fixed death at -18°C[/b]
-Bamboo uses a Japanese moso/madake-style baseline rather than a tropical-bamboo baseline.
-
-[b]Medieval Overhaul — Cabbage[/b]
-Minimum growth: -18°C → 0°C
-Cold: death at -36°C to -28°C per plant → [b]fixed death at -6°C[/b]
-
-[b]Medieval Overhaul — Apple[/b]
-Minimum growth: 0°C → 5°C
-Cold: leafless but survives → [b]cold dormancy below 5°C[/b]
-
-[b]Medieval Overhaul — Lemon[/b]
-Minimum growth: 0°C → 10°C
-Cold: leafless but survives → [b]fixed death at -4°C[/b]
-
-[url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]Full Core + Medieval Overhaul before/after values on GitHub[/b][/url]
+[url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]Full before/after values and balance rationale on GitHub[/b][/url]
 
 [h2]Framework for other mods[/h2]
 
-CCTO also acts as a lightweight XML-facing framework. Other mods can assign their plants explicit fixed cold-death temperatures or cold dormancy without replacing the plant class.
-
-The planned [b]Ancient & Medieval Japan (AMJ)[/b] mod will use CCTO in this way.
-
-[h2]Why standalone?[/h2]
-
-CCTO began as part of AMJ planning. The cold-tolerance system was broadly useful enough to split into its own mod so other crop and overhaul mods can use it independently.
-
-[h2]Beta feedback wanted[/h2]
-
-The current balance intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
-
-Feedback is especially useful on:
-[list]
-[*]whether fixed thresholds make seasonal planning clearer
-[*]whether synchronized whole-field cold death feels too abrupt
-[*]whether deterministic individual variation would be preferable
-[*]whether the cold-death and dormancy displays are clear
-[/list]
-
-A deterministic per-plant range mode remains a possible future option.
-
-[h2]Display-only version?[/h2]
-
-No separate display-only edition is currently planned. Vanilla does not contain independently balanced fixed cold-death temperatures for each crop; CCTO's display reports the species-specific behavior introduced by CCTO itself.
+CCTO is also a [b]lightweight XML-facing framework[/b]. Other mods can assign explicit fixed cold-death temperatures or cold dormancy to their own plants without replacing the plant class.
 
 [h2]Dependencies[/h2]
+[b]Required:[/b] Harmony
 
-[b]Required[/b]
-[list]
-[*]Harmony
-[/list]
-
-[b]Optional[/b]
-[list]
-[*]Medieval Overhaul
-[*]Nice Plants Menu
-[*]Dubs Mint Menus
-[/list]
+[b]Optional:[/b] Medieval Overhaul, Nice Plants Menu, Dubs Mint Menus
 
 [h2]Save compatibility[/h2]
-[list]
-[*]Safe to add to or remove from an existing save.
-[/list]
+[b]Safe to add to or remove from an existing save.[/b]
 
 Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.
 
-[h2]AI-assisted development[/h2]
+[h2]Development[/h2]
 
-AI was used primarily for code implementation, documentation, research, and test development. Design decisions, balance decisions, and final testing/review remain the author's responsibility.
+Beta. AI assistance is used for implementation, documentation, research, and test development; design, balance decisions, and final review remain the author's responsibility.
 
-[h2]License[/h2]
 MIT License.
 
 [h2]Support[/h2]

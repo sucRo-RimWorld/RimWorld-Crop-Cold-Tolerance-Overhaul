@@ -2,9 +2,13 @@
 
 **RimWorld 1.6 — 0.1.3 Beta**
 
-Crop Cold Tolerance Overhaul (CCTO) separates a plant's **minimum growth temperature** from its **cold-death behavior**, and adds a non-lethal **cold dormancy** response where appropriate: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
+**A realism-focused cold-tolerance rebalance and lightweight XML framework for RimWorld plants.**
 
-CCTO also functions as a lightweight cold-tolerance framework: other mods can define explicit **cold-death temperatures** and cold dormancy for their own plants through XML without replacing the plant class.
+Crop Cold Tolerance Overhaul (CCTO) is built around real-world differences in plant cold tolerance. It uses documented frost injury, chilling sensitivity, overwintering behavior, and lethal-temperature information where available as reference points, then translates them into clear RimWorld thresholds rather than applying Vanilla's mostly generic cold response.
+
+CCTO separates a plant's **minimum growth temperature** from its **cold-death behavior**, and adds a non-lethal **cold dormancy** response where appropriate: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
+
+Framework use is also a first-class feature: other mods can define explicit **cold-death temperatures** and cold dormancy for their own plants through XML without replacing the plant class.
 
 Vanilla RimWorld derives cold death from the growth minimum with deterministic per-plant variation. CCTO instead gives every living PlantDef in its supported plant sets a clear species-level cold response:
 
@@ -20,9 +24,9 @@ The current balance is **generally more demanding than the original Vanilla / Me
 
 This is not a universal nerf to every plant: selected perennial or overwintering crops gain cold dormancy and can survive ordinary winter cold instead of dying.
 
-### Balance rationale
+### Realism-focused balance rationale
 
-The values are not arbitrary. CCTO uses real-world plant cold-tolerance information, including frost-damage and lethal-temperature data where available, as reference points for each plant.
+The balance is intentionally realism-focused rather than a generic difficulty rebalance. CCTO uses real-world plant cold-tolerance information, including frost-damage and lethal-temperature data where available, as reference points for each plant.
 
 Real plants vary by cultivar, growth stage, acclimation, and exposure duration, so CCTO does not copy one real-world temperature literally. The real-world data is used as a guideline, then rounded and tuned into clear gameplay thresholds that preserve meaningful differences between plants.
 
@@ -186,7 +190,7 @@ CCTO patches existing plant definitions and behavior; it does not introduce save
 
 ## Framework use
 
-CCTO is not only a balance mod. It can also be used as a framework for assigning explicit cold-death temperatures and cold dormancy behavior to plants added by other mods, without replacing the plant class.
+Framework use is a core part of CCTO, not merely an internal implementation detail. Other mods can use CCTO to assign explicit cold-death temperatures and cold dormancy behavior to their own plants, without replacing the plant class.
 
 Example fixed cold-death threshold:
 
