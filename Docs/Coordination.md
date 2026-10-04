@@ -405,7 +405,7 @@ Release-presentation decisions completed on `main`:
 
 **Requested by:** Ancient & Medieval Japan: Environment / ENV-003  
 **Owner:** Balance/XML  
-**Status:** IN PROGRESS
+**Status:** DONE (ownership returned to AMJE)
 
 Environment main now defines four Japan-specific structural wild plants:
 
@@ -428,7 +428,11 @@ Candidate behavior for later balance review, not yet locked:
 
 **Environment prerequisite result:** PASS. Environment's isolated four-biome automated runtime gate completed successfully for WarmTemperate, CoolTemperate, Subalpine, and Alpine, including structural-plant generation/dominance checks, Alpine coverage safety limits, complete live log capture, and the Environment-origin ERROR gate. Environment ENV-003 is now DONE for the Alpha structural vegetation stage. Accepted Environment design commit: `4508b0b335d5c5f415a07351dd77b6a6f9671d4d`; Environment coordination closeout: `5c8a5204ea1cff4b303e82f36ce2cb04ed16dcdb`.
 
-**Next action:** choose exact minimum-growth/death/dormancy values for the four optional Environment plants and implement optional compatibility without changing standalone Core+MO coverage counts. Add dedicated static/loaded-value coverage for the optional Environment set.
+**Ownership correction:** no AMJE-specific compatibility is to be implemented in CCTO. The owning-mod pattern is now authoritative: AMJE defines its standalone Vanilla-style values and, when CCTO is active, AMJE conditionally consumes CCTO's public `ColdToleranceExtension` for AMJE-owned plants. CCTO remains unaware of AMJE and its canonical Core+MO 78-PlantDef scope is unchanged.
+
+AMJE source-of-truth design: `sucRo-RimWorld/Ancient-Medieval-Japan-Environment` commit `cbf246511026b45ee687c402b8a7d75510623522`. AMJE compatibility implementation begins at `ac99339fc70f290b39ca06b6702a0b4a2e9d1faf`.
+
+**Result:** BAL-002 requires no CCTO code/XML/balance change. Future AMJE plant compatibility changes belong to the AMJE repository.
 
 
 ### Completed handoffs
