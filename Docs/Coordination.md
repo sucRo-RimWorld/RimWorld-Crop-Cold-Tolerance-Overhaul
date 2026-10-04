@@ -642,3 +642,16 @@ CCTO's public positioning now emphasizes two first-class purposes:
 README remains the detailed public source of truth, including rationale, full values, framework details, and validation information. Workshop English/Japanese descriptions are intentionally shorter and now contain only the core purpose, major features, supported content, framework use, dependencies, save compatibility, and a link to README for full values/details. About.xml was kept consistent with the revised positioning.
 
 **Result / references:** CCTO public-description commit `e6db12b27b1837161c7983c9f0db1a167dae70bd`; shared AMJ description-policy commit `3886774ee678859a2ed181df37e0fb63ed897ea7`.
+
+
+### DOC-005 — Japanese-first Workshop authoring and planned VPE support
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+Workshop copy is now authored in natural Japanese first, then translated into English without adding or removing substantive claims. `Docs/SteamWorkshopDescription-ja.txt` is the wording/content source for Workshop copy; `Docs/SteamWorkshopDescription.txt` is its English translation.
+
+The Workshop description and README also now distinguish planned VPE compatibility from current support. Vanilla Plants Expanded contains more than 100 plants across its wider catalog, so the first planned compatibility scope is the 20-plant basic set. Additional VPE coverage is a later consideration rather than an immediate full-coverage commitment.
+
+**Result / references:** Japanese-first Workshop restructuring commit `12e6d4df09d14cf90ab689d9f1bbb800beb6ebf2`; VPE/public-copy follow-up recorded in the commit containing this coordination entry.

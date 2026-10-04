@@ -57,6 +57,10 @@ Medieval Overhaul's Healroot continues to use the Core `Plant_Healroot` Def, so 
 
 Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs rather than making CCTO depend on AMJ.
 
+### Planned compatibility
+
+Support for **Vanilla Plants Expanded (VPE)** is planned. Because the wider VPE plant catalog exceeds 100 plants, the first compatibility pass will target the **20 plants in the basic set** rather than attempting full VPE coverage at once. Additional VPE plants can be considered later.
+
 ## Supported languages
 
 - English

@@ -45,9 +45,16 @@ A realism-focused plant cold-tolerance overhaul based on real differences in col
 The Workshop description should emphasize:
 - realism-focused cold-tolerance balance;
 - the practical gameplay effect;
-- supported content;
+- supported content and clearly labeled future compatibility plans;
 - framework use by other mods;
 - dependencies;
 - save compatibility.
 
 Detailed per-plant values, full rationale, implementation details, test results, and release-history detail belong in README/development/release records rather than the Workshop body.
+
+
+## Planned compatibility shown on Workshop
+
+- Vanilla Plants Expanded (VPE) support is planned, not currently supported.
+- VPE contains more than 100 plants across its wider catalog, so the first compatibility target is the 20-plant basic set.
+- Additional VPE coverage is a later consideration rather than a promise of full immediate support.

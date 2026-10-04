@@ -31,6 +31,12 @@ Vanillaでは、多くの植物が最低生育温度を基準にした共通ル�
 
 [url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]全対象植物の変更前後の値と、詳しい設計意図はGitHub READMEを参照してください[/b][/url]
 
+[h2]今後の対応予定[/h2]
+
+[b]Vanilla Plants Expanded（VPE）[/b]への対応も予定しています。
+
+VPE全体では植物が100種を超えるため、まずは[b]基本セットの20種[/b]を対象に対応する予定です。それ以外のVPE植物については、その後の優先度や要望を見ながら検討します。
+
 [h2]他Mod向けフレームワーク[/h2]
 
 CCTOは耐寒性リバランスModであると同時に、[b]他Modから利用できる軽量なXMLフレームワーク[/b]でもあります。

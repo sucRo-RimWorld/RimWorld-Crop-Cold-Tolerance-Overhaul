@@ -31,6 +31,12 @@ This is not a blanket nerf to every plant. Plants suited to overwintering can su
 
 [url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]See the GitHub README for full before/after values and the detailed balance rationale[/b][/url]
 
+[h2]Planned support[/h2]
+
+Support for [b]Vanilla Plants Expanded (VPE)[/b] is planned.
+
+Because the full VPE plant catalog contains more than 100 plants, the first compatibility pass will target the [b]20 plants in the basic set[/b]. Support for additional VPE plants can be considered later based on priority and demand.
+
 [h2]Framework for other mods[/h2]
 
 CCTO is both a cold-tolerance rebalance and a [b]lightweight XML framework for other mods[/b].
