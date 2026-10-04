@@ -32,7 +32,9 @@ Owns:
 - plant-specific `minGrowthTemperature` values;
 - plant-specific fixed `coldDeathTemperature` values;
 - Vanilla / Medieval Overhaul balance XML;
-- AMJ overrides and balance decisions.
+- CCTO-owned supported-set balance decisions.
+
+AMJC/AMJE plant values, balance documents, and framework-consumer compatibility XML are maintained in their owning repositories, not in this workstream.
 
 The code workstream must not silently redefine decided balance values.
 
@@ -304,3 +306,4 @@ CCTO-specific default:
 - escalate to **Astra** only if CCTO develops a difficult cross-mod Harmony/IL conflict, unclear multi-assembly runtime behavior, or another problem that meets the shared escalation criteria.
 
 Do not spend Astra merely on routine CCTO file edits or compile-error loops.
+

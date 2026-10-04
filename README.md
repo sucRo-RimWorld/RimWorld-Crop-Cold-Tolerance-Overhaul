@@ -55,7 +55,7 @@ The current balance set covers:
 
 Medieval Overhaul's Healroot continues to use the Core `Plant_Healroot` Def, so it is covered by the Core table rather than counted again.
 
-Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs rather than making CCTO depend on AMJ. AMJ-owned plants, including crops planned for future AMJ releases, are therefore **not part of CCTO's supported or planned plant sets** and are documented on the AMJ side instead.
+Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs rather than making CCTO depend on AMJ. AMJ-owned plants, including crops planned for future AMJ releases, are therefore **not part of CCTO's supported or planned plant sets** and are documented on the AMJ side instead. AMJC also owns those plants' temperature data and conditional compatibility XML; CCTO supplies the framework rather than maintaining an AMJC balance table.
 
 ### Planned compatibility
 
@@ -264,3 +264,4 @@ This is a Beta release: the core feature set is implemented and has passed the d
 ## Support
 
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white)](https://ko-fi.com/sucro0629)
+

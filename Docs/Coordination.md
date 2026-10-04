@@ -21,7 +21,8 @@ For durable specifications and decided values, update the appropriate design/fra
   - crop-specific `minGrowthTemperature`
   - fixed `coldDeathTemperature`
   - Vanilla / Medieval Overhaul balance XML
-  - AMJ crop values and compatibility XML
+  - CCTO-owned supported-set values and compatibility XML
+  - AMJC/AMJE-owned plant data and framework-consumer XML are maintained in their owning repositories
 
 - **Code/framework**
   - C# framework and Harmony patches
@@ -668,3 +669,21 @@ CCTO public descriptions may mention AMJ as the origin of the standalone framewo
 Current Workshop Japanese/English copy already contains no AMJ crop list; the durable scope boundary is now explicit in README and Workshop presentation policy.
 
 **Result / references:** recorded in the commit containing this coordination entry.
+
+
+
+### BAL-003 — AMJC crop data belongs to the framework consumer
+
+**Requested by:** author (2026-10-04 JST)
+
+**Owner:** Balance/XML / Agriculture/XML
+
+**Status:** DONE
+
+AMJC crop data is owned by AMJC, while CCTO supplies the reusable framework. The 13 fixed-value rows and 13 archived candidate-range rows previously stored in CCTO design/mapping documents have been transferred without changing values to AMJC `Docs/Balance/Crops/ColdTolerance.md`. CCTO's design/mapping tables no longer contain AMJC crop data; README, API/patch documentation, development ownership, and AGENTS instructions now agree with that boundary.
+
+Repository audit found no AMJC-owned targets in CCTO runtime XML/C#. AMJC already supplies the implemented Awa extension in its own `Patches/Compatibility/CCTO_StageA.xml`; no runtime code/XML relocation or behavior change was needed. Vanilla/MO data remains owned by CCTO. Future AMJC plant data and consumer compatibility work belongs in AMJC.
+
+**Validation:** all 13 fixed rows and all 13 archived range rows preserved; Awa XML values agree; runtime XML/C# and existing test files unchanged. Documentation/static ownership checks only; no new RimWorld runtime PASS is claimed.
+
+**Result / references:** AMJC ownership/data transfer commit `2c54f642d51edd4c39878b952e395fa8d40b9d38`; AMJC `Docs/Balance/Crops/ColdTolerance.md`, `Docs/Design.md`, and matching AMJ-006 handoff. Source CCTO snapshot: `c2c18a98a59d9018f48822c99fffc09d053e54d6`.
