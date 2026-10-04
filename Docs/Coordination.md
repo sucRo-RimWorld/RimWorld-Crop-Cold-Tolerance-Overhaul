@@ -605,3 +605,18 @@ The shared public-description policy now omits detailed mod version numbers, Ver
 This supersedes DOC-002's Workshop version/verification presentation requirement. Both maintained English/Japanese descriptions and WorkshopDescription.md have had Verification/検証状況 and Version sections removed; the remaining numbered Beta wording is generic. README's accurate validation record remains in place.
 
 **Next action:** Apply the simplified maintained English/Japanese descriptions to the live Workshop page. This repository update does not itself change Steam.
+
+
+### TEST-POLICY-002 — RimTest Redux / Pickle automation-first policy
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE (policy documentation)
+
+The shared project policy now prioritizes RimTest Redux / Pickle automated testing and minimizes human manual tests. Durable instructions are in `AGENTS.md` and `Docs/DevelopmentTools.md`. Reproducible logic, loaded Defs, runtime behavior and release regressions should be automated; manual testing is reserved for appearance, readability and play/interaction feel. Build/static checks remain complementary, and runtime suites retain the mandatory mod-origin ERROR gate.
+
+This documentation update does not claim new runtime coverage or a new test PASS. Existing implementation/test history remains unchanged.
+
+**Next action:** apply this policy to subsequent feature, fix and release work; record unautomated coverage explicitly and move reproducible checks into the automated gate.
+
+**Result / references:** AGENTS policy commit `fa43ae5cbffa1f4d6565fb9adf40013f8fefc1db`; development workflow commit `47381c7cddb3ccf81bd20e83a573ed64508c577e`.
