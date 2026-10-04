@@ -10,6 +10,17 @@ General RimWorld mod-development tools, enablement policy, Local Work/Codex usag
 
 That shared document is the source of truth for cross-project tooling policy. Do not duplicate those general rules here.
 
+
+## 自動テスト優先方針（AMJ共通）
+
+AMJおよび関連Modでは、RimTest Redux・Pickleを積極的に用いた自動テストを優先し、人間による手動テストを最小限にする。
+
+- ロジック・計算・設定検証などはRimTest Redux、ロード後のDef・実際のゲーム内挙動・統合回帰などはPickleを中心に、適した自動テストで確認する。
+- 新機能・不具合修正では、再現可能な確認を可能な限り自動化し、リリース前の回帰確認も自動テストへ寄せる。既存のビルド・XML・静的検証は併用する。
+- 手動テストは、画像の見た目、UIの読みやすさ、操作感・遊び心地など、人間の目視・操作が必要な項目に限定する。自動で確認済みの数値や挙動を毎回手動で再確認させない。
+- 自動化が未整備の項目は、未検証範囲と自動化する対象を明示する。静的検証の成功を実行時テストの成功として扱わない。
+- RimWorldを起動する自動テストでは、既存の実行時ERROR検出方針を必ず適用する。シナリオが全件成功しても対象Mod由来のERRORがあれば全体を失敗とする。
+
 ## 1. CCTO responsibility split
 
 CCTO development is intentionally split into two workstreams.
@@ -209,6 +220,8 @@ The script:
 - reads, but does not rewrite, the normal RimWorld `ModsConfig.xml`;
 - requires Harmony, Core, Medieval Overhaul, and CCTO to be active;
 - requires CCTO E2E/MO-fixture/RimTest, Pickle, Quickstarts, and RimTest Redux to be inactive.
+
+Automated loaded-value assertions are authoritative for the numeric expectations below. Normal-profile startup/compatibility checks are targets for further automation; retain only layout/readability and other human judgment checks as manual work. Do not repeat numeric checks manually after an unchanged automated gate has passed.
 
 Then launch RimWorld normally, without `-savedatafolder`, and perform this representative smoke/visual check:
 
