@@ -1,48 +1,55 @@
 [h1]Crop Cold Tolerance Overhaul (CCTO)[/h1]
 
-CCTO is a [b]realism-focused overhaul of plant cold tolerance[/b]. It uses real-world information on frost injury, chilling sensitivity, overwintering behavior, and lethal temperatures as reference points, then converts those differences into clear RimWorld gameplay thresholds.
+CCTO is a [b]realism-focused mod that makes the cold response of RimWorld plants more closely reflect real differences in plant cold tolerance[/b].
 
-Instead of relying mainly on Vanilla's generic relationship between minimum growth temperature and cold death, supported plants receive plant-specific minimum growth temperatures plus either a fixed cold-death temperature or cold dormancy.
+It uses information on frost injury, chilling damage, overwintering ability, and lethal temperatures as references, then translates those differences into clear, practical gameplay thresholds.
+
+In Vanilla, many plants use a shared rule that derives leafless and cold-death behavior from their minimum growth temperature. CCTO instead revises minimum growth temperatures plant by plant and gives supported plants either a fixed cold-death temperature or cold dormancy.
 
 [h2]Key features[/h2]
 [list]
-[*]Real-world cold tolerance used as the basis for balance
+[*]Realism-focused balance that emphasizes real differences in cold tolerance between plants
 [*]Plant-specific minimum growth temperatures
-[*]Explicit fixed cold-death temperatures
+[*]Fixed cold-death temperatures for plants that do not use dormancy
 [*]Cold dormancy for selected perennial and overwintering plants
-[*]Cold death / dormancy temperature shown in plant information
-[*]Cold-tolerance changes only — yield, growth time, fertility, storage, processing, and research are not rebalanced
+[*]Cold death or dormancy temperature shown in the plant Info Card
+[*]Only cold-tolerance-related properties are changed. Yield, growth time, fertility, storage life, processing, research, and similar values are left untouched
 [/list]
 
-The result is generally more demanding than Vanilla / Medieval Overhaul: crop choice, sowing season, forestry, heating, greenhouses, and cold snaps matter more. It is not a blanket nerf; plants suited to overwintering can instead survive through dormancy.
+As a result, cold weather generally has a clearer impact than in Vanilla / Medieval Overhaul, making crop choice, sowing time, forestry, heating, greenhouses, and preparation for cold snaps more important.
+
+This is not a blanket nerf to every plant. Plants suited to overwintering can survive winter by entering dormancy instead of dying from ordinary cold.
 
 [h2]Supported content[/h2]
 [list]
 [*]All 49 living Core PlantDefs in RimWorld 1.6
 [*]All 29 Medieval Overhaul 1.6-specific PlantDefs when MO is installed
-[*]Wild vegetation is included; dead stump/remnant Defs are excluded
-[*]English and Japanese
+[*]Wild plants are included, not just cultivated crops
+[*]Dead plant remnants such as stumps are excluded
+[*]English / Japanese
 [/list]
 
-[url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]Full before/after values and balance rationale on GitHub[/b][/url]
+[url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]See the GitHub README for full before/after values and the detailed balance rationale[/b][/url]
 
 [h2]Framework for other mods[/h2]
 
-CCTO is also a [b]lightweight XML-facing framework[/b]. Other mods can assign explicit fixed cold-death temperatures or cold dormancy to their own plants without replacing the plant class.
+CCTO is both a cold-tolerance rebalance and a [b]lightweight XML framework for other mods[/b].
+
+Mods that add their own plants can assign fixed cold-death temperatures or cold dormancy through XML without replacing the Plant class.
 
 [h2]Dependencies[/h2]
 [b]Required:[/b] Harmony
 
-[b]Optional:[/b] Medieval Overhaul, Nice Plants Menu, Dubs Mint Menus
+[b]Optional:[/b] Medieval Overhaul / Nice Plants Menu / Dubs Mint Menus
 
 [h2]Save compatibility[/h2]
 [b]Safe to add to or remove from an existing save.[/b]
 
-Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.
+CCTO temperature settings apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. If another mod requires CCTO, keep that dependency installed.
 
 [h2]Development[/h2]
 
-Beta. AI assistance is used for implementation, documentation, research, and test development; design, balance decisions, and final review remain the author's responsibility.
+Currently in Beta. AI assistance is used for code implementation, documentation, research, and test development. Design, balance decisions, and final review are handled by the author.
 
 MIT License.
 
