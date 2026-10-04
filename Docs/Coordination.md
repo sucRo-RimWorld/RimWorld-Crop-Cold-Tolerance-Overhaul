@@ -401,6 +401,34 @@ Release-presentation decisions completed on `main`:
 - Preview image specification fixed at 640×360 PNG / 16:9 / under 1 MB: `8c6fada61bf9fcd93f3fa6908a81c0f17797e3d6`;
 - release checklist narrowed to remaining publication steps: `d80786082bb3dfe0aa35ac45cb1cce98272dcea3`.
 
+### BAL-002 — AMJ Environment wild-plant compatibility
+
+**Requested by:** Ancient & Medieval Japan: Environment / ENV-003  
+**Owner:** Balance/XML  
+**Status:** OPEN
+
+Environment main now defines four Japan-specific structural wild plants:
+
+- `AMJ_Tree_Shii` — warm-temperate evergreen broadleaf canopy;
+- `AMJ_Tree_Beech` — cool-temperate deciduous broadleaf canopy;
+- `AMJ_Tree_Shirabiso` — subalpine evergreen conifer canopy;
+- `AMJ_Shrub_Haimatsu` — alpine dwarf-pine scrub.
+
+Environment source commit introducing the PlantDefs: `00619f365ffbd4e14d88f3956a5af19cbe1ed60f`. Biome commonality commit: `858009e67afd6607652559cdf698d72bf1875fc3`.
+
+These are optional sister-mod plants, so CCTO must remain standalone and must not hard-depend on Environment. Once Environment's fixed-biome runtime vegetation gate passes, add optional compatibility so these four living PlantDefs receive explicit CCTO cold-response values when both mods are active. Follow BAL-001's rule that wild-only values must remain compatible with their natural biome climate and must not cause routine seasonal die-off.
+
+Do not add the four plants to the canonical Core+MO 78-PlantDef count; track them as an optional AMJ Environment compatibility set with its own static/loaded-value validation.
+
+Candidate behavior for later balance review, not yet locked:
+- Shii: warm-temperate fixed cold-death model;
+- Beech: cool-temperate cold dormancy;
+- Shirabiso: strong fixed frost tolerance without deciduous dormancy;
+- Haimatsu: very strong alpine fixed frost tolerance.
+
+**Next action:** wait for Environment's runtime vegetation smoke result, then choose exact minimum-growth/death/dormancy values and implement optional compatibility without changing standalone Core+MO coverage counts.
+
+
 ### Completed handoffs
 
 - Framework + Vanilla/MO balance + explicit dormancy-temperature UI + Nice Plants Menu compatibility integrated into `main` through PR #2. Merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
