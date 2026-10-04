@@ -626,3 +626,19 @@ This documentation update does not claim new runtime coverage or a new test PASS
 **Next action:** apply this policy to subsequent feature, fix and release work; record unautomated coverage explicitly and move reproducible checks into the automated gate.
 
 **Result / references:** AGENTS policy commit `fa43ae5cbffa1f4d6565fb9adf40013f8fefc1db`; development workflow commit `47381c7cddb3ccf81bd20e83a573ed64508c577e`.
+
+
+### DOC-004 — Realism/framework emphasis and concise Workshop presentation
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+CCTO's public positioning now emphasizes two first-class purposes:
+
+- a realism-focused cold-tolerance rebalance using real-world frost injury, chilling sensitivity, overwintering behavior, and lethal-temperature information as references;
+- a lightweight XML-facing framework that other plant mods can use for explicit cold-death temperatures and cold dormancy.
+
+README remains the detailed public source of truth, including rationale, full values, framework details, and validation information. Workshop English/Japanese descriptions are intentionally shorter and now contain only the core purpose, major features, supported content, framework use, dependencies, save compatibility, and a link to README for full values/details. About.xml was kept consistent with the revised positioning.
+
+**Result / references:** CCTO public-description commit `e6db12b27b1837161c7983c9f0db1a167dae70bd`; shared AMJ description-policy commit `3886774ee678859a2ed181df37e0fb63ed897ea7`.
