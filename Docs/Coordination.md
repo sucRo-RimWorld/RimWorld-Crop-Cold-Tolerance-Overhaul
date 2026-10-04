@@ -687,3 +687,18 @@ Repository audit found no AMJC-owned targets in CCTO runtime XML/C#. AMJC alread
 **Validation:** all 13 fixed rows and all 13 archived range rows preserved; Awa XML values agree; runtime XML/C# and existing test files unchanged. Documentation/static ownership checks only; no new RimWorld runtime PASS is claimed.
 
 **Result / references:** AMJC ownership/data transfer commit `2c54f642d51edd4c39878b952e395fa8d40b9d38`; AMJC `Docs/Balance/Crops/ColdTolerance.md`, `Docs/Design.md`, and matching AMJ-006 handoff. Source CCTO snapshot: `c2c18a98a59d9018f48822c99fffc09d053e54d6`.
+
+
+### TEST-OWNERSHIP-001 — Prevent AMJC data from returning to CCTO
+
+**Requested by:** author / BAL-003 follow-up (2026-10-04 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE
+
+The static balance validator now enforces the CCTO/AMJC ownership boundary. It fails if an `AMJC_` Def/data identifier appears in CCTO-owned runtime patches, source, tests, or `Docs/ImplementationTable.md`. Historical coordination text is intentionally not scanned.
+
+This prevents future AMJC crop data from being silently reintroduced into CCTO while preserving the intended dependency direction: CCTO provides the generic framework; AMJC owns its plant values and compatibility XML.
+
+**Validation:** repository audit before the guard found no `AMJC_` identifiers in the guarded CCTO surfaces. This is a static validation change only; no new RimWorld runtime PASS is claimed.
+
+**Result / references:** implementation commit is the commit containing this coordination entry; prior ownership split: CCTO `e9447f683957d4c7ed0ba4fed2a8280f9859c30a`, AMJC `2c54f642d51edd4c39878b952e395fa8d40b9d38`.

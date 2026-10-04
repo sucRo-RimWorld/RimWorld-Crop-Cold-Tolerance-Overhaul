@@ -123,6 +123,8 @@ It intentionally does **not** activate Medieval Overhaul's runtime assemblies in
 
 This is paired with static checks against the installed real MO 1.6 source: every target DefName must exist and must contain the local `<plant>` node required by CCTO's XPath. The four wild alchemy Defs are also checked for their real Named-Parent links to the cultivated alchemy Defs. Their CCTO extension is inherited from that parent rather than appended a second time. Thus the runtime fixture tests CCTO patch application and inheritance while the static validator protects against drift in the actual MO source structure.
 
+The same static validator also enforces framework-consumer ownership: CCTO's runtime patches, source, tests, and implementation mapping must not contain `AMJC_` Def/data identifiers. AMJC-owned plants and compatibility data belong in the AMJC repository. Historical coordination notes are intentionally outside this gate.
+
 `run-e2e.bat` remains usable by itself for framework-only testing. `run-tests.bat` invokes its `with-mo-fixture` mode for the complete balance integration gate.
 
 The underlying E2E runner:
