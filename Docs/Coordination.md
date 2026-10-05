@@ -744,3 +744,15 @@ CCTO now follows the AMJ-wide rule that successful non-trivial/repeatable work m
 
 Repository-specific Golden Paths should be added when a CCTO workflow first demonstrates a reusable successful sequence; Coordination remains status/handoff only.
 
+
+### TEST-POLICY-003 — Non-interactive runtime tests
+
+**Requested by:** author (2026-10-05 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE — shared policy adopted; existing runtime harness migration pending
+
+CCTOもAMJ関連Modとして、目視不要のPickle / RimTest Redux / runtime regressionは可視RimWorldウィンドウを出さない非対話実行を標準とする。描画を検証しないCCTOロジックテストで可視UIを要求しない。可視実行は人間判断が必要な確認だけに限定する。
+
+Shared durable source: AMJ Core `Docs/DevelopmentGoldenPathGuidelines.md`, commit `a81c0389fb1834a098a462291b3f4814abcffef3`. Repository instruction: `AGENTS.md`, commit `5ec14463ed758d2bef7754156db0d3ff3680f758`.
+
+**Next action:** runtime test launcherを次回重要変更時に非対話実行へ移行し、既存のisolated save-data profile、watchdog、ERROR gateを維持する。
