@@ -52,7 +52,7 @@ Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-
 
 The shared AMJ historical-description policy lives in Ancient-Medieval-Japan-Core `Docs/HistoricalDescriptionGuidelines.md`.
 
-When CCTO is explicitly asked to contribute AMJ-facing description/localization work for Vanilla or Medieval Overhaul items, plants, or animals, follow that policy: audit from an ancient/medieval Japanese perspective, ground historical claims, include meaningful modern differences when supportable, and use the Japanese-first approval workflow before English translation.
+When CCTO is explicitly asked to contribute AMJ-facing description/localization work for Vanilla or Medieval Overhaul items, plants, or animals, follow that policy: audit from an ancient/medieval Japanese perspective, ground historical claims, include meaningful modern differences when supportable, and use the Japanese-first approval workflow before English translation. Japanese descriptions must also follow the shared name-form rule: begin with an established kanji form when one exists and include recognized aliases / alternate names or common alternate written forms at the opening; do not invent kanji or weakly sourced names.
 
 CCTO remains a generic cold-tolerance framework and data owner for its own Vanilla/MO temperature support. Do not rewrite unrelated Vanilla/MO historical descriptions merely because CCTO supports those plants; ordinary AMJ historical presentation belongs in the relevant AMJ content repository unless explicitly coordinated otherwise.
 
