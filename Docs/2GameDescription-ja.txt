@@ -40,3 +40,4 @@
 ・追加対応は優先度や要望を見て検討
 
 詳細な変更値や設計意図はGitHub READMEを参照。
+https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul

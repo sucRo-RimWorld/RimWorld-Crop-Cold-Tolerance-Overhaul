@@ -782,3 +782,15 @@ AMJ Core・Environment・CCTOおよび今後の関連Modの名称では、半角
 YADAがMod表示名を一時ディレクトリ名に使用し、Windowsで半角コロンによりアップロード前処理が停止した件の再発防止。共通正本はCore `Docs/ModDescriptionGuidelines.md`（commit `695bff2a32a57cdf817b13b255587e749399b417`）。このリポジトリのAGENTSにも規則を反映済み（commit `787a169d3c54a9224f551c98b84309beb02d89f5`）。
 
 確認時点でCore・Environment・CCTOのAbout.xmlのnameはいずれもコロンなし。今回の変更は文書・運用規則のみで、ゲーム実行時テストやSteam公開の成功を示すものではない。
+
+### DOC-008 — AMJ-wide 2game formatting rule
+
+**Requested by:** author (2026-10-06 JST)
+
+**Owner:** AMJ shared public-description policy
+
+**Status:** DONE — shared routing synchronized
+
+CCTO's existing six-section 2game template is now the explicit shared baseline in Core Docs/ModDescriptionGuidelines.md. AGENTS requires 2game source preparation and consistency checks alongside README / Workshop / About.xml, and Docs/2GamePresentation.md links the shared source. Added the previously unlinked owning GitHub URL to the final README reference in Docs/2GameDescription-ja.txt; other CCTO description content is unchanged. AMJE now has its own summary following this template. No live 2game update is claimed.
+
+Validation: documentation diffs, shared-rule routing and source-link checks; no runtime behavior change. Reusable checks live in the shared guideline.

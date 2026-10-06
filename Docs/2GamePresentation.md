@@ -2,6 +2,8 @@
 
 対象ページ: https://rimworld.2game.info/detail.php?id=3812412548
 
+形式のAMJ共通正本はCoreの[ModDescriptionGuidelines.md — 2game向け説明（AMJ共通）](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md)。本書はCCTO固有の内容・タグ方針を管理する。公開説明更新時はREADME、Workshop日英、2game日本語、About.xmlを合わせて確認する。
+
 2gameでは検索一覧からMODの用途を判断しやすいことを優先し、Steam Workshopよりさらに簡潔な日本語説明を使う。
 
 見出し記号は、2gameで一般的に使われている `▼` に統一する。`◆` は使わない。
