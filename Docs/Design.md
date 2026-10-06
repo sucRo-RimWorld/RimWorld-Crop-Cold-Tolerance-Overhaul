@@ -24,7 +24,7 @@ It does **not** rebalance:
 - processing
 - research progression
 
-The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that plants have clear gameplay identities and meaningful climate/season tradeoffs. Where available, real-world frost-damage and lethal-temperature information is used as a reference for plant-specific death thresholds. Because actual plant response varies by cultivar, growth stage, acclimation, and exposure duration, CCTO treats those temperatures as guidelines rather than copying a single reported value literally; values are rounded/tuned into clear gameplay thresholds. Values defined here are intended to be usable by AMJ without a second, conflicting balance layer.
+The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that plants have clear gameplay identities and meaningful climate/season tradeoffs. Where available, real-world frost-damage and lethal-temperature information is used as a reference for plant-specific death thresholds. Because actual plant response varies by cultivar, growth stage, acclimation, and exposure duration, CCTO treats those temperatures as guidelines rather than copying a single reported value literally; values are rounded/tuned into clear gameplay thresholds.
 
 The intended difficulty direction is generally upward relative to the original Vanilla / Medieval Overhaul settings. Most supported plants should require warmer conditions for active growth, and ordinary plants should usually face lethal cold at substantially warmer temperatures than the original generic derived threshold. The gameplay purpose is to make plant selection, seasonal timing, and temperature management matter more. This is an overall balance direction rather than a universal nerf: selected perennial/overwintering plants intentionally gain cold dormancy and winter survival.
 
@@ -58,16 +58,15 @@ Growth stopping and plant death are separate concepts.
 - **Low-temperature death threshold**: each supported plant has one fixed species-level threshold. Below this temperature the crop may die.
 - The initial release does **not** randomize the death threshold per plant. All plants of the same Def use the same configured threshold.
 - Where appropriate, a plant enters **cold dormancy** instead of dying.
-- Range-based values used during balancing are archived in §7. They remain candidate data for a possible future randomized mode.
-
-AMJ crop minimum growth temperatures that have already been decided remain unchanged.
+- Range-based values used during balancing are archived in §6. They remain candidate data for a possible future randomized mode.
 
 ## 2.1 Implementation ownership and dependency direction
 
 CCTO owns the common cold-tolerance mechanism. It should not depend on AMJ.
 
 - All gameplay PlantDefs in the supported Core and Medieval Overhaul sets are patched by CCTO, including wild-only plants.
-- AMJ plants consume the same CCTO extension/API from their own PlantDefs.
+- AMJC owns its crop-specific growth/death/dormancy values, design tables, candidate ranges, Def mapping, and optional compatibility XML in the AMJC repository. It consumes the CCTO extension/API from that side; CCTO contains no AMJC-owned crop data.
+- AMJE follows the same owning-mod pattern for its own plants.
 - CCTO therefore does not need to hard-code AMJ DefNames.
 - This keeps the dependency direction one-way: **AMJ -> CCTO mechanism**, never CCTO -> AMJ.
 - Other third-party crop mods can later add compatibility by attaching the same extension without CCTO needing to know their internal DefNames.
@@ -77,31 +76,9 @@ For ordinary plants, the extension stores one fixed low-temperature death thresh
 A dormancy plant should enter its cold/leafless state when temperature falls below its configured minimum growth temperature and should survive that state. This avoids introducing a third temperature axis solely for dormancy.
 
 
-## 3. Fixed implementation values — AMJ crops
+## 3. Fixed implementation values — Medieval Overhaul 1.6
 
-These are the cold-tolerance values intended to be used directly by AMJ.
-
-| Crop | Minimum growth temperature | Fixed death threshold / behavior |
-|---|---:|---:|
-| Barley | 0°C | -8°C |
-| Daikon | 0°C | -5°C |
-| Buckwheat | 5°C | -2°C |
-| Barnyard millet | 5°C | -4°C |
-| Hemp | 5°C | -6°C |
-| Kudzu | 5°C | cold dormancy |
-| Foxtail millet | 8°C | -4°C |
-| Proso millet | 8°C | -3°C |
-| Adzuki bean | 8°C | -1°C |
-| Soybean | 8°C | -3°C |
-| Perilla | 8°C | -1°C |
-| Rice | 10°C | -1°C |
-| Taro | 10°C | -1°C |
-
-Kudzu is a special case: cold removes or suppresses above-ground growth, but the plant survives through its rootstock and can recover when conditions improve.
-
-## 4. Fixed implementation values — Medieval Overhaul 1.6
-
-### 4.1 Medicinal crops
+### 3.1 Medicinal crops
 
 Medieval Overhaul medicinal crops must not all inherit the same cold tolerance merely because they share `HealrootBase`.
 
@@ -122,7 +99,7 @@ Design notes:
 - `Fly agaric` should not behave like a normal annual crop that dies permanently from ordinary winter cold.
 - The information card should show the fixed death threshold for ordinary crops and explicit dormancy wording for special crops.
 
-### 4.2 Food and fiber crops
+### 3.2 Food and fiber crops
 
 | Crop | Minimum growth temperature | Fixed death threshold / behavior | Role |
 |---|---:|---:|---|
@@ -143,7 +120,7 @@ The Medieval Overhaul 1.6 cabbage value `minGrowthTemperature=-18°C` is treated
 
 MO fungus coverage follows the same all-PlantDef rule as every other plant. `DankPyon_Plant_Mushrooms` and `DankPyon_Plant_FlyAgaric` are cultivated targets. The separate `DankPyon_Plant_FlyAgaricWild` Def explicitly clears its inherited `sowTags`, but it is still in scope because wild-only PlantDefs now receive explicit CCTO cold behavior as well.
 
-### 4.3 Perennial crops
+### 3.3 Perennial crops
 
 | Crop | Minimum growth temperature | Fixed death threshold / behavior |
 |---|---:|---:|
@@ -156,7 +133,7 @@ MO fungus coverage follows the same all-PlantDef rule as every other plant. `Dan
 Grape is changed from ordinary leafless death behavior to cold dormancy. Apple, mulberry, and Griffon berry already have leafless-survival behavior in Medieval Overhaul and retain the same conceptual role. Lemon remains a warm-climate perennial and receives a real low-temperature death threshold rather than unlimited dormancy survival.
 
 
-### 4.4 Wild-only Medieval Overhaul plants
+### 3.4 Wild-only Medieval Overhaul plants
 
 Wild counterparts of cultivated alchemy plants use the same cold model as the cultivated form because they represent the same species. Dark Forest giant trees are balanced to survive routine snowy winters in their native biome.
 
@@ -172,11 +149,11 @@ Wild counterparts of cultivated alchemy plants use the same cold model as the cu
 | Great willow | 5°C | cold dormancy | ancient deciduous willow |
 
 
-## 5. Fixed implementation values — Core / Vanilla RimWorld 1.6
+## 4. Fixed implementation values — Core / Vanilla RimWorld 1.6
 
 | Crop | Minimum growth temperature | Fixed death threshold / behavior | Role |
 |---|---:|---:|---|
-| Rice | 10°C | -1°C | warm-season grain; aligned with AMJ rice |
+| Rice | 10°C | -1°C | warm-season grain; frost-sensitive |
 | Potato | 5°C | -2°C | cool-climate crop but frost-sensitive |
 | Corn | 8°C | -2°C | warm-season cereal |
 | Strawberry | 5°C | -9°C | growth slows early, but the plant itself is strongly cold-hardy |
@@ -208,7 +185,7 @@ Wild counterparts of cultivated alchemy plants use the same cold model as the cu
 | Willow | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
 
 
-### 5.1 Core wild-only plants
+### 4.1 Core wild-only plants
 
 Wild plants are not tuned as if they were farm crops. Their cold values must preserve the ecology of the biomes where they naturally spawn. Plants present in tundra, boreal forest, cold bog, or multiple climate bands generally use dormancy or strong frost tolerance; explicitly tropical plants use warmer lethal thresholds.
 
@@ -236,21 +213,21 @@ Wild plants are not tuned as if they were farm crops. Their cold values must pre
 
 Core stump/remnant Defs are intentionally excluded. They are dead plant remnants rather than living vegetation and have no meaningful cold-tolerance gameplay model.
 
-## 6. Compatibility principle
+## 5. Compatibility principle
 
 Unknown third-party plants are not automatically overwritten. The all-PlantDef rule applies within plant sets that CCTO explicitly supports; it is not a blanket patch over every third-party mod.
 
-Explicit compatibility/balance data should be provided for supported plant sets such as Core, Medieval Overhaul, and AMJ. Within a supported set, all living PlantDefs are expected to receive CCTO data. Unsupported third-party plant sets retain their originating behavior unless a compatibility patch is added.
+Explicit compatibility/balance data should be provided for supported plant sets such as Core and Medieval Overhaul. AMJC-owned plants are outside CCTO's balance-data scope and use owner-supplied data through the framework. Within a supported set, all living PlantDefs are expected to receive CCTO data. Unsupported third-party plant sets retain their originating behavior unless a compatibility patch is added.
 
-## 7. Archived candidate ranges and future randomized mode
+## 6. Archived candidate ranges and future randomized mode
 
 The range-based values used during balancing are intentionally preserved instead of being discarded.
 
-### 7.1 Current release policy
+### 6.1 Current release policy
 
 The initial implementation uses **one fixed low-temperature death threshold per crop Def**. This is simpler to understand, easier to balance, and avoids unexpected differences between adjacent plants of the same crop.
 
-### 7.2 Possible post-release alternative
+### 6.2 Possible post-release alternative
 
 If post-release player feedback strongly favors individual variation, the mod may later switch to or add an option for **per-plant deterministic random death thresholds within the archived crop range**.
 
@@ -263,25 +240,7 @@ In that model:
 
 The range tables below are therefore not deprecated data. They are both the historical balancing record and candidate configuration for a future randomized mode.
 
-### 7.3 Archived AMJ crop ranges
-
-| Crop | Minimum growth temperature | Candidate death range / behavior |
-|---|---:|---:|
-| Barley | 0°C | -9 to -7°C |
-| Daikon | 0°C | -6 to -4°C |
-| Buckwheat | 5°C | -3 to -1°C |
-| Barnyard millet | 5°C | -5 to -3°C |
-| Hemp | 5°C | -7 to -5°C |
-| Kudzu | 5°C | cold dormancy |
-| Foxtail millet | 8°C | -4 to -3°C |
-| Proso millet | 8°C | -3 to -2°C |
-| Adzuki bean | 8°C | -2 to 0°C |
-| Soybean | 8°C | -4 to -2°C |
-| Perilla | 8°C | -2 to 0°C |
-| Rice | 10°C | -1 to 0°C |
-| Taro | 10°C | -1 to 0°C |
-
-### 7.4 Archived Medieval Overhaul medicinal crop ranges
+### 6.3 Archived Medieval Overhaul medicinal crop ranges
 
 | Crop | Minimum growth temperature | Candidate death range / behavior |
 |---|---:|---:|
@@ -291,7 +250,7 @@ The range tables below are therefore not deprecated data. They are both the hist
 | Fleawort | 3°C | -7 to -5°C |
 | Fly agaric | 0°C | cold dormancy |
 
-### 7.5 Archived Medieval Overhaul annual crop ranges
+### 6.4 Archived Medieval Overhaul annual crop ranges
 
 | Crop | Minimum growth temperature | Candidate death range / behavior |
 |---|---:|---:|
@@ -308,7 +267,7 @@ The range tables below are therefore not deprecated data. They are both the hist
 | Tomato | 10°C | -1 to 0°C |
 | Pumpkin | 10°C | -1 to 0°C |
 
-### 7.6 Archived Medieval Overhaul perennial crop ranges
+### 6.5 Archived Medieval Overhaul perennial crop ranges
 
 | Crop | Minimum growth temperature | Candidate death range / behavior |
 |---|---:|---:|
@@ -318,7 +277,7 @@ The range tables below are therefore not deprecated data. They are both the hist
 | Griffon berry | 5°C | cold dormancy |
 | Lemon | 10°C | -5 to -3°C |
 
-### 7.7 Archived Vanilla crop ranges
+### 6.6 Archived Vanilla crop ranges
 
 | Crop | Minimum growth temperature | Candidate death range / behavior |
 |---|---:|---:|
@@ -334,3 +293,4 @@ The range tables below are therefore not deprecated data. They are both the hist
 | Smokeleaf | 5°C | -5 to -3°C |
 | Psychoid | 8°C | -2 to 0°C |
 | Cocoa | 12°C | 0 to 2°C |
+

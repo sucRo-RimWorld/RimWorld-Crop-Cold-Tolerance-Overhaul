@@ -24,6 +24,41 @@ function Spec([double]$Min, [object]$Death, [bool]$Dormancy) {
   return @{ Min=$Min; Death=$Death; Dormancy=$Dormancy }
 }
 
+function AssertNoFrameworkConsumerDefData([string[]]$RelativePaths) {
+  $textExtensions = @(".cs", ".xml", ".md", ".feature")
+
+  foreach ($relativePath in $RelativePaths) {
+    $path = Join-Path $RepoRoot $relativePath
+    if (-not (Test-Path -LiteralPath $path)) { continue }
+
+    $item = Get-Item -LiteralPath $path
+    if ($item.PSIsContainer) {
+      $files = @(Get-ChildItem -LiteralPath $path -Recurse -File | Where-Object {
+        $textExtensions -contains $_.Extension
+      })
+    } else {
+      $files = @($item)
+    }
+
+    foreach ($file in $files) {
+      $content = Get-Content -LiteralPath $file.FullName -Raw -Encoding UTF8
+      if ($content -match '\bAMJC_[A-Za-z0-9_]+\b') {
+        $relativeFile = $file.FullName.Substring($RepoRoot.Length).TrimStart('\', '/')
+        Fail "AMJC-owned Def/data identifier $($Matches[0]) found in CCTO-owned data surface: $relativeFile"
+      }
+    }
+  }
+
+  Ok "Framework-consumer ownership boundary is clean (no AMJC_ identifiers in CCTO data/code/test surfaces)"
+}
+
+AssertNoFrameworkConsumerDefData @(
+  "Patches",
+  "Source",
+  "Tests",
+  "Docs/ImplementationTable.md"
+)
+
 $vanilla = @{
   Plant_Rice        = Spec 10 (-1) $false
   Plant_Potato      = Spec 5  (-2) $false

@@ -46,7 +46,7 @@ For the initial CCTO balance tables, current dormancy crops use dormancy only. T
 
 `minGrowthTemperature` remains RimWorld's native `PlantProperties` value rather than being duplicated inside the extension.
 
-AMJ and compatibility mods can attach the same extension to their own PlantDefs. CCTO does not hard-code AMJ DefNames.
+AMJC, AMJE, and compatibility mods can attach the same extension to their own PlantDefs. They own their plant-specific values and conditional compatibility XML. CCTO does not store their plant data or hard-code their DefNames.
 
 ## 3. Harmony behavior — current framework implementation
 
@@ -211,3 +211,4 @@ As of 2026-10-03:
 - A later scope audit established that CCTO should cover all living PlantDefs in supported sets regardless of sowability. Current target coverage is 49 living Core PlantDefs plus 29 MO-specific living PlantDefs; dead stump/remnant Defs are intentionally excluded.
 - The expanded gate now expects **14/14 Pickle scenarios** and includes an explicit all-loaded-supported-living-plant coverage scenario so future omissions are detected.
 - The 49-Core / 29-MO all-living-plant expansion has not yet received the fresh local `run-tests.bat` + normal-profile smoke rerun required before publishing the updated Workshop package.
+

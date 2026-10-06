@@ -18,10 +18,12 @@ For durable specifications and decided values, update the appropriate design/fra
 ## Workstreams
 
 - **Balance/XML**
+
   - crop-specific `minGrowthTemperature`
   - fixed `coldDeathTemperature`
   - Vanilla / Medieval Overhaul balance XML
-  - AMJ crop values and compatibility XML
+  - CCTO-owned supported-set values and compatibility XML
+  - AMJC/AMJE-owned plant data and framework-consumer XML are maintained in their owning repositories
 
 - **Code/framework**
   - C# framework and Harmony patches
@@ -248,6 +250,7 @@ User-provided normal-game screenshots confirmed the numeric balance values for a
 No duplicate CCTO rows were visible. However, `低温反応: 休眠` did not make the actual dormancy threshold obvious even to the developer. The UI specification has therefore changed: dormancy crops now display `休眠温度 <minGrowthTemperature>` directly. This reuses the native minimum-growth value; it does not add a third balance parameter.
 
 Implementation on `balance-xml`:
+
 - Info Card logic: `381d67873d88f2125f0bdb1806670e638dc91c51`;
 - Japanese text: `087a5e078ed788878293b4ed74804198d733aef4`;
 - English text: `b2ab2621fae41fb055ec9d86c5487ba2f19c5460`;
@@ -271,7 +274,6 @@ After rebuilding the current dormancy-temperature implementation, the normal-gam
 CODE-006 is complete.
 
 Durable checklist: `Docs/DevelopmentTools.md` on `balance-xml`.
-
 
 ### CODE-007 — Nice Plants Menu compatibility
 
@@ -401,10 +403,43 @@ Release-presentation decisions completed on `main`:
 - Preview image specification fixed at 640×360 PNG / 16:9 / under 1 MB: `8c6fada61bf9fcd93f3fa6908a81c0f17797e3d6`;
 - release checklist narrowed to remaining publication steps: `d80786082bb3dfe0aa35ac45cb1cce98272dcea3`.
 
+### BAL-002 — AMJ Environment wild-plant compatibility
+
+**Requested by:** Ancient & Medieval Japan: Environment / ENV-003  
+**Owner:** Balance/XML  
+**Status:** DONE (ownership returned to AMJE)
+
+Environment main now defines four Japan-specific structural wild plants:
+
+- `AMJ_Tree_Shii` — warm-temperate evergreen broadleaf canopy;
+- `AMJ_Tree_Beech` — cool-temperate deciduous broadleaf canopy;
+- `AMJ_Tree_Shirabiso` — subalpine evergreen conifer canopy;
+- `AMJ_Shrub_Haimatsu` — alpine dwarf-pine scrub.
+
+Environment source commit introducing the PlantDefs: `00619f365ffbd4e14d88f3956a5af19cbe1ed60f`. Biome commonality commit: `858009e67afd6607652559cdf698d72bf1875fc3`.
+
+These are optional sister-mod plants, so CCTO must remain standalone and must not hard-depend on Environment. Once Environment's fixed-biome runtime vegetation gate passes, add optional compatibility so these four living PlantDefs receive explicit CCTO cold-response values when both mods are active. Follow BAL-001's rule that wild-only values must remain compatible with their natural biome climate and must not cause routine seasonal die-off.
+
+Do not add the four plants to the canonical Core+MO 78-PlantDef count; track them as an optional AMJ Environment compatibility set with its own static/loaded-value validation.
+
+Candidate behavior for later balance review, not yet locked:
+
+- Shii: warm-temperate fixed cold-death model;
+- Beech: cool-temperate cold dormancy;
+- Shirabiso: strong fixed frost tolerance without deciduous dormancy;
+- Haimatsu: very strong alpine fixed frost tolerance.
+
+**Environment prerequisite result:** PASS. Environment's isolated four-biome automated runtime gate completed successfully for WarmTemperate, CoolTemperate, Subalpine, and Alpine, including structural-plant generation/dominance checks, Alpine coverage safety limits, complete live log capture, and the Environment-origin ERROR gate. Environment ENV-003 is now DONE for the Alpha structural vegetation stage. Accepted Environment design commit: `4508b0b335d5c5f415a07351dd77b6a6f9671d4d`; Environment coordination closeout: `5c8a5204ea1cff4b303e82f36ce2cb04ed16dcdb`.
+
+**Ownership correction:** no AMJE-specific compatibility is to be implemented in CCTO. The owning-mod pattern is now authoritative: AMJE defines its standalone Vanilla-style values and, when CCTO is active, AMJE conditionally consumes CCTO's public `ColdToleranceExtension` for AMJE-owned plants. CCTO remains unaware of AMJE and its canonical Core+MO 78-PlantDef scope is unchanged.
+
+AMJE source-of-truth design: `sucRo-RimWorld/Ancient-Medieval-Japan-Environment` commit `cbf246511026b45ee687c402b8a7d75510623522`. AMJE compatibility implementation begins at `ac99339fc70f290b39ca06b6702a0b4a2e9d1faf`.
+
+**Result:** BAL-002 requires no CCTO code/XML/balance change. Future AMJE plant compatibility changes belong to the AMJE repository.
+
 ### Completed handoffs
 
 - Framework + Vanilla/MO balance + explicit dormancy-temperature UI + Nice Plants Menu compatibility integrated into `main` through PR #2. Merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
-
 
 ### BAL-001 — Complete living plant coverage
 
@@ -417,23 +452,28 @@ Durable scope decision: CCTO coverage is based on living PlantDef identity, not 
 Balance rule for wild-only plants: values must remain compatible with the climates/biomes where the plant naturally occurs, so normal seasonal cold does not cause implausible routine die-off or destabilize biome vegetation/grazing.
 
 Current implemented target set:
+
 - Core / Vanilla RimWorld 1.6: **49 living PlantDefs**. Three dead stump/remnant Defs are intentionally excluded.
 - Medieval Overhaul 1.6: **29 MO-specific living PlantDefs** (21 cultivated + 8 wild-only).
 - Total curated Core+MO target set: **78 living PlantDefs**.
 
 New Core wild-only coverage added:
+
 - `Agarilux`, `Plant_Agave`, `Plant_Alocasia`, `Plant_Ambrosia`, `Plant_Astragalus`, `Plant_Berry`, `Plant_Brambles`, `Bryolux`, `Plant_Bush`, `Plant_Chokevine`, `Plant_Clivia`, `Plant_Rafflesia`, `Glowstool`, `Plant_Grass`, `Plant_ShrubLow`, `Plant_Moss`, `Plant_PincushionCactus`, `Plant_TallGrass`, `Plant_HealrootWild`.
 
 New MO wild-only coverage added:
+
 - `DankPyon_Plant_MindwortWild`, `DankPyon_Plant_PoppyWild`, `DankPyon_Plant_FleawortWild`, `DankPyon_Plant_FlyAgaricWild`, `DankPyon_GreatOak`, `DankPyon_GreatIter`, `DankPyon_GreatFir`, `DankPyon_GreatWillow`.
 
 Notable balance decisions:
+
 - Japanese bamboo baseline remains minimum growth 10 C / fixed cold death -18 C.
 - Wild counterparts of MO alchemy crops use the same species-level values as their cultivated counterparts.
 - Great Oak / Great Iter / Great Willow use cold dormancy; Great Fir uses minimum growth 0 C / fixed cold death -35 C.
 - Tundra/boreal/cold-bog Core vegetation generally uses dormancy or strong frost tolerance; explicitly tropical plants use warmer fixed death thresholds.
 
 Implementation/status:
+
 - Core balance XML now contains 49 minimum-growth patches + 49 CCTO extensions.
 - MO balance XML now contains 29 minimum-growth patches + **25 direct CCTO extension additions + 4 inherited extensions** for the wild alchemy Defs.
 - Static validator expects 49 Core + 29 MO entries and checks all four relevant MO 1.6 source files (cultivated farm/alchemy + wild alchemy + wild Dark Forest).
@@ -445,6 +485,7 @@ Implementation/status:
 - Workshop maintained descriptions remain within Steam's 8,000-byte description limit (English 6,424 bytes; Japanese 5,588 bytes at current main).
 
 Key commits for the all-living-plant scope:
+
 - durable scope change: `73351ca2e7931d5a25d0883a69358a5bf9d4a83e`
 - Core wild plant XML: `62406b18d0ef06b216a1776bf1d98c13837a485a`
 - MO wild plant XML: `c7e3f8ebf1e382daec83a430f9f3d9d71f6e575f`
@@ -459,24 +500,28 @@ Key commits for the all-living-plant scope:
 - release/dev/patch docs: `9c9f4779077b87c8c1ea06125baf77109555f87c`, `0abd3e35b91079f38e46be206f167240c0ef0873`, `42cce60bdbbe0999f83e3563d3a46de1de278ffc`
 
 Static consistency audit: PASS.
+
 - Core XML 49 / validator 49 / loaded-value E2E 49.
 - MO XML 29 / validator 29 / fixture 29 / loaded-value E2E 29.
 - Coverage expected set: 78.
 - Required 14-scenario summary names are synchronized.
 
 Release status:
+
 - full `run-tests.bat` rerun: **PASS, 14/14** (user-reported 2026-10-03), including the all-supported-living-plant coverage scenario;
 - normal-profile wild-plant Info Card smoke: **PASS**. Verified Wild Healroot (min 0 C / death -9 C), Berry bush (min 0 C / dormancy 0 C), Bush (min 0 C / dormancy 0 C), and Oak (min 5 C / dormancy 5 C); displayed values matched the implemented CCTO balance.
 - BAL-001 implementation/validation is complete.
 - release/presentation complete for the all-living-plant update: Workshop item `3812412548` and maintained English/Japanese descriptions were updated. The later Info Card ordering fix is tracked separately as the 0.1.2 Beta update.
 
 Release/presentation maintenance update (2026-10-03):
+
 - Release notes are now centralized under `Docs/ReleaseNotes/`; root-level `Docs/ReleaseNotes-*.md` copies were removed and checklist references were updated.
 - Japanese Workshop description wording was polished for natural Japanese, updated to 0.1.1 Beta verification status, and remains within Steam's 8,000-byte limit (5,951 bytes).
 - Live Workshop English/Japanese descriptions are updated.
 - English Workshop presentation and paste-ready description were synchronized to **0.1.1 Beta / 14/14**; no stale 13/13 or 0.1 Beta wording remains in those two maintained English files. Current paste-ready English description size: 6,389 bytes.
 
 UI consistency update (2026-10-03):
+
 - Follow-up visual comparison showed the differing row positions are caused by plant-specific Vanilla stats (wild/cultivated plants expose different optional rows), not by English/Japanese localization.
 - Vanilla plant priorities relevant here: max growth 4153, min growth 4152, sow skill 4151, lifespan/harvest yield 4150.
 - Original CCTO used dormancy 4151 and cold death 4150, so cold-death rows could fall below harvest yield/lifespan while dormancy stayed directly below the growth-temperature rows.
@@ -490,10 +535,10 @@ UI consistency update (2026-10-03):
 - `v0.1.1-beta` remains the completed historical all-living-plant release. The later Info Card ordering fix is documented separately in `Docs/ReleaseNotes/ReleaseNotes-0.1.2-Beta.md` (target tag `v0.1.2-beta`).
 
 Release note separation correction (2026-10-03):
+
 - 0.1.1 Beta release notes were restored to the scope actually published in 0.1.1 (all-living-PlantDef expansion).
 - The subsequent standard Info Card row-order fix is a separate 0.1.2 Beta update, not part of the historical 0.1.1 notes.
 - 0.1.2 verification: post-fix full gate **14/14 PASS** and standard Info Card visual recheck **PASS**.
-
 
 ### CODE-008 — Balance validator PowerShell parser regression
 
@@ -525,6 +570,7 @@ A normal runtime load reported duplicate `ColdToleranceExtension` entries on `Da
 CCTO previously added an extension to the cultivated named parent and then appended another extension directly to each wild child. The four direct wild-child extension additions were removed; their minimum-growth patches remain explicit and their cold-response extension is inherited from the cultivated parent.
 
 Regression protection now includes:
+
 - static validator expects 25 direct MO extension additions + 4 inherited wild-alchemy extensions;
 - validator checks the four real MO 1.6 ParentName links;
 - E2E MO fixture mirrors those inheritance links;
@@ -541,9 +587,236 @@ In-game verification of the corrected build also passed. The error fix is assign
 
 **Next action:** re-upload the corrected Workshop package as the 0.1.3 Beta update.
 
-### RELEASE-001 — evidence-based stable release (2026-10-06 JST)
+### DOC-001 — Shared public-description format and save compatibility
 
-**Owner:** Code/framework + Balance/XML / release
-**Status:** DONE (author-approved policy); OPEN (stable-release evidence closeout)
+**Requested by:** author / public-description policy (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
 
-The author requests the same evidence-based beta-to-stable policy as AMJ. Feedback absence neither proves correctness nor blocks stable release. Durable criteria are in Docs/ReleaseChecklist.md: exact production/subscribed payload, natural seasonal cold/warm behavior, actual indoor temperatures, save/reload continuity, advertised actual-Mod combinations and zero CCTO-owned runtime ERRORs. Existing 14/14 and focused runtime approvals retain their scoped validity; do not substitute deterministic timer-aging/fixtures for seasonal gameplay or actual MO coverage. Close checklist items against retained evidence before adding missing automated tests. Normal saves/settings remain protected. No new test PASS, publication, commit or GitHub update is claimed.
+All AMJ-related mod descriptions must include save compatibility. CCTO is the evolving format baseline. Durable shared policy: [Docs/ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md). Addition/removal safety must reflect each mod's actual implementation; custom content and world-generation mods do not inherit CCTO's safe-removal claim.
+
+README, About.xml, Workshop presentation, and paste-ready English/Japanese descriptions now include the save-compatibility statement. Current implementation review found no custom save-owned plant classes/components. Existing integration passes are not an add/remove save test.
+
+**Next action:** Synchronize the maintained English/Japanese description files to the live Workshop page during publication maintenance. This documentation change does not itself update Steam.
+
+### DOC-002 — Current verification/version presentation corrected to 0.1.3 Beta
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+README and the maintained Workshop presentation plus English/Japanese paste-ready descriptions now identify the verified current build as **0.1.3 Beta**, not 0.1.1 Beta or the original 0.1 Beta baseline. The verification summary uses CODE-009's completed full local gate **14/14 PASS**, **no CCTO-origin ERROR entries**, and corrected-build in-game verification. README's obsolete expanded-balance rerun-pending statement was removed. Historical release notes and earlier coordination results retain their original versions.
+
+**Next action:** apply the maintained English/Japanese text to the live Workshop description; this repository update does not itself publish to Steam.
+
+### DOC-003 — Workshop descriptions omit detailed versions and test results
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+The shared public-description policy now omits detailed mod version numbers, Version sections, and test counts/results from Workshop descriptions. Keep the supported RimWorld version and Alpha/Beta stage, features, dependencies, supported content, and save compatibility. Detailed release numbers and validation evidence belong in README/development/release records; changes belong in Workshop changelogs and GitHub releases.
+
+This supersedes DOC-002's Workshop version/verification presentation requirement. Both maintained English/Japanese descriptions and WorkshopDescription.md have had Verification/検証状況 and Version sections removed; the remaining numbered Beta wording is generic. README's accurate validation record remains in place.
+
+**Next action:** Apply the simplified maintained English/Japanese descriptions to the live Workshop page. This repository update does not itself change Steam.
+
+### TEST-POLICY-002 — RimTest Redux / Pickle automation-first policy
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE (policy documentation)
+
+The shared project policy now prioritizes RimTest Redux / Pickle automated testing and minimizes human manual tests. Durable instructions are in `AGENTS.md` and `Docs/DevelopmentTools.md`. Reproducible logic, loaded Defs, runtime behavior and release regressions should be automated; manual testing is reserved for appearance, readability and play/interaction feel. Build/static checks remain complementary, and runtime suites retain the mandatory mod-origin ERROR gate.
+
+This documentation update does not claim new runtime coverage or a new test PASS. Existing implementation/test history remains unchanged.
+
+**Next action:** apply this policy to subsequent feature, fix and release work; record unautomated coverage explicitly and move reproducible checks into the automated gate.
+
+**Result / references:** AGENTS policy commit `fa43ae5cbffa1f4d6565fb9adf40013f8fefc1db`; development workflow commit `47381c7cddb3ccf81bd20e83a573ed64508c577e`.
+
+### DOC-004 — Realism/framework emphasis and concise Workshop presentation
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+CCTO's public positioning now emphasizes two first-class purposes:
+
+- a realism-focused cold-tolerance rebalance using real-world frost injury, chilling sensitivity, overwintering behavior, and lethal-temperature information as references;
+- a lightweight XML-facing framework that other plant mods can use for explicit cold-death temperatures and cold dormancy.
+
+README remains the detailed public source of truth, including rationale, full values, framework details, and validation information. Workshop English/Japanese descriptions are intentionally shorter and now contain only the core purpose, major features, supported content, framework use, dependencies, save compatibility, and a link to README for full values/details. About.xml was kept consistent with the revised positioning.
+
+**Result / references:** CCTO public-description commit `e6db12b27b1837161c7983c9f0db1a167dae70bd`; shared AMJ description-policy commit `3886774ee678859a2ed181df37e0fb63ed897ea7`.
+
+### DOC-005 — Japanese-first Workshop authoring and planned VPE support
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+Workshop copy is now authored in natural Japanese first, then translated into English without adding or removing substantive claims. `Docs/SteamWorkshopDescription-ja.txt` is the wording/content source for Workshop copy; `Docs/SteamWorkshopDescription.txt` is its English translation.
+
+The Workshop description and README also now distinguish planned VPE compatibility from current support. Vanilla Plants Expanded contains more than 100 plants across its wider catalog, so the first planned compatibility scope is the 20-plant basic set. Additional VPE coverage is a later consideration rather than an immediate full-coverage commitment.
+
+**Result / references:** Japanese-first Workshop restructuring commit `12e6d4df09d14cf90ab689d9f1bbb800beb6ebf2`; VPE/public-copy follow-up recorded in the commit containing this coordination entry.
+
+### DOC-006 — Keep AMJ-owned plant plans out of CCTO descriptions
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+CCTO public descriptions may mention AMJ as the origin of the standalone framework, but must not include AMJ-owned crops or plants planned for future AMJ releases in CCTO's supported-content or planned-compatibility lists. AMJ consumes CCTO's public framework from the AMJ side, so AMJ plant plans remain documented and maintained by AMJ.
+
+Current Workshop Japanese/English copy already contains no AMJ crop list; the durable scope boundary is now explicit in README and Workshop presentation policy.
+
+**Result / references:** recorded in the commit containing this coordination entry.
+
+### BAL-003 — AMJC crop data belongs to the framework consumer
+
+**Requested by:** author (2026-10-04 JST)
+
+**Owner:** Balance/XML / Agriculture/XML
+
+**Status:** DONE
+
+AMJC crop data is owned by AMJC, while CCTO supplies the reusable framework. The 13 fixed-value rows and 13 archived candidate-range rows previously stored in CCTO design/mapping documents have been transferred without changing values to AMJC `Docs/Balance/Crops/ColdTolerance.md`. CCTO's design/mapping tables no longer contain AMJC crop data; README, API/patch documentation, development ownership, and AGENTS instructions now agree with that boundary.
+
+Repository audit found no AMJC-owned targets in CCTO runtime XML/C#. AMJC already supplies the implemented Awa extension in its own `Patches/Compatibility/CCTO_StageA.xml`; no runtime code/XML relocation or behavior change was needed. Vanilla/MO data remains owned by CCTO. Future AMJC plant data and consumer compatibility work belongs in AMJC.
+
+**Validation:** all 13 fixed rows and all 13 archived range rows preserved; Awa XML values agree; runtime XML/C# and existing test files unchanged. Documentation/static ownership checks only; no new RimWorld runtime PASS is claimed.
+
+**Result / references:** AMJC ownership/data transfer commit `2c54f642d51edd4c39878b952e395fa8d40b9d38`; AMJC `Docs/Balance/Crops/ColdTolerance.md`, `Docs/Design.md`, and matching AMJ-006 handoff. Source CCTO snapshot: `c2c18a98a59d9018f48822c99fffc09d053e54d6`.
+
+### TEST-OWNERSHIP-001 — Prevent AMJC data from returning to CCTO
+
+**Requested by:** author / BAL-003 follow-up (2026-10-04 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE
+
+The static balance validator now enforces the CCTO/AMJC ownership boundary. It fails if an `AMJC_` Def/data identifier appears in CCTO-owned runtime patches, source, tests, or `Docs/ImplementationTable.md`. Historical coordination text is intentionally not scanned.
+
+This prevents future AMJC crop data from being silently reintroduced into CCTO while preserving the intended dependency direction: CCTO provides the generic framework; AMJC owns its plant values and compatibility XML.
+
+**Validation:** repository audit before the guard found no `AMJC_` identifiers in the guarded CCTO surfaces. This is a static validation change only; no new RimWorld runtime PASS is claimed.
+
+**Result / references:** implementation commit is the commit containing this coordination entry; prior ownership split: CCTO `e9447f683957d4c7ed0ba4fed2a8280f9859c30a`, AMJC `2c54f642d51edd4c39878b952e395fa8d40b9d38`.
+
+### DOC-007 — Maintain a concise 2game description and tags
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+CCTO is now listed on RimWorld Mod データベース (2game), item ID 3812412548. A dedicated Japanese description source and tag policy are maintained separately from the longer Workshop copy.
+
+The 2game description emphasizes purpose, current Core/MO scope, cold-tolerance-only responsibility, framework use, dependencies, save compatibility, and the planned initial 20-plant VPE compatibility scope. AMJC-owned crop plans remain excluded.
+
+Recommended tags: `バランス調整`, `植物`, `農業`, `栽培`, `パッチ`, `Harmony`, `日本語内蔵`, `和製MOD`. Misleading/currently premature tags such as `作物`, `高難易度化`, `UI`, `VPE`, and `中世` are intentionally excluded for now.
+
+2game 本文の見出し記号は、サイトで一般的に使われている `▼` に統一し、`◆` は使用しない。
+
+2game 本文は常体で統一する。長文は避け、1 文 1 情報を基本に短く区切る。掲載中の文面を正本として、短い要約の後に `▼ 主な機能` / `▼ バランス方針` / `▼ 対応範囲` / `▼ 対応・互換性` / `▼ セーブ互換性` / `▼ 今後の予定` を置く。関連 MOD は 2game 内の詳細ページ URL を直接記載する。
+
+**Result / references:** `Docs/2GamePresentation.md`, `Docs/2GameDescription-ja.txt`; implementation commit is the commit containing this coordination entry.
+
+### DOC-009 — Reference AMJ historical description policy without expanding CCTO ownership
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Documentation/localization  
+**Status:** DONE (policy boundary)
+
+CCTO now references the AMJ-wide historical-description policy for any explicitly coordinated AMJ-facing description/localization work. The rule requires historically grounded ancient/medieval-Japan auditing, supported modern comparisons, and Japanese-first author approval before English translation.
+
+CCTO does not thereby become the owner of historical prose for every Vanilla/MO plant it supports. It remains a generic cold-tolerance framework/data mod; ordinary AMJ historical presentation belongs in the relevant AMJ content repository unless explicitly coordinated otherwise.
+
+**Result / references:** CCTO AGENTS `5b60adbc676f35f98e6c7c9801f22846e5ebf097`; shared policy in Core `Docs/HistoricalDescriptionGuidelines.md` commit `ca17b37eb3cca5266d1f62a2d73f527a503d76e5`.
+
+### POLICY — Golden Path closeout after verified success
+
+**Requested by:** author / AMJ project operations  
+**Owner:** CCTO development policy  
+**Status:** DONE
+
+CCTO now follows the AMJ-wide rule that successful non-trivial/repeatable work must be closed out with a documented Golden Path, automation of deterministic steps, and regression protection for discovered failure modes where practical. The canonical shared policy is Core `Docs/DevelopmentGoldenPathGuidelines.md` (`c54cefd71093edae61035b13793bee372edaa52a`). CCTO `AGENTS.md` references the shared rule in `a85cc8a01f318343eae75659e9759798821fb13c`.
+
+Repository-specific Golden Paths should be added when a CCTO workflow first demonstrates a reusable successful sequence; Coordination remains status/handoff only.
+
+### TEST-POLICY-003 — Non-interactive runtime tests
+
+**Requested by:** author (2026-10-05 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE — shared policy adopted; existing runtime harness migration pending
+
+CCTO も AMJ 関連 Mod として、目視不要の Pickle / RimTest Redux / runtime regression は可視 RimWorld ウィンドウを出さない非対話実行を標準とする。描画を検証しない CCTO ロジックテストで可視 UI を要求しない。可視実行は人間判断が必要な確認だけに限定する。
+
+Shared durable source: AMJ Core `Docs/DevelopmentGoldenPathGuidelines.md`, commit `a81c0389fb1834a098a462291b3f4814abcffef3`. Repository instruction: `AGENTS.md`, commit `5ec14463ed758d2bef7754156db0d3ff3680f758`.
+
+**Next action:** runtime test launcher を次回重要変更時に非対話実行へ移行し、既存の isolated save-data profile、watchdog、ERROR gate を維持する。
+
+### DEV-TOOLS-001 — DevKit / Rim Control を開発専用補助ツールとして採用
+
+**Requested by:** author (2026-10-06 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE (policy documentation)
+
+AMJ 共通の対話型開発補助ツールとして、DevKit — Better Dev Mode Menu (Workshop `3814373104`) と Rim Control (Workshop `3774299554`) を採用した。
+
+DevKit は Def 検索・スポーン・Debug Action 等を用いた目視確認の準備短縮、Rim Control はゲーム中の数値・visual・placement 等の一時変更によるプロトタイピングに使用する。どちらも自動テストの代替や出荷依存にはしない。
+
+Rim Control で得た採用値は XML / C# / Def / 正式設計書へ正本化し、上書きを無効にしてから静的検証・RimTest Redux・Pickle・runtime gate で再検証する。正式テスト、自動テスト、リリースゲート、通常プロファイルの正式確認では両ツールを無効化する。
+
+**Result / references:** durable rule in `Docs/DevelopmentTools.md`. Documentation-only change; no new runtime PASS is claimed.
+
+### POLICY-MOD-NAME-001 — Mod 名のコロン禁止（2026-10-06 JST）
+
+**Requested by:** author  
+**Owner:** AMJ shared release / documentation  
+**Status:** DONE
+
+AMJ Core・Environment・CCTO および今後の関連 Mod の名称では、半角 `:`・全角 `：` を禁止し、必要な区切りには `-` を使用する。About.xml の name、Workshop タイトル、README 等の正式名称に適用する。表示名の修正では packageId・既存 Workshop ID を維持する。
+
+YADA が Mod 表示名を一時ディレクトリ名に使用し、Windows で半角コロンによりアップロード前処理が停止した件の再発防止。共通正本は Core `Docs/ModDescriptionGuidelines.md`（commit `695bff2a32a57cdf817b13b255587e749399b417`）。このリポジトリの AGENTS にも規則を反映済み（commit `787a169d3c54a9224f551c98b84309beb02d89f5`）。
+
+確認時点で Core・Environment・CCTO の About.xml の name はいずれもコロンなし。今回の変更は文書・運用規則のみで、ゲーム実行時テストや Steam 公開の成功を示すものではない。
+
+### DOC-008 — AMJ-wide 2game formatting rule
+
+**Requested by:** author (2026-10-06 JST)
+
+**Owner:** AMJ shared public-description policy
+
+**Status:** DONE — shared routing synchronized
+
+CCTO's existing six-section 2game template is now the explicit shared baseline in Core Docs/ModDescriptionGuidelines.md. AGENTS requires 2game source preparation and consistency checks alongside README / Workshop / About.xml, and Docs/2GamePresentation.md links the shared source. Added the previously unlinked owning GitHub URL to the final README reference in Docs/2GameDescription-ja.txt; other CCTO description content is unchanged. AMJE now has its own summary following this template. No live 2game update is claimed.
+
+Validation: documentation diffs, shared-rule routing and source-link checks; no runtime behavior change. Reusable checks live in the shared guideline.
+
+### POLICY-WORKSHOP-PAYLOAD-001 — Subscriber-only distribution (2026-10-07 JST)
+
+**Requested by:** author
+**Owner:** AMJ shared release / packaging
+**Status:** DONE — repository policy/exclusions; actual Steam update remains separate
+
+Core, Environment and CCTO now route subscriber-only Workshop packaging through
+AGENTS and Core Docs/WorkshopPackaging.md. Root .rimignore excludes Art, Docs,
+README, source, scripts/build tools, tests/fixtures/reports, VCS/editor metadata,
+local overrides, archives and debug leftovers. Runtime assets, About identity,
+loadFolders where used and required license/attribution remain. Development
+originals stay in Git. YADA upstream Scanner.cs confirms inherited basename
+rules; ineffective Patches/\_LocalTest.xml is corrected to \_LocalTest.xml.
+Do not replace project filters with YADA's generic starter template.
+
+Validation PASS: three tracked-file inventories; nested fixture/path-syntax,
+accidental-runtime-exclusion and actual-payload leakage regressions; Core
+archive/YADA equality and publisher adapter drift checks; corrected whole-Art
+source-exclusion regression; Environment builder fixture retains production DLL
+and root-only loader, and excludes README/Docs/Art/tests. Python/XML/workflow
+syntax checks PASS. These prove packaging/static behavior, not new real-game
+runtime or Steam publication success. Workshop filter CI is added with main-only
+push and canceled superseded runs. Core's standard preparation gates source and
+staged output; Environment's candidate builder gates the actual subscriber files.
+
+**Next action:** apply current filters to the actual upload root before the next\nauthor-manual Workshop update; separately audit the downloaded package.\n

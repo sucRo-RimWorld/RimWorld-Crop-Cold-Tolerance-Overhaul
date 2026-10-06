@@ -8,7 +8,7 @@ This file is the implementation-facing mapping for the current fixed-threshold/d
 - Ordinary plants receive one fixed low-temperature death threshold.
 - Dormancy plants do not receive a lethal cold threshold. They enter a survivable cold/leafless state below `minGrowthTemperature`.
 - CCTO directly patches supported Vanilla and Medieval Overhaul Defs.
-- AMJ DefNames are not hard-coded here because AMJ consumes the CCTO extension from its own PlantDefs.
+- AMJC-owned crop values and Def mappings belong to AMJC, together with its optional CCTO compatibility XML. This table contains only CCTO-owned support data.
 
 ## Core / Vanilla RimWorld 1.6
 
@@ -115,25 +115,3 @@ These DefNames were verified against `Plants_Cultivated_Alchemy.xml` in the uplo
 | `DankPyon_GreatWillow` | Great willow | 5°C | dormancy | — |
 
 All four currently inherit `HealrootBase`, but CCTO deliberately assigns them distinct cold behavior.
-
-## AMJ values consumed through the CCTO extension
-
-AMJ's actual PlantDefs should attach the CCTO extension directly. The exact AMJ DefNames are finalized in AMJ, not in CCTO.
-
-| AMJ crop | minGrowthTemperature | Cold behavior | Fixed death threshold |
-|---|---:|---|---:|
-| Barley | 0°C | death | -8°C |
-| Daikon | 0°C | death | -5°C |
-| Buckwheat | 5°C | death | -2°C |
-| Japanese barnyard millet / Hie | 5°C | death | -4°C |
-| Hemp | 5°C | death | -6°C |
-| Kudzu | 5°C | dormancy | — |
-| Foxtail millet / Awa | 8°C | death | -4°C |
-| Proso millet / Kibi | 8°C | death | -3°C |
-| Adzuki bean | 8°C | death | -1°C |
-| Soybean | 8°C | death | -3°C |
-| Perilla | 8°C | death | -1°C |
-| Rice | 10°C | death | -1°C |
-| Taro | 10°C | death | -1°C |
-
-AMJ's naming convention currently calls for English names plus Japanese romanization where useful, for example `AMJC_Plant_FoxtailMillet_Awa`, but the AMJ design explicitly leaves the final prefix to implementation time. CCTO should therefore not depend on provisional AMJ names.

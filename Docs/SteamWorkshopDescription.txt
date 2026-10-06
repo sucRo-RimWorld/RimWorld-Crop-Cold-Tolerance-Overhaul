@@ -1,148 +1,63 @@
 [h1]Crop Cold Tolerance Overhaul (CCTO)[/h1]
 
-CCTO separates a plant's [b]minimum growth temperature[/b] from its [b]cold-death behavior[/b], and adds non-lethal [b]cold dormancy[/b] for selected plants: growth stops and the plant becomes leafless in the cold instead of dying, then recovers after temperatures rise.
+CCTO is a [b]realism-focused mod that makes the cold response of RimWorld plants more closely reflect real differences in plant cold tolerance[/b].
 
-Vanilla RimWorld derives cold leafless/death from minimum growth temperature with a deterministic per-plant offset. CCTO instead gives every living PlantDef in its supported sets explicit species-level behavior: fixed cold-death temperatures or cold dormancy.
+It uses information on frost injury, chilling damage, overwintering ability, and lethal temperatures as references, then translates those differences into clear, practical gameplay thresholds.
 
-[h2]What CCTO changes[/h2]
+In Vanilla, many plants use a shared rule that derives leafless and cold-death behavior from their minimum growth temperature. CCTO instead revises minimum growth temperatures plant by plant and gives supported plants either a fixed cold-death temperature or cold dormancy.
+
+[h2]Key features[/h2]
 [list]
+[*]Realism-focused balance that emphasizes real differences in cold tolerance between plants
 [*]Plant-specific minimum growth temperatures
-[*]Fixed cold-death temperatures for ordinary supported plants
-[*]Cold dormancy for selected perennial/overwintering plants
-[*]Cold death / dormancy temperature shown in plant information
-[*]Soft compatibility with Nice Plants Menu
-[*]Dubs Mint Menus support through the normal Info Card path
+[*]Fixed cold-death temperatures for plants that do not use dormancy
+[*]Cold dormancy for selected perennial and overwintering plants
+[*]Cold death or dormancy temperature shown in the plant Info Card
+[*]Only cold-tolerance-related properties are changed. Yield, growth time, fertility, storage life, processing, research, and similar values are left untouched
 [/list]
 
-CCTO only changes cold-tolerance-related behavior. It does [b]not[/b] rebalance yield, growth time, fertility, storage life, processing, or research.
+As a result, cold weather generally has a clearer impact than in Vanilla / Medieval Overhaul, making crop choice, sowing time, forestry, heating, greenhouses, and preparation for cold snaps more important.
 
-[h2]Balance direction[/h2]
+This is not a blanket nerf to every plant. Plants suited to overwintering can survive winter by entering dormancy instead of dying from ordinary cold.
 
-The current balance is generally [b]more demanding[/b] than the original Vanilla / Medieval Overhaul settings. Most supported plants stop growing at warmer temperatures, and many ordinary plants die at much warmer temperatures than Vanilla's generic cold threshold.
-
-This makes plant choice, seasonal timing, heating, greenhouses, forestry planning, and cold snaps more important.
-
-This is not a universal nerf: selected perennial and overwintering plants gain dormancy and can survive ordinary winter cold.
-
-[h2]How the values were chosen[/h2]
-
-The numbers are based on real-world plant cold-tolerance information, including frost-damage and lethal-temperature data where available.
-
-Because real plants vary by cultivar, growth stage, acclimation, and exposure duration, CCTO uses those temperatures as reference points rather than copying a single reported value literally. They are rounded and tuned into clear gameplay thresholds while preserving meaningful differences between plants.
-
-[h2]Supported plant sets[/h2]
+[h2]Supported content[/h2]
 [list]
 [*]All 49 living Core PlantDefs in RimWorld 1.6
-[*]All 29 Medieval Overhaul 1.6-specific PlantDefs, including wild-only plants
+[*]All 29 Medieval Overhaul 1.6-specific PlantDefs when MO is installed
+[*]Wild plants are included, not just cultivated crops
+[*]Dead plant remnants such as stumps are excluded
+[*]English / Japanese
 [/list]
 
-Dead stump/remnant Defs are excluded because they are not living vegetation. Wild plants are balanced to remain compatible with the climates and biomes where they naturally occur.
+[url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]See the GitHub README for full before/after values and the detailed balance rationale[/b][/url]
 
-Medieval Overhaul is optional. Its patches are applied only when MO is present.
+[h2]Planned support[/h2]
 
-[h2]Supported languages[/h2]
-[list]
-[*]English
-[*]Japanese
-[/list]
+Support for [b]Vanilla Plants Expanded (VPE)[/b] is planned.
 
-[h2]Representative before / after examples[/h2]
-
-Vanilla's ordinary cold threshold is normally derived per plant from minimum growth temperature with an offset of about -18°C to -10°C.
-
-[b]Rice[/b]
-Minimum growth: 0°C → 10°C
-Cold: death at -18°C to -10°C per plant → [b]fixed death at -1°C[/b]
-
-[b]Potato[/b]
-Minimum growth: 0°C → 5°C
-Cold: death at -18°C to -10°C per plant → [b]fixed death at -2°C[/b]
-
-[b]Healroot[/b]
-Minimum growth: 0°C → 0°C
-Cold: leafless but survives → [b]fixed death at -9°C[/b]
-
-[b]Hops[/b]
-Minimum growth: 0°C → 5°C
-Cold: death at -18°C to -10°C per plant → [b]cold dormancy below 5°C[/b]
-
-[b]Cocoa[/b]
-Minimum growth: 0°C → 12°C
-Cold: death at -18°C to -10°C per plant → [b]fixed death at 0°C[/b]
-
-[b]Vanilla — Bamboo[/b]
-Minimum growth: 0°C → 10°C
-Cold: generic tree cold behavior → [b]fixed death at -18°C[/b]
-Bamboo uses a Japanese moso/madake-style baseline rather than a tropical-bamboo baseline.
-
-[b]Medieval Overhaul — Cabbage[/b]
-Minimum growth: -18°C → 0°C
-Cold: death at -36°C to -28°C per plant → [b]fixed death at -6°C[/b]
-
-[b]Medieval Overhaul — Apple[/b]
-Minimum growth: 0°C → 5°C
-Cold: leafless but survives → [b]cold dormancy below 5°C[/b]
-
-[b]Medieval Overhaul — Lemon[/b]
-Minimum growth: 0°C → 10°C
-Cold: leafless but survives → [b]fixed death at -4°C[/b]
-
-[url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]Full Core + Medieval Overhaul before/after values on GitHub[/b][/url]
+Because the full VPE plant catalog contains more than 100 plants, the first compatibility pass will target the [b]20 plants in the basic set[/b]. Support for additional VPE plants can be considered later based on priority and demand.
 
 [h2]Framework for other mods[/h2]
 
-CCTO also acts as a lightweight XML-facing framework. Other mods can assign their plants explicit fixed cold-death temperatures or cold dormancy without replacing the plant class.
+CCTO is both a cold-tolerance rebalance and a [b]lightweight XML framework for other mods[/b].
 
-The planned [b]Ancient & Medieval Japan (AMJ)[/b] mod will use CCTO in this way.
-
-[h2]Why standalone?[/h2]
-
-CCTO began as part of AMJ planning. The cold-tolerance system was broadly useful enough to split into its own mod so other crop and overhaul mods can use it independently.
-
-[h2]Beta feedback wanted[/h2]
-
-0.1.1 Beta intentionally uses one exact species-level cold-death threshold instead of Vanilla-like per-plant variation.
-
-Feedback is especially useful on:
-[list]
-[*]whether fixed thresholds make seasonal planning clearer
-[*]whether synchronized whole-field cold death feels too abrupt
-[*]whether deterministic individual variation would be preferable
-[*]whether the cold-death and dormancy displays are clear
-[/list]
-
-A deterministic per-plant range mode remains a possible future option.
-
-[h2]Display-only version?[/h2]
-
-No separate display-only edition is currently planned. Vanilla does not contain independently balanced fixed cold-death temperatures for each crop; CCTO's display reports the species-specific behavior introduced by CCTO itself.
+Mods that add their own plants can assign fixed cold-death temperatures or cold dormancy through XML without replacing the Plant class.
 
 [h2]Dependencies[/h2]
+[b]Required:[/b] Harmony
 
-[b]Required[/b]
-[list]
-[*]Harmony
-[/list]
+[b]Optional:[/b] Medieval Overhaul / Nice Plants Menu / Dubs Mint Menus
 
-[b]Optional[/b]
-[list]
-[*]Medieval Overhaul
-[*]Nice Plants Menu
-[*]Dubs Mint Menus
-[/list]
+[h2]Save compatibility[/h2]
+[b]Safe to add to or remove from an existing save.[/b]
 
-[h2]Verification[/h2]
-The 0.1.1 Beta all-living-PlantDef build passed the [b]14/14[/b] automated integration gate, including loaded-value validation for all 49 Core + 29 Medieval Overhaul targets and the complete supported-living-PlantDef coverage check. Normal-profile wild-plant Info Card smoke checks also passed.
+CCTO temperature settings apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. If another mod requires CCTO, keep that dependency installed.
 
-[h2]AI-assisted development[/h2]
+[h2]Development[/h2]
 
-AI was used primarily for code implementation, documentation, research, and test development. Design decisions, balance decisions, and final testing/review remain the author's responsibility.
+Currently in Beta. AI assistance is used for code implementation, documentation, research, and test development. Design, balance decisions, and final review are handled by the author.
 
-[h2]License[/h2]
 MIT License.
-
-[h2]Version[/h2]
-0.1.1 Beta
 
 [h2]Support[/h2]
 [url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]

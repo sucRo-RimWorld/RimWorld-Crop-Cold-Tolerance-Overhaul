@@ -1,0 +1,43 @@
+現実の植物に見られる耐寒性の違いを参考に、植物ごとの低温反応をより現実的に調整。
+最低生育温度、固定の枯死温度、低温による休眠を植物ごとに設定する。
+
+▼ 主な機能
+・植物ごとに最低生育温度を調整
+・休眠しない植物には固定の枯死温度を設定
+・一部の多年草・越冬植物は低温休眠
+・情報カードに「枯死温度」「休眠温度」を表示
+・収穫量、成長日数、肥沃度、保存期間、加工、研究は変更しない
+・農作物だけでなく野生植物も対象
+・他MOD向けの軽量XMLフレームワーク（枯死温度と休眠温度の設定）としても利用可能
+
+▼ バランス方針
+・全体としてVanilla/Medieval Overhaulより寒冷地での農業が難しくなる
+・多くの作物はより高い温度で成長停止し、より暖かい温度で枯死
+・作物選択、播種時期、暖房、温室、寒波対策がより重要に
+・一部の多年草・越冬作物は休眠で冬を生き残れるように改善
+
+▼ 対応範囲
+・RimWorld 1.6 Core：PlantDef 49種
+・Medieval Overhaul 1.6：独自PlantDef 29種（導入時）
+・日本語 / English
+
+▼ 対応・互換性
+・必須MOD：https://rimworld.2game.info/detail.php?id=2009463077
+・Vanilla RimWorld 1.6対応
+・https://rimworld.2game.info/detail.php?id=3219596926 1.6と互換（任意）
+・https://rimworld.2game.info/detail.php?id=3685058533、https://rimworld.2game.info/detail.php?id=1446523594に対応
+・日本語・英語対応
+
+▼ セーブ互換性
+・既存セーブへの追加・削除は安全
+・ロード後は既存植物にもCCTOの温度設定を適用
+・すでに寒さで枯死した植物は、CCTOを削除しても復元されない
+・CCTOを必須とする他MODの依存関係は維持する必要がある
+
+▼ 今後の予定
+・Vanilla Plants Expanded（VPE）に対応予定
+・まず基本セット20種を対象
+・追加対応は優先度や要望を見て検討
+
+詳細な変更値や設計意図はGitHub READMEを参照。
+https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul
