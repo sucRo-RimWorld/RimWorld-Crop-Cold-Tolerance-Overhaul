@@ -794,3 +794,30 @@ YADAがMod表示名を一時ディレクトリ名に使用し、Windowsで半角
 CCTO's existing six-section 2game template is now the explicit shared baseline in Core Docs/ModDescriptionGuidelines.md. AGENTS requires 2game source preparation and consistency checks alongside README / Workshop / About.xml, and Docs/2GamePresentation.md links the shared source. Added the previously unlinked owning GitHub URL to the final README reference in Docs/2GameDescription-ja.txt; other CCTO description content is unchanged. AMJE now has its own summary following this template. No live 2game update is claimed.
 
 Validation: documentation diffs, shared-rule routing and source-link checks; no runtime behavior change. Reusable checks live in the shared guideline.
+
+### POLICY-WORKSHOP-PAYLOAD-001 — Subscriber-only distribution (2026-10-07 JST)
+
+**Requested by:** author
+**Owner:** AMJ shared release / packaging
+**Status:** DONE — repository policy/exclusions; actual Steam update remains separate
+
+Core, Environment and CCTO now route subscriber-only Workshop packaging through
+AGENTS and Core Docs/WorkshopPackaging.md. Root .rimignore excludes Art, Docs,
+README, source, scripts/build tools, tests/fixtures/reports, VCS/editor metadata,
+local overrides, archives and debug leftovers. Runtime assets, About identity,
+loadFolders where used and required license/attribution remain. Development
+originals stay in Git. YADA upstream Scanner.cs confirms inherited basename
+rules; ineffective Patches/_LocalTest.xml is corrected to _LocalTest.xml.
+Do not replace project filters with YADA's generic starter template.
+
+Validation PASS: three tracked-file inventories; nested fixture/path-syntax,
+accidental-runtime-exclusion and actual-payload leakage regressions; Core
+archive/YADA equality and publisher adapter drift checks; corrected whole-Art
+source-exclusion regression; Environment builder fixture retains production DLL
+and root-only loader, and excludes README/Docs/Art/tests. Python/XML/workflow
+syntax checks PASS. These prove packaging/static behavior, not new real-game
+runtime or Steam publication success. Workshop filter CI is added with main-only
+push and canceled superseded runs. Core's standard preparation gates source and
+staged output; Environment's candidate builder gates the actual subscriber files.
+
+**Next action:** apply current filters to the actual upload root before the next\nauthor-manual Workshop update; separately audit the downloaded package.\n

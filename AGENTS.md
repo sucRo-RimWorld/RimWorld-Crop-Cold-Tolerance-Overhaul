@@ -91,3 +91,13 @@ Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Core `Docs/De
 After a non-trivial task succeeds, especially after debugging or failed attempts, do not move on with only the working implementation. Record the successful reusable procedure in the owning repository, automate deterministic/repetitive steps, and add regression guards for failure modes discovered during the work. For recurring work, completion includes the reusable documented/automated path, not only the one successful result.
 
 `Docs/Coordination.md` remains status/handoff only; the procedure itself must live in durable repository documentation/scripts.
+
+## Workshop distribution rule (AMJ common)
+
+AMJ Core, Environment, CCTO and future related Mods must exclude **all files unnecessary for a Workshop subscriber** through the repository-root `.rimignore`. This includes Art masters/templates, design and development documentation (including README), source, tests/fixtures/reports, scripts/build tools, VCS/editor metadata, local overrides and debug/backup/archive files. Preserve runtime assets, About metadata, loadFolders.xml where used, and legally required licenses/attribution.
+
+- `.rimignore` is the authoritative exclusion list. YADA uses inherited basename/wildcard rules, not Git-ignore path or negation syntax; exclude `_LocalTest.xml`, not `Patches/_LocalTest.xml`.
+- Adding a file/folder includes deciding whether subscribers need it and updating exclusions when they do not. Preserve development/source material in Git; exclusion is not deletion.
+- Every alternative publisher/archive/staging builder must produce the same subscriber-only payload. Keep adapters synchronized with `.rimignore`; do not maintain independent policy exceptions.
+- Run `python Tests/validate_workshop_payload.py` before publication. Validate the final staging/installed package too; runtime-required DLLs and assets must actually be present. Repository filtering PASS alone is not build/runtime/Steam publication PASS.
+- Shared procedure and payload contract: [Core Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/WorkshopPackaging.md).
