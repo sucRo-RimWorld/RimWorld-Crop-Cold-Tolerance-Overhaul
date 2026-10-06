@@ -540,3 +540,10 @@ Final verification: full local `run-tests.bat` gate **PASS, 14/14**, and the new
 In-game verification of the corrected build also passed. The error fix is assigned to **0.1.3 Beta**, with release notes at `Docs/ReleaseNotes/ReleaseNotes-0.1.3-Beta.md`.
 
 **Next action:** re-upload the corrected Workshop package as the 0.1.3 Beta update.
+
+### RELEASE-001 — evidence-based stable release (2026-10-06 JST)
+
+**Owner:** Code/framework + Balance/XML / release
+**Status:** DONE (author-approved policy); OPEN (stable-release evidence closeout)
+
+The author requests the same evidence-based beta-to-stable policy as AMJ. Feedback absence neither proves correctness nor blocks stable release. Durable criteria are in Docs/ReleaseChecklist.md: exact production/subscribed payload, natural seasonal cold/warm behavior, actual indoor temperatures, save/reload continuity, advertised actual-Mod combinations and zero CCTO-owned runtime ERRORs. Existing 14/14 and focused runtime approvals retain their scoped validity; do not substitute deterministic timer-aging/fixtures for seasonal gameplay or actual MO coverage. Close checklist items against retained evidence before adding missing automated tests. Normal saves/settings remain protected. No new test PASS, publication, commit or GitHub update is claimed.

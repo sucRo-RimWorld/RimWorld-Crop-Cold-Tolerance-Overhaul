@@ -71,4 +71,39 @@ The first Beta should explicitly ask players about:
 - synchronized whole-field cold death;
 - usefulness and clarity of the cold-death/dormancy temperature display.
 
-Do not call the release stable/1.0 until the Beta feedback phase and post-publication validation justify that change.
+Feedback informs balance but its absence neither proves correctness nor prevents
+stable release. Author decision, 2026-10-06 JST: stable/1.0 is gated by the
+applicable verified conditions below, independently of feedback volume or time
+spent in Beta. Existing regression PASS records retain their original scope.
+
+## Stable-release conditions
+
+- [ ] Verify the actual release/subscribed package, recording version, hash,
+      supported Mod combinations and load order; confirm the intended loaded
+      plant values and no duplicate cold-tolerance extensions.
+- [ ] In an isolated running game, demonstrate cooling and warming through the
+      configured growth, dormancy and death thresholds: growth stops/resumes as
+      intended, death occurs strictly below the fixed threshold, and dormancy
+      recovery preserves the intended 60,000-tick delay. Verify actual plant
+      AmbientTemperature, not merely requested outdoor settings.
+- [ ] Verify heated indoor protection and genuinely cold indoor behavior using
+      actual room temperatures, with the same production package.
+- [ ] Demonstrate a seasonal cycle with representative cultivated and wild plants
+      from each supported set, including practical sowing/growth/harvest where
+      applicable. Record winter losses, spring recovery and observed balance.
+      Direct timer aging or targeted TickLong regression alone is insufficient
+      evidence for this seasonal gameplay check.
+- [ ] Save and reload during cold dormancy, then verify retained state, recovery
+      timing and subsequent growth; also verify death does not revive on reload.
+- [ ] Verify advertised supported combinations, including actual Medieval
+      Overhaul and its dependencies for MO support. Distinguish fixture coverage
+      from real-Mod integration and document untested combinations explicitly.
+- [ ] No unresolved major defect and no CCTO-owned runtime ERROR entry in these
+      runs. Preserve isolated logs, assertions, tested payload and limitations.
+
+These are open verification gates, not claims that the existing 14/14 regression
+has failed or that these checks have never been performed individually. Close
+each item only with applicable retained evidence. Automate reproducible behavior;
+manual review is reserved for readability and practical play/balance judgement.
+Use test saves/profiles and preserve normal saves/settings. Planned additional
+plant support does not block stable release of the currently advertised scope.
