@@ -1,4 +1,4 @@
-# Crop Cold Tolerance Overhaul
+# Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）
 
 **RimWorld 1.6 — 0.1.3 Beta**
 

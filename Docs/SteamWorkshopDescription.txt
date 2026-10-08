@@ -1,4 +1,4 @@
-[h1]Crop Cold Tolerance Overhaul (CCTO)[/h1]
+[h1]Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）[/h1]
 
 CCTO is a [b]realism-focused mod that makes the cold response of RimWorld plants more closely reflect real differences in plant cold tolerance[/b].
 
@@ -55,9 +55,65 @@ CCTO temperature settings apply to existing plants after loading. Plants already
 
 [h2]Development[/h2]
 
-Currently in Beta. AI assistance is used for code implementation, documentation, research, and test development. Design, balance decisions, and final review are handled by the author.
+Currently in Beta.
 
-MIT License.
+[hr][/hr]
 
-[h2]Support[/h2]
-[url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]
+[h2]日本語 / Japanese[/h2]
+
+CCTOは、[b]現実の植物に見られる耐寒性の違いを参考に、RimWorldの植物ごとの寒さへの反応をより現実的に調整するMod[/b]です。
+
+霜害、低温障害、越冬性、枯死温度などの資料を参考にしつつ、植物ごとの差がゲーム内でも分かるよう、扱いやすい温度設定に整理しています。
+
+Vanillaでは、多くの植物が最低生育温度を基準にした共通ルールで低温時の落葉・枯死を判定します。CCTOでは、対応する植物ごとに最低生育温度を見直し、固定の枯死温度または低温休眠を設定します。
+
+[h2]主な特徴[/h2]
+[list]
+[*]現実の耐寒性を参考に、植物ごとの差を重視したリアリティ重視の調整
+[*]植物ごとに最低生育温度を設定
+[*]休眠しない植物には固定の枯死温度を設定
+[*]一部の多年草・越冬植物には低温休眠を設定
+[*]情報カードに「枯死温度」または「休眠温度」を表示
+[*]変更するのは耐寒性に関する項目のみ。収穫量、成長日数、肥沃度、保存期間、加工、研究などは変更しません
+[/list]
+
+そのため、全体としてVanilla / Medieval Overhaulより寒さの影響がはっきりし、作物選び、播種時期、植林、暖房、温室、寒波への備えがより重要になります。
+
+ただし、すべての植物を単純に寒さに弱くするModではありません。越冬に適した植物は、低温で枯れる代わりに休眠して冬を生き残ります。
+
+[h2]対応範囲[/h2]
+[list]
+[*]RimWorld 1.6 Coreの生きたPlantDef 49種すべて
+[*]Medieval Overhaul 1.6の独自PlantDef 29種すべて（MO導入時）
+[*]農作物だけでなく野生植物も対象
+[*]切り株など、すでに枯死した植物の残骸は対象外
+[*]日本語 / English
+[/list]
+
+[url=https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul#current-rebalance-values][b]全対象植物の変更前後の値と、詳しい設計意図はGitHub READMEを参照してください[/b][/url]
+
+[h2]今後の対応予定[/h2]
+
+[b]Vanilla Plants Expanded（VPE）[/b]への対応も予定しています。
+
+VPE全体では植物が100種を超えるため、まずは[b]基本セットの20種[/b]を対象に対応する予定です。それ以外のVPE植物については、その後の優先度や要望を見ながら検討します。
+
+[h2]他Mod向けフレームワーク[/h2]
+
+CCTOは耐寒性リバランスModであると同時に、[b]他Modから利用できる軽量なXMLフレームワーク[/b]でもあります。
+
+独自の植物を追加するModは、Plantクラスを置き換えずに、XMLから固定の枯死温度や低温休眠を設定できます。
+
+[h2]依存関係[/h2]
+[b]必須:[/b] Harmony
+
+[b]任意:[/b] Medieval Overhaul / Nice Plants Menu / Dubs Mint Menus
+
+[h2]セーブ互換性[/h2]
+[b]既存のセーブに追加または削除しても安全です。[/b]
+
+読み込み後は、既存の植物にもCCTOの温度設定が適用されます。すでに寒さで枯死した植物は、CCTOを削除しても復元されません。CCTOを必須とするModを利用している場合は、その依存関係を維持してください。
+
+[h2]開発状況[/h2]
+
+現在はBetaです。

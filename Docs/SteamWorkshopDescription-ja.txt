@@ -1,4 +1,4 @@
-[h1]作物耐寒性オーバーホール（CCTO）[/h1]
+[h2]日本語 / Japanese[/h2]
 
 CCTOは、[b]現実の植物に見られる耐寒性の違いを参考に、RimWorldの植物ごとの寒さへの反応をより現実的に調整するMod[/b]です。
 
@@ -53,11 +53,6 @@ CCTOは耐寒性リバランスModであると同時に、[b]他Modから利用�
 
 読み込み後は、既存の植物にもCCTOの温度設定が適用されます。すでに寒さで枯死した植物は、CCTOを削除しても復元されません。CCTOを必須とするModを利用している場合は、その依存関係を維持してください。
 
-[h2]開発について[/h2]
+[h2]開発状況[/h2]
 
-現在はBetaです。コード実装、ドキュメント、調査、テスト開発にはAIの支援を利用しています。設計、バランス決定、最終確認は作者が行っています。
-
-MIT License.
-
-[h2]Support[/h2]
-[url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]
+現在はBetaです。

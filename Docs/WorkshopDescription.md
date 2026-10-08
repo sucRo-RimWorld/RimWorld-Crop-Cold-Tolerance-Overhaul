@@ -12,13 +12,12 @@ Workshop descriptions are written **Japanese first**.
 4. Keep both language versions synchronized when the Workshop copy changes.
 
 Source files:
-- Japanese source text: `Docs/SteamWorkshopDescription-ja.txt`
-- English translation: `Docs/SteamWorkshopDescription.txt`
+- Single paste-ready Steam description: `Docs/SteamWorkshopDescription.txt` with **English → `[hr][/hr]` → Japanese**. Paste the full text once in Steam's English description field; do not duplicate it in the Japanese field.
+- Japanese authoring source: `Docs/SteamWorkshopDescription-ja.txt` (the combined file contains it verbatim).
 
 ## Title
 
-- English: `Crop Cold Tolerance Overhaul`
-- Japanese: `作物耐寒性オーバーホール`
+- Canonical English/Japanese Workshop and About title: `Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）`
 
 ## Release stage
 
@@ -60,3 +59,7 @@ CCTO public descriptions must not list AMJ-owned crops or plants planned for fut
 - Vanilla Plants Expanded (VPE) support is planned, not currently supported.
 - VPE contains more than 100 plants across its wider catalog, so the first compatibility target is the 20-plant basic set.
 - Additional VPE coverage is a later consideration rather than a promise of full immediate support.
+
+## Combined public text check
+
+Run `python Tests/validate_workshop_description.py` before publication. It confirms About/Workshop title agreement, one `[hr][/hr]` between languages, Japanese source synchronization, balanced BBCode, required save/dependency disclosures, and a combined UTF-8 budget below 8,000 bytes. Keep license/AI-development/donation disclosures in GitHub documentation, not the Workshop body. Any future image appears only once with a bilingual caption. Updating this repository does not update the live Steam page.

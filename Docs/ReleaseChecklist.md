@@ -23,7 +23,7 @@ This is the release-preparation checklist for the first public Beta.
 - [x] Public descriptions explain that plant-specific thresholds are informed by real-world cold-tolerance / frost-damage / lethal-temperature data, then rounded and tuned for gameplay rather than treated as exact universal biological constants.
 - [x] Public README includes an AI-assisted development disclosure covering implementation, documentation, research, and test assistance while retaining author control over design, balance, and final review.
 - [x] Public README and Steam Workshop description list the supported languages: English and Japanese.
-- [x] Japanese Steam Workshop localization prepared: title `作物耐寒性オーバーホール` plus a paste-ready Japanese BBCode description kept under Steam's UTF-8 size limit.
+- [x] Japanese Workshop draft and English translation prepared. Current GitHub source uses one bilingual title and a single English-field paste, rather than requiring two separate Steam description updates.
 - [x] Private Steam Workshop subscribed-package smoke check completed with no apparent issues before public visibility; the post-publication clean subscription check remains pending.
 
 Integration merge commit: `a1616054a7d081f3167db501a49dfe3630ce4402`.
@@ -107,3 +107,9 @@ each item only with applicable retained evidence. Automate reproducible behavior
 manual review is reserved for readability and practical play/balance judgement.
 Use test saves/profiles and preserve normal saves/settings. Planned additional
 plant support does not block stable release of the currently advertised scope.
+
+## English-field bilingual copy migration (2026-10-08)
+
+- [x] About/README and the single combined English → `[hr][/hr]` → Japanese Workshop source use `Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）`.
+- [x] Workshop payload CI includes a static bilingual-publication contract; CI execution outcome remains separate from source preparation.
+- [ ] Author to update and verify the live Steam title and English-description field on existing item `3812412548`; previously posted separate-language descriptions are historical, not confirmation this source is live.

@@ -11,5 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - name: Validate bilingual one-field Workshop copy
+        run: python Tests/validate_workshop_description.py
       - name: Validate YADA filter and subscriber payload contract
         run: python Tests/validate_workshop_payload.py

@@ -1,5 +1,13 @@
 # CCTO Coordination
 
+### CCTO-WORKSHOP-BILINGUAL-HR-20261008 — single English-field description and language rule
+
+**Owner:** CCTO publication/docs  
+**Status:** GITHUB SOURCE PREPARED; STEAM UPDATE NOT PERFORMED; CI RESULT NOT ASSERTED
+
+The public title now reads `Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）`. The paste-ready `Docs/SteamWorkshopDescription.txt` is English text followed by exactly one `[hr][/hr]` divider and Japanese text, with no license/AI/donation notices. `Docs/SteamWorkshopDescription-ja.txt` remains the Japanese source. A static validation script and CI gate prevent omissions and verify combined byte budget and title. No change to packageId, PublishedFileId, framework/cold behavior or source assets. The author must apply changes to live Steam item `3812412548` separately; prior separate-language publication records remain historical.
+
+
 This file is the shared coordination surface between separate ChatGPT chats/workstreams working on CCTO.
 
 Use this instead of asking the user to manually relay messages between chats.
