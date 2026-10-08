@@ -54,7 +54,7 @@ AMJおよび関連Modでは、RimTest Redux・Pickleを積極的に用いた自�
 
 ## 非対話ランタイムテスト方針（AMJ共通）
 
-人間の目視判断を必要としない自動テストでは、RimWorldの可視ウィンドウをユーザーのデスクトップへ出さないことを標準とする。詳細な共通正本は Ancient-Medieval-Japan-Core `Docs/DevelopmentGoldenPathGuidelines.md` の **Non-interactive runtime-test rule**。
+人間の目視判断を必要としない自動テストでは、RimWorldの可視ウィンドウをユーザーのデスクトップへ出さないことを標準とする。詳細な共通正本は Ancient-Medieval-Japan-Project `Docs/DevelopmentGoldenPathGuidelines.md` の **Non-interactive runtime-test rule**。
 
 - Pickle / RimTest Redux / Quickstarts / 統合回帰 / runtime ERROR gate / map・気候・土壌サンプリング等は、原則として非対話・非表示で実行する。
 - 描画・Texture Atlas・`Graphic.Draw`・BadTex等を検証する場合は、描画そのものを無効化しない。仮想／オフスクリーン／非表示の表示先など、プラットフォームに適した隔離実行で実描画経路を維持する。
@@ -75,18 +75,18 @@ Any new RimWorld runtime-test harness added to this repository must include this
 
 AMJ Core, Environment, CCTO and future related Mods must not use ASCII `:` or full-width `：` in Mod names. Use ` - ` when a separator is needed. Apply this to `About/About.xml` `<name>` and the corresponding Workshop title / formal README name; check it when creating, renaming or preparing a Mod for publication. YADA uses the display name for an upload staging directory, and an ASCII colon causes that step to fail on Windows. Display-name corrections must preserve `packageId` and existing Workshop IDs.
 
-The shared source of truth is [Mod description guidelines — Mod名のコロン禁止](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md). Colons in description prose, URLs and code syntax are outside this naming rule.
+The shared source of truth is [Mod description guidelines — Mod名のコロン禁止](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/ModDescriptionGuidelines.md). Colons in description prose, URLs and code syntax are outside this naming rule.
 
 ## Public mod descriptions
 
 Public-description preparation and updates must also include the Japanese 2game summary in `Docs/2GameDescription-ja.txt` and its presentation policy in `Docs/2GamePresentation.md`. Follow the shared guideline's **2game向け説明（AMJ共通）** section and CCTO's six-section, plain-style template. Check README, Workshop English/Japanese, 2game Japanese and About.xml together; link named related mods and this mod's own GitHub repository. Record repository preparation separately from live-site publication.
 
-Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md) when writing or updating public descriptions. Include save compatibility in every mod description, stating addition/removal conditions accurately for the mod's implementation. Keep README, Workshop English/Japanese BBCode, and About.xml consistent; refine the shared baseline as presentation improves.
+Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/ModDescriptionGuidelines.md) when writing or updating public descriptions. Include save compatibility in every mod description, stating addition/removal conditions accurately for the mod's implementation. Keep README, Workshop English/Japanese BBCode, and About.xml consistent; refine the shared baseline as presentation improves.
 
 
 ## Historical description audit (AMJ common)
 
-The shared AMJ historical-description policy lives in Ancient-Medieval-Japan-Core `Docs/HistoricalDescriptionGuidelines.md`.
+The shared AMJ historical-description policy lives in Ancient-Medieval-Japan-Project `Docs/HistoricalDescriptionGuidelines.md`.
 
 When CCTO is explicitly asked to contribute AMJ-facing description/localization work for Vanilla or Medieval Overhaul items, plants, or animals, follow that policy: audit from an ancient/medieval Japanese perspective, ground historical claims, include meaningful modern differences when supportable, and use the Japanese-first approval workflow before English translation. Japanese descriptions must also follow the shared name-form rule: begin with an established kanji form when one exists and include recognized aliases / alternate names or common alternate written forms at the opening; do not invent kanji or weakly sourced names.
 
@@ -98,7 +98,7 @@ AMJC and AMJE own their custom plant values, balance/design tables (including ar
 
 ## Golden Path closeout rule
 
-Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Core `Docs/DevelopmentGoldenPathGuidelines.md`.
+Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Project `Docs/DevelopmentGoldenPathGuidelines.md`.
 
 After a non-trivial task succeeds, especially after debugging or failed attempts, do not move on with only the working implementation. Record the successful reusable procedure in the owning repository, automate deterministic/repetitive steps, and add regression guards for failure modes discovered during the work. For recurring work, completion includes the reusable documented/automated path, not only the one successful result.
 
@@ -112,10 +112,16 @@ AMJ Core, Environment, CCTO and future related Mods must exclude **all files unn
 - Adding a file/folder includes deciding whether subscribers need it and updating exclusions when they do not. Preserve development/source material in Git; exclusion is not deletion.
 - Every alternative publisher/archive/staging builder must produce the same subscriber-only payload. Keep adapters synchronized with `.rimignore`; do not maintain independent policy exceptions.
 - Run `python Tests/validate_workshop_payload.py` before publication. Validate the final staging/installed package too; runtime-required DLLs and assets must actually be present. Repository filtering PASS alone is not build/runtime/Steam publication PASS.
-- Shared procedure and payload contract: [Core Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/WorkshopPackaging.md).
+- Shared procedure and payload contract: [Project Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/WorkshopPackaging.md).
 
 
 ## Unowned AMJ idea staging
 
 When work in this repository discovers an AMJ idea that may become a separate Mod but does not yet have an owning repository, **do not develop its evolving design here**. Record the concept, research and roadmap state in `sucRo-RimWorld/Ancient-Medieval-Japan-Project` until the author creates/selects an owner repository. Keep only a concise compatibility or ownership-boundary pointer here when it materially affects this repository.
 
+
+## Shared rules owner — AMJ Project
+
+Project owns all AMJ-common policy. Before applying a shared rule, read the current [SharedRules index](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/SharedRules.md) and the relevant canonical document there. This repository owns only its Mod-specific specification/procedure; do not develop shared rules in Grains or another runtime Mod.
+
+CCTO keeps its own preview identity. Use the AMJ cover pipeline only when explicitly preparing an AMJ-series cover.

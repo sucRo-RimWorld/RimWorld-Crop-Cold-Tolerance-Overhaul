@@ -820,3 +820,10 @@ push and canceled superseded runs. Core's standard preparation gates source and
 staged output; Environment's candidate builder gates the actual subscriber files.
 
 **Next action:** apply current filters to the actual upload root before the next\nauthor-manual Workshop update; separately audit the downloaded package.\n
+
+### DOC-SHARED-RULES-OWNER-001 — Shared rule migration to Project (2026-10-08 JST)
+
+**Owner:** Project common rules / repository routing
+**Status:** DONE — current AGENTS and shared-rule references route to Project
+
+Canonical shared rules and Workshop template/tooling now live in Project `Docs/SharedRules.md` and its linked sources. Grains old Markdown paths are migration pointers only. Existing historical coordination entries retain their original commit/path provenance; resolve future work through the new Project index. Mod-specific implementation, tests and accepted content art remain with this repository. No runtime behavior, new preview generation or Steam publication is part of this migration.
