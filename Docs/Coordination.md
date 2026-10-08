@@ -835,3 +835,10 @@ staged output; Environment's candidate builder gates the actual subscriber files
 **Status:** DONE — current AGENTS and shared-rule references route to Project
 
 Canonical shared rules and Workshop template/tooling now live in Project `Docs/SharedRules.md` and its linked sources. Grains old Markdown paths are migration pointers only. Existing historical coordination entries retain their original commit/path provenance; resolve future work through the new Project index. Mod-specific implementation, tests and accepted content art remain with this repository. No runtime behavior, new preview generation or Steam publication is part of this migration.
+
+### ADD-CHANGENOTE-20261008 — Workshop release metadata
+
+**Owner:** RimWorld-Crop-Cold-Tolerance-Overhaul release/packaging
+**Status:** SOURCE IMPLEMENTED — CI verification required; no Steam publication claimed
+
+Following Project `Docs/WorkshopChangenotes.md`, added `About/Manifest.xml`, `About/Changelog.txt`, and matching `About.xml` `modVersion=0.1.3`. A deterministic validator now runs in the existing Workshop payload CI. `Tests/validate_workshop_payload.py` requires both files in the subscriber archive/stage in addition to its existing YADA rules. This adds **author-side** Add Changenote support only; package ID, gameplay implementation, current live-site content, and prior test/release status are unchanged. `0.1.3` is the source metadata version, not a claim of a newly performed upload.

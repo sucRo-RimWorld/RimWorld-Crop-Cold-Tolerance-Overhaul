@@ -1,0 +1,7 @@
+# RimWorld-Crop-Cold-Tolerance-Overhaul
+# Add Changenote reads the heading for the current version from About/Manifest.xml.
+
+0.1.3 - Beta release metadata / ベータ版の更新履歴対応
+- Added versioned Workshop changenote metadata for the existing 0.1.3 beta release.
+- 既存の0.1.3ベータ版に、Workshop更新履歴用メタデータを追加しました。
+- Cold-tolerance behavior and existing save compatibility settings are unchanged by this metadata update. / 低温耐性の挙動とセーブ互換性の設定は変更していません。

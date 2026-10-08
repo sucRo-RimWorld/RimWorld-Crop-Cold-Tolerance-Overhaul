@@ -125,3 +125,7 @@ When work in this repository discovers an AMJ idea that may become a separate Mo
 Project owns all AMJ-common policy. Before applying a shared rule, read the current [SharedRules index](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/SharedRules.md) and the relevant canonical document there. This repository owns only its Mod-specific specification/procedure; do not develop shared rules in Grains or another runtime Mod.
 
 CCTO keeps its own preview identity. Use the AMJ cover pipeline only when explicitly preparing an AMJ-series cover.
+
+## Add Changenote (Workshop author tooling)
+
+For every new and updated release, follow Project `Docs/WorkshopChangenotes.md`. Keep `About/About.xml` `modVersion`, `About/Manifest.xml` `version` and the current `About/Changelog.txt` heading synchronized. Both About metadata files must survive YADA/archive staging. Run `python Tests/validate_add_changenote.py` before publication. Add Changenote is not a player dependency.
