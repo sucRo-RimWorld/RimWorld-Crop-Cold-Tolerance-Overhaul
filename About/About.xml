@@ -33,6 +33,19 @@ Includes balance for all 49 living Core PlantDefs plus all 29 Medieval Overhaul 
 CCTO also serves as a lightweight XML-facing framework: other mods can assign explicit cold-death temperatures and cold dormancy to their own plants without replacing the plant class.
 
 Save compatibility: Safe to add to or remove from an existing save.
-セーブ互換性: 既存のセーブに追加または削除しても安全です。
-Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.</description>
+Temperature rules apply to existing plants after loading. Plants already killed by cold are not restored by removing CCTO. Mods that require CCTO must remain installed with their dependency.
+
+ベータ版。
+
+実際の植物の耐寒性情報を参考にした現実寄りの低温耐性調整Mod。ほかの植物Mod向けの軽量XMLフレームワークも提供する。
+
+対応する植物群の生きたPlantDefすべてについて、最低生育温度と低温による枯死の挙動を分けて耐寒性を調整する。各植物に最低生育温度を明示し、一定の低温で枯死するか、最低生育温度以下では枯死せず休眠するかを設定する。休眠する植物は寒さで成長を止め、葉が落ち、気温の上昇後に回復する。関連する温度は植物の情報カードに表示される。
+
+現在のバランスは原則としてバニラやMedieval Overhaulの設定より厳しく、作物の選択、林業、季節に応じた作業時期、温度管理がより重要になる。一方、一部の多年生植物や越冬する植物は低温休眠できるようになる。
+
+バニラの生きた植物Def全49種に対応。Medieval Overhaul導入時は、同ModのRimWorld 1.6固有の植物Def全29種にも対応する。野生専用の植生も対象とするが、枯れた切り株や残骸のDefは対象外。Nice Plants Menu導入時は互換処理を適用する。Dubs Mint Menusでは標準の情報カード表示を利用する。
+
+CCTOは軽量なXML向けフレームワークとしても利用できる。他Modは植物クラスを置き換えずに、独自植物へ明示的な枯死温度と低温休眠を設定できる。
+
+セーブ互換性：既存のセーブに追加または削除しても安全。読み込み後は既存の植物にも温度ルールが適用される。寒さで既に枯死した植物はCCTOを削除しても元に戻らない。CCTOを必須とする他Modを利用している場合は、依存関係を維持する必要がある。</description>
 </ModMetaData>
