@@ -17,3 +17,6 @@ jobs:
         run: python Tests/Release/validate_add_changenote.py
       - name: Validate YADA filter and subscriber payload contract
         run: python Tests/Release/validate_workshop_payload.py
+      - name: Validate 1.6 and 1.7 test provider selection (no game launch)
+        shell: pwsh
+        run: ./Tests/Runtime/Test-ResolveTestAssembly.ps1
