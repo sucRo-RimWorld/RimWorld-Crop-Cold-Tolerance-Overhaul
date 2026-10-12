@@ -50,18 +50,6 @@ For durable specifications and decided values, update the appropriate design/fra
 
 ## Current coordination items
 
-### TEST-POLICY-003 — Non-interactive runtime tests
-
-**Requested by:** author (2026-10-05 JST)  
-**Owner:** Testing/tooling  
-**Status:** DONE — shared policy adopted; existing runtime harness migration pending
-
-CCTO も AMJ 関連 Mod として、目視不要の Pickle / RimTest Redux / runtime regression は可視 RimWorld ウィンドウを出さない非対話実行を標準とする。描画を検証しない CCTO ロジックテストで可視 UI を要求しない。可視実行は人間判断が必要な確認だけに限定する。
-
-Shared durable source: AMJ Core `Docs/DevelopmentGoldenPathGuidelines.md`, commit `a81c0389fb1834a098a462291b3f4814abcffef3`. Repository instruction: `AGENTS.md`, commit `5ec14463ed758d2bef7754156db0d3ff3680f758`.
-
-**Next action:** runtime test launcher を次回重要変更時に非対話実行へ移行し、既存の isolated save-data profile、watchdog、ERROR gate を維持する。
-
 ### POLICY-WORKSHOP-PAYLOAD-001 — Subscriber-only distribution (2026-10-07 JST)
 
 **Requested by:** author
@@ -102,3 +90,23 @@ Following Project `Docs/WorkshopChangenotes.md`, added `About/Manifest.xml`, `Ab
 **Status:** SOURCE RESTRUCTURED; validation/publication evidence is recorded in Project `Docs/RuleAudit.md` and actual commit/CI results, not inferred here.
 
 AGENTS now routes through Project `Docs/SharedRules.md` stop conditions and task procedures. New development requires VE and non-VE source/evidence comparison plus a justified implementation decision. Static/runtime/specification/distribution/publication remain separate states. Historical records below/above retain their original scope; this entry does not reopen paused work, change gameplay/dependencies/art/versions, or supersede owner runtime/release blockers. Main-only Coordination means one authoritative integrated log, not deleting branch snapshots. No Steam/2game update is claimed.
+### RIMWORLD-17-20261013 — metadata and standard runtime entry
+
+**Owner:** CCTO framework/testing
+**Status:** LOCAL STANDARD ENTRY VERIFIED; PR INTEGRATION / AUTHOR STEAM UPDATE PENDING
+
+SupportedVersions and public version labels include 1.7 unstable. The shared
+production DLL remains unchanged. `run-tests.bat` passed its installed MO XML
+check and all 14 existing framework, cold-runtime and loaded-balance scenarios
+on 1.7.4976 rev1043, with native ERROR 0. Evidence:
+`TestResults/Standard17-Runner.log` and
+`TestResults/RimWorld17-20261013-080822-856/Reports/summary.json`.
+
+`Docs/RimWorld17Tests.md` owns the procedure and coverage limits. The new
+runtime helper keeps real rendering on a hidden desktop, captures the native
+log with PID verification, rejects collisions/errors/timeouts, and preserves
+product/config hashes. Its corrected lightweight MO fixture keeps temperature
+values unchanged. Actual MO gameplay/old saves are not implied by those
+fixture cases; independent Environment integration evidence is separate.
+The old TEST-POLICY-003 migration handoff is superseded by this implementation.
+CI/main and Steam states must be verified separately. Steam remains manual.

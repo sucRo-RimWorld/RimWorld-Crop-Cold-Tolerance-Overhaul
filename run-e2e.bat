@@ -13,6 +13,14 @@ if /I "%TEST_MODE%"=="with-mo-fixture" (
 )
 
 set "ROOT=%~dp0"
+if exist "%RIMWORLD_DIR%\UnityStubs.dll" (
+    if /I "%TEST_MODE%"=="with-mo-fixture" (
+        powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-17Tests.ps1" -GameRoot "%RIMWORLD_DIR%"
+    ) else (
+        powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-17Tests.ps1" -GameRoot "%RIMWORLD_DIR%" -CoreOnly
+    )
+    exit /b
+)
 set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
 set "REPORT_DIR=%ROOT%TestResults\Pickle"
 set "TEST_SAVEDATA=%ROOT%TestResults\SaveData"

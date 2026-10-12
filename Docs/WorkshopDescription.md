@@ -21,7 +21,7 @@ Source files:
 
 ## Release stage
 
-RimWorld 1.6 — Beta
+RimWorld 1.6 / 1.7 (unstable) — Beta
 
 ## Short description
 
@@ -36,7 +36,7 @@ A realism-focused plant cold-tolerance overhaul based on real differences in col
 ## Workshop categories / tags
 
 - Category: `Mod`
-- Version: `1.6`
+- Version: `1.6 / 1.7 (unstable)`
 - Required DLC: none
 
 ## Content policy

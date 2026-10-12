@@ -1,6 +1,6 @@
 # Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）
 
-**RimWorld 1.6 — 0.1.3 Beta**
+**RimWorld 1.6 / 1.7 (unstable) — 0.1.3 Beta**
 
 **A realism-focused cold-tolerance rebalance and lightweight XML framework for RimWorld plants.**
 

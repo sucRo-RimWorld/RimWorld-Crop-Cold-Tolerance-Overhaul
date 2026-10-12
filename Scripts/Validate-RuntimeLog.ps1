@@ -29,6 +29,9 @@ if ($prefixes.Count -eq 0) {
 }
 
 $errors = New-Object System.Collections.Generic.List[string]
+foreach ($match in [regex]::Matches($text, '(?m)^\d{4}-\d{2}-\d{2}[^\r\n]*?\sERROR\s[^\r\n]*')) {
+    $errors.Add($match.Value.Trim())
+}
 $blocks = [regex]::Matches(
     $text,
     '(?ms)^Timestamp:\s*.*?(?=^Timestamp:\s*|\z)'
