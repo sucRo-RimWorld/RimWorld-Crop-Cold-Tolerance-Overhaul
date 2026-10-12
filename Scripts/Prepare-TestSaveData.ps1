@@ -66,7 +66,15 @@ $root = $doc.CreateElement("ModsConfigData")
 $null = $doc.AppendChild($root)
 
 $version = $doc.CreateElement("version")
-$version.InnerText = [string]$source.ModsConfigData.version
+$sourceVersion = [string]$source.ModsConfigData.version
+$match = [regex]::Match($sourceVersion, '^(1\.[67])(?:\.|$)')
+if (-not $match.Success) {
+    throw "Unsupported CCTO test version: $sourceVersion (expected 1.6 or 1.7)"
+}
+if ($env:CCTO_TEST_GAME_VERSION -and $env:CCTO_TEST_GAME_VERSION -ne $match.Groups[1].Value) {
+    throw "CCTO_TEST_GAME_VERSION=$env:CCTO_TEST_GAME_VERSION disagrees with normal config version $sourceVersion"
+}
+$version.InnerText = $sourceVersion
 $null = $root.AppendChild($version)
 
 $activeMods = $doc.CreateElement("activeMods")
