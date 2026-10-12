@@ -45,24 +45,10 @@ set "PICKLE_ROOT=%STEAMAPPS%\workshop\content\294100\3791648678"
 set "QUICKSTARTS_ROOT=%STEAMAPPS%\workshop\content\294100\3793646067"
 
 set "PICKLE_DLL="
-if exist "%PICKLE_ROOT%\1.6\Assemblies\RimWorks.Pickle.dll" (
-    set "PICKLE_DLL=%PICKLE_ROOT%\1.6\Assemblies\RimWorks.Pickle.dll"
-)
-if not defined PICKLE_DLL if exist "%PICKLE_ROOT%" (
-    for /r "%PICKLE_ROOT%" %%F in (RimWorks.Pickle.dll) do (
-        if not defined PICKLE_DLL set "PICKLE_DLL=%%~fF"
-    )
-)
+for /f "usebackq delims=" %%F in (`powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Resolve-TestAssembly.ps1" -ProviderRoot "%PICKLE_ROOT%" -DllName "RimWorks.Pickle.dll"`) do set "PICKLE_DLL=%%F"
 
 set "QUICKSTARTS_DLL="
-if exist "%QUICKSTARTS_ROOT%\1.6\Assemblies\Quickstarts.dll" (
-    set "QUICKSTARTS_DLL=%QUICKSTARTS_ROOT%\1.6\Assemblies\Quickstarts.dll"
-)
-if not defined QUICKSTARTS_DLL if exist "%QUICKSTARTS_ROOT%" (
-    for /r "%QUICKSTARTS_ROOT%" %%F in (Quickstarts.dll) do (
-        if not defined QUICKSTARTS_DLL set "QUICKSTARTS_DLL=%%~fF"
-    )
-)
+for /f "usebackq delims=" %%F in (`powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Resolve-TestAssembly.ps1" -ProviderRoot "%QUICKSTARTS_ROOT%" -DllName "Quickstarts.dll"`) do set "QUICKSTARTS_DLL=%%F"
 
 if not defined PICKLE_DLL (
     echo.
