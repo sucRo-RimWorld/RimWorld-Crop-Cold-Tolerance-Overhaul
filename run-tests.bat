@@ -17,7 +17,7 @@ if not exist "%MO_ROOT%\About\About.xml" (
 echo [OK] Medieval Overhaul source is installed.
 
 echo.
-echo Validating CCTO balance XML against installed MO 1.6 plant Defs...
+echo Validating CCTO balance XML against installed MO plant Defs...
 call "%~dp0validate-balance.bat" "%MO_ROOT%"
 if errorlevel 1 exit /b 1
 
