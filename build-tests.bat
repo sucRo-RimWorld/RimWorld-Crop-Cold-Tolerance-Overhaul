@@ -45,12 +45,7 @@ if not exist "%NETSTANDARD%" (
 set "STEAMAPPS=%RIMWORLD_DIR%\..\.."
 set "RIMTEST_ROOT=%STEAMAPPS%\workshop\content\294100\3762405308"
 set "RIMTEST_DLL="
-
-if exist "%RIMTEST_ROOT%" (
-    for /r "%RIMTEST_ROOT%" %%F in (RimTestRedux.dll) do (
-        if not defined RIMTEST_DLL set "RIMTEST_DLL=%%~fF"
-    )
-)
+for /f "usebackq delims=" %%F in (`powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Resolve-TestAssembly.ps1" -ProviderRoot "%RIMTEST_ROOT%" -DllName "RimTestRedux.dll"`) do set "RIMTEST_DLL=%%F"
 
 if not defined RIMTEST_DLL (
     echo.
