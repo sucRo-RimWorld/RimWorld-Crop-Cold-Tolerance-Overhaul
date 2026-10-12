@@ -17,6 +17,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot 'RimWorldRuntime.ps1')
 
 if (-not (Test-Path -LiteralPath $ExePath)) {
     Write-Host "[ERROR] RimWorld executable was not found:" -ForegroundColor Red
@@ -39,42 +40,19 @@ $arguments = @(
     '-pickle-mode=fast',
     '-pickle-report-dir="' + $ReportDir + '"',
     '-pickle-no-browser',
+    '-pickle-no-http',
     '-pickle-run-timeout=4'
 ) -join ' '
 
-$psi = New-Object System.Diagnostics.ProcessStartInfo
-$psi.FileName = $ExePath
-$psi.Arguments = $arguments
-$psi.WorkingDirectory = Split-Path -Parent $ExePath
-$psi.UseShellExecute = $false
-
-$process = New-Object System.Diagnostics.Process
-$process.StartInfo = $psi
-
 try {
-    if (-not $process.Start()) {
-        Write-Host "[ERROR] Failed to start RimWorld." -ForegroundColor Red
-        exit 2
-    }
-
-    if (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
-        Write-Host ""
-        Write-Host "[ERROR] RimWorld/Pickle did not exit within $TimeoutSeconds seconds." -ForegroundColor Red
-        Write-Host "        The process will be terminated so run-tests.bat cannot hang indefinitely."
-
-        try {
-            $process.Kill()
-            $process.WaitForExit()
-        }
-        catch {
-            Write-Host "[WARN] Failed to terminate RimWorld cleanly: $($_.Exception.Message)" -ForegroundColor Yellow
-        }
-
-        exit 124
-    }
-
-    exit $process.ExitCode
+    Invoke-RimWorldIsolated (Split-Path -Parent $ExePath) $arguments $LogPath $TimeoutSeconds
+    exit 0
 }
-finally {
-    $process.Dispose()
+catch [TimeoutException] {
+    Write-Output ('[ERROR] '+$_.Exception.Message)
+    exit 124
+}
+catch {
+    Write-Output ('[ERROR] '+$_.Exception.Message)
+    exit 2
 }

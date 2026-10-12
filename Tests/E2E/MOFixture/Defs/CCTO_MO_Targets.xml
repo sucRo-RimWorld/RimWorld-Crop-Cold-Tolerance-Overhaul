@@ -3,6 +3,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Onions</defName>
     <label>CCTO MO fixture DankPyon_Plant_Onions</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -11,6 +17,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Lentils</defName>
     <label>CCTO MO fixture DankPyon_Plant_Lentils</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -19,6 +31,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Cabbages</defName>
     <label>CCTO MO fixture DankPyon_Plant_Cabbages</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -27,6 +45,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Garlic</defName>
     <label>CCTO MO fixture DankPyon_Plant_Garlic</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -35,6 +59,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Mushrooms</defName>
     <label>CCTO MO fixture DankPyon_Plant_Mushrooms</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -43,6 +73,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Wheat</defName>
     <label>CCTO MO fixture DankPyon_Plant_Wheat</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -51,6 +87,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Flax</defName>
     <label>CCTO MO fixture DankPyon_Plant_Flax</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -59,6 +101,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Sugarcane</defName>
     <label>CCTO MO fixture DankPyon_Plant_Sugarcane</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -67,6 +115,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Carrots</defName>
     <label>CCTO MO fixture DankPyon_Plant_Carrots</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -75,6 +129,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Herb</defName>
     <label>CCTO MO fixture DankPyon_Plant_Herb</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -83,6 +143,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Tomatoes</defName>
     <label>CCTO MO fixture DankPyon_Plant_Tomatoes</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -91,6 +157,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Grape</defName>
     <label>CCTO MO fixture DankPyon_Plant_Grape</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -99,6 +171,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Plant_Pumpkins</defName>
     <label>CCTO MO fixture DankPyon_Plant_Pumpkins</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -107,6 +185,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Tree_Apple</defName>
     <label>CCTO MO fixture DankPyon_Tree_Apple</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -115,6 +199,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Tree_Lemon</defName>
     <label>CCTO MO fixture DankPyon_Tree_Lemon</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -123,6 +213,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Tree_Mulberry</defName>
     <label>CCTO MO fixture DankPyon_Tree_Mulberry</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -131,6 +227,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_Tree_GriffonBerry</defName>
     <label>CCTO MO fixture DankPyon_Tree_GriffonBerry</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -139,6 +241,12 @@
   <ThingDef ParentName="PlantBase" Name="DankPyon_MindwortBase">
     <defName>DankPyon_Plant_Mindwort</defName>
     <label>CCTO MO fixture DankPyon_Plant_Mindwort</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -147,6 +255,12 @@
   <ThingDef ParentName="PlantBase" Name="DankPyon_PoppyBase">
     <defName>DankPyon_Plant_Poppy</defName>
     <label>CCTO MO fixture DankPyon_Plant_Poppy</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -155,6 +269,12 @@
   <ThingDef ParentName="PlantBase" Name="DankPyon_FleawortBase">
     <defName>DankPyon_Plant_Fleawort</defName>
     <label>CCTO MO fixture DankPyon_Plant_Fleawort</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -163,6 +283,12 @@
   <ThingDef ParentName="PlantBase" Name="DankPyon_FlyAgaricBase">
     <defName>DankPyon_Plant_FlyAgaric</defName>
     <label>CCTO MO fixture DankPyon_Plant_FlyAgaric</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -171,6 +297,12 @@
   <ThingDef ParentName="DankPyon_MindwortBase">
     <defName>DankPyon_Plant_MindwortWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_MindwortWild</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -179,6 +311,12 @@
   <ThingDef ParentName="DankPyon_PoppyBase">
     <defName>DankPyon_Plant_PoppyWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_PoppyWild</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -187,6 +325,12 @@
   <ThingDef ParentName="DankPyon_FleawortBase">
     <defName>DankPyon_Plant_FleawortWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_FleawortWild</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -195,6 +339,12 @@
   <ThingDef ParentName="DankPyon_FlyAgaricBase">
     <defName>DankPyon_Plant_FlyAgaricWild</defName>
     <label>CCTO MO fixture DankPyon_Plant_FlyAgaricWild</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -203,6 +353,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_GreatOak</defName>
     <label>CCTO MO fixture DankPyon_GreatOak</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -211,6 +367,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_GreatIter</defName>
     <label>CCTO MO fixture DankPyon_GreatIter</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -219,6 +381,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_GreatFir</defName>
     <label>CCTO MO fixture DankPyon_GreatFir</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>
@@ -227,6 +395,12 @@
   <ThingDef ParentName="PlantBase">
     <defName>DankPyon_GreatWillow</defName>
     <label>CCTO MO fixture DankPyon_GreatWillow</label>
+    <graphicData>
+      <texPath>Things/Plant/Grass</texPath>
+    </graphicData>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <minGrowthTemperature>99</minGrowthTemperature>
     </plant>

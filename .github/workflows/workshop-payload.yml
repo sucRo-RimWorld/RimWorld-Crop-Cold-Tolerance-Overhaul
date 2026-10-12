@@ -17,3 +17,6 @@ jobs:
         run: python Tests/Release/validate_add_changenote.py
       - name: Validate YADA filter and subscriber payload contract
         run: python Tests/Release/validate_workshop_payload.py
+      - name: Reject incomplete or wrong-process native logs
+        shell: pwsh
+        run: ./Tests/Runtime/Test-RimWorldRuntime.ps1
