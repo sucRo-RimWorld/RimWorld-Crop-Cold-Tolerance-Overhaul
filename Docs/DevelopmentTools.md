@@ -177,6 +177,25 @@ The normal gameplay preset is therefore left untouched, and unrelated mods do no
 
 `Scripts/Check-TestModList.ps1` is retained only for workflows that intentionally run development helpers against the normal active profile; it is not part of the authoritative Pickle release gate.
 
+### RimWorld 1.7 unstable — test-only preparation
+
+The current test provider resolver (`Scripts/Resolve-TestAssembly.ps1`) chooses
+RimWorld 1.6 or 1.7 according to the normal read-only `ModsConfig.xml`
+version, or an explicit `CCTO_TEST_GAME_VERSION=1.6|1.7`. It follows the
+version-specific `LoadFolders.xml` entry if present and selects its last
+available assembly; without a loader, it prefers the selected version,
+`Current`, then unversioned `Assemblies`. A lone 1.6 provider is usable
+for 1.7 only as a **logged compatibility probe**, never as evidence of
+native 1.7 provider support. Missing or unsupported selections fail.
+
+Only E2E/RimTest companion metadata allows 1.7; shipping About metadata,
+production C#, gameplay and release state are unchanged. The installed
+RimWorld executable's internal version is not established by the normal
+config alone. Record the actual game version, freshly compiled test provider
+paths, the full Pickle/RimTest scenarios and ERROR-free logs for each 1.7
+claim. Keep 1.6 and 1.7 results distinct. No 1.7 runtime PASS or public
+support is claimed by this preparatory change.
+
 ### Current Pickle gate coverage
 
 Loaded balance-Def scenarios in the full integration gate check:
