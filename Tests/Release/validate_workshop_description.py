@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
 
-root = Path(__file__).resolve().parents[1]
+root = Path(__file__).resolve().parents[2]
 title = "Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）"
 body = (root / "Docs/SteamWorkshopDescription.txt").read_text(encoding="utf-8")
 ja = (root / "Docs/SteamWorkshopDescription-ja.txt").read_text(encoding="utf-8").strip()
