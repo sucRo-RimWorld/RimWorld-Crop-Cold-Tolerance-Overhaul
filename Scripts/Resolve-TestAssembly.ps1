@@ -51,7 +51,8 @@ if ($loader) {
             ($folder -split '[\\/]') -contains '..') {
             throw "Unsafe test-provider load folder in $loader"
         }
-        $candidate = Join-Path $ProviderRoot (Join-Path $folder ("Assemblies/" + $DllName))
+        $relative = if ($folder) { Join-Path $folder ("Assemblies/" + $DllName) } else { "Assemblies/" + $DllName }
+        $candidate = Join-Path $ProviderRoot $relative
         if (Test-Path -LiteralPath $candidate -PathType Leaf) {
             $resolved = (Resolve-Path -LiteralPath $candidate).Path
         }
@@ -61,7 +62,8 @@ if ($loader) {
 }
 
 foreach ($folder in @($GameVersion, 'Current', '')) {
-    $candidate = Join-Path $ProviderRoot (Join-Path $folder ("Assemblies/" + $DllName))
+    $relative = if ($folder) { Join-Path $folder ("Assemblies/" + $DllName) } else { "Assemblies/" + $DllName }
+    $candidate = Join-Path $ProviderRoot $relative
     if (Test-Path -LiteralPath $candidate -PathType Leaf) {
         Write-Output (Resolve-Path -LiteralPath $candidate).Path
         exit 0
