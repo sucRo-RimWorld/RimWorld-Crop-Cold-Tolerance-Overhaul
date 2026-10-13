@@ -294,3 +294,22 @@ The range tables below are therefore not deprecated data. They are both the hist
 | Psychoid | 8°C | -2 to 0°C |
 | Cocoa | 12°C | 0 to 2°C |
 
+## 7. Optional compatibility-module separation (2026-10-13)
+
+The long-term extension boundary is CCTO framework + Vanilla balance in the base Mod, with separately selectable third-party plant-data packages. The base CCTO `ColdToleranceExtension` API and Harmony patches remain the only shared runtime implementation. This section records future module boundaries; it is **not a change to the current loaded balance**.
+
+### 7.1 CCTO for VPE v1 — confirmed scope, not yet implemented
+
+- Use a **separate optional addon** requiring CCTO and Vanilla Plants Expanded (upstream inspected: VPE 1.6, packageId `VanillaExpanded.VPlantsE`). Do not embed VPE-only XML or balance numbers in the base CCTO package.
+- V1 is limited to 14 `Verse.Plant`-derived VPE definitions **without a custom `thingClass`**: `VCE_Grass`, `VCE_TallGrass`, `VCE_Agave`, `VCE_Onion`, `VCE_Pumpkin`, `VCE_Pepper`, `VCE_Tomato`, `VCE_AppleTree`, `VCE_PeachTree`, `VCE_PlumTree`, `VCE_PearTree`, `VCE_Opuntia`, `VCE_BearBerryBush`, `VCE_BananaTree`.
+- Hold six VPE custom-class plants for individual behavior analysis and later versions: `VCE_Peas` (rain), `VCE_Eggplant` (temperature), `VCE_Cabbage` (toxic conditions), `VCE_Beet` (winter growth), `VCE_CherryTree` (winter graphics), `VCE_OrangeTree` (river). A custom class does not automatically mean XML incompatibility; the initial scope excludes all six conservatively.
+- V1 should use only native `minGrowthTemperature` and the existing CCTO extension fields, without changing VPE's custom mechanics, yields, harvest, fertility, graphics, or progressions. No new shared C# support or VPE numeric data is approved by this scope decision.
+- Preserve the canonical framework-consumer rule: the **future addon repository** owns VPE temperature data, its Def mapping, documentation and tests. Until it exists, the temporary scope record is [Project CCTO compatibility plan](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/CCTOCompatibilityLayers.md).
+
+### 7.2 CCTO for MO — proposed extraction, not approved migration
+
+MO's 29 living PlantDef values and its guarded `Patches/MedievalOverhaul_ColdTolerance.xml` **remain shipped by CCTO**. A later `CCTO for MO` optional addon would own this balance XML after a staged migration, but the present suggestion does not authorize deleting or disabling existing MO compatibility. Required migration evidence includes legacy subscription/update behavior, exact-value preservation, 49 Core and 29 MO live Defs, add/remove and old-save profiles, and duplicate-extension prevention during transition. Preserve MO-specific dormant/death behavior and existing CCTO no-MO baseline.
+
+Separating optional data can reduce XML work for users who omit addons, but total startup acceleration has **not** been measured. The existing MO XML is already `PatchOperationFindMod`-guarded. The combined loading overhead of an installed addon may be comparable to the present system. Measure before making performance claims.
+
+**Status / gate:** VPE v1 *scope only*, MO *proposal only*. No addon repository/patch has been created, no number or public copy changed, and no VPE loaded-game/native test is claimed. The Project existing-Mod VE/non-VE audit and new-owner specification gates apply before actual addon production work. RimWorld 1.7 compatibility is separate from the inspected VPE 1.6 source.
