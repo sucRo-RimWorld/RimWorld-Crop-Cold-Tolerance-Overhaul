@@ -294,9 +294,9 @@ The range tables below are therefore not deprecated data. They are both the hist
 | Psychoid | 8°C | -2 to 0°C |
 | Cocoa | 12°C | 0 to 2°C |
 
-## 7. Optional compatibility-module separation (2026-10-13)
+## 7. Integrated Vanilla/MO support and optional VPE addon (2026-10-13)
 
-The long-term extension boundary is CCTO framework + Vanilla balance in the base Mod, with separately selectable third-party plant-data packages. The base CCTO `ColdToleranceExtension` API and Harmony patches remain the only shared runtime implementation. This section records future module boundaries; it is **not a change to the current loaded balance**.
+The confirmed boundary is **CCTO framework + Vanilla and Medieval Overhaul (MO) balance in the base Mod**, with a separately selectable VPE-only addon. CCTO retains the shared `ColdToleranceExtension` API and Harmony patches. The author explicitly cancelled MO separation after its proposal; this documentation update does **not** change the loaded balance.
 
 ### 7.1 CCTO for VPE v1 — confirmed scope, not yet implemented
 
@@ -306,10 +306,12 @@ The long-term extension boundary is CCTO framework + Vanilla balance in the base
 - V1 should use only native `minGrowthTemperature` and the existing CCTO extension fields, without changing VPE's custom mechanics, yields, harvest, fertility, graphics, or progressions. No new shared C# support or VPE numeric data is approved by this scope decision.
 - Preserve the canonical framework-consumer rule: the **future addon repository** owns VPE temperature data, its Def mapping, documentation and tests. Until it exists, the temporary scope record is [Project CCTO compatibility plan](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/CCTOCompatibilityLayers.md).
 
-### 7.2 CCTO for MO — proposed extraction, not approved migration
+### 7.2 MO stays in CCTO — confirmed decision
 
-MO's 29 living PlantDef values and its guarded `Patches/MedievalOverhaul_ColdTolerance.xml` **remain shipped by CCTO**. A later `CCTO for MO` optional addon would own this balance XML after a staged migration, but the present suggestion does not authorize deleting or disabling existing MO compatibility. Required migration evidence includes legacy subscription/update behavior, exact-value preservation, 49 Core and 29 MO live Defs, add/remove and old-save profiles, and duplicate-extension prevention during transition. Preserve MO-specific dormant/death behavior and existing CCTO no-MO baseline.
+The author has cancelled MO separation. **Do not create `CCTO for MO`.** All 29 MO-specific living PlantDefs remain supported by CCTO's guarded `Patches/MedievalOverhaul_ColdTolerance.xml` in the base Mod, alongside 49 Vanilla living PlantDefs and their established framework behavior.
 
-Separating optional data can reduce XML work for users who omit addons, but total startup acceleration has **not** been measured. The existing MO XML is already `PatchOperationFindMod`-guarded. The combined loading overhead of an installed addon may be comparable to the present system. Measure before making performance claims.
+Keep existing temperature values, dormancy and cold-death semantics, optional MO detection, loading order, Info Card output, save compatibility and Workshop identity unchanged. Developing VPE support must not relocate or duplicate MO data. The earlier proposed MO migration/addon testing plan is superseded and not an active work item.
 
-**Status / gate:** VPE v1 *scope only*, MO *proposal only*. No addon repository/patch has been created, no number or public copy changed, and no VPE loaded-game/native test is claimed. The Project existing-Mod VE/non-VE audit and new-owner specification gates apply before actual addon production work. RimWorld 1.7 compatibility is separate from the inspected VPE 1.6 source.
+The startup cost of CCTO's conditional MO patch has not been measured. No performance benefit from a split is asserted.
+
+**Status / gate:** MO support remains integrated; VPE v1 is *scope only* and will be a separately packaged XML-target addon. No VPE addon repository/patch, new temperature value, VPE native test, or Workshop release is claimed. Apply the Project existing-Mod VE/non-VE audit and future VPE owner gates before implementing the new addon; 1.7 compatibility is independent of inspected VPE 1.6 source.
