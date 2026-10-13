@@ -50,6 +50,14 @@ For durable specifications and decided values, update the appropriate design/fra
 
 ## Current coordination items
 
+### CCTO-VPE-PARITY-20261013 — seven overlap values guarded in addon CI
+
+**Owner:** CCTO owns Vanilla/MO original XML; [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) owns its VPE-only values/test.
+**Status:** SOURCE PARITY FOR 7/7 CHECKED ON ADDON PR AND MAIN; VPE NATIVE ACCEPTANCE OPEN.
+
+For grass, tall grass, agave, onion, pumpkin, tomato and apple, the addon's actual values match CCTO current main XML across growth-minimum, cold-death and dormancy. Addon PR #6 (main `26ca4bb1ed0ee4007a582ecd0161f8bbc1bdd7ab`) introduced a CI checkout of CCTO main XML to catch divergence. When changing any counterpart value in this CCTO repository, consult the addon owner and run its manual `workflow_dispatch` parity check (CCTO-only pushes do not run the addon CI). No CCTO XML/source behavior has changed. The addon's runtime/save test and Steam release remain open on [CCTO-for-VPE issue #4](https://github.com/sucRo-RimWorld/CCTO-for-VPE/issues/4).
+
+
 ### POLICY-WORKSHOP-PAYLOAD-001 — Subscriber-only distribution (2026-10-07 JST)
 
 **Requested by:** author

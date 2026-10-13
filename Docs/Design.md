@@ -298,11 +298,13 @@ The range tables below are therefore not deprecated data. They are both the hist
 
 The confirmed boundary is **CCTO framework + Vanilla and Medieval Overhaul (MO) balance in the base Mod**, with a separately selectable VPE-only addon. CCTO retains the shared `ColdToleranceExtension` API and Harmony patches. The author explicitly cancelled MO separation after its proposal; this documentation update does **not** change the loaded balance.
 
-### 7.1 CCTO for VPE v1 — owner repository initialized
+### 7.1 CCTO for VPE v1 — XML source implemented, native acceptance open
 
 The separate [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) repository now holds the **authoritative** VPE-only temperature compatibility specification and plant inventory: [Design](https://github.com/sucRo-RimWorld/CCTO-for-VPE/blob/main/Docs/Design.md), [PlantBalance.json](https://github.com/sucRo-RimWorld/CCTO-for-VPE/blob/main/Docs/PlantBalance.json) and [prior-art audit](https://github.com/sucRo-RimWorld/CCTO-for-VPE/blob/main/Docs/Research/PriorArt.md).
 
-The v1 scope is 14 ordinary VPE 1.6 PlantDefs; six custom-class plants remain deferred. Owner bootstrap and offline CI were merged as `38e2fa7f28be9920a2482c4a60cd96240b333a15`. **No approved species-specific numeric values or runtime temperature XML exist yet.**
+The v1 scope remains 14 ordinary VPE 1.6 PlantDefs; six custom-class plants remain deferred. The addon **does have initial source-reviewed numeric values and generated runtime XML** (source implementation [PR #3](https://github.com/sucRo-RimWorld/CCTO-for-VPE/pull/3), merged `235663629fc77e689f2292292ff4bd327b8bb5fa`). They are gameplay model assumptions and have **not** passed a RimWorld loaded-game/native test.
+
+Seven counterpart Vanilla/MO plants (Grass, TallGrass, Agave, Onion, Pumpkin, Tomato, Apple) must use **exactly the same growth minimum, cold-death threshold and dormancy** as their base-CCTO counterparts. The separate addon [parity tests](https://github.com/sucRo-RimWorld/CCTO-for-VPE/blob/main/Tests/test_ccto_parity.py) now obtain **current main** CCTO Vanilla/MO XML via GitHub Actions sparse checkout and compare all three values for each of the seven counterparts; integrated [PR #6](https://github.com/sucRo-RimWorld/CCTO-for-VPE/pull/6), main commit `26ca4bb1ed0ee4007a582ecd0161f8bbc1bdd7ab`, PR and main static CI PASS. When changing these base CCTO settings, ensure the separately maintained addon is reviewed, and request its existing `workflow_dispatch` test; CCTO's push alone does not automatically run the addon workflow. Temperature data authority **for the base's own Defs** remains in CCTO; the addon owns only VPE Defs.
 
 CCTO itself supplies the existing `ColdToleranceExtension` framework without adding VPE-only Def mapping or balance values. VPE addon requires CCTO and VPE, and VPE 1.7 has not been validated.
 
@@ -314,4 +316,4 @@ Keep existing temperature values, dormancy and cold-death semantics, optional MO
 
 The startup cost of CCTO's conditional MO patch has not been measured. No performance benefit from a split is asserted.
 
-**Status / gate:** MO support remains integrated. The VPE addon owner repository has source, documentation and offline checks on main, but no approved numeric balance or temperature XML. No VPE loaded-game test or Workshop publication is claimed. Apply the Project existing-Mod VE/non-VE audit and future VPE owner gates before implementing the new addon; 1.7 compatibility is independent of inspected VPE 1.6 source.
+**Status / gate:** MO support remains integrated and unchanged. VPE addon's separate runtime XML and initial engineering balance values are implemented; its seven shared plant settings match current CCTO XML and are covered by offline source-parity regression. **Native RimWorld/old-save validation and Workshop publication remain unverified** ([addon issue #4](https://github.com/sucRo-RimWorld/CCTO-for-VPE/issues/4)). VPE 1.7 compatibility remains independent of the inspected VPE 1.6 source.
