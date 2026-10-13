@@ -12,7 +12,7 @@ New features cannot enter implementation before the Project [existing-Mod audit 
 
 - CCTO remains a generic cold-tolerance framework and owns its own Vanilla/MO temperature support, not AMJ-specific plant design or historical presentation.
 - AMJ historical-description policy applies only to explicitly requested AMJ-facing prose. Do not rewrite descriptions merely because a plant is supported.
-- CCTO keeps its own preview identity; the AMJ cover pipeline applies only to an explicitly requested AMJ-series cover. AMJ era/branding rules do not impose an AMJ world configuration on standalone CCTO.
+- CCTO has its own preview design and branding. No AMJ-wide preview composition, shared fixed title/map, or common cover template applies to CCTO or its independently owned VPE compatibility addon.
 - Release: `Docs/ReleaseChecklist.md`; public copy: `Docs/WorkshopDescription.md` and `Docs/2GamePresentation.md`; developer-only tools: `Docs/DevelopmentTools.md`.
 - Publication static-test contracts and evidence limitations are scoped in `Tests/AGENTS.md`; static PASS does not prove actual Steam upload or hook execution.
 
