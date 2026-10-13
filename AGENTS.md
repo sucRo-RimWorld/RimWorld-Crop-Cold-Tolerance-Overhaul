@@ -18,4 +18,4 @@ New features cannot enter implementation before the Project [existing-Mod audit 
 
 ## Framework-consumer data ownership
 
-AMJC and AMJE own their custom plant values, balance/design tables (including archived candidate ranges), Def mappings, and optional CCTO compatibility XML. [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) owns the separate VPE-only compatibility data (owner repository created; bootstrap/implementation pending). Do not add consumer-owned plants to CCTO's supported datasets. CCTO provides the reusable API and **retains its existing Vanilla/MO data**; MO is not to be split.
+AMJC and AMJE own their custom plant values, balance/design tables (including archived candidate ranges), Def mappings, and optional CCTO compatibility XML. [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) owns the separate VPE-only compatibility data (owner initialized; numeric balance and gameplay XML remain pending). Do not add consumer-owned plants to CCTO's supported datasets. CCTO provides the reusable API and **retains its existing Vanilla/MO data**; MO is not to be split.
