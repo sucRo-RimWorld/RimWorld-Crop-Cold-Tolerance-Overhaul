@@ -50,6 +50,14 @@ For durable specifications and decided values, update the appropriate design/fra
 
 ## Current coordination items
 
+### CCTO-COMPAT-LAYERS-20261013 — independent VPE XML addon and MO extraction candidate
+
+**Owner:** CCTO framework/specification; Project temporarily owns future addon design until new repository established.  
+**Status:** VPE V1 SCOPE DECIDED; 14 BASE-CLASS PLANTDEFS ALLOWLISTED; SIX VPE CUSTOM-CLASS PLANTDEFS DEFERRED; MO SPLIT PROPOSED, NOT IMPLEMENTED.
+
+New author direction: retain CCTO as a reusable framework, implement VPE temperature data only in a separate optional CCTO-for-VPE addon, with V1 excluding six custom-class plants pending individual study. MO compatibility separation is under evaluation, not permission to change the existing CCTO 29-MO-Def patch or published dependencies. No current MO/Vanilla behavior, packaging, Workshop listing or C# mechanism changes. The precise allowlist, dependencies, MO migration/duplicate-extension safeguards and 1.6-only evidence are in owner `Docs/Design.md §7` and Project `Docs/Research/CCTOCompatibilityLayers.md`. Addon production needs its own repository, actual temperature decisions, existing-Mod audit and static/native evidence. Do not treat source review as a release or runtime PASS.
+
+
 ### POLICY-WORKSHOP-PAYLOAD-001 — Subscriber-only distribution (2026-10-07 JST)
 
 **Requested by:** author
