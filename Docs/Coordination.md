@@ -50,6 +50,14 @@ For durable specifications and decided values, update the appropriate design/fra
 
 ## Current coordination items
 
+### CCTO-VPE-ADDON-OWNERSHIP-20261013 — VPE family expansion routed
+
+**Owner:** [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) owns all VPE-family plant-provider cold-tolerance data, [issue #8](https://github.com/sucRo-RimWorld/CCTO-for-VPE/issues/8).
+**Status:** SINGLE ADDON OWNER CONFIRMED; OPTIONAL PACK IMPLEMENTATION OPEN; CCTO BASE UNCHANGED.
+
+More Plants, Mushrooms, Succulents and Flowers are inventoried as candidates only. Future VPE family pack-specific XML and numeric values are assigned to the existing CCTO for VPE Mod (conditionally applied only when each verified pack exists), not to base CCTO or a new separately published Mod per pack. Base Vanilla/MO values and MO integration remain unchanged; shared seven-plant value parity remains part of addon CI. No external game test or Steam release has been performed for the new packs.
+
+
 ### CCTO-VPE-PARITY-20261013 — seven overlap values guarded in addon CI
 
 **Owner:** CCTO owns Vanilla/MO original XML; [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) owns its VPE-only values/test.
