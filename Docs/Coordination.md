@@ -50,13 +50,12 @@ For durable specifications and decided values, update the appropriate design/fra
 
 ## Current coordination items
 
-### CCTO-COMPAT-VPE-20261013 — VPE addon; MO kept integrated
+### CCTO-COMPAT-VPE-20261013 — VPE owner repository established
 
-**Owner:** CCTO framework/specification for Vanilla/MO; Project temporarily owns future VPE addon until the dedicated repository exists.  
-**Status:** VPE V1 SCOPE CONFIRMED, 14 BASE-CLASS DEFS; SIX CUSTOM-CLASS DEFS DEFERRED; MO SPLIT CANCELLED.
+**Owner:** CCTO for Vanilla/MO; [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) for VPE compatibility data.  
+**Status:** NEW OWNER REPO EXISTS BUT HAS NO INITIAL COMMIT; 14 V1 XML-ELIGIBLE DEFS CONFIRMED; SIX CUSTOM DEFS DEFERRED; MO SPLIT CANCELLED.
 
-The author explicitly cancelled the earlier MO extraction proposal. CCTO retains its current 29 MO + 49 Vanilla living PlantDef mappings, guarded `Patches/MedievalOverhaul_ColdTolerance.xml`, runtime semantics and optional MO behavior. No `CCTO for MO` dependency or migration is planned. The VPE addon remains separate, with XML-eligible ordinary plants only in v1; six custom VPE classes are deferred. Canonical specification: `Docs/Design.md §7`, Project `Docs/Research/CCTOCompatibilityLayers.md`. No production XML/C# changes, native PASS or Workshop publication implied.
-
+Author created `sucRo-RimWorld/CCTO-for-VPE`. Its Git refs, `AGENTS.md`, and `main:Docs/Coordination.md` are absent because it is empty. [Owner issue #1](https://github.com/sucRo-RimWorld/CCTO-for-VPE/issues/1) has the bootstrap and v1 implementation/test handoff. Temporary VPE scope source is Project `Docs/Research/CCTOCompatibilityLayers.md`; final values and XML belong only in the new owner repo after bootstrap. CCTO retains all 29 MO + 49 Vanilla living PlantDefs, its MO XML and C# framework unchanged; no MO addon. No VPE source implementation, native validation or release is claimed.
 
 ### POLICY-WORKSHOP-PAYLOAD-001 — Subscriber-only distribution (2026-10-07 JST)
 
