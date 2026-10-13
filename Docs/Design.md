@@ -298,13 +298,13 @@ The range tables below are therefore not deprecated data. They are both the hist
 
 The confirmed boundary is **CCTO framework + Vanilla and Medieval Overhaul (MO) balance in the base Mod**, with a separately selectable VPE-only addon. CCTO retains the shared `ColdToleranceExtension` API and Harmony patches. The author explicitly cancelled MO separation after its proposal; this documentation update does **not** change the loaded balance.
 
-### 7.1 CCTO for VPE v1 — confirmed scope, not yet implemented
+### 7.1 CCTO for VPE v1 — owner repository initialized
 
-- Use a **separate optional addon** requiring CCTO and Vanilla Plants Expanded (upstream inspected: VPE 1.6, packageId `VanillaExpanded.VPlantsE`). Do not embed VPE-only XML or balance numbers in the base CCTO package.
-- V1 is limited to 14 `Verse.Plant`-derived VPE definitions **without a custom `thingClass`**: `VCE_Grass`, `VCE_TallGrass`, `VCE_Agave`, `VCE_Onion`, `VCE_Pumpkin`, `VCE_Pepper`, `VCE_Tomato`, `VCE_AppleTree`, `VCE_PeachTree`, `VCE_PlumTree`, `VCE_PearTree`, `VCE_Opuntia`, `VCE_BearBerryBush`, `VCE_BananaTree`.
-- Hold six VPE custom-class plants for individual behavior analysis and later versions: `VCE_Peas` (rain), `VCE_Eggplant` (temperature), `VCE_Cabbage` (toxic conditions), `VCE_Beet` (winter growth), `VCE_CherryTree` (winter graphics), `VCE_OrangeTree` (river). A custom class does not automatically mean XML incompatibility; the initial scope excludes all six conservatively.
-- V1 should use only native `minGrowthTemperature` and the existing CCTO extension fields, without changing VPE's custom mechanics, yields, harvest, fertility, graphics, or progressions. No new shared C# support or VPE numeric data is approved by this scope decision.
-- **Owner created:** [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) owns VPE temperature data, Def mapping, documentation, XML and tests. It is presently an empty Git repository; until `Docs/Design.md` is committed there, [Project CCTO compatibility plan](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/CCTOCompatibilityLayers.md) remains a temporary scope reference. Bootstrap and first owner tasks: [issue #1](https://github.com/sucRo-RimWorld/CCTO-for-VPE/issues/1).
+The separate [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) repository now holds the **authoritative** VPE-only temperature compatibility specification and plant inventory: [Design](https://github.com/sucRo-RimWorld/CCTO-for-VPE/blob/main/Docs/Design.md), [PlantBalance.json](https://github.com/sucRo-RimWorld/CCTO-for-VPE/blob/main/Docs/PlantBalance.json) and [prior-art audit](https://github.com/sucRo-RimWorld/CCTO-for-VPE/blob/main/Docs/Research/PriorArt.md).
+
+The v1 scope is 14 ordinary VPE 1.6 PlantDefs; six custom-class plants remain deferred. Owner bootstrap and offline CI were merged as `38e2fa7f28be9920a2482c4a60cd96240b333a15`. **No approved species-specific numeric values or runtime temperature XML exist yet.**
+
+CCTO itself supplies the existing `ColdToleranceExtension` framework without adding VPE-only Def mapping or balance values. VPE addon requires CCTO and VPE, and VPE 1.7 has not been validated.
 
 ### 7.2 MO stays in CCTO — confirmed decision
 
@@ -314,4 +314,4 @@ Keep existing temperature values, dormancy and cold-death semantics, optional MO
 
 The startup cost of CCTO's conditional MO patch has not been measured. No performance benefit from a split is asserted.
 
-**Status / gate:** MO support remains integrated; VPE v1 is *scope only* for the newly created but empty [CCTO-for-VPE](https://github.com/sucRo-RimWorld/CCTO-for-VPE) repository. No VPE XML patch, approved numeric values, native test, or Workshop release is claimed. Apply the Project existing-Mod VE/non-VE audit and future VPE owner gates before implementing the new addon; 1.7 compatibility is independent of inspected VPE 1.6 source.
+**Status / gate:** MO support remains integrated. The VPE addon owner repository has source, documentation and offline checks on main, but no approved numeric balance or temperature XML. No VPE loaded-game test or Workshop publication is claimed. Apply the Project existing-Mod VE/non-VE audit and future VPE owner gates before implementing the new addon; 1.7 compatibility is independent of inspected VPE 1.6 source.
