@@ -59,7 +59,9 @@ Ancient & Medieval Japan (AMJ) uses CCTO's framework/API from its own PlantDefs 
 
 ### Planned compatibility
 
-Support for **Vanilla Plants Expanded (VPE)** is planned. Because the wider VPE plant catalog exceeds 100 plants, the first compatibility pass will target the **20 plants in the basic set** rather than attempting full VPE coverage at once. Additional VPE plants can be considered later.
+**[CCTO for VPE](https://steamcommunity.com/sharedfiles/filedetails/?id=3819486090)** is a separate optional compatibility add-on for **Vanilla Plants Expanded (VPE)** rather than part of the CCTO base Mod. Its source XML implements cold-tolerance settings for **all 20 plants in the VPE 1.6 basic set** (14 ordinary PlantDefs and six VPE-specific custom-class plants). Static checks have passed, but **in-game behavior has not been independently tested**. Its Steam Workshop item is currently **private**, not publicly available.
+
+The same add-on is planned to support optional VPE plant packs (More Plants, Mushrooms, Succulents, Flowers) in the future. **Those packs are not yet implemented or supported.** CCTO itself continues to own its Vanilla and Medieval Overhaul plant balance; it does not bundle VPE compatibility data.
 
 ## Supported languages
 

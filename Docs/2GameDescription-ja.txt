@@ -35,9 +35,9 @@
 ・CCTOを必須とする他MODの依存関係は維持する必要がある
 
 ▼ 今後の予定
-・Vanilla Plants Expanded（VPE）に対応予定
-・まず基本セット20種を対象
-・追加対応は優先度や要望を見て検討
+・VPE対応は別Mod「CCTO for VPE」が担当。基本セット20種の耐寒性XMLを実装済み（実ゲーム未検証）
+・CCTO for VPE（Steam Workshop、現在非公開）：https://steamcommunity.com/sharedfiles/filedetails/?id=3819486090
+・More Plants、Mushrooms、Succulents、Flowersへの追加対応は今後の予定（現時点では未対応）
 
 詳細な変更値や設計意図はGitHub READMEを参照。
 https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul

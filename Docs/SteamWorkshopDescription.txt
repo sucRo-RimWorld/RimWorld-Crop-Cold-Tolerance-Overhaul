@@ -33,9 +33,9 @@ This is not a blanket nerf to every plant. Plants suited to overwintering can su
 
 [h2]Planned support[/h2]
 
-Support for [b]Vanilla Plants Expanded (VPE)[/b] is planned.
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3819486090][b]CCTO for VPE[/b][/url] is a separate optional compatibility add-on for [b]Vanilla Plants Expanded (VPE)[/b]. Its cold-tolerance XML for the [b]20 plants in the VPE 1.6 basic set[/b] is implemented, but has not been tested in-game. The Steam Workshop item is currently private.
 
-Because the full VPE plant catalog contains more than 100 plants, the first compatibility pass will target the [b]20 plants in the basic set[/b]. Support for additional VPE plants can be considered later based on priority and demand.
+Support for additional VPE plant mods (More Plants, Mushrooms, Succulents, Flowers) is planned within the same CCTO for VPE add-on. These additional packs are [b]not supported yet[/b].
 
 [h2]Framework for other mods[/h2]
 
@@ -94,9 +94,9 @@ Vanillaでは、多くの植物が最低生育温度を基準にした共通ル�
 
 [h2]今後の対応予定[/h2]
 
-[b]Vanilla Plants Expanded（VPE）[/b]への対応も予定しています。
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3819486090][b]CCTO for VPE[/b][/url]は、[b]Vanilla Plants Expanded（VPE）[/b]向けの独立した任意互換Modです。VPE 1.6の[b]基本セット20種[/b]の耐寒性XMLを実装済みですが、実ゲームでは未検証です。Steam Workshopページは現在非公開です。
 
-VPE全体では植物が100種を超えるため、まずは[b]基本セットの20種[/b]を対象に対応する予定です。それ以外のVPE植物については、その後の優先度や要望を見ながら検討します。
+VPEの追加植物Mod（More Plants、Mushrooms、Succulents、Flowers）への対応は、同じCCTO for VPEで今後予定しています。これらの追加Modは[b]現在未対応[/b]です。
 
 [h2]他Mod向けフレームワーク[/h2]
 

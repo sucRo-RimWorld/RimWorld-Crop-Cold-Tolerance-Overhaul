@@ -56,9 +56,9 @@ CCTO public descriptions must not list AMJ-owned crops or plants planned for fut
 
 ## Planned compatibility shown on Workshop
 
-- Vanilla Plants Expanded (VPE) support is planned, not currently supported.
-- VPE contains more than 100 plants across its wider catalog, so the first compatibility target is the 20-plant basic set.
-- Additional VPE coverage is a later consideration rather than a promise of full immediate support.
+- VPE support is handled by the separate optional [CCTO for VPE](https://steamcommunity.com/sharedfiles/filedetails/?id=3819486090) add-on, not CCTO base.
+- The add-on has source-implemented cold-tolerance XML for the VPE 1.6 basic set (20 plants, including six custom-class plants), but has not been tested in-game. Its Steam item is currently private.
+- Optional VPE add-on packs (More Plants, Mushrooms, Succulents, Flowers) are planned for the same compatibility add-on; they are not yet supported. No broader VPE support is claimed for base CCTO.
 
 ## Combined public text check
 
