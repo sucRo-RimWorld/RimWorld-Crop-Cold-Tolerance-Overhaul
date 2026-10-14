@@ -1,20 +1,19 @@
 現実の植物に見られる耐寒性の違いを参考に、植物ごとの低温反応をより現実的に調整。
-最低生育温度、固定の枯死温度、低温による休眠を植物ごとに設定する。
+バニラでは基本一律で設定されている最低生育温度、固定の枯死温度を植物種ごとに設定し、低温による休眠を追加する。
+※バニラではヒールルートのような例外を除き一律で設定されており、0℃以下：生育停止、−10〜−18℃のランダムで枯死となっている。
 
-▼ 主な機能
+▼ 特徴
 ・植物ごとに最低生育温度を調整
 ・休眠しない植物には固定の枯死温度を設定
 ・一部の多年草・越冬植物は低温休眠
 ・情報カードに「枯死温度」「休眠温度」を表示
 ・収穫量、成長日数、肥沃度、保存期間、加工、研究は変更しない
 ・農作物だけでなく野生植物も対象
-・他MOD向けの軽量XMLフレームワーク（枯死温度と休眠温度の設定）としても利用可能
-
-▼ バランス方針
-・全体としてVanilla/Medieval Overhaulより寒冷地での農業が難しくなる
 ・多くの作物はより高い温度で成長停止し、より暖かい温度で枯死
 ・作物選択、播種時期、暖房、温室、寒波対策がより重要に
 ・一部の多年草・越冬作物は休眠で冬を生き残れるように改善
+・全体として結果的にVanilla/Medieval Overhaulより寒冷地での農業が難しくなる
+・他MOD向けの軽量XMLフレームワーク（枯死温度と休眠温度の設定）としても利用可能
 
 ▼ 対応範囲
 ・RimWorld 1.6 Core：PlantDef 49種
@@ -23,8 +22,7 @@
 
 ▼ 対応・互換性
 ・必須MOD：https://rimworld.2game.info/detail.php?id=2009463077
-・Vanilla RimWorld 1.6対応
-・https://rimworld.2game.info/detail.php?id=3219596926 1.6と互換（任意）
+・https://rimworld.2game.info/detail.php?id=3219596926 と互換（任意）
 ・https://rimworld.2game.info/detail.php?id=3685058533、https://rimworld.2game.info/detail.php?id=1446523594に対応
 ・日本語・英語対応
 
@@ -35,9 +33,6 @@
 ・CCTOを必須とする他MODの依存関係は維持する必要がある
 
 ▼ 今後の予定
-・VPE対応は別Mod「CCTO for VPE」が担当。基本セット20種の耐寒性XMLを実装済み（実ゲーム未検証）
-・CCTO for VPE（Steam Workshop、現在非公開）：https://steamcommunity.com/sharedfiles/filedetails/?id=3819486090
-・More Plants、Mushrooms、Succulents、Flowersへの追加対応は今後の予定（現時点では未対応）
-
-詳細な変更値や設計意図はGitHub READMEを参照。
-https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul
+・Vanilla Plants Expanded（VPE）に対応予定
+・まず基本セット20種を対象
+　→別Modとして作成　https://rimworld.2game.info/detail.php?id=3819497323
