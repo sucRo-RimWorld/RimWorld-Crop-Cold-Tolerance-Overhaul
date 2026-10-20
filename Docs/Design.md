@@ -586,3 +586,51 @@ Neither a global quadratic injury law nor a universal recovery
 rate is approved by these experiments. New runtime code/XML remains
 on hold until source-specific calibration reaches a defensible
 level for a representative crop class.
+
+
+### W04/W06 numerical reconstruction gate (2026-10-21)
+
+The primary comparison is now reproducible in
+[ColdDamageCalibration.md — W04 original regression](ColdDamageCalibration.md#w04-source-regression-reconstruction--exact-published-tables-245-2026-10-21)
+and [W06 independent frost-dose cross-check](ColdDamageCalibration.md#w06-independent-multi-temperature-frost-dose-cross-check--tillers-only),
+with machine-readable entries
+[W04 whole-plant fit](Research/WinterWheatW04Regression.csv)
+and [W06 tiller dose response](Research/WinterWheatW06TillerRegression.csv).
+
+**W04:** four field-acclimated wheat cultivar cohorts, each frozen
+over cyclic **soil** temperature ranges, fit source whole-plant
+mortality `M(n)=1-(1-P)^(n-K)` at its own experiment cycle. The
+source **LD10/20/50 are regression-derived**, not hold-out
+observations. Stable per-plant threshold `N_i=K-ln(1-u_i)/h`
+(`h=-ln(1-P)`) reproduces a fitted source cohort-mortality CDF
+without per-tick random checks. This is a suitable *computational
+equivalence example*, not a CCTO source-level tested feature.
+K/P and their spread differ by cultivar even at identical
+nominal soil minima; no common plant species tolerance width
+has been approved.
+
+**W06:** original 2024 source Table 4 relates **tiller**
+mortality to thresholded accumulated **soil crown** cold:
+linear-in-dose coefficients and tiller-death 50% exposures
+are separately recorded for three cultivars. This supports
+the *shape* of a low-cost accumulated cold metric over the
+observed experimental range but **is not whole-plant
+mortality calibration**. Crown soil temperatures deviated
+from imposed air temperature by several degrees and the
+gap varied with the number of freezing days. It cannot
+be pasted into an ambient-air-based RimWorld Plant model.
+One Yanzhan4110 2-day logistic table coefficient is
+inconsistent with its own published LD50 and has been
+quarantined in research.
+
+**Implementation gate:** prioritize a compact dose-integration
+path + stable plant-specific susceptibility derived from
+approved source-specific exposure curves. Avoid a global
+linear/quadratic law, unsupported temperature offsets or
+universal recovery/variance. Do not migrate MO Wheat
+or any other Def just because one winter cultivar's data
+can be fitted. Raw whole-plant survival across multiple
+temperature-duration combinations, including post-thaw
+recovery details, remains the key missing evidence for
+numeric acceptance. PR Draft implementation is still
+uncalibrated; no production XML changed.
