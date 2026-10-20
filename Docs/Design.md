@@ -429,3 +429,17 @@ No specific response profile, species value or recovery speed is approved
 by this policy; the linear draft and quadratic candidate remain
 unvalidated. Reconcile empirical calibration with the equation and
 parameters before migrating stock XML or accepting the Draft PR.
+
+
+### Plant-by-plant empirical evidence register (2026-10-21)
+
+The source collection work is recorded in
+[ColdDamageEvidenceLedger](ColdDamageEvidenceLedger.md): **78** CCTO-owned
+plant Def mappings, bibliography, measured tissue/stage outcome, relevance
+and gaps. An evidence link is not itself a calibrated cold-death onset or
+lethal dose; this register includes related-species proxies and nonlethal
+organ damage observations. The first pass mapped **28** Defs to at least
+one source/comparison and left **50** unmapped. The 12 abandoned synthetic
+numerical proposals remain withdrawn. Retain current production XML and
+legacy death/dormancy presentation until a documented plant-class model is
+validated against source-derived outcome constraints.
