@@ -16,8 +16,8 @@
 **This GitHub-tracked document is the canonical reference register for the
 CCTO numerical recalibration research.** The **50 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
-non-transferability warnings. The 14 repeated source ID occurrences in the later
-whole-plant endpoint extraction are cross-references, **not** 14 additional
+non-transferability warnings. Source IDs repeated in the later whole-plant
+endpoint extraction are cross-references, **not** additional independent
 sources. The adjacent 78-Def table is the source-to-plant index, including
 explicit no-source rows. Do not silently delete a reference during
 recalibration: preserve source IDs in the register and mark later
@@ -30,9 +30,11 @@ must accompany any numerical parameter derived from the source:
 | Source IDs | Check completed during 2026-10-21 research | Remaining gate |
 |---|---|---|
 | `ON01` | NMSU breeding-project page reports 90% survival at -13°C for some Japanese-origin accessions and ~-14°C December seedling LT50 for named commercial varieties | The second claim is inconsistent with the Peffley 1981 original (ON03: -8.7/-10.5/-10.8°C). Preserve the discrepancy; do not use -14°C as validated ON03 data. |
+| `W01` | [USDA-ARS peer-reviewed publication record](https://www.ars.usda.gov/research/publications/publication/?seqNo115=221641) directly confirms fully acclimated *Triticum aestivum* 25 cultivars, frozen at **-5°C for 15 or 20 weeks**; survival at 15 weeks **0–100%**, at 20 weeks **0–33%**, Norstar/Froid around 33% at 20 weeks | Whole-plant survival under sustained frozen state, but temperature is a chamber treatment of acclimated seedlings. Not equivalent to outdoor air frost mortality; results must not be assigned to spring wheat or shortened to a fixed instant-death threshold. |
+| `RY01` | [Abeynayake et al. 2015 original methods and results](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2015.00329/full) directly confirm *Lolium perenne* two genotypes, 17 days at **7°C** acclimation then **-10°C for 3 hours**, compared with nonacclimated controls | After **7 days at 20°C**, only cold-acclimated plants regrew; the 40/70% numbers are **aboveground biomass regrowth relative to pre-freeze**, not per-plant mortality percentages. |
 | `RO01` | Journal article landing/full-text page confirms 2022 research on 17 rose cultivars; field winter damage scored 0–5 with 5 meaning whole-plant death, and a separate modeled whole-plant LT50 | Verify cultivar-by-cultivar numerical LT50 against field exposure and differentiate modeled whole-plant LT50 from stem electrolyte-leakage LT50 |
 | `CY01` | Forest Research and Management Organization Japanese abstract confirms winter hardiness of Hinoki cypress around -25°C and strong seasonal/clone variation | The linked detailed PDF is retained but its individual 43-clone table and exposure protocols have not been revalidated in this check; generically named Cypress is not necessarily Hinoki |
-| Other 47 source IDs | Earlier sources preserved with their reference URLs and endpoint classification | Original protocols, data tables and any conversion into CCTO parameters still require individual verification. |
+| All other source IDs | Earlier sources remain preserved with their reference URLs and endpoint classification | Original protocols, data tables and conversion into CCTO parameters still require individual source-by-source verification. |
 
 For `CY01`, a text-accessible institutional summary is also available at
 https://www.ffpri.go.jp/labs/kanko/364-1.html ; the registry retains
