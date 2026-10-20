@@ -15,6 +15,14 @@
 
 | ID | Source | Type | Reported target and outcome | Constraint |
 |---|---|---|---|---|
+| `Q01` | [Cold acclimation of Quercus robur in northern range (2007)](https://www.sciencedirect.com/science/article/abs/pii/S0098847207001876) | 一次生理実験 | 2年生ヨーロッパナラの枝/幹で、9月初旬に耐凍性約-10℃、12月初旬に約-36℃ | 同種不明のCCTO Oak/Great Oakに数値を直輸入しない;樹冠全体の死亡ではない |
+| `P02` | [Populus tremula × P. tremuloides, chilling acclimation](https://pubmed.ncbi.nlm.nih.gov/15095138/) | 一次生理実験 | 3か月苗の4℃14日順化で葉の耐凍性が-5.7→-9.8℃;4℃自体では個体は生存し成長ほぼ停止 | 組織耐性と株死亡を分離;交雑ポプラを野生種と同じにしない |
+| `S02` | [Rosenblad et al. 2024, montane willow freezing sensitivity](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.20028) | 一次実験 | Salix spp.春の新梢を凍結させ、挿し穂の再発根で生存可否/LT50評価 | 春芽の再発根で成木樹体死亡とは異なる;冬の順化状態と比較禁止 |
+| `S03` | [Lennartsson et al. 2002, willow cold hardening](https://onlinelibrary.wiley.com/doi/full/10.1046/j.1365-3040.2002.00902.x) | 一次実験 | Salix の生育停止後、茎等の蛍光による傷害LT50と順化速度を比較 | 茎組織評価であり各種の厳密な死亡時間は未転用 |
+| `T02` | [Luna & Kumar 2008, teak plantations frost treatments](https://indianforester.co.in/index.php/indianforester/article/view/902) | 一次野外試験 | 1～3年生チーク植栽林で霜害後の樹高損失約15.81%を観察 | 曝露気温/時間に対応する全株枯死率の値は示されていない |
+| `G03` | [Freezing tolerance of garlic ecotypes, AGRIS indexed trial](https://agris.fao.org/search/es/records/6474734ad02e8fbe07eec822) | 一次試験要旨 | ニンニク4系統、0～-21℃の凍結処理; -15℃で系統/播種時期により生存減20%、26%または大量消失 | 順化した系統の試験でありすべてのニンニクの-15℃死亡値にはならない |
+| `G04` | [Hardneck garlic growth/cold injury model (2022)](https://pmc.ncbi.nlm.nih.gov/articles/PMC8967357/) | 温度処理実験とモデル | 第3葉期を0,-5,-10,-15℃に暴露;生存株の葉面積を最大8日測定 | *生存者のみ*葉面積の変化;死亡率は別のG03を使用 |
+| `C02` | [Joly & Hahn 1991, Theobroma cacao dark chilling](https://pubmed.ncbi.nlm.nih.gov/14972851/) | 一次生理実験 | カカオ幼苗を一夜4.7～15.8℃に曝露;10℃未満で光合成強く阻害、7日で光合成回復 | 生理低下と株死亡は別;損傷開始温度を直接決定しない |
 | `A01` | [Davis et al. 2017, GCB Bioenergy, Agave field trial](https://onlinelibrary.wiley.com/doi/abs/10.1111/gcbb.12324) | 一次野外試験 | Agave tequilana, A. fourcroydes, A. americana — 2013年の5夜連続-6～-8℃の寒波後、A. tequilanaで74%枯死、A. americanaでは寒害/死亡を観察せず | 栽培Agaveの種差でありCCTOの`Plant_Agave`種は特定されていない |
 | `A02` | [Agave americana cold-model study 2019, J Exp Bot](https://pmc.ncbi.nlm.nih.gov/articles/PMC6883261/) | 現地観測＋先行細胞実験引用 | A. americana — 50%細胞死温度約-7.4℃、順化温度10℃低下に応じ耐寒限界約1.8℃変化と引用 | 細胞LT50であり全株枯死値ではない |
 | `K01` | [Cucurbita pepo seedlings, low-temperature stress 2023](https://pmc.ncbi.nlm.nih.gov/articles/PMC9921430/) | 一次生理実験 | ズッキーニ(C. pepo)幼苗の5℃非凍結処理;酸化ストレスと葉の損傷軽減 | MO Pumpkinと種・品種一致未検証。死亡率や霜害の下限は与えない |
@@ -57,7 +65,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_Hops` | Hops | dormancy | `H01` | 対象資料あり・端点注意 | 地上部 vs 休眠根茎;定量致死データなし |
 | `Plant_Smokeleaf` | Smokeleaf | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_Psychoid` | Psychoid | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `Plant_TreeCocoa` | Cocoa | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeCocoa` | Cocoa | death | `C02` | 同種・生理応答のみ | カカオ幼苗の一夜低温で光合成低下/回復;株死亡率ではない |
 | `Plant_TreeBamboo` | Bamboo | death | `D01` | 対象資料あり・端点注意 | Moso葉の順化機構;ゲーム樹種特定は未検証 |
 | `Plant_TreeBirch` | Birch | dormancy | `N01` | 対象資料あり・端点注意 | Betula pendula実験;ゲーム側のカバノキ種不明 |
 | `Plant_TreeCecropia` | Cecropia | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
@@ -66,16 +74,16 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_Daylily` | Daylily | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_TreeDrago` | Drago tree | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_TreeMaple` | Maple | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
-| `Plant_TreeOak` | Oak | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeOak` | Oak | dormancy | `Q01` | 同属・順化耐性 | ヨーロッパナラ2年苗の幹・枝耐凍性;木全体の死亡は別 |
 | `Plant_TreePalm` | Palm | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_TreePine` | Pine | death | `N01`, `N02` | 異種比較・数値不可 | 前者はマツ属複数種の参考;Great Firはモミ属でありマツの値を転用禁止 |
-| `Plant_TreePoplar` | Poplar | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreePoplar` | Poplar | dormancy | `P02` | 同属・葉順化の実験 | 交雑ポプラ葉の耐凍性-5.7→-9.8℃;成木枯死ではない |
 | `Plant_Rose` | Rose | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_SaguaroCactus` | Saguaro cactus | death | `T01` | 対象資料あり・端点注意 | 同種の生態資料;曝露例の条件差あり |
-| `Plant_TreeTeak` | Teak | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeTeak` | Teak | death | `T02` | 同種・霜害程度のみ | チーク植林1～3年の樹高損失15.81%;死亡率/気温・曝露時間は未確認 |
 | `Plant_Timbershroom` | Timbershroom | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_Tinctoria` | Tinctoria | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `Plant_TreeWillow` | Willow | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeWillow` | Willow | dormancy | `S02`, `S03` | 同属・芽/茎の組織差 | Salixの春新梢再発根と冬順化を区別 |
 | `Agarilux` | Agarilux | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_Agave` | Agave | death | `A01`, `A02` | 同属種実測・種未確定 | Agave 3種の寒波生存差; CCTOのAgaveがどの種か要確認 |
 | `Plant_Alocasia` | Alocasia | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
@@ -98,7 +106,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `DankPyon_Plant_Onions` | Onion | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `DankPyon_Plant_Lentils` | Lentil | death | `F01` | 対象資料あり・端点注意 | 発芽/開花/結実の霜害帯 |
 | `DankPyon_Plant_Cabbages` | Cabbage | death | `F01`, `C01` | 対象資料あり・端点注意 | 葉片損傷/生育段階別霜害;株死亡との混同禁止 |
-| `DankPyon_Plant_Garlic` | Garlic | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_Plant_Garlic` | Garlic | dormancy | `G03`, `G04` | 同種・株生存/葉成長 | 冷順化したニンニクの系統差;葉面積/死亡を分離 |
 | `DankPyon_Plant_Mushrooms` | Mushroom | death | `M02` | 近縁菌類・参考限定 | 4属の培養菌糸LT50と再成長; MOキノコの同定・環境は未確定 |
 | `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02` | 対象資料あり・端点注意 | 春小麦vs順化冬小麦;2者を混同しない |
 | `DankPyon_Plant_Flax` | Flax | death | `F01` | 対象資料あり・端点注意 | 亜麻は生育段階別被害温度 |
@@ -120,14 +128,14 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `DankPyon_Plant_PoppyWild` | Wild poppy | death | `F01` | 対象資料あり・端点注意 | Poppy品目は特定種・野生型同定を要する |
 | `DankPyon_Plant_FleawortWild` | Wild fleawort | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `DankPyon_Plant_FlyAgaricWild` | Wild fly agaric | dormancy | `M02` | 異種菌類・参考限定 | 菌糸体と地上子実体を区別; ベニテングタケ実測ではない |
-| `DankPyon_GreatOak` | Great oak | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_GreatOak` | Great oak | dormancy | `Q01` | 近縁モデル・参考限定 | Great Oakの実在種同定なし;Quercus roburの枝の数値を流用禁止 |
 | `DankPyon_GreatIter` | Great Iter | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `DankPyon_GreatFir` | Great fir | death | — | 直接資料未収集 | モミ類とマツ属は別属; N01/N02のマツ耐性を流用禁止 |
-| `DankPyon_GreatWillow` | Great willow | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_GreatWillow` | Great willow | dormancy | `S02`, `S03` | 同属・近縁モデル | Great Willowが実在どのSalix種か未同定 |
 
 ## Current scope and next useful searches
 
-- **28 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 28 empirically validated species: the category includes weak comparative cross-taxon references. **50 / 78** still lack a mapped source in this pass.
-- **High-value direct research gaps**: exact species of CCTO wild trees/bushes (Quercus, Salix, Populus, Cecropia, teak, cocoa), medicinal crops in MO (mindwort/fleawort/herb identification, fly agaric mycelium), garlic/onion overwinter tissues, plant roots/crowns vs foliage, any CCTO fictitious plants.
+- **36 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 36 empirically validated species: the category includes weak comparative cross-taxon references. **42 / 78** still lack a mapped source in this pass.
+- **High-value direct research gaps**: exact species of CCTO wild trees/bushes (Quercus, Salix, Populus, Cecropia, teak, cocoa), medicinal crops in MO (mindwort/fleawort/herb identification, fly agaric mycelium), onion overwinter tissues, plant roots/crowns vs foliage, any CCTO fictitious plants.
 - **Species identity gate**: `Plant_TreePine` is generic pine and `DankPyon_GreatFir` is not pine; none of the published Scots pine/saguaro/Opuntia values are valid global pine/fir/cactus/Agave thresholds.
 - **Biology/code interface gate**: decide which endpoint a RimWorld whole `Plant` represents (growth-point death versus leaf injury and loss of yield), and distinguish cold acclimation for viable winter survivors. The draft linear degree-hour formula has not been fitted; **do not issue species parameters, migrate XML, run native tests, or approve Workshop graphs from this registry alone**.
