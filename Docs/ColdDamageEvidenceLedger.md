@@ -14,7 +14,7 @@
 ## GitHub bibliography retention and verification (2026-10-21)
 
 **This GitHub-tracked document is the canonical reference register for the
-CCTO numerical recalibration research.** The **52 unique source IDs** below
+CCTO numerical recalibration research.** The **55 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
 non-transferability warnings. Source IDs repeated in the later whole-plant
 endpoint extraction are cross-references, **not** additional independent
@@ -73,6 +73,9 @@ candidate numbers.
 | `MP01` | [Mura et al. 2025 Acer saccharum bud hardiness](https://pmc.ncbi.nlm.nih.gov/articles/PMC12528974/) | 一次苗木順化試験 | Sugar maple苗木、4℃人工順化と自然越冬後の芽のLT50/芽吹き時期を比較 | 芽と新梢の凍害測定であって樹木全体の死亡ではない; generic Mapleの同一種も未同定 |
 | `BR01` | [Oregon State University Blackberry garden guide](https://extension.oregonstate.edu/catalog/ec-1303-growing-blackberries-your-home-garden) | 査読済み大学普及資料 | Rubus属のブラックベリー。多年生地下根/株元と2年生の地上茎が別;寒害は品種/冬前の気温/成長段階で異なる | 凍結による枝・花芽損傷と根株死亡を区別。RimWorld Bramblesの種が同定できない |
 | `MO01` | [Zhao et al. 2024 Morus alba bud dormancy and cold resistance](https://pmc.ncbi.nlm.nih.gov/articles/PMC11728178/) | 201集団を用いたGWAS＋遺伝子機能試験 | Morus albaの芽の休眠解除時期と耐寒性の遺伝的相関、MaFAD2過剰発現で芽吹き遅延 | 全株生存率/致死曝露時間を示さない;MO桑の品種は未定 |
+| `V03` | [Reyes-Díaz et al. 2006, *Journal of Experimental Botany*, 57:3687–3696, doi:10.1093/jxb/erl125](https://academic.oup.com/jxb/article/57/14/3687/584622) | **一次全株生存実験・LT10/LT50/LT90** | *Arabidopsis thaliana* Columbia, Ler, esk-1, frs-1の鉢植え全株を0～−15℃で各2時間凍結し、復温後10日間に新葉が出た株を生存と判定。各温度あたり30個体、3回の独立測定。大半の系統でLT10とLT90はLT50の周辺で約1～2℃の変動、Lerは−1.5℃付近のLT10に対しLT50約−7.5℃、LT90約−8.5℃という非対称な例もある。 | **種・系統と順化期間ごとに異なる**。図2にLT10/LT50/LT90を示すが、表示された1～2℃は文脈上「中央値周辺の変動」であり一律のLT90−LT10幅やCCTOの共通σを意味しない。 |
+| `V04` | [Interrante et al. 2020, *Agricultural & Environmental Letters*, doi:10.1002/ael2.20017](https://acsess.onlinelibrary.wiley.com/doi/10.1002/ael2.20017) | **一次全株生存・ロジスティック回帰** | トールフェスク *Schedonorus arundinaceus* 夏活動/夏休眠2品種。1–2葉期の苗(n=1594)のLT50=−5.7/−5.5℃、5–6葉期の分げつ株(n=1845)のLT50=−6.0/−5.7℃。苗は−4℃以上で全株生存、−8℃以下で全株死亡。凍結約16h、最適条件下で14日回復して生死判定。 | 草一般の値へ転用できない。−4/−8℃は試験内観測で厳密な母集団LT0/LT100ではない。苗齢/品種別の傾きを近似可能だが他の草群へ流用禁止。 |
+| `V05` | [Nabati et al. 2026, *BMC Plant Biology* 26:504, doi:10.1186/s12870-026-08352-w](https://link.springer.com/article/10.1186/s12870-026-08352-w) | **一次全株再生生存率・複数温度** | *Cicer arietinum* 8遺伝型。自然条件下で約4か月順化後、約2℃/hで冷却、各0/−6/−10/−12/−14℃を2h保持、4週間後に再成長と緑組織で生死判定。KAKA系統：0℃=100%、−6℃=95%、−10℃=80%、−12℃=70%、−14℃=0%。 | 生存率は系統KAKA・特定の冷却/順化手順の結果。−12～−14℃間の急変は確認できるが、同一温度での異なる曝露時間や耐寒性分布の関数形は同定不能。単一の普遍的σとしない。 |
 | `V01` | [Freezing tolerance and genetic loci in *Boechera stricta* (2015)](https://pmc.ncbi.nlm.nih.gov/articles/PMC4416058/) | 一次株生存率/群集遺伝比較 | 凍結後に50%の個体が死亡するLT50を生存率曲線から推定し、低温順化・系統間の耐凍性差を記録。親系統の順化後LT50は短日条件で約-11.3℃/ -8.6℃。 | **異種に係数を転用しない**。LT50は半数死亡の集団統計で、同一遺伝型の全株がちょうどこの温度で死亡するわけではない。今回の用途は個体差モデルの根拠のみ。 |
 | `V02` | [Natural variation of *Arabidopsis lyrata* subsp. *petraea* survival under freezing (2018)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6233594/) | 一次株生存率/集団比較 | 2℃で2日低温順化した複数集団を凍結処理し、処理後14日の個体生存率から集団LT50を推定。集団間LT50の範囲は約-8.6～-6.2℃、-7℃では比較対象集団の生存率約76%対34%。 | **集団間の差と集団内の散らばりは別物**。この差をそのまま1種の株個体差分布幅として使わない。 |
 | `Q01` | [Cold acclimation of Quercus robur in northern range (2007)](https://www.sciencedirect.com/science/article/abs/pii/S0098847207001876) | 一次生理実験 | 2年生ヨーロッパナラの枝/幹で、9月初旬に耐凍性約-10℃、12月初旬に約-36℃ | 同種不明のCCTO Oak/Great Oakに数値を直輸入しない;樹冠全体の死亡ではない |
