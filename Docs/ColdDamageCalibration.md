@@ -707,3 +707,95 @@ It is **not** a calibrated general CCTO injury equation, recovered
 raw survival dataset, validated onset temperature, acclimation
 mechanic or finalized per-Def XML. Keep PR Draft and avoid native
 tests until numerical/ownership work is complete.
+
+
+## W06 independent multi-temperature frost-dose cross-check — tillers only
+
+An additional **fully accessible original 2024 paper**, Wu et al.
+([W06, *Frontiers in Plant Science* 15,
+doi:10.3389/fpls.2024.1419381](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1419381/full)),
+has **three wheat cultivars each observed at multiple temperatures
+AND across 1, 2 and 3 freeze days**. The measured endpoint is
+**tiller mortality**, **not the death of whole plants**; its numeric
+coefficients cannot replace W04's plant-survival regression.
+
+The 2024 authors show that the minimum soil temperature at the
+wheat crown (~2.5 cm deep) was typically **7.5°C higher than
+the test air minimum after 1 day, 4.8°C higher after 2 days,
+and 4.2°C higher after 3 days**. These time-dependent offsets
+make a static equation based on game `AmbientTemperature`
+especially unreliable as a *crown-freezing* mortality measure.
+
+### Study-reported dose–response coefficients (Table 4)
+
+The paper defines an accumulated *effective negative soil
+temperature* `TSE_h` in °C·h below a crown-temperature threshold,
+and describes a **local fitted linear regression** of the
+**fraction of dead tillers**, `m = a*TSE_h+b`.
+The response is fitted only across observed treatments; nonzero
+baseline intercepts are **not** proof of mortality at physical
+zero effective dose.
+
+| Cultivar | Crown cold threshold used in study (°C) | Source regression `m = a*TSE_h+b` | Source R² | Source TSE_h for 10% / 30% / 50% dead tillers (°C·h) |
+|---|---:|---|---:|---|
+| Nongda211 | -8 | `0.0040*dose + 0.0725` | 0.83 | 6.9 / 56.9 / 106.9 |
+| Zhengmai366 | -6 | `0.0051*dose + 0.059` | 0.93 | 8.0 / 47.3 / 86.5 |
+| Yanzhan4110 | -3 | `0.0055*dose + 0.034` | 0.86 | 12.0 / 48.4 / 84.7 |
+
+[Machine-readable W06 source and recomputed
+quantiles](Research/WinterWheatW06TillerRegression.csv) retain the
+original hourly and daily-dose fits, soil crown thresholds, and
+separate derived/observed fields. Recomputing 50%-tiller-death
+from the **rounded** `a,b` yields 106.875, 86.471, 84.727°C·h,
+which agrees with the published rounded Table 4 values.
+**This is reconstruction of the authors' own fitted regression,
+not independent out-of-sample validation.**
+
+Source Table 3 also fits *air minimum temperature* against
+tiller death separately at each exposure day using logistic
+curves. Important **internal consistency warning**:
+for Yanzhan4110 **2-day** treatment the online table lists
+`a=0.90,b=17.18`, which algebraically implies 50%-tiller
+death at **-19.09°C** (because `T50=-b/a`), but the
+same row prints a 50%-mortality temperature of **-12.7°C**.
+It is impossible for both to be correct. **Quarantine the
+2-day Yanzhan4110 regression coefficients** until the
+original figure or author correction resolves the mismatch.
+Other cohorts' rows are not automatically invalidated.
+
+### Implications for CCTO numerical strategy
+
+- **W04 = plant survival versus cold-cycle time** at a single
+  cultivar-specific programmed soil temperature cycle; it
+  can fit a stable plant susceptibility *population curve*.
+- **W06 = tiller survival versus temperature and duration**,
+  including within-cohort dose effects, but cannot directly
+  fit the **whole-plant** mortality distribution or an
+  acceptable CCTO lethal dose.
+- **W05 = plant and tiller mortality versus soil frost
+  degree-days** from the abstract, but detailed original
+  per-treatment plant-survival cells remain unavailable,
+  so full 2D CCTO plant-death calibration still lacks
+  matching raw study data. The three papers are complementary,
+  not interchangeable.
+- **A lightweight profile is now plausible:** integrate
+  nonnegative *effective cold exposure* below a class-specific
+  onset; give each plant a persistent rank/dose threshold;
+  match each available plant-class profile to its own
+  mortality-versus-dose observations. **Do not assume a
+  single global onset, linear slope, spread, ice/snow
+  protection or recovery rate**; link air and crown
+  conditions explicitly when simulating overwinter cereals.
+- Do **not** apply a 1:1 map from the study's °C·hours
+  or experimental cycle days to RimWorld's in-game time.
+  The chosen time/calendar treatment and spatial
+  temperature metric must be recorded with each future
+  accepted plant-specific value. No XML or C# change
+  is authorized by this dataset alone.
+
+**Source access status:** W06 complete journal HTML tables
+and methods were accessible, W04 article text and tables
+were accessible from an author-hosted/mirrored reproduction,
+W03 full original trial data remain inaccessible, and
+W05 original treatment-level data remain inaccessible.
+Do not claim that all three earlier full originals were obtained.
