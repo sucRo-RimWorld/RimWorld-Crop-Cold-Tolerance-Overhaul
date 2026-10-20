@@ -207,3 +207,23 @@ profile **only when it substantially improves realistic outcomes**.
 The prior 12-row ad hoc values remain withdrawn. No dose units are chosen
 until the profile family is selected; no per-species parameters are
 finalized in this note.
+
+
+## Plant-by-plant source ledger (2026-10-21)
+
+[ColdDamageEvidenceLedger](ColdDamageEvidenceLedger.md) now includes one row
+for each of the **78 CCTO-owned PlantDefs** (48 finite-death, 30 dormancy),
+with source IDs, original links, biological endpoints, and deliberate
+unmapped gaps. The initial evidence inventory contains **28 source-mapped
+Defs** (including nontransferable related-species/organ evidence) and
+**50 without a mapped adequate reference**. The mapping is not evidence
+that 28 plants are numerically calibrated. Published FAO frost *damage*
+ranges are not whole-plant lethal values; postharvest product freezing
+temperatures are excluded. Saguaro, Agave and sugarcane reveal substantial
+species/organ/stage/duration effects, so do not migrate numerical settings
+from one generic group label to all plants in that group.
+
+**Next scientific pass:** map the remaining Def identities to actual taxa
+before claiming species-specific values, collect whole-plant mortality or
+post-freeze regrowth endpoints where possible, and bound group-level values
+only when evidence supports the analogy. No new CCTO XML values are approved.
