@@ -214,10 +214,10 @@ finalized in this note.
 [ColdDamageEvidenceLedger](ColdDamageEvidenceLedger.md) now includes one row
 for each of the **78 CCTO-owned PlantDefs** (48 finite-death, 30 dormancy),
 with source IDs, original links, biological endpoints, and deliberate
-unmapped gaps. The initial evidence inventory contains **28 source-mapped
+unmapped gaps. The initial evidence inventory contains **36 source-mapped
 Defs** (including nontransferable related-species/organ evidence) and
-**50 without a mapped adequate reference**. The mapping is not evidence
-that 28 plants are numerically calibrated. Published FAO frost *damage*
+**42 without a mapped adequate reference**. The mapping is not evidence
+that 36 plants are numerically calibrated. Published FAO frost *damage*
 ranges are not whole-plant lethal values; postharvest product freezing
 temperatures are excluded. Saguaro, Agave and sugarcane reveal substantial
 species/organ/stage/duration effects, so do not migrate numerical settings
