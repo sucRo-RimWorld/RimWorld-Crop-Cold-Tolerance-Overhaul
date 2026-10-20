@@ -32,7 +32,9 @@ namespace CropColdToleranceOverhaul
                     {
                         if (record == null || record.plant == null
                             || record.plant.Destroyed || !record.plant.Spawned
-                            || record.damage <= 0f || record.damage >= 1f) continue;
+                            || record.damage <= 0f || record.damage >= 1f
+                            || ColdToleranceUtility.ExtensionFor(record.plant)?.HasColdDamageModel != true)
+                            continue;
                         if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
                         states[record.plant] = record;
                     }
@@ -89,7 +91,9 @@ namespace CropColdToleranceOverhaul
             List<Plant> stale = null;
             foreach (var item in states)
             {
-                if (item.Key != null && !item.Key.Destroyed && item.Key.Spawned) continue;
+                if (item.Key != null && !item.Key.Destroyed && item.Key.Spawned
+                    && ColdToleranceUtility.ExtensionFor(item.Key)?.HasColdDamageModel == true)
+                    continue;
                 if (stale == null) stale = new List<Plant>();
                 stale.Add(item.Key);
             }
