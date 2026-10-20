@@ -384,3 +384,48 @@ calendar compression and sampling bias before choosing injury
 equations, recovery rates or numeric values. Resolve these before
 converting production XML, promoting PR #24 out of Draft or asserting
 native gameplay/performance validation.
+
+
+### Biological approximation target — author clarification (2026-10-21)
+
+**Aim for defensible proximity to observed cold responses, not a single
+physiological equation that perfectly describes every plant.** CCTO remains a
+generic realism-oriented Mod; accurate *relative susceptibility, timescale
+and overwinter survival* matter more than arbitrary precision or fitting
+every reported laboratory observation exactly.
+
+**Unify implementation, not biological coefficients:**
+
+- Use one lightweight state/update path and a bounded set of response
+  profiles **only where evidence warrants distinct response shapes**. Do not
+  mandate the same onset, severity curve, acclimation response or recovery
+  constant for all PlantDefs. Profile count and exact curves remain to be
+  determined from calibration, not guessed now.
+- Individual Def parameters override a suitable shared profile. Similar
+  plants can share defaults **only after checking that their relevant
+  observations do not materially contradict the grouping**. Distinguish
+  nonfreezing chilling-sensitive plants, freeze-sensitive annuals, and
+  cold-hardy/acclimating or dormant plants when their mechanisms differ.
+  Nonlethal chilling/yield effects must never automatically be interpreted
+  as whole-plant lethal damage.
+- Calibrate against species- and stage-specific observations at **more
+  than one temperature or exposure duration where available**. Preserve
+  endpoint distinctions (plant survival vs leaf damage, LT50 vs universal
+  death) and report uncertainty. No synthetic lethal hours can be passed
+  off as measured values.
+- For plants without direct survival data, use clearly labeled
+  related-species or growth-habit proxies and conservative ecological
+  bounds, rather than leave 78 plants indefinitely blocked or fabricate
+  precision. Unsupported/fictional plants receive explicit game-ecology
+  estimates. Retain meaningful crop decisions and ensure natural wild
+  plant populations survive their established biomes.
+- Cold acclimation is **selective**, not mandatory for all plants; avoid
+  many new per-plant timers and per-tick scans. Phase in extra mechanics
+  only when their absence demonstrably breaks a representative plant
+  class (for example overwintering cereals), and retain the existing
+  dormancy Info Card entry and the approved 損傷開始温度 label.
+
+No specific response profile, species value or recovery speed is approved
+by this policy; the linear draft and quadratic candidate remain
+unvalidated. Reconcile empirical calibration with the equation and
+parameters before migrating stock XML or accepting the Draft PR.
