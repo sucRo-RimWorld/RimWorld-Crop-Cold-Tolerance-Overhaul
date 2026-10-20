@@ -153,3 +153,57 @@ parameters with explicit uncertainty; (4) update actual owning XML and
 documentation; (5) only then minimal real-game acceptance and winter-map
 performance measurements. No native test automation is authorized on
 PR/push, and PR #24 remains Draft.
+
+
+## Practical-fit criteria (author clarification 2026-10-21)
+
+The goal is a **realistic approximation**, not a claim that all 78 PlantDefs
+obey one universal physical injury equation. The exact same numerical
+severity curve is not required for chilling-sensitive tropical crops,
+weakly frost-tolerant annuals, winter-hardy cereals, woody perennials and
+winter-dormant vegetation. Still, a small number of reusable response
+profiles and species-specific configuration should be preferred over an
+unmaintainable, hand-coded formula for each crop.
+
+**Fit a profile against bounded observable outcomes:**
+1. **Exposure severity:** weak frost should not routinely kill a plant
+   sooner than substantially colder exposure when holding its biological
+   state and duration equal.
+2. **Time course:** match the *order of magnitude* and plausible range of
+   survival time at multiple treatment temperatures; include whether the
+   source endpoint is 50% *whole-plant* mortality or only tissue injury.
+   Do not claim a measured accuracy or introduce a global percentage
+   tolerance unless supported by independent validation data.
+3. **Condition dependence:** compare seedlings vs established plants,
+   acclimated vs unacclimated plants, and dormancy where those distinctions
+   change decisions. Add dynamic physiological state only for meaningful
+   mismatches, not because it appears in a study.
+4. **Ecological plausibility:** test repeated ordinary winters against
+   typical local biomes, especially naturally spawning trees, shrubs and
+   wild grasses. Distinguish survival from damage to leaves, buds and yield.
+5. **Evidence grades:** direct species-specific whole-plant outcomes can
+   constrain survival probabilities; related species and organ-only data
+   bound estimates but cannot set a universal lethal parameter. Record
+   the source, represented organism, proxy reason, endpoint and uncertainty.
+6. **Runtime budget:** reuse existing plant update hooks, use a small
+   precomputed per-Def profile or coefficients, store state only when
+   needed and avoid per-Tick full-map scans. Reject complexity with no
+   material improvement in representative survival outcomes.
+
+**Result classification:**
+- **Empirically constrained:** relevant whole-plant survival/mortality
+  measurements across multiple known conditions (with stage/state noted).
+- **Evidence-supported approximation:** related taxon, organ-only or
+  narrower-stage evidence with stated limitations and conservative bounds.
+- **Gameplay/ecology estimate:** insufficient biological data or fictional
+  plant, explicitly labeled; never present its numeric value as a measured
+  field tolerance.
+
+**Calibration approach:** select representative plants from each
+functionally distinct response class, assess whether one existing curve
+can cover that class with species-specific coefficients, then fit the
+rest by direct evidence or a documented ecological proxy. Use another
+profile **only when it substantially improves realistic outcomes**.
+The prior 12-row ad hoc values remain withdrawn. No dose units are chosen
+until the profile family is selected; no per-species parameters are
+finalized in this note.
