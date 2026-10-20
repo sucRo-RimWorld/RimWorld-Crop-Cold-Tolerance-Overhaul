@@ -158,6 +158,28 @@ namespace CropColdToleranceOverhaul.Tests
     }
 
     [TestSuite]
+    public static class ColdDamageProgressTests
+    {
+        [Test]
+        public static void DamageAccumulatesWithDegreeHoursAndRecoversOnWarmth()
+        {
+            Type type = typeof(ColdToleranceExtension).Assembly.GetType(
+                "CropColdToleranceOverhaul.ColdDamageProgress", true);
+            MethodInfo advance = type.GetMethod(
+                "Advance", BindingFlags.Static | BindingFlags.NonPublic);
+            float half = (float)advance.Invoke(null,
+                new object[] { 0f, -10f, -5f, 10f, 0.1f, 2500 });
+            float recovered = (float)advance.Invoke(null,
+                new object[] { half, 5f, -5f, 10f, 0.1f, 2500 });
+            float dead = (float)advance.Invoke(null,
+                new object[] { half, -10f, -5f, 10f, 0.1f, 2500 });
+            Assert.That(half).Is.EqualTo(0.5f);
+            Assert.That(recovered).Is.BetweenInclusive(0.39f, 0.41f);
+            Assert.That(dead).Is.EqualTo(1f);
+        }
+    }
+
+    [TestSuite]
     public static class InfoCardStatTests
     {
         private static readonly MethodInfo AppendCctoStatsMethod = FindAppendCctoStatsMethod();
