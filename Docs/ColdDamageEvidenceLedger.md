@@ -15,6 +15,19 @@
 
 | ID | Source | Type | Reported target and outcome | Constraint |
 |---|---|---|---|---|
+| `ON01` | [New Mexico State University onion breeding cold-hardiness trial](https://onion.nmsu.edu/projects.html) | 大学農業育種プロジェクト/先行実験引用 | 1979–80年の400系統から選抜。日本由来の一部タマネギ系統で-13℃における生存率90%; Yellow Grano/Granex 12月苗のLT50約-14℃ | 元論文Peffley 1981に遡る要確認;系統・苗齢・曝露時間・土壌温度が不明。二点は別系統であり同じ致死曲線の２点ではない |
+| `ON02` | [UMass Amherst overwintered onion low-tunnel variety trial 2011–12](https://www.umass.edu/agriculture-food-environment/vegetable/special-topics/winter-production-storage/production/variety-trials-for-overwintered-onions) | 大学農場栽培比較 | 保護トンネル内の越冬後生存率、Keepsake/Top Keeper 100%、Bridger/Candy >95%、ネギ類約90% | 穏冬・被覆栽培で最低株温度を記録していない;寒波致死閾値の直接根拠にはならない |
+| `RO01` | [Rouet et al. 2022, Mapping Winterhardiness in Garden Roses](https://doi.org/10.21273/JASHS05189-22) | 一次野外調査＋統計モデル | 17園芸バラ品種、冬害尺度の最悪値は株死亡(5)。50%株死亡LT50をロジット推定し冬害指数と比較 | 同属RosaではあるがゲームRoseの品種不明;温度は統計推定/冬全体の気温履歴。茎組織電解質漏出のLT50と株死亡のLT50は別 |
+| `RY01` | [Abeynayake et al. 2015, perennial ryegrass acclimation](https://pmc.ncbi.nlm.nih.gov/articles/PMC4428078/) | 一次凍結・再生実験 | Lolium perenne 2遺伝型、7℃/17日順化後-10℃3時間処理し20℃7日回復。順化個体のみ再成長、未順化は再成長せず | 再成長は株生存に近い指標だが個体死亡率%ではない;Haygrass/Grass/Tall grassは種が特定できない |
+| `RY02` | [2021 perennial ryegrass waterlogging/acclimation/freezing regrowth](https://pmc.ncbi.nlm.nih.gov/articles/PMC8268127/) | 一次凍結・再生実験 | Lolium perenne 4遺伝型、-6/-8/-10/-12℃で各6時間凍結し21日後の再生を0–9点で判定、RT50算出 | RT50は再生スコア50%低下であって株の死亡率50%ではない |
+| `SP01` | [The effects of winter stress on Sphagnum species (2019)](https://www.tandfonline.com/doi/full/10.1080/03736687.2019.1626167) | 一次凍結処理実験（検索結果要旨で確認） | ミズゴケ属6種に-5℃凍結/水没などの比較試験、試験4の生存率は約85%;前処理による差は小さい | 本文への直接アクセスが制限されたため正確な凍結時間・生存尺度は原文再確認。一般的なPlant_Mossの全種に転用禁止 |
+| `DA01` | [Cornell University Weed Science dandelion profile](https://cals.cornell.edu/weed-science/weed-profiles/dandelion) | 大学レビュー | Taraxacum officinaleの越冬したロゼットが寒地でも生存、春に地下部から再生 | 具体的な気温・時間・全株死亡率なし;休眠生存の定性的根拠 |
+| `DY01` | [Rutgers NJAES FS528 Hemerocallis root-media cold injury](https://njaes.rutgers.edu/fs528/) | 大学普及資料・容器栽培苗試験表 | Hemerocallis 'Joan Senior' の容器培地を-9.4℃にすると、商品性を損なう根傷害/翌季再生低下 | 地植え株の全株死亡ではなく根の生存・再生評価。最適な温度指標は培地温度 |
+| `AL01` | [University of Florida IFAS Alocasia spp. extension](https://ask.ifas.ufl.edu/publication/FP033) | 大学園芸普及資料 | アロカシア属の葉は凍結で枯れるが、USDA 8A以南なら春に基部から再生する例がある | 葉死亡と個体全体の死亡を同一視禁止。具体的凍結温度・時間・生存%はない |
+| `CL01` | [NMSU 2014 Clivia freeze incident](https://swyg.nmsu.edu/2014/122014.html) | 大学園芸家の観察事例 | Clivia属の鉢で葉が凍結し最終的に個体死亡した観察。対照のアマリリス球根は春再生 | 温度・曝露時間が不明でn=1に近い観察。致死曲線を決めるデータには不適切 |
+| `MP01` | [Mura et al. 2025 Acer saccharum bud hardiness](https://pmc.ncbi.nlm.nih.gov/articles/PMC12528974/) | 一次苗木順化試験 | Sugar maple苗木、4℃人工順化と自然越冬後の芽のLT50/芽吹き時期を比較 | 芽と新梢の凍害測定であって樹木全体の死亡ではない; generic Mapleの同一種も未同定 |
+| `BR01` | [Oregon State University Blackberry garden guide](https://extension.oregonstate.edu/catalog/ec-1303-growing-blackberries-your-home-garden) | 査読済み大学普及資料 | Rubus属のブラックベリー。多年生地下根/株元と2年生の地上茎が別;寒害は品種/冬前の気温/成長段階で異なる | 凍結による枝・花芽損傷と根株死亡を区別。RimWorld Bramblesの種が同定できない |
+| `MO01` | [Zhao et al. 2024 Morus alba bud dormancy and cold resistance](https://pmc.ncbi.nlm.nih.gov/articles/PMC11728178/) | 201集団を用いたGWAS＋遺伝子機能試験 | Morus albaの芽の休眠解除時期と耐寒性の遺伝的相関、MaFAD2過剰発現で芽吹き遅延 | 全株生存率/致死曝露時間を示さない;MO桑の品種は未定 |
 | `Q01` | [Cold acclimation of Quercus robur in northern range (2007)](https://www.sciencedirect.com/science/article/abs/pii/S0098847207001876) | 一次生理実験 | 2年生ヨーロッパナラの枝/幹で、9月初旬に耐凍性約-10℃、12月初旬に約-36℃ | 同種不明のCCTO Oak/Great Oakに数値を直輸入しない;樹冠全体の死亡ではない |
 | `P02` | [Populus tremula × P. tremuloides, chilling acclimation](https://pubmed.ncbi.nlm.nih.gov/15095138/) | 一次生理実験 | 3か月苗の4℃14日順化で葉の耐凍性が-5.7→-9.8℃;4℃自体では個体は生存し成長ほぼ停止 | 組織耐性と株死亡を分離;交雑ポプラを野生種と同じにしない |
 | `S02` | [Rosenblad et al. 2024, montane willow freezing sensitivity](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.20028) | 一次実験 | Salix spp.春の新梢を凍結させ、挿し穂の再発根で生存可否/LT50評価 | 春芽の再発根で成木樹体死亡とは異なる;冬の順化状態と比較禁止 |
@@ -58,7 +71,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_Potato` | Potato | death | `F01`, `P01` | 対象資料あり・端点注意 | 地上部と地下塊茎は別挙動 |
 | `Plant_Corn` | Corn | death | `F01`, `M01` | 対象資料あり・端点注意 | 幼苗死亡率と生育段階別被害を区別 |
 | `Plant_Strawberry` | Strawberry | death | `S01` | 対象資料あり・端点注意 | 花芽の凍害で株の越冬死ではない |
-| `Plant_Haygrass` | Haygrass | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Haygrass` | Haygrass | death | `RY01`, `RY02` | 別属/群の牧草モデル・再生実験 | Lolium perenne -10℃/3hの順化後の再生を比較;RimWorldの草の全種に数値転用不可 |
 | `Plant_Cotton` | Cotton | death | `F01` | 対象資料あり・端点注意 | 霜害閾値の総説のみ |
 | `Plant_Devilstrand` | Devilstrand | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_Healroot` | Healroot | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
@@ -70,15 +83,15 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_TreeBirch` | Birch | dormancy | `N01` | 対象資料あり・端点注意 | Betula pendula実験;ゲーム側のカバノキ種不明 |
 | `Plant_TreeCecropia` | Cecropia | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_TreeCypress` | Cypress | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
-| `Plant_Dandelion` | Dandelion | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
-| `Plant_Daylily` | Daylily | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Dandelion` | Dandelion | dormancy | `DA01` | 同種・越冬生態 | 寒地ロゼット/地下部から再生。定量凍結死は未測定 |
+| `Plant_Daylily` | Daylily | dormancy | `DY01` | 同属品種・根傷害 | Hemerocallis培地温度-9.4℃で商品性を失う根傷害;地植え個体の死亡温度でない |
 | `Plant_TreeDrago` | Drago tree | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `Plant_TreeMaple` | Maple | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeMaple` | Maple | dormancy | `MP01` | 同属・芽/順化のみ | Acer saccharum苗の芽の凍害LT50、成木個体死ではない |
 | `Plant_TreeOak` | Oak | dormancy | `Q01` | 同属・順化耐性 | ヨーロッパナラ2年苗の幹・枝耐凍性;木全体の死亡は別 |
 | `Plant_TreePalm` | Palm | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_TreePine` | Pine | death | `N01`, `N02` | 異種比較・数値不可 | 前者はマツ属複数種の参考;Great Firはモミ属でありマツの値を転用禁止 |
 | `Plant_TreePoplar` | Poplar | dormancy | `P02` | 同属・葉順化の実験 | 交雑ポプラ葉の耐凍性-5.7→-9.8℃;成木枯死ではない |
-| `Plant_Rose` | Rose | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Rose` | Rose | dormancy | `RO01` | 同属品種別・全株LT50 | 17品種の冬の死亡/損傷調査を定量化;枝電解質漏出のLT50と全株LT50は別 |
 | `Plant_SaguaroCactus` | Saguaro cactus | death | `T01` | 対象資料あり・端点注意 | 同種の生態資料;曝露例の条件差あり |
 | `Plant_TreeTeak` | Teak | death | `T02` | 同種・霜害程度のみ | チーク植林1～3年の樹高損失15.81%;死亡率/気温・曝露時間は未確認 |
 | `Plant_Timbershroom` | Timbershroom | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
@@ -86,24 +99,24 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_TreeWillow` | Willow | dormancy | `S02`, `S03` | 同属・芽/茎の組織差 | Salixの春新梢再発根と冬順化を区別 |
 | `Agarilux` | Agarilux | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_Agave` | Agave | death | `A01`, `A02` | 同属種実測・種未確定 | Agave 3種の寒波生存差; CCTOのAgaveがどの種か要確認 |
-| `Plant_Alocasia` | Alocasia | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Alocasia` | Alocasia | death | `AL01` | 属単位・葉と株基部 | 葉は凍結で死亡しても基部から再生する。全株致死への換算禁止 |
 | `Plant_Ambrosia` | Ambrosia bush | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_Astragalus` | Astragalus | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_Berry` | Berry bush | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
-| `Plant_Brambles` | Brambles | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Brambles` | Brambles | dormancy | `BR01` | Rubus属比較・多年生根 | ブラックベリー枝の冬害と多年生地下茎を区別。種が同定できない |
 | `Bryolux` | Bryolux | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_Bush` | Bush | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_Chokevine` | Chokevine | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `Plant_Clivia` | Clivia | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Clivia` | Clivia | death | `CL01` | 単例・全株死亡観察 | 葉が凍結した鉢植Cliviaの死亡観察。温度時間不明、数量調整には使わない |
 | `Plant_Rafflesia` | Giant rafflesia | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Glowstool` | Glowstool | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `Plant_Grass` | Grass | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Grass` | Grass | dormancy | `RY01`, `RY02` | 別属/群の牧草モデル・再生実験 | Lolium perenne -10℃/3hの順化後の再生を比較;RimWorldの草の全種に数値転用不可 |
 | `Plant_ShrubLow` | Low shrubs | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
-| `Plant_Moss` | Moss | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Moss` | Moss | dormancy | `SP01` | 同綱の別属・凍結後生存 | Sphagnum6種の-5℃後生存約85%;ゲームMossとの種類一致・曝露時間未検証 |
 | `Plant_PincushionCactus` | Pincushion cactus | death | `O01`, `O02` | 異種比較・数値不可 | 他属のウチワサボテン類でありピンクッションサボテンと同種ではない |
-| `Plant_TallGrass` | Tall grass | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TallGrass` | Tall grass | dormancy | `RY01`, `RY02` | 別属/群の牧草モデル・再生実験 | Lolium perenne -10℃/3hの順化後の再生を比較;RimWorldの草の全種に数値転用不可 |
 | `Plant_HealrootWild` | Wild healroot | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `DankPyon_Plant_Onions` | Onion | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_Plant_Onions` | Onion | death | `ON01`, `ON02` | 同種群の実測生存・LT50;条件差大 | -13℃で90%生存の一部系統、12月苗の-14℃LT50は別系統。被覆トンネルの越冬生存率とは独立事象 |
 | `DankPyon_Plant_Lentils` | Lentil | death | `F01` | 対象資料あり・端点注意 | 発芽/開花/結実の霜害帯 |
 | `DankPyon_Plant_Cabbages` | Cabbage | death | `F01`, `C01` | 対象資料あり・端点注意 | 葉片損傷/生育段階別霜害;株死亡との混同禁止 |
 | `DankPyon_Plant_Garlic` | Garlic | dormancy | `G03`, `G04` | 同種・株生存/葉成長 | 冷順化したニンニクの系統差;葉面積/死亡を分離 |
@@ -118,7 +131,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `DankPyon_Plant_Pumpkins` | Pumpkin | death | `K01` | 近縁/品種未確定 | Cucurbita pepo幼苗5℃の酸化ストレスで枯死率ではない |
 | `DankPyon_Tree_Apple` | Apple | dormancy | `F02` | 対象資料あり・端点注意 | 開花前後の花芽被害で樹体死亡ではない |
 | `DankPyon_Tree_Lemon` | Lemon | death | `F02` | 対象資料あり・端点注意 | レモン果実/芽;樹体全体の死亡ではない |
-| `DankPyon_Tree_Mulberry` | Mulberry | dormancy | — | 直接資料未収集 | リンゴ/ブドウの果芽被害から桑の枯死閾値を推定しない |
+| `DankPyon_Tree_Mulberry` | Mulberry | dormancy | `MO01` | Morus alba芽の順化・分子機構 | 桑の芽吹き/順化研究。個体死亡温度の資料ではない |
 | `DankPyon_Tree_GriffonBerry` | Griffon berry | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `DankPyon_Plant_Mindwort` | Mindwort | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `DankPyon_Plant_Poppy` | Poppy | death | `F01` | 対象資料あり・端点注意 | Poppy品目は特定種・野生型同定を要する |
@@ -135,7 +148,26 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 
 ## Current scope and next useful searches
 
-- **36 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 36 empirically validated species: the category includes weak comparative cross-taxon references. **42 / 78** still lack a mapped source in this pass.
+- **49 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 49 empirically validated species: the category includes weak comparative cross-taxon references. **29 / 78** still lack a mapped source in this pass.
 - **High-value direct research gaps**: exact species of CCTO wild trees/bushes (Quercus, Salix, Populus, Cecropia, teak, cocoa), medicinal crops in MO (mindwort/fleawort/herb identification, fly agaric mycelium), onion overwinter tissues, plant roots/crowns vs foliage, any CCTO fictitious plants.
 - **Species identity gate**: `Plant_TreePine` is generic pine and `DankPyon_GreatFir` is not pine; none of the published Scots pine/saguaro/Opuntia values are valid global pine/fir/cactus/Agave thresholds.
 - **Biology/code interface gate**: decide which endpoint a RimWorld whole `Plant` represents (growth-point death versus leaf injury and loss of yield), and distinguish cold acclimation for viable winter survivors. The draft linear degree-hour formula has not been fitted; **do not issue species parameters, migrate XML, run native tests, or approve Workshop graphs from this registry alone**.
+
+## Whole-plant survival / mortality endpoint extraction (initial high-priority shortlist)
+
+These are the only source rows in this pass whose endpoints **directly involve survival, whole-plant mortality, or subsequent plant regrowth**, rather than just leaf/flower/branch chemistry. Source detail and confounders remain essential.
+
+| Evidence | Subject and treatment | Whole plant endpoint | Use/limitation for numerical fitting |
+|---|---|---|---|
+| `M01` | Corn seedlings; -2℃ for 48h or -6℃ for 2h | Each gives **about 50% seedling mortality** | Original Buican study quoted in a later review, *not* identical to deterministic CCTO death; stage and recovery interval |
+| `W01` | Fully acclimated winter wheat varieties held -5℃ for 15–20 weeks | 20-week survival **0–33%**, cultivar-dependent | Acclimated plants; chamber protocol, variety, thaw and soil/crown matter |
+| `A01` | A. tequilana exposed to five nights of -6 to -8℃ in field | About **74% mortality**; A. americana no visible cold injury/death in same field campaign | Different species, microclimate; do not turn generic Agave into either datum |
+| `ON01` | Some Japanese-origin onion accessions under a -13℃ cold test | **90% survival** in selected accessions; separate commercial seedling LT50 around -14℃ | Conditions and older original experiment require checking; two figures are not one fitted time/temperature curve |
+| `ON02` | Overwintering onions under covered low tunnels in a mild winter | **100%** for two named cultivars, **>95%** two others | Field survival but no uncontrolled frost duration/plant-body temperature; cannot infer lethal freezing threshold |
+| `RO01` | 17 rose cultivars, field winter damage and frost temperature modeling | Winter mortality category includes **whole dead plant**; model estimates cultivar-specific whole-plant LT50 | Different modelled mortality endpoints and measured twig electrolyte-leakage injury; climate/history/snow effects |
+| `RY01` | Two *Lolium perenne* genotypes, 17d at 7℃, then -10℃ 3h, 7d at 20℃ | **Regrowth present** after acclimation; **none** in unacclimated controls | Presence/absence of regrowth, *not* a % mortality curve; seedling stage |
+| `RY02` | *L. perenne* after -6 to -12℃ for 6h and 21d recovery | Regrowth scored 0 (dead) through 9 (healthy); RT50 is **50% regrowth-score loss**, not 50% dead plants | Curve of regeneration, not lethal LT50; acclimation and waterlogging treatments |
+| `SP01` | Six *Sphagnum* species frozen at -5℃ | Approx **85% survival** in submergence comparison | Exposure duration and survival definition need checking in original article; only Sphagnum, not all mosses |
+| `CL01` | Clivia potted specimen accidentally frozen | Plant ultimately died and the foliage perished | Single anecdote, no recorded air/plant minimum or exposure duration; *not suitable* for fitting |
+
+**Do not count** a tissue electrolyte-leakage LT50 as whole-plant LT50; do not automatically treat winter field mortality as cold-only (frost heave, desiccation, pathogens and winter shelter may contribute). `G03` garlic likewise reports some plant survival under accession-specific frost exposures but protocol/detail have not yet been cross-verified; retain it in the registry as provisional and audit its primary experiment before quantitative fitting.
