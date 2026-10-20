@@ -110,3 +110,15 @@ state (map component). Data are removed after recovery/death, and stale
 records are pruned. Changing XML between old and new models, old saves,
 third-party subclasses and mod removal still need actual runtime checks.
 No Vanilla/MO/VPE/AMJ plant is opted in by this framework change.
+
+
+### Calibration status and future compatibility
+
+The optional XML fields above are an **unvalidated experimental draft
+API in PR #24**, not a final calibrated model. The current implementation
+assumes linear degree-hours; future evidence may justify a bounded set
+of response profiles with per-plant overrides. Consumers must not
+interpret example onset, lethal dose or recovery fields as biology-backed
+values, and must not migrate their XML from the fixed model before
+calibration and API stabilization. Existing legacy extension semantics
+remain unchanged.
