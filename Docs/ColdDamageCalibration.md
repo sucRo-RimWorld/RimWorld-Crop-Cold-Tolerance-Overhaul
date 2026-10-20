@@ -272,3 +272,57 @@ depicts a giant parasitic flowering plant, where visible flower death and
 endoparasite death must not be equated. The separate taxonomic notes in
 the ledger are **not** cold-treatment evidence and do not increase the
 53/78 count of mapped cold references.
+
+
+## Per-plant mortality variability fitting (2026-10-21)
+
+**Direction accepted:** fit the *population survival fraction* rather than
+killing every identically exposed plant at a shared lethal dose. The
+species-specific onset and thermal-injury law remain empirical fitting
+problems. A plant's **stable susceptibility** can vary its lethal
+accumulated dose without rerolling each time the plant is checked.
+Numerical spread is **unapproved**.
+
+Only use **whole-plant mortality LT50** as the 50%-mortality reference.
+LT50 from leaf electrolyte leakage, buds, fruit or biomass yield is
+not interchangeable with whole-plant mortality. Experimental LT50 alone
+fixes one quantile under a specified stage, acclimation and exposure
+protocol; it **does not identify LT10/LT90, slope, or the standard deviation
+of the per-plant susceptibility distribution**. Test candidate bounded
+or positive-valued distributions against at least two additional survival
+fractions or treatment conditions when available. Never infer a 2°C,
+5°C or 10% arbitrary tolerance spread from a single published LT50.
+
+When the model response to constant/falling temperature is nonlinear,
+fit susceptibility against **total accumulated dose**, not a randomly
+altered temperature threshold, initially; this keeps the label
+`損傷開始温度` a meaningful species-level onset. A candidate
+implementation uses each plant's persistent seeded identity to generate a
+fixed rank u in (0,1) once, with its lethal dose equal to a calibrated
+inverse-CDF transform. This is an implementation candidate only, not
+an adopted probability law. No per-callback random draw, extra whole-map
+tick loop or arbitrary save-breaking reseeding. Check cold-damage clamp
+semantics (`Advance` currently clamps at 1) before introducing a
+plant-dependent lethal limit.
+
+Population-level validation after fitting should compare expected
+survival proportions across uniform batches at matching doses and
+multiple temperatures, check large-plant-batch synchronization, and
+confirm fixed plant outcomes across saves. In-game single-plant
+survival is not a proof of study-level LT50; where real data include
+variety, age, acclimation or microclimate differences, state explicitly
+how much the abstract distribution approximates each effect.
+
+Relevant primary examples:
+- [Boechera stricta freezing tolerance; whole-plant LT50](https://pmc.ncbi.nlm.nih.gov/articles/PMC4416058/)
+  reports group-level 50%-mortality temperatures and variation among
+  genetic lines; do not reuse its dispersion for unrelated crops.
+- [Arabidopsis lyrata subsp. petraea natural cold tolerance](https://pmc.ncbi.nlm.nih.gov/articles/PMC6233594/)
+  reports plant survival **14 days after freezing**, and different
+  population-specific curves with LT50 among populations of approx
+  -8.6°C to -6.2°C after 2-day acclimation; this is evidence of
+  variable susceptibility and acclimation, *not* a universal variance.
+- [Barley freezing LT50](https://www.nature.com/articles/s41598-023-47318-y)
+  uses temperature which killed 50% of plants after specified
+  acclimation/deacclimation, unlike LT50 electrolyte-leakage measures
+  elsewhere.
