@@ -394,3 +394,122 @@ electrolyte leakage. No model coefficients are changed in C# or XML.
 - Reyes-Díaz et al. 2006: [Oxford Academic, Fig. 2, LT10–LT90](https://academic.oup.com/jxb/article/57/14/3687/584622).
 - Interrante et al. 2020: [Wiley article, Figures 1–2](https://acsess.onlinelibrary.wiley.com/doi/10.1002/ael2.20017).
 - Nabati et al. 2026: [Springer Nature, Methods/Survival results](https://link.springer.com/article/10.1186/s12870-026-08352-w).
+
+
+## Population-variation model shape audit (2026-10-21, exploratory, **not approved parameters**)
+
+This is a **numerical comparison of survival observations**, not a fitted
+thermal injury-over-time model. The key question is whether a symmetric
+two-parameter susceptibility/temperature CDF can fit an observed
+survival-versus-final-freeze-temperature curve. Source IDs and full direct
+links are retained in `ColdDamageEvidenceLedger.md` (V03–V05, ON03).
+
+### Whole-plant evidence with multiple quantiles
+
+- **V03 (*Arabidopsis thaliana*, Ler, unacclimated or 1-day cold
+  acclimation):** the original authors report LT10 around **-1.5°C**,
+  LT50 around **-7.5°C**, LT90 around **-8.5°C** (rounded results).
+  On the temperature axis, the 10%-to-50%-mortality distance is
+  **~6°C**, but the 50%-to-90%-mortality distance is **~1°C**.
+  A normal/probit or single-scale logistic distribution **cannot**
+  simultaneously match those three quantiles because their equal-probability
+  tails have equal distances from the median. Many other source genotypes
+  do have approximately symmetric, relatively narrow LT10/LT90 around
+  LT50 (often of order 1–2°C each side). Do not make all plants share
+  the unusual Ler distribution.
+- **V04 (tall fescue):** the original investigators themselves used a
+  logit-link binary-survival regression and reported seedling LT50 values
+  -5.7/-5.5°C, with **observed** all-survived above -4°C and all-died
+  at or below -8°C in finite samples. The specific fitted logistic
+  slope/temperature-level sample counts cannot be recovered from the
+  article text alone; those bounds do **not** establish true
+  population LT0/LT100 or exact LT10/LT90.
+- **ON03 (onion):** Fig. 1 shows age-specific curves fitted by probit,
+  but age-dependent differences among -8.7/-10.5/-10.8°C medians
+  **do not** establish within-age spread; curve slopes/quantiles must
+  be read from raw source data or figure with stated digitization error.
+  It uses cooling ramps, not fixed-temperature time-dose treatments.
+
+### V05 (*Cicer arietinum*, KAKA): reproducible five-point comparison
+
+Nabati et al. (2026) directly state these survival observations for one
+cold-acclimated genotype, after cooling 2°C/h to the treatment
+temperature, holding 2h, and observing regrowth four weeks later:
+
+| Final treatment °C | 0 | -6 | -10 | -12 | -14 |
+|---|---:|---:|---:|---:|---:|
+| Observed survival % | 100 | 95 | 80 | 70 | 0 |
+| **Exploratory two-parameter logistic** % | 100.0 | 100.0 | 99.0 | 68.3 | 4.4 |
+| **Exploratory two-parameter normal CDF/probit** % | 100.0 | 100.0 | 100.0 | 69.8 | 1.1 |
+
+The two-parameter survival functions were fit by **unweighted least
+squares to the five published rounded percentages**, not as binomial
+maximum-likelihood models:
+
+```text
+logistic: S(T) = 1 / (1 + exp(-(T-m)/s))
+probit:   S(T) = Phi((T-m)/s)
+
+with T in Celsius and s>0.
+logistic estimated m = -12.399 °C, s = 0.520 °C
+probit estimated m = -12.368 °C, s = 0.709 °C
+```
+
+The logistic curve misses the observed **80% at -10°C** by about
+**19 percentage points**; probit misses by about **20 points**.
+Root-mean-square survival discrepancies across the five quoted
+temperatures are **9.0/9.2 percentage points** (logistic/probit).
+These numbers illustrate a **specific fit failure**: a conventional
+smooth symmetric CDF cannot reproduce the relatively gradual
+0→-12°C decline and the sudden -12→-14°C drop at the same time.
+Do **not** convert the logistic m or s to CCTO species values,
+or call the residual a cross-validated prediction error.
+
+**Major uncertainty:** the article describes 3 replicates and
+3-plant biological replicate samples for several biochemical assays,
+but does not clearly provide the **denominators and treatment-level
+variance for each listed survival percentage**. In particular a
+literal 95% cannot be exactly computed from just 9 binary plants.
+Thus the displayed percentages can be compared geometrically but
+not fitted with defensible binomial uncertainty bands or formal
+distribution-model selection without the full underlying survival
+counts. The reported 0%/100% are **sample outcomes**, not guaranteed
+mathematical support bounds.
+
+A piecewise monotonic interpolation can pass through all five points
+**by construction**, but that is not evidence that its shape
+generalizes between temperatures, to other genotypes, or to varying
+exposure durations. An extra asymmetry parameter can also improve
+in-sample fit but risks simply overfitting this five-point pattern.
+Reserve such flexibility for repeatable independent profiles with
+reported precision.
+
+### Design-stage decision supported so far
+
+- **Retain** a simple symmetric, positive-valued stable susceptibility
+  distribution as the **default candidate**, because it is cheap
+  and often adequate for tight symmetric study curves.
+- **Keep** an asymmetric or bounded/piecewise response **as a
+  conditional candidate** for cohorts whose reliable survival
+  observations materially contradict a symmetric distribution.
+- **Do not fix** any distribution family, width, tail cutoff,
+  or species dose at present. The first useful calibration gate
+  is a second independent curve (known sample counts, cultivar,
+  acclimation and exposure history) for a plant class CCTO
+  actually owns. More data are preferable to extra fitting knobs.
+- This fits **population mortality as a function of observed
+  treatment minimum temperature**, *not* lethal accumulated cold
+  dose across arbitrary winter hours. Conversion to the
+  accumulating injury engine additionally needs time–temperature
+  observations. A one-duration mortality slope is not itself a
+  duration-damage exponent.
+- An LT50 plus calibrated *population survival curve* can anchor
+  individual variation; an LT50 alone cannot. CCTO's
+  `損傷開始温度` remains a species-level onset, not a
+  per-individual predicted death temperature.
+
+**Direct methods/results:**
+[V03 original paper](https://academic.oup.com/jxb/article/57/14/3687/584622),
+[V04 tall-fescue methods and logistic model](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/ael2.20017),
+[V05 chickpea five percentages and recovery protocol](https://link.springer.com/article/10.1186/s12870-026-08352-w),
+[ON03 onion original Table 1/Figure 1](https://pdfs.semanticscholar.org/4f3a/3c0c6125529759251b863550fb12b392e020.pdf).
