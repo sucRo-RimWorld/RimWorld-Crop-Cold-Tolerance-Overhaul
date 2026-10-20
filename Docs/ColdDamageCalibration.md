@@ -574,3 +574,136 @@ add extra state and TPS costs. **Do not automatically select it now.**
 - W03 [Skinner (2014) DOI 10.2135/cropsci2013.09.0623](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2013.09.0623).
 - W04 [Zheng et al. (2018) DOI 10.2135/cropsci2018.01.0014](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2018.01.0014).
 - W05 [Zheng et al. (2018) DOI 10.1016/j.agrformet.2018.05.011](https://doi.org/10.1016/j.agrformet.2018.05.011).
+
+
+## W04 source-regression reconstruction — exact published Tables 2/4/5, 2026-10-21
+
+**New source access:** the *Crop Science* 58:1740–1750 (2018)
+Zheng et al. W04 article is available as [article text/embedded table
+transcription hosted at Academia.edu](https://www.academia.edu/120431829/Tolerance_of_Different_Winter_Wheat_Cultivars_to_Prolonged_Freezing_Injury_at_their_Critical_Temperatures).
+The [publisher DOI](https://doi.org/10.2135/cropsci2018.01.0014)
+was checked; **full publisher download was not available** in this pass.
+The hosted source contains the textual content of Tables 2, 4, 5 and
+experimental protocol. These results are author-reported *fitted
+regression outputs*, not the individual raw observations from Figure 3.
+
+**Source conditions, essential for reproduction:** 3 years of
+field-acclimated winter-wheat seedlings, 10–15 plants/pot, 3 replicates
+per treatment, natural autumn growth and transfer to freezing chambers.
+Temperature was monitored **2.5 cm inside soil**, with daily ramp
+at ~1°C/h to a genotype-specific soil minimum (3 h held) and back up to
+the programmed **soil maximum** (3 h held). One experimental freezing
+'day' is a **cycled treatment day**, NOT 24 h at the minimum
+temperature. Plants thawed over 2 days around +4°C and were then
+regrown in a greenhouse; the counted endpoint was whole plants with
+surviving growing tillers/leaves. Dead leaves and dead tillers were
+analysed separately, so do not substitute their death rates.
+
+### Original fitted values for whole plants only
+
+| Cultivar/type | Soil min/max °C | Source Table 4 K (d) | Source P (conditional death per effective day) | Source R² | Source Table 5 LD10 / LD20 / LD50 (d) |
+|---|---|---:|---:|---:|---|
+| Jing411 / strong winter | -17 / -8 | 1.4 | 0.086 | 0.963 | 2.5 / 3.8 / **8.7** |
+| Nongda211 / winter | -17 / -8 | 1.6 | 0.223 | 0.863 | 2.0 / 2.5 / **4.4** |
+| Zhengmai366 / semi-winter | -14 / -5 | 0.3 | 0.111 | 0.665 | 1.2 / 2.2 / **6.2** |
+| Yanzhan4110 / weak spring | -11 / -4 | 2.3 | 0.094 | 0.670 | 3.4 / 4.7 / **9.6** |
+
+**These LD values are calculated by the source authors' mortality
+regressions, not independent measurements** of LD10/LD20/LD50.
+This distinction is critical: reproducing Table 5 with Table 4 is an
+**internal reconstruction**, not cross-validation against held-out
+individual trial data.
+
+The original source fits a shifted survival process:
+
+```text
+n = elapsed experimental freeze-cycle DAYS
+K = cultivar-specific ineffective freezing duration (days)
+P = mortality fraction among SURVIVORS per additional effective freeze day
+
+M(n) = 1 - (1 - P)^(n-K)         [for n>=K]
+For safe extrapolation to n<K, set M(n) = 0, unverified below-data boundary.
+
+S(n) = 1 - M(n)
+h = -ln(1-P)                    [positive daily cumulative hazard]
+LD_q = K + ln(1-q) / ln(1-P)    [days to q fraction dead, n>=K]
+```
+
+**Numerical reconstruction from rounded published K/P**, distinct from
+the original rounded Table 5 values:
+
+| Cultivar | Recomputed LD10 | LD20 | LD50 | Modelled surviving after 3 freeze days | After 5 days | After 8 days |
+|---|---:|---:|---:|---:|---:|---:|
+| Jing411 | 2.57 | 3.88 | 9.11 | 86.6% | 72.3% | 55.2% |
+| Nongda211 | 2.02 | 2.48 | 4.35 | 70.2% | 42.4% | 19.9% |
+| Zhengmai366 | 1.20 | 2.20 | 6.19 | 72.8% | 57.5% | 40.4% |
+| Yanzhan4110 | 3.37 | 4.56 | 9.32 | 93.3% | 76.6% | 57.0% |
+
+The largest Table 5 mismatch of the reconstructed LD50 is
+**~0.41 days** for Jing411 (9.11 versus 8.7), followed by
+Yanzhan4110 (~0.28 days); the source table displays *rounded*
+K/P parameters and the original regression may have used
+additional digits. **Do not silently tune or claim that the
+published regression and all original LD values agree exactly.**
+Original sample measurements would be needed to assess *predictive*
+fit and mortality uncertainty, which are not recoverable from
+the text table alone. The R² are the **authors' original per-plant
+mortality model fits** (not validation scores for CCTO).
+
+**Reproducible dataset:** [WinterWheatW04Regression.csv](Research/WinterWheatW04Regression.csv)
+retains all 4 source Table 2 temperatures, Table 4 K/P/R², Table 5 LD
+values and separately labelled deterministic recalculations. The
+CSV comments preserve measurement endpoint and treatment protocol.
+
+### What the reproduction proves — and does not
+
+1. **A practical stable individual threshold implementation exists for
+   the population survival equation at each specific experimental cycle.**
+   Assign each plant a persistent uniform rank u in (0,1), then derive
+   a latent lethal cycle count
+   `N_i = K - ln(1-u)/h`, with `h = -ln(1-P)`.
+   For a sufficiently large population, the fraction with
+   `N_i <= n` approaches the published (M(n)) curve.
+   This is a **mathematical equivalence of the fitted population model**,
+   not evidence of genetic variance or the source's actual observed
+   within-cohort thresholds. It involves no per-tick random mortality rolls.
+2. **The cohort threshold K is a modeled delay, not the CCTO
+   temperature-onset field.** Setting `coldDamageStartTemperature`
+   to any of the four soil minima is incorrect. The regimen cycles
+   between soil max and min; cold damage cannot be inferred from
+   minimum alone.
+3. **Population survival variability can be represented with a
+   single scalar per-plant susceptibility**, but each cultivar has
+   different K and conditional daily P; even with the SAME -17°C
+   minimum, Jing411 LD50=8.7 and Nongda211 LD50=4.4 days. The
+   distribution of lethal *cycle days* is shifted exponential at
+   these study conditions, **not a demonstrated universal distribution
+   of onset temperatures or degree-hour doses**.
+4. The study does not independently identify
+   **damage as a function of temperature** across two temperatures
+   *for the same cultivar*, because each cultivar uses a distinct
+   temperature cycle. W05 contains a *different* same-cultivar
+   multiple-temperature design but does not yield numerical
+   raw mortality-by-temperature/duration cells in accessible
+   source text; the extractable abstract supports an FDD
+   association, not a full injury-surface fit.
+5. W03 reports nonmonotonic survival with longer time under
+   another winter-wheat protocol, whereas W04's within-cycle
+   mortality formula is necessarily monotonic. **Species/
+   acclimation/study differences cannot be erased by selecting
+   one global cumulative-mortality curve**. Retain a lightweight
+   base model and document known deviations rather than add
+   unmeasured parameters.
+6. **RimWorld clock mapping unresolved:** experimental calendar days
+   and in-game 24-hour days may be mapped one-to-one for brief
+   frost events, but an annual winter in RimWorld lasts only
+   60/365 of a real-year cycle. Do not blindly use '8.7 game
+   days until LD50' without an explicitly selected time mapping.
+
+**Outcome / stop:** This is a genuine source-calibrated
+*population survival curve at four specific winter-wheat freeze cycles*,
+and a tractable individual fixed-threshold mathematical implementation.
+It is **not** a calibrated general CCTO injury equation, recovered
+raw survival dataset, validated onset temperature, acclimation
+mechanic or finalized per-Def XML. Keep PR Draft and avoid native
+tests until numerical/ownership work is complete.
