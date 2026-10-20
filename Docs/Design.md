@@ -319,3 +319,41 @@ Keep existing temperature values, dormancy and cold-death semantics, optional MO
 The startup cost of CCTO's conditional MO patch has not been measured. No performance benefit from a split is asserted.
 
 **Status / gate:** MO support remains integrated and unchanged. VPE addon's separate runtime XML and initial engineering balance values are implemented; its seven shared plant settings match current CCTO XML and are covered by offline source-parity regression. **Native RimWorld/old-save validation and Workshop publication remain unverified** ([addon issue #4](https://github.com/sucRo-RimWorld/CCTO-for-VPE/issues/4)). VPE 1.7 compatibility remains independent of the inspected VPE 1.6 source.
+
+
+## Opt-in cumulative cold injury implementation (2026-10-21)
+
+The author accepted elapsed-exposure-based cold damage as the target model and
+requires no unnecessary whole-map polling or per-tick plant update. CCTO
+remains generic; it must not hard-code AMJ crop identities or move consumer
+crop balances into CCTO.
+
+A new `ColdToleranceExtension` model uses
+`coldDamageStartTemperature` and `coldDamageDegreeHoursToDie` together.
+When ambient temperature is below onset, damage accumulates in proportion to
+the degrees below onset times the elapsed in-game hours. At unit damage the
+plant dies. Optional `coldDamageRecoveryPerHour` reduces prior cold damage
+while temperature is above onset. This is a provisional game abstraction, not
+an empirically calibrated agronomic threshold.
+
+The Info Card for a damage-model plant displays **損傷開始温度** /
+**Cold damage starts**, instead of the legacy death-temperature stat. The
+existing **休眠温度** stat is retained without renaming. Legacy
+`coldDeathTemperature` and `coldDormancy` records retain their original
+behavior. If both old death and valid new damage settings exist, new damage
+mode takes precedence for that plant. Optional dormancy and damage can coexist.
+
+The initial engine integrates damage from the existing
+`Plant.CheckMakeLeafless` callback using the plant's actual ambient
+temperature. Delta time is capped at 2,000 ticks so unobserved seasons are
+not inferred from one instantaneous sample. Damage records are held only
+for plants with positive damage in a map-owned dictionary and are saved
+as plant references. Dead/despawned records are pruned. There is no
+per-Tick map-wide scan or new weather loop.
+
+**No stock crop conversion yet:** CCTO Vanilla/MO XML, CCTO-for-VPE and
+AMJ consumer XML retain current values. Before replacing these values,
+calibrate dose/onset/recovery for plant classes and evaluate extreme cold,
+warm recovery, dormancy, sampled-temperature bias, save/load, and winter TPS
+against the existing fixed model. Cold acclimation and snow insulation
+remain separately scoped future decisions; neither is implemented here.

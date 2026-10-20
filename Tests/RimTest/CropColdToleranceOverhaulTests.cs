@@ -47,6 +47,18 @@ namespace CropColdToleranceOverhaul.Tests
         }
 
         [Test]
+        public static void OptInDamageNeedsStartAndLethalDose()
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDamageStartTemperature = -5f;
+            Assert.That(extension.HasColdDamageModel).Is.False();
+
+            extension.coldDamageDegreeHoursToDie = 48f;
+            Assert.That(extension.HasColdDamageModel).Is.True();
+            Assert.ThatCollection(extension.ConfigErrors().ToList()).Is.Empty();
+        }
+
+        [Test]
         public static void InfiniteDeathTemperatureIsRejected()
         {
             ColdToleranceExtension extension = new ColdToleranceExtension();
@@ -151,6 +163,19 @@ namespace CropColdToleranceOverhaul.Tests
         private static readonly MethodInfo AppendCctoStatsMethod = FindAppendCctoStatsMethod();
 
         [Test]
+        public static void OptInDamageInfoCardTakesPriorityOverLegacyDeath()
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDeathTemperature = -12f;
+            extension.coldDamageStartTemperature = -5f;
+            extension.coldDamageDegreeHoursToDie = 48f;
+
+            List<StatDrawEntry> entries = BuildCctoStats(extension, 0f);
+            Assert.ThatCollection(entries).Has.Count(1);
+            Assert.That(entries[0].ValueString).Is.EqualTo((-5f).ToStringTemperature());
+        }
+
+        [Test]
         public static void FixedDeathTemperatureProducesOneCctoStat()
         {
             ColdToleranceExtension extension = new ColdToleranceExtension();
@@ -246,3 +271,4 @@ namespace CropColdToleranceOverhaul.Tests
         }
     }
 }
+

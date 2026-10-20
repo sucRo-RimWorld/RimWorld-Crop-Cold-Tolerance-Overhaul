@@ -73,3 +73,40 @@ CCTO does not introduce a second growth-minimum field.
 A mod consuming the framework owns its plants' temperature values, design/balance tables, Def mapping, compatibility XML, and validation. AMJC and AMJE use this pattern; their custom plant data is not shipped or maintained in CCTO.
 
 For an optional CCTO dependency, add the extension only while CCTO is active (for example, through a `PatchOperationFindMod` guard). Keep the native minimum growth temperature in the owning PlantDef so that the plant remains usable without CCTO. CCTO-owned Vanilla/MO data remains in CCTO; consuming the framework does not transfer ownership of those existing sets.
+
+
+## Cumulative cold damage: optional XML API
+
+Existing fixed `coldDeathTemperature` and `coldDormancy` extensions
+continue working unchanged. A plant can explicitly opt into degree-hour
+damage instead of instantaneous death:
+
+```xml
+<li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+  <coldDamageStartTemperature>-5</coldDamageStartTemperature>
+  <coldDamageDegreeHoursToDie>48</coldDamageDegreeHoursToDie>
+  <coldDamageRecoveryPerHour>0.02</coldDamageRecoveryPerHour>
+</li>
+```
+
+**These numbers are XML examples only; no plant has these values approved.**
+Both onset and lethal dose must be supplied. The dose unit is **°C ×
+in-game hours** below onset. `coldDamageRecoveryPerHour` is the fraction
+of lethal injury cleared per warm in-game hour (optional, default zero);
+injury is capped to [0,1]. At 1 the plant dies. Calculations run on the
+existing plant leafless check, not every tick, and cap elapsed time to
+2,000 ticks per evaluation. They sample current ambient temperature and
+cannot perfectly reconstruct short intervening extremes.
+
+When these fields are valid, they take precedence over any legacy
+`coldDeathTemperature` and the information card instead displays
+**Cold damage starts / 損傷開始温度**. Existing dormancy still starts at
+`minGrowthTemperature` and its **Dormancy temperature / 休眠温度**
+label remains unchanged. Onset describes the beginning of accumulated
+injury, not a guaranteed lethal temperature.
+
+Only plants that have positive cold damage consume per-plant saved
+state (map component). Data are removed after recovery/death, and stale
+records are pruned. Changing XML between old and new models, old saves,
+third-party subclasses and mod removal still need actual runtime checks.
+No Vanilla/MO/VPE/AMJ plant is opted in by this framework change.
