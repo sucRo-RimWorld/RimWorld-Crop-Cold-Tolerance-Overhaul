@@ -357,3 +357,23 @@ calibrate dose/onset/recovery for plant classes and evaluate extreme cold,
 warm recovery, dormancy, sampled-temperature bias, save/load, and winter TPS
 against the existing fixed model. Cold acclimation and snow insulation
 remain separately scoped future decisions; neither is implemented here.
+
+
+### Numerical rebalancing gate — 2026-10-21 (author priority correction)
+
+**Recalibrate numbers before native tests or plant migration.** The old
+`coldDeathTemperature` values cannot automatically be copied to a new
+damage-onset field, and the proposed injury law must be assessed against
+actual time-to-injury curves first. [ColdDamageCalibration](ColdDamageCalibration.md)
+records the 78-species inventory, 12 numerical candidate profiles and
+remaining ecological balance work. None of its numbers are approved or live.
+
+**Known design/source mismatch until recalibration finishes:** The draft
+C# implementation in PR #24 currently uses **linear** °C·hour damage.
+The new calibration comparison suggests **quadratic** (°C²·hour) severity
+is a more realistic candidate for certain frost-sensitive crops. The
+12 candidate doses in the calibration document MUST NOT be loaded into
+the current linear implementation: they have incompatible units. Resolve
+the injury curve, expiry/recovery semantics and all plant class values
+before converting any production XML, promoting PR #24 out of Draft, or
+asserting native gameplay/performance validation.
