@@ -14,7 +14,7 @@
 ## GitHub bibliography retention and verification (2026-10-21)
 
 **This GitHub-tracked document is the canonical reference register for the
-CCTO numerical recalibration research.** The **58 unique source IDs** below
+CCTO numerical recalibration research.** The **59 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
 non-transferability warnings. Source IDs repeated in the later whole-plant
 endpoint extraction are cross-references, **not** additional independent
@@ -96,6 +96,7 @@ candidate numbers.
 | `W01` | [Skinner & Garland-Campbell 2008, Canadian Journal of Plant Science](https://www.ars.usda.gov/research/publications/publication/?seqNo115=221641) | 実験論文・USDA要旨 | 低温順化した冬小麦25品種 — -5℃/15週で生存率0–100%;20週で0–33% | 品種・順化済み苗に限定;農地の気温を直に入れてはいけない |
 | `W03` | [Skinner 2014, *Crop Science* 54:1523–1529, doi:10.2135/cropsci2013.09.0623](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2013.09.0623) | 一次試験・公開原著要旨確認 | 低温順化した冬小麦6品種、-13.5～-16.5℃に2/3/4時間保持。-10℃以下の総経過時間が325→525分になると平均生存率が約50%低下。しかし**675分の方が生存率が上昇して325分時点と同程度**になる例を報告。 | 冷却経路/低温刺激下の適応反応を著者が示唆。**総曝露時間に単調増加する損傷量だけでは当該結果を再現できない**。品種別原表と各条件の生存率は全文未照合なので係数不可。 |
 | `W04` | [Zheng et al. 2018, *Crop Science* 58:1740–1750, doi:10.2135/cropsci2018.01.0014](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2018.01.0014) | 一次試験・原著要旨確認 | 野外で順化した冬小麦4品種を冬季に各品種の臨界凍結温度で異なる日数保持。追加1日当たりの株死亡率の増分はJing411 **8.6%**、Nongda211 **22.3%**、Zhengmai366 **11.1%**、Yanzhan4110 **9.4%**と報告。分げつ・新葉・古葉では死亡率増分が異なる。 | 原著要旨の「% per day」が割合増減かパーセンテージポイント増減か全文で判定していない。**絶対死亡確率に数値を直用しない**。品種別臨界温度・原表・生存個体数の照合必要。 |
+| `W06` | [Wu et al. 2024, *Frontiers in Plant Science* 15, doi:10.3389/fpls.2024.1419381](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1419381/full) | **原著HTML全文・表2～4確認** | 冬小麦Nongda211/Zhengmai366/Yanzhan4110の同品種ごとに、複数の試験温度と1/2/3日の凍結処理を比較。**分げつ死亡率**を気温とのロジスティック曲線で近似（表3）、冠部土壌温度の積算寒度TSE_h(℃·時)/TSE_d(℃·日)で線形回帰（表4）。TSE_hに対する50%分げつ死亡値=106.9/86.5/84.7℃·時、R²=0.83/0.93/0.86。土壌最低温度は指定気温より1/2/3日処理で平均7.5/4.8/4.2℃高い。 | **分げつ死亡であり全株死亡ではない**。冠部測定温度と屋外気温は別。表3 Yanzhan4110の2日式「0.90*Tmin+17.18」は表のLT50=-12.7℃と**代数的に一致しない**（式は約-19.1℃を示す）：誤植/転記確認まで該当係数は計算に使用禁止。実測の個体別生存数は表3/4に含まれない。 |
 | `W05` | [Zheng et al. 2018, *Agricultural and Forest Meteorology* 260–261:1–8, doi:10.1016/j.agrformet.2018.05.011](https://doi.org/10.1016/j.agrformet.2018.05.011) · [FAO AGRIS](https://agris.fao.org/search/en/records/65defde17c7033e84bec586f) | 一次試験・要旨確認（本文未取得） | 2年の順化冬小麦試験で**土壌最低温度**-14/-17/-20℃、それぞれ1～10日程度の異なる曝露日数を比較。**土壌最低温度-12℃以下**からの積算凍結度日(FDD)と株・分げつ死亡率を分析し、FDD 1℃·日当たり死亡率がそれぞれ**1.0% / 1.4%**増加と報告。 | 空気温度ではなく**土壌**の観測量。上昇率の統計的定義、交互作用/誤差、シーズン・品種詳細未確認。**-12℃は当該実験の閾値であり汎用小麦の損傷開始温度ではない**。 |
 | `W02` | [Skinner et al. 2018, PLOS ONE](https://pmc.ncbi.nlm.nih.gov/articles/PMC6005534/) | 一次実験 | 冬小麦12系統 — 5週間順化後のLT50に光周期/品種差 | LT50は群の50%死亡であり一律枯死温度ではない |
 | `B01` | [Wójcik-Jagła & Rapacz 2023, Scientific Reports](https://www.nature.com/articles/s41598-023-47318-y) | 一次実験 | 冬・兼用型大麦 — 順化後の凍結処理、脱順化に伴うLT50・再生の変化 | 春型大麦や実ゲームの大麦全般に自動適用できない |
@@ -174,7 +175,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `DankPyon_Plant_Cabbages` | Cabbage | death | `F01`, `C01` | 対象資料あり・端点注意 | 葉片損傷/生育段階別霜害;株死亡との混同禁止 |
 | `DankPyon_Plant_Garlic` | Garlic | dormancy | `G03`, `G04` | 同種・株生存/葉成長 | 冷順化したニンニクの系統差;葉面積/死亡を分離 |
 | `DankPyon_Plant_Mushrooms` | Mushroom | death | `M02` | 近縁菌類・参考限定 | 4属の培養菌糸LT50と再成長; MOキノコの同定・環境は未確定 |
-| `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02`, `W03`, `W04`, `W05` | 冬小麦の株生存・曝露時間の一次研究（品種/順化条件限定） | W03では長時間曝露でかえって生存が増す非単調例。W04は品種ごとに曝露日数との死亡率関係が大幅相違。W05は土壌最低温度-12℃以下の積算凍結度日を分析。MO Wheatが冬型と確定していないので数値直用禁止。 |
+| `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02`, `W03`, `W04`, `W05`, `W06` | 冬小麦の株生存・分げつ死亡・曝露日数・積算寒度の一次研究 | W04は株の死亡率対凍結サイクル日数を著者回帰式で記録。W06は複数温度×日数に対する分げつ死亡率であり**株の死亡率に代用しない**。品種・生育段階・順化・気温/土壌冠温を区別し、MO Wheatに一律転用しない。 |
 | `DankPyon_Plant_Flax` | Flax | death | `F01` | 対象資料あり・端点注意 | 亜麻は生育段階別被害温度 |
 | `DankPyon_Plant_Sugarcane` | Sugarcane | death | `U01` | 対象資料あり・端点注意 | 地上部茎損傷/品質悪化;地下株生存は別 |
 | `DankPyon_Plant_Carrots` | Carrot | death | `F01` | 対象資料あり・端点注意 | 発芽段階;根部生存の直接データなし |
