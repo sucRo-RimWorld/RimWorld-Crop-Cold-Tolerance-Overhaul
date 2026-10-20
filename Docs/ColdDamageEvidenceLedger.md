@@ -14,10 +14,10 @@
 ## GitHub bibliography retention and verification (2026-10-21)
 
 **This GitHub-tracked document is the canonical reference register for the
-CCTO numerical recalibration research.** The **49 unique source IDs** below
+CCTO numerical recalibration research.** The **50 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
-non-transferability warnings. The 10 repeated source IDs in the later
-whole-plant endpoint extraction are cross-references, **not** 10 additional
+non-transferability warnings. The 14 repeated source ID occurrences in the later
+whole-plant endpoint extraction are cross-references, **not** 14 additional
 sources. The adjacent 78-Def table is the source-to-plant index, including
 explicit no-source rows. Do not silently delete a reference during
 recalibration: preserve source IDs in the register and mark later
@@ -29,10 +29,10 @@ must accompany any numerical parameter derived from the source:
 
 | Source IDs | Check completed during 2026-10-21 research | Remaining gate |
 |---|---|---|
-| `ON01` | NMSU onion breeding-project page confirms 90% survival at -13°C for some Japanese accessions and ~-14°C December-seedling LT50 for named varieties | Original Peffley (1981) experiment and freeze-treatment duration not obtained; no validated dose curve |
+| `ON01` | NMSU breeding-project page reports 90% survival at -13°C for some Japanese-origin accessions and ~-14°C December seedling LT50 for named commercial varieties | The second claim is inconsistent with the Peffley 1981 original (ON03: -8.7/-10.5/-10.8°C). Preserve the discrepancy; do not use -14°C as validated ON03 data. |
 | `RO01` | Journal article landing/full-text page confirms 2022 research on 17 rose cultivars; field winter damage scored 0–5 with 5 meaning whole-plant death, and a separate modeled whole-plant LT50 | Verify cultivar-by-cultivar numerical LT50 against field exposure and differentiate modeled whole-plant LT50 from stem electrolyte-leakage LT50 |
 | `CY01` | Forest Research and Management Organization Japanese abstract confirms winter hardiness of Hinoki cypress around -25°C and strong seasonal/clone variation | The linked detailed PDF is retained but its individual 43-clone table and exposure protocols have not been revalidated in this check; generically named Cypress is not necessarily Hinoki |
-| Other 46 source IDs | Preserved with their reported endpoint and URL from earlier collection | Original methods, page access and numerical protocol require source-by-source verification before fitting; do not claim these were all independently rechecked today |
+| Other 47 source IDs | Earlier sources preserved with their reference URLs and endpoint classification | Original protocols, data tables and any conversion into CCTO parameters still require individual verification. |
 
 For `CY01`, a text-accessible institutional summary is also available at
 https://www.ffpri.go.jp/labs/kanko/364-1.html ; the registry retains
@@ -57,7 +57,8 @@ candidate numbers.
 | `AS01` | [Pan et al. 2015, Astragalus membranaceus freezing injury](https://www.sciencedirect.com/science/article/abs/pii/S0098847214001944) | 一次苗実験 | A. membranaceus var. mongholicusの苗、72時間の凍結ストレスで葉/根の酸化障害・イソフラボノイド保護作用を分析。低温前処理で凍害軽減 | Astragalusの種は多数、Defの種不明。葉根の組織障害であって72時間耐える/枯れる温度値ではない |
 | `FI01` | [USFS Silvics of North America, Abies balsamea](https://research.fs.usda.gov/silvics/balsam-fir) | USFS林業生態学レビュー | Abies balsameaは冷温帯に適応し冬越しするが、晩発芽苗は越冬生存率が低い;霜柱/雪害/乾燥も苗の死亡原因 | Great FirのモデルがAbiesか要確認。本文に寒波の℃・連続曝露・株死亡率の制御試験はない |
 | `PA01` | [Texas A&M AgriLife Extension 2021 freeze assessment](https://www.plantanswers.com/articles/dealing-with-freeze-damage-on-plants.asp) | 大学園芸普及・過去の現地観察 | 1980年代の約0°F(約-17.8℃)のテキサス寒波ではSabal等一部ヤシが生存し、他のヤシは死亡したという観察 | ヤシ科内で属/種差が大きい。厳密な曝露時間・屋内外/葉温・調査標本数がないので全ヤシの致死値不可 |
-| `ON01` | [New Mexico State University onion breeding cold-hardiness trial](https://onion.nmsu.edu/projects.html) | 大学農業育種プロジェクト/先行実験引用 | 1979–80年の400系統から選抜。日本由来の一部タマネギ系統で-13℃における生存率90%; Yellow Grano/Granex 12月苗のLT50約-14℃ | 元論文Peffley 1981に遡る要確認;系統・苗齢・曝露時間・土壌温度が不明。二点は別系統であり同じ致死曲線の２点ではない |
+| `ON01` | [NMSU onion cold-hardiness project](https://onion.nmsu.edu/projects.html) | 二次要約 | 日本由来一部系統-13℃で90%生存。Yellow Grano/Granexの12月苗のLT50は約-14℃と記載。 | **ON03の原著と後者が不一致**。出典・処理条件を確認できるまで-14℃を較正に使用しない。前者は別系統の測定。 |
+| `ON03` | [Peffley, Ortiz & Corgan 1981, HortScience 16(6):773–774](https://doi.org/10.21273/HORTSCI.16.6.773) · [原文2頁スキャン](https://pdfs.semanticscholar.org/4f3a/3c0c6125529759251b863550fb12b392e020.pdf) | **原著・表と図を直接確認** | *Allium cepa* Yellow Grano/Yellow Granexの播種後58/74/90日苗。-4℃で一夜保持後、約1℃/h冷却し、群ごとに-6～-14℃で取り出す。21℃以上の温室で3週間後の**発根**を生存判定とする。表1 LT50=-8.7/-10.5/-10.8℃（58日齢の要旨は-8.8℃）。図1に生存確率曲線。 | **各最低温度で一定時間曝露した試験ではない**。冷却過程と到達最低温度が連動するため、単独では低温損傷の時間係数を同定できない。 |
 | `ON02` | [UMass Amherst overwintered onion low-tunnel variety trial 2011–12](https://www.umass.edu/agriculture-food-environment/vegetable/special-topics/winter-production-storage/production/variety-trials-for-overwintered-onions) | 大学農場栽培比較 | 保護トンネル内の越冬後生存率、Keepsake/Top Keeper 100%、Bridger/Candy >95%、ネギ類約90% | 穏冬・被覆栽培で最低株温度を記録していない;寒波致死閾値の直接根拠にはならない |
 | `RO01` | [Rouet et al. 2022, Mapping Winterhardiness in Garden Roses](https://doi.org/10.21273/JASHS05189-22) | 一次野外調査＋統計モデル | 17園芸バラ品種、冬害尺度の最悪値は株死亡(5)。50%株死亡LT50をロジット推定し冬害指数と比較 | 同属RosaではあるがゲームRoseの品種不明;温度は統計推定/冬全体の気温履歴。茎組織電解質漏出のLT50と株死亡のLT50は別 |
 | `RY01` | [Abeynayake et al. 2015, perennial ryegrass acclimation](https://pmc.ncbi.nlm.nih.gov/articles/PMC4428078/) | 一次凍結・再生実験 | Lolium perenne 2遺伝型、7℃/17日順化後-10℃3時間処理し20℃7日回復。順化個体のみ再成長、未順化は再成長せず | 再成長は株生存に近い指標だが個体死亡率%ではない;Haygrass/Grass/Tall grassは種が特定できない |
@@ -158,7 +159,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_PincushionCactus` | Pincushion cactus | death | `O01`, `O02` | 異種比較・数値不可 | 他属のウチワサボテン類でありピンクッションサボテンと同種ではない |
 | `Plant_TallGrass` | Tall grass | dormancy | `RY01`, `RY02` | 別属/群の牧草モデル・再生実験 | Lolium perenne -10℃/3hの順化後の再生を比較;RimWorldの草の全種に数値転用不可 |
 | `Plant_HealrootWild` | Wild healroot | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `DankPyon_Plant_Onions` | Onion | death | `ON01`, `ON02` | 同種群の実測生存・LT50;条件差大 | -13℃で90%生存の一部系統、12月苗の-14℃LT50は別系統。被覆トンネルの越冬生存率とは独立事象 |
+| `DankPyon_Plant_Onions` | Onion | death | `ON01`, `ON02`, `ON03` | 原著直接確認・株発根の生存LT50 | ON03: 苗齢58/74/90日別LT50=-8.7/-10.5/-10.8℃。-4℃一夜保持と約1℃/h下降冷却の温度系列であり、定温継続時間の試験ではない。ON01の-14℃記載は原著と不一致。 |
 | `DankPyon_Plant_Lentils` | Lentil | death | `F01` | 対象資料あり・端点注意 | 発芽/開花/結実の霜害帯 |
 | `DankPyon_Plant_Cabbages` | Cabbage | death | `F01`, `C01` | 対象資料あり・端点注意 | 葉片損傷/生育段階別霜害;株死亡との混同禁止 |
 | `DankPyon_Plant_Garlic` | Garlic | dormancy | `G03`, `G04` | 同種・株生存/葉成長 | 冷順化したニンニクの系統差;葉面積/死亡を分離 |
@@ -204,7 +205,8 @@ These are the only source rows in this pass whose endpoints **directly involve s
 | `M01` | Corn seedlings; -2℃ for 48h or -6℃ for 2h | Each gives **about 50% seedling mortality** | Original Buican study quoted in a later review, *not* identical to deterministic CCTO death; stage and recovery interval |
 | `W01` | Fully acclimated winter wheat varieties held -5℃ for 15–20 weeks | 20-week survival **0–33%**, cultivar-dependent | Acclimated plants; chamber protocol, variety, thaw and soil/crown matter |
 | `A01` | A. tequilana exposed to five nights of -6 to -8℃ in field | About **74% mortality**; A. americana no visible cold injury/death in same field campaign | Different species, microclimate; do not turn generic Agave into either datum |
-| `ON01` | Some Japanese-origin onion accessions under a -13℃ cold test | **90% survival** in selected accessions; separate commercial seedling LT50 around -14℃ | Conditions and older original experiment require checking; two figures are not one fitted time/temperature curve |
+| `ON01` | NMSU二次要約：日本由来系統-13℃で90%生存 | 商用品種のLT50約-14℃との記述はON03と食い違う | 出典未整理。数値曲線への採用は保留。 |
+| `ON03` | タマネギ苗58/74/90日、-4℃一夜保持→1℃/hの冷却で-6～-14℃に到達 | 3週間後の発根による全株LT50=-8.7/-10.5/-10.8℃ | 定温何時間で枯死するかの結果ではない。計算式に使うには冷却履歴の扱いと別の実験が必要。 |
 | `ON02` | Overwintering onions under covered low tunnels in a mild winter | **100%** for two named cultivars, **>95%** two others | Field survival but no uncontrolled frost duration/plant-body temperature; cannot infer lethal freezing threshold |
 | `RO01` | 17 rose cultivars, field winter damage and frost temperature modeling | Winter mortality category includes **whole dead plant**; model estimates cultivar-specific whole-plant LT50 | Different modelled mortality endpoints and measured twig electrolyte-leakage injury; climate/history/snow effects |
 | `RY01` | Two *Lolium perenne* genotypes, 17d at 7℃, then -10℃ 3h, 7d at 20℃ | **Regrowth present** after acclimation; **none** in unacclimated controls | Presence/absence of regrowth, *not* a % mortality curve; seedling stage |
