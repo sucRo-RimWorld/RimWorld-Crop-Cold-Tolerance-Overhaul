@@ -54,7 +54,16 @@ namespace CropColdToleranceOverhaul.Patches
                     TemperatureDisplayPriority);
             }
 
-            if (extension.HasColdDeathTemperature)
+            if (extension.HasColdDamageModel)
+            {
+                yield return new StatDrawEntry(
+                    StatCategoryDefOf.Basics,
+                    "CCTO_ColdDamageStartTemperature".Translate(),
+                    extension.coldDamageStartTemperature.ToStringTemperature(),
+                    "CCTO_ColdDamageStartTemperature_Desc".Translate(),
+                    TemperatureDisplayPriority);
+            }
+            else if (extension.HasColdDeathTemperature)
             {
                 yield return new StatDrawEntry(
                     StatCategoryDefOf.Basics,
