@@ -259,3 +259,30 @@ For real plant tissue studies, distinguish lab-grown whole-plant
 root/bud regrowth, natural overwinter survival, fruit/leaf injury, and
 chilling-only growth depression. Practical CCTO approximations must
 state those assumptions rather than fabricate experimental precision.
+
+
+### Source-owned identity check: Medieval Overhaul 1.6 Def text
+
+The **uploaded MO 1.6 source package** was examined directly
+(`3219596926/1.6/Defs/ThingDefs_Plants/`, 2026-10-21). These entries
+are the game's actual labels/descriptions, **not biological literature**.
+The Def provides no binomial taxon for the cases below; do not assign
+an exact real-world LT50 by guessing from its common name.
+
+| DefName | MO 1.6 XML path suffix | What the game actually specifies | Calibration status |
+|---|---|---|---|
+| `DankPyon_Plant_Mindwort` and `MindwortWild` | `Plants_Cultivated_Alchemy.xml` | Pale-green leaves and small yellow flowers, used in potent elixirs; **no species ID** | Invented/ambiguous herbal identity. No corresponding measured species selected. |
+| `DankPyon_Plant_Fleawort` and `FleawortWild` | `Plants_Cultivated_Alchemy.xml` | A hardy, traditionally medicinal plant; **no genus/species** | The English common name is taxonomically ambiguous; do not automatically assume a particular *Plantago* species. |
+| `DankPyon_Plant_Herb` | `Plants_Cultivated_Farm.xml` | Fragrant culinary leaf herb with no botanical name | Generic edible herb. Select a biologically defensible proxy only once owner scope is decided. |
+| `DankPyon_Tree_GriffonBerry` | `Plants_Cultivated_Farm.xml` | Fictional small fruit tree whose berries are valued by griffins | Fictional fruit tree; no real-species lethal field measurement. |
+| `DankPyon_GreatIter` | `Plants_Wild_DarkForest.xml` | Fictional giant tree, viscous sour fruit, new leaf terrace during hot summers | No real taxonomic equivalent. Generic ecology/gameplay bounds only. |
+| `DankPyon_GreatFir` | `Plants_Wild_DarkForest.xml` | Extremely tall evergreen, described as a large cousin of cedars, contrasted against snow | **'Fir' does not establish genus *Abies***. Previous `FI01` balsam-fir literature is ecological analogy only. |
+
+Both cultivated and wild MO alchemy Defs preserve the same descriptive
+identity via XML inheritance; they are separate in-game PlantDefs but
+not evidence of independently measured biological variants.
+
+The source files were inspected from the original MO archive provided
+for this project, not changed or copied into CCTO; MO remains a separate
+mod/owner. This identity audit does not increase the cold-evidence
+mapping count or authorize new plant XML values.
