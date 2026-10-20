@@ -1,64 +1,155 @@
-# CCTO cumulative cold injury — preliminary numerical calibration
+# CCTO — empirical calibration of cumulative cold damage
 
-**2026-10-21; target = general-purpose CCTO, not AMJ-only. STATUS: CALIBRATION CANDIDATES — NOT APPROVED BALANCE / NOT ACTIVE XML.**
+**Reviewed 2026-10-21. Status: empirical-source verification in progress. No numeric parameters are approved for the new injury model; no Vanilla/MO, AMJ or VPE plant XML is migrated.**
 
-## Why numerical calibration precedes native testing
+CCTO is a generic realism-oriented plant tolerance framework, not a patch for
+a Japanese double-cropping exception. Its numerical values must be traceable
+to botanical/agricultural evidence and must not be invented to achieve a
+convenient survival time.
 
-The current draft implementation in PR #24 uses a *linear* temperature-degree-hour injury rate. Numerical comparison with published field studies identifies a material limitation: severe freezes can injure far faster than the simple linear ratio predicts. Do **not** copy the numbers below into the current linear code or claim native evidence before revising the engine.
+## Correction of the earlier 12-row candidate table
 
-CCTO main `Docs/ImplementationTable.md` currently inventories **78 PlantDefs: 48 with finite fixed cold-death thresholds and 30 cold-dormancy plants**. New mode's onset/dose/recovery must be specified per species or defensible functional/ecological group; no mass migration by simple replacement of `coldDeathTemperature` is authorized. CCTO owns Core/MO numerical values; AMJ Grains, Environment, and CCTO-for-VPE own their own value mapping and XML. The old fields and existing Info Card remain the production semantics until explicit migration.
+The previous revision of this file proposed unverified onset temperatures,
+lethal doses, recovery rates and synthetic 'hours until death' for 12 crops
+(rice, corn, potato, tomato, pumpkin, cabbage, wheat, strawberry, pine, teak,
+lemon and cocoa). **WITHDRAWN AS CALIBRATION VALUES.** The table was an
+illustrative numerical experiment, not a plant-specific measured dataset; its
+numbers must not enter XML. Git history retains that discarded exercise.
 
-## Candidate curve to calibrate
+The prior statement that maize's two-temperature duration experiment
+establishes a universal quadratic model was too strong. Two 50%-mortality
+points cannot independently determine injury onset, severity exponent,
+treatment-stage response and individual variation. In particular, the
+study endpoints are *approximately 50% population mortality*, whereas the
+draft CCTO code causes *deterministic death* of every identically exposed
+plant when cumulative damage reaches 1.0. These are not interchangeable.
 
-Screen a **convex severity** rule, initially quadratic rather than linear:
+The current PR #24 code still uses a **linear** temperature-degree-hour
+accumulator (°C × game-hour). A **quadratic** accumulator (°C² × game-hour)
+was suggested but is NOT selected, empirically fitted or implemented.
+Changing the equation also changes dose units. Neither curve has passed
+source-level numerical calibration. **Do not promote the Draft PR or run
+meaningless acceptance tests against guessed species values.**
 
-```text
-If ambientTemperature < damageStartTemperature:
-    damage += (damageStartTemperature - ambientTemperature)^2 * elapsedHours / lethalDose
-Else:
-    damage = max(0, damage - recoveryPerHour * elapsedHours)
-Death at damage >= 1
-```
+## Verified source measurements — their endpoints are different
 
-`lethalDose` units are **°C²·in-game-hour**, not the current branch's °C·hour. `recoveryPerHour` is normalized [0,1] lethal-dose fractions per in-game hour. Below-onset temperature is ambient, not automatically the outdoor world-tile temperature. Squaring requires one multiplication rather than a general exponentiation; update at existing plant checks, not a per-tick scan. This is an engineering candidate to compare against linear and real evidence, not a universal plant physiology law.
+Read each linked original paper or institutional summary *with its biological
+endpoint and protocol*. A reported LT50 may mean 50% whole-plant mortality,
+50% leaf injury, or 50% electrolyte leakage, depending on the study.
 
-**Published severity-ratio anchor.** Corn emergence injury literature (Lindsey 2024, citing Buican 1969) reports *roughly 50% mortality* from −2°C for 48 hours, versus −6°C for 2 hours. For onset −1°C, severity ratios for −6°C vs −2°C are **5** under a linear model and **25** under a quadratic model; observed duration ratio is **24**. This is evidence for a convex response shape, **not permission to equate experimental 50% mortality with deterministic death of every simulated plant**.
-- https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.21212
-- https://doi.org/10.1111/ppl.70633 (Arora 2025: cold duration and recovery can materially change irreversible injury)
-- https://pubmed.ncbi.nlm.nih.gov/39862458/ (Kosová et al. 2025: wheat and barley acclimation/deacclimation)
-- https://www.fao.org/4/y7223e/y7223e0a.htm (some rapid freeze injuries depend less on duration; the model is a gameplay abstraction)
+| Plant / literature | Treatment or observation | Published outcome | What CCTO may infer | Why it is NOT a death setting |
+|---|---|---|---|---|
+| Maize, Buican (1969) via Lindsey et al. (2024) | Post-emergence freezing; −2°C for 48 h versus −6°C for 2 h | Each treatment produced about **50% seedling mortality**, assessed 10 days after freezing | Both temperature and duration strongly affect death likelihood | Not 100% mortality; specific emergence stage, conditions and cultivar context |
+| Winter wheat, Skinner & Garland-Campbell (2008), USDA ARS | Fully cold-acclimated seedlings held frozen at **−5°C for 15 or 20 weeks** | 20-week survival ranged **0–33%** across cultivars | Long-term survival can extend far beyond hours even below freezing | Acclimated winter wheat, not generic wheat; exposure at plant/crown conditions, not a universal air-temperature threshold |
+| Winter wheat, Skinner et al. (2018), PLOS ONE | Twelve winter wheat lines after **5 weeks cold acclimation** | Norstar's reported LT50 **−18.9°C** versus **−17.1°C** at different light-cycle sampling phases | Even LT50 varies with physiological conditions | These are 50%-mortality estimates under a specific laboratory protocol, not exact onset temperatures |
+| Winter / facultative barley, Wójcik-Jagła & Rapacz (2023), Scientific Reports | Three-week acclimation at **4/2°C** day/night; later seven-day deacclimation at **12/5°C** for some plants; freezing **−2 to −12°C for 2 h** | LT50 changed significantly after deacclimation and differed among accessions | Acclimation/deacclimation and cultivar differences must not be erased | No unique barley threshold; protocol spans different prior states |
+| Cabbage, GB frost-tolerance study (2021) | Three-week-old cultivar 'Myeong-Sung'; frozen leaf samples and electrolyte-leakage curve | Leaf injury LT50 approximately **−2.9°C** | Cabbage leaves can be injured at these conditions | Leaf tissue electrolyte leakage is not whole-plant death |
+| Cabbage, NARO experiment (1997) | Two- to three-leaf seedlings; **5°C** acclimation; leaf samples assessed at **−8°C** | Acclimation improved leaf freezing tolerance; effect modified by soil water and deacclimation | Acclimation and organ-specific injury are important | Injury was assessed as electrolyte leakage, not a universal plant mortality point |
+| Rice, da Cruz et al. (2013) review | Observed responses across developmental stages | Roughly **10–13°C** early-stage chilling injury versus **18–20°C** reproductive-stage injury | Nonfreezing cold can reduce growth or cause grain sterility; timing matters | These are *injury/yield* thresholds, not freezing death, and japonica/indica differ |
+| Citrus, Plant Physiology (1989) | Field Valencia orange leaves across winter; also chamber-acclimated potted plants | Leaf LT50 varied **−2.8 to −3.8°C** in field; about **−6°C** after 10°C chamber acclimation | Citrus freezing tolerance depends on environment and acclimation | Orange leaf results cannot simply become MO lemon whole-tree death |
 
-## Phase A: explicit provisional comparison points
+### Exact sources
 
-The table is **not a set of biological measurements**. Each row is a simulation target chosen for different climate/plant functions to be compared against real agronomy, loaded RimWorld climates and duration curves. Constant test temperatures are synthetic; time-to-death below excludes intervening warm recovery.
+1. **Corn** — Lindsey et al. (2024), *Crop Science*, DOI
+   [10.1002/csc2.21212](https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.21212),
+   §2.1.2; explicitly attributes the 48 h / 2 h mortality experiment to
+   Buican (1969). The review also says nonlethal injury across these exposure
+   conditions has **not** been quantified.
+2. **Prolonged frozen winter wheat** — Skinner & Garland-Campbell (2008),
+   *Canadian Journal of Plant Science* 88:885–889, DOI
+   [10.4141/CJPS08007](https://www.ars.usda.gov/research/publications/publication/?seqNo115=221641);
+   USDA-ARS peer-reviewed publication summary.
+3. **Wheat LT50 after acclimation** — Skinner et al. (2018),
+   *PLOS ONE* 13:e0198042,
+   [PMC6005534](https://pmc.ncbi.nlm.nih.gov/articles/PMC6005534/);
+   Table 2, LT50 of 12 winter wheat lines.
+4. **Barley acclimation** — Wójcik-Jagła & Rapacz (2023),
+   *Scientific Reports* 13:19931,
+   [doi:10.1038/s41598-023-47318-y](https://www.nature.com/articles/s41598-023-47318-y);
+   methods and Fig. 5.
+5. **Cabbage leaf LT50** — *Exogenous Glycine Betaine Application
+   Improves Freezing Tolerance of Cabbage Leaves* (2021),
+   [PMC8703899](https://pmc.ncbi.nlm.nih.gov/articles/PMC8703899/);
+   §2.2, leaf electrolyte leakage. The indexed abstract/full-text excerpt
+   was accessible, but the PMC full page intermittently returned a captcha;
+   verify treatment details again before numerical fitting.
+6. **Cabbage cold acclimation** — NARO (1997),
+   [低温時の土壌水分制限によるキャベツ幼植物の耐凍性向上と糖蓄積](https://www.naro.go.jp/project/results/laboratory/vegetea/1997/vegetea97-004.html).
+7. **Rice chilling stage dependence** — da Cruz et al. (2013),
+   *Food and Energy Security* 2:96–119, DOI
+   [10.1002/fes3.25](https://onlinelibrary.wiley.com/doi/10.1002/fes3.25);
+   temperature bands are cold **damage**, not whole-plant mortality.
+8. **Citrus leaf tolerance** — *Freezing tolerance of citrus, spinach,
+   and petunia leaf tissue* (1989), *Plant Physiology*, DOI
+   [10.1104/pp.89.2.444](https://pubmed.ncbi.nlm.nih.gov/16666563/).
 
-| Plant | Current death °C | Candidate onset °C | Lethal dose °C²·h | Warm recovery /h | Example constant °C | Computed fatal hours |
-|---|---:|---:|---:|---:|---:|---:|
-| Rice (Vanilla) | -1 | 2 | 54 | 0.03 | -1 | 6.0 |
-| Corn (Vanilla) | -2 | -1 | 48 | 0.03 | -6 | 1.9 |
-| Potato (Vanilla) | -2 | -1 | 32 | 0.02 | -4 | 3.6 |
-| Tomato (MO) | -1 | 2 | 36 | 0.03 | -1 | 4.0 |
-| Pumpkin (MO) | -1 | 2 | 36 | 0.03 | -1 | 4.0 |
-| Cabbage (MO) | -6 | -4 | 256 | 0.01 | -8 | 16.0 |
-| Wheat (MO) | -6 | -5 | 500 | 0.007 | -10 | 20.0 |
-| Strawberry (Vanilla) | -9 | -8 | 384 | 0.01 | -12 | 24.0 |
-| Pine (Vanilla) | -35 | -30 | 2400 | 0.004 | -40 | 24.0 |
-| Teak (Vanilla) | 3 | 5 | 150 | 0.02 | 0 | 6.0 |
-| Lemon (MO) | -4 | -2 | 128 | 0.01 | -6 | 8.0 |
-| Cocoa (Vanilla) | 0 | 4 | 96 | 0.02 | 0 | 6.0 |
+## What a numerical setting must document
 
-**Reference-case implications (not native results):**
-- Corn: at −2°C, 48h; at −6°C, 1.92h. The observed study reports 50% mortality, unlike this deterministic game model.
-- MO wheat: at −8°C, 55.6h continuous; at −10°C, 20h; at −15°C, 5h. Current values represent an *unacclimated/general wheat abstraction*; winter wheat varieties and snow protection cannot be generalized into this constant curve.
-- Rice: at −1°C, 6h continuous; at 0°C, 13.5h. A short frost is survivable, sustained frost lethal.
-- Cabbage: at −6°C, 64h; −8°C, 16h; −12°C, 4h.
-- Pine: strong resistance remains meaningful even in cold-biome winters; verify coldest supported biomes before any migration.
-- Recovery is provisional: existing draft engine recovers at/above onset, including temperatures below minimum growth. Reconsider whether recovery requires reaching the plant's growth threshold before accepting these values.
+Before a species is approved, record: `DefName`; represented biological
+species and (where possible) cultivar / spring-or-winter growth habit;
+growth stage; acclimated/deacclimated state; plant organ; environmental
+temperature metric (**air / leaf / soil / crown / water**); freeze protocol
+(minimum temperature, ramp, exposure duration, thaw and recovery); result
+measure (**whole-plant mortality %, survival %, leaf injury %, yield loss %
+or dormancy**); source/DOI; evidence grade; and extrapolation limitations.
 
-## Phase B: finish all CCTO-owned plant values *before* production adoption
+- **Direct** — specific species, defined exposure and **whole-plant survival
+  or mortality** in peer-reviewed measurements; suitable for a survival
+  calibration point **only under the reported conditions**.
+- **Indirect** — same species but injury/yield/leaf-only metric, review
+  summary, incompatible season or part, or closely related species; useful
+  for bounding expectations, **not** directly for lethal dose.
+- **Unverified** — a handbook range lacking protocol, a fictional species,
+  or an unsupported inferred value; no claim of measured equivalence.
+  Gameplay-only values must be conspicuously flagged, not passed off as fact.
 
-The finite-death inventory is **48**, not merely cultivated crops. The Phase A group above covers 12 entries. The remaining **36** require species/ecology group mapping and numeric duration targets before enabling the new mode for the supported CCTO set. Include cold-sensitive crops, medicinals, forestry trees, wild-only plants, cave fungi, desert plants, and fictional Defs separately. Confirm species ecology where evidence exists; use transparent gameplay/range constraints for fictional Defs. Wild-only plants must remain viable in native tundra, boreal forest, desert and wetland biomes, rather than experiencing chronic cold-related ecosystem die-off.
+A 50%-mortality temperature `LT50` is a **population statistic**, not a
+deterministic threshold where every plant dies. Before parameter fitting,
+decide whether CCTO will allow individual susceptibility/plant-state
+variation or intentionally approximate population outcomes with an abstract
+single-plant rule. If the latter, explicitly record that loss of fidelity.
 
-The **30 currently dormancy-only** Defs remain a separate calibration group. Do not assign arbitrary finite injury to them: decide whether surviving shoots, underground roots, dormant woody organs, or evergreen foliage is being represented, and sample actual native biome conditions. Keep the existing `休眠温度` display unchanged. No dormant-plant death value has been approved.
+## Game time and sampling: separate real biology from RimWorld abstraction
 
-**Dependency order for meaningful final validation:** (1) numerical survival targets and ecological constraints; (2) correct/choose injury curve and recovery semantics; (3) map candidate numbers to owner-owned XML; (4) then minimal representative native scenarios, baseline cold-gradient comparison, save/load and winter TPS. Prior native fixed-threshold PASS does not prove new cold damage. New native test automation must not run on PR/push without author approval.
+RimWorld uses **60 days per year** versus about 365 calendar days in
+biological literature; one game day still has 24 game hours (2,500 ticks
+per hour). Hence **48 real hours must not silently become 48 game hours**
+as an assumed empirical calibration when comparing seasonal overwinter
+outcomes. Decide separately whether short weather events use same-hour
+duration and how compressed annual winter exposure maps to the literature.
+Do not scale both duration and damage rate without documenting the chosen
+calendar model.
+
+The draft engine reads instantaneous ambient temperature through the existing
+plant cold-check callback and caps elapsed exposure at 2,000 ticks. It cannot
+infer past short freeze spikes. For per-plant injury, the temperature history
+must represent the planted location (for instance, heated greenhouse rather
+than global outdoor temperature). Numerical fitting must tolerate or quantify
+the effect of this time sampling rather than choosing an expensive every-tick
+temperature audit by default.
+
+## Inventory and immediate decisions
+
+`Docs/ImplementationTable.md` on main lists **78 supported PlantDefs**:
+**48** with finite instant-death thresholds and **30** dormancy-only.
+These counts are inventory, **not** 78 verified injury measurements.
+
+- **All 48 finite-threshold Defs** require a species-appropriate source
+  record before automatic migration. No source-backed onset, dose and
+  recovery triple is approved even for the eight source examples above.
+- **All 30 dormancy Defs** need an ecological check before anyone assigns
+  lethal low-temperature injury to perennial roots, woody crowns or
+  cold-region natural vegetation. Some may just retain dormancy.
+- AMJ Grains, Environment and CCTO-for-VPE own their own plant balance;
+  CCTO cannot populate those XMLs solely because a generic curve exists.
+- No fixed one-exponent law (linear or quadratic), dose, universal recovery
+  constant, arbitrary cold-acclimation bonus, or snow-temperature bonus is
+  currently certified by the cited data.
+
+**Correct order:** (1) compile primary source measurements by species /
+state / endpoint; (2) decide a minimally complex model that fits several
+independent organisms and exposure regimes; (3) derive and audit plant
+parameters with explicit uncertainty; (4) update actual owning XML and
+documentation; (5) only then minimal real-game acceptance and winter-map
+performance measurements. No native test automation is authorized on
+PR/push, and PR #24 remains Draft.
