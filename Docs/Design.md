@@ -365,15 +365,22 @@ remain separately scoped future decisions; neither is implemented here.
 `coldDeathTemperature` values cannot automatically be copied to a new
 damage-onset field, and the proposed injury law must be assessed against
 actual time-to-injury curves first. [ColdDamageCalibration](ColdDamageCalibration.md)
-records the 78-species inventory, 12 numerical candidate profiles and
-remaining ecological balance work. None of its numbers are approved or live.
+now records the 78-PlantDef inventory (48 finite death / 30
+dormancy), a source-verified empirical measurement matrix, biological
+endpoints and extrapolation limits. The previous 12 unverified numeric
+profiles have been explicitly **withdrawn** as calibration values; none
+of their thresholds, doses or recovery rates may enter production XML.
 
 **Known design/source mismatch until recalibration finishes:** The draft
 C# implementation in PR #24 currently uses **linear** °C·hour damage.
-The new calibration comparison suggests **quadratic** (°C²·hour) severity
-is a more realistic candidate for certain frost-sensitive crops. The
-12 candidate doses in the calibration document MUST NOT be loaded into
-the current linear implementation: they have incompatible units. Resolve
-the injury curve, expiry/recovery semantics and all plant class values
-before converting any production XML, promoting PR #24 out of Draft, or
-asserting native gameplay/performance validation.
+A **quadratic** (°C²·hour) injury curve had been suggested to mimic one
+maize study's 50%-mortality exposure-duration ratio, but two points
+cannot identify both the unknown onset and the exponent, and LT50 does
+not equate to deterministic complete death. Neither curve is an
+empirically accepted general-purpose cold mortality model yet.
+The framework must be reviewed against independent biological datasets,
+growth stages, acclimation, organ versus whole-plant outcomes, annual
+calendar compression and sampling bias before choosing injury
+equations, recovery rates or numeric values. Resolve these before
+converting production XML, promoting PR #24 out of Draft or asserting
+native gameplay/performance validation.
