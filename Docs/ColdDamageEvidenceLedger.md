@@ -234,3 +234,28 @@ survive frost. For real named groups where only tissue endpoints exist, keep
 the generic plant death model explicitly approximate and avoid altering
 natural biome vegetation until the selected model reproduces repeated winter
 survival plausibly.
+
+
+## Taxonomic and game-plant identity checks (2026-10-21)
+
+**Classification sources below are NOT frost-damage experiments.** They
+identify whether a Def can meaningfully be associated with a biological
+species. Do **not** count this section as additional verified cold-injury
+measurements or raise the 53/78 source-mapping metric because of these links.
+
+| Previously unmapped Def | Directly checkable identity/ecology reference | Cold-death parameter decision |
+|---|---|---|
+| `Plant_Tinctoria` | [RimWorld Wiki: Tinctoria](https://rimworldwiki.com/wiki/Tinctoria) explicitly describes a genetically engineered dye-secreting flower. It is **not** evidence that this plant is the real dye plant *Isatis tinctoria*. | No same-species empirical LT50 exists. Use clearly marked fictional plant ecology/balance estimates. |
+| `Plant_TreeCecropia` | [RimWorld Wiki: Cecropia tree](https://rimworldwiki.com/wiki/Cecropia_tree) calls it a tropical-rainforest plant but leaves real-world species unspecified; [USFS *Cecropia peltata* silvics](https://www.srs.fs.usda.gov/pubs/misc/ag_654/volume_2/cecropia/peltata.htm) gives a possible genus-level analog. | USFS high first-year seedling mortality is **all-cause** forest survival, not cold-induced death. Species not verified; no usable frost LT50 identified. |
+| `Plant_Rafflesia` | [Kew Plants of the World Online, *Rafflesia arnoldi*](https://powo.science.kew.org/taxon/urn%3Alsid%3Aipni.org%3Anames%3A316069-1/general-information) describes a tropical **endoparasite of *Tetrastigma*** that persists inside host tissue; only the buds/flowers become visible. | No controlled freezing survival trial for the game Def was verified. A visible Rafflesia flower's death is *not* evidence that the long-lived internal parasite has died. |
+| `Plant_TreeDrago` | [RimWorld Wiki: Drago tree](https://rimworldwiki.com/wiki/Drago_tree) describes an arid/desert tree; [*Dracaena draco* cultivated-tree study](https://link.springer.com/article/10.1007/s00468-015-1307-z) documents specimens exposed to frosty Melbourne-area winters. | *Dracaena draco* is a plausible **analogue, not a confirmed Def taxonomy**. The study does not report controlled minimum-temperature/duration whole-tree lethality. |
+| `Plant_Berry`, `Plant_Bush`, `Plant_ShrubLow` | Generic game vegetation categories; not biological species names. | Select a representative biome-appropriate analogue only if required; give the derived value **proxy/estimate** status, never a species-level measured claim. |
+| `DankPyon_Plant_Herb`, `DankPyon_GreatIter` | The names do not by themselves identify a verified real botanical species. | Check MO Def descriptions or author documentation before selecting any species proxy. |
+
+**Remaining-25 boundary:** absence of a matching botanical species or
+a measured survival protocol is a legitimate open finding. Research into
+a superficially similar plant does not authorize a numerical parameter.
+For real plant tissue studies, distinguish lab-grown whole-plant
+root/bud regrowth, natural overwinter survival, fruit/leaf injury, and
+chilling-only growth depression. Practical CCTO approximations must
+state those assumptions rather than fabricate experimental precision.
