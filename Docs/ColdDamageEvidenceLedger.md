@@ -1,0 +1,129 @@
+# CCTO Plant Cold-Tolerance Evidence Ledger — 2026-10-21
+
+**Status:** literature inventory / evidence mapping only; **NO NEW PARAMETERS APPROVED**. Owner: CCTO Core/Vanilla + Medieval Overhaul. All 78 current `PlantDefs` have a row, **48 finite-death and 30 dormant**. External consumer plant values remain in the consumer repositories. This document supplements [ColdDamageCalibration](ColdDamageCalibration.md); neither is executable XML.
+
+## Evidence rule
+
+- **Source-backed** means a directly reviewed bibliographic page reports the stated **organ/stage/end point**, not necessarily a usable lethal-temperature value. Many references are synthesis or extension material, not original trials.
+- **Related proxy** indicates different species, genus or anatomical outcome. Never use as exact plant death temperature; do not assume their numeric ranges for every related Def.
+- **Blank** means an adequate matching source **has not yet been collected**, *not* that no research exists.
+- Existing `coldDeathTemperature` values are included in [ImplementationTable](ImplementationTable.md) for historical comparison only. They must not be misrepresented as measured LT50 or transferred to onset settings.
+- One field observation or an LT50 for buds, leaves, detached tissues, or stored produce is not a universal deterministic death temperature. Always record whether data refer to whole-plant mortality, shoot or crown damage, flowering/yield, fruit injury or winter dormancy.
+- **Critical technical distinction:** FAO Table 4.5 reports **stage-dependent ranges of critical frost *damage* temperatures** for field crops, not the duration to death. The separate FAO Table 4.4 is the highest freezing temperature of harvested *produce in storage* and is **excluded** from whole-plant calibration.
+
+## Reviewed source registry
+
+| ID | Source | Type | Reported target and outcome | Constraint |
+|---|---|---|---|---|
+| `F01` | [FAO (Snyder & de Melo-Abreu), Frost protection, Vol.1, Table 4.5](https://www.fao.org/4/y7223e/y7223e0a.htm) | 総説/農業資料 | 小麦・大麦・レンズ豆・ケシ・亜麻・ニンジン・キャベツ・トウモロコシ・ジャガイモ・綿・稲・トマト等 — 発芽・開花・結実の低温被害温度帯(℃) | 死亡率、曝露時間、種内差を直接与えない。冬小麦の越冬データではない |
+| `F02` | [FAO, Frost protection, Vol.1, Tables 4.7–4.10](https://www.fao.org/4/y7223e/y7223e0a.htm) | 総説/農業資料 | リンゴ・ブドウ・レモン — 花芽の10/90%被害、芽、果実の凍結温度 | 果実・花芽・葉の被害であり樹木全体の死亡ではない |
+| `M01` | [Lindsey et al. 2024, Crop Science / Buican 1969](https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.21212) | レビュー内の一次実験引用 | トウモロコシ幼苗 — -2℃/48時間と-6℃/2時間で約50%個体死亡 | 原実験Buicanの手法までは本資料のみで完備しない。100%死亡値ではない |
+| `W01` | [Skinner & Garland-Campbell 2008, Canadian Journal of Plant Science](https://www.ars.usda.gov/research/publications/publication/?seqNo115=221641) | 実験論文・USDA要旨 | 低温順化した冬小麦25品種 — -5℃/15週で生存率0–100%;20週で0–33% | 品種・順化済み苗に限定;農地の気温を直に入れてはいけない |
+| `W02` | [Skinner et al. 2018, PLOS ONE](https://pmc.ncbi.nlm.nih.gov/articles/PMC6005534/) | 一次実験 | 冬小麦12系統 — 5週間順化後のLT50に光周期/品種差 | LT50は群の50%死亡であり一律枯死温度ではない |
+| `B01` | [Wójcik-Jagła & Rapacz 2023, Scientific Reports](https://www.nature.com/articles/s41598-023-47318-y) | 一次実験 | 冬・兼用型大麦 — 順化後の凍結処理、脱順化に伴うLT50・再生の変化 | 春型大麦や実ゲームの大麦全般に自動適用できない |
+| `C01` | [NARO 1997, キャベツ幼植物の耐凍性向上と糖蓄積](https://www.naro.go.jp/project/results/laboratory/vegetea/1997/vegetea97-004.html) | 一次研究成果要旨 | キャベツ2–3葉期 — 5℃順化、-8℃凍結後の葉片の電解質漏出 | 葉片損傷であり株全体の死亡率ではない |
+| `R01` | [da Cruz et al. 2013, Food and Energy Security](https://onlinelibrary.wiley.com/doi/10.1002/fes3.25) | 学術レビュー | イネ — 約10–13℃の初期生育障害・18–20℃の生殖生長期被害 | 収量/生理障害であり全株死亡閾値ではない |
+| `G01` | [Ferguson et al. 2011, Annals of Botany](https://rex.libraries.wsu.edu/esploro/outputs/journalArticle/Dynamic-thermal-time-model-of-cold/99900547082801842) | 一次観測/モデル比較 | ブドウ Cabernet Sauvignon, Chardonnay, Concord — 22年までの芽耐寒観測に基づく順化・脱順化モデル(R²=0.82–0.89) | 芽の耐寒でありブドウ樹の死亡ではない |
+| `G02` | [Cornell Finger Lakes Grape Program 2023 winter hardiness](https://blogs.cornell.edu/flxgrapes/2023/02/15/winter-hardiness-update-february-8-2023/) | 実測・普及資料 | ブドウ品種別 — 低温芽LT10/LT50(°F)、実際の気温と比較 | 芽損傷リスク;全樹死と混同禁止 |
+| `S01` | [University of Minnesota Extension, Strawberry spring frost](https://extension.umn.edu/agriculture/specialty-crops/commercial-fruit-production/strawberry-farming/protect-strawberries-from-spring-freeze-and-frost) | 普及資料 | イチゴ — 花の開花段階: 蕾は20°F、開花は30°F付近で損傷 | 花の被害と株/クラウンの越冬死は別 |
+| `U01` | [LSU AgCenter, Sugarcane freezing field trials](https://www.lsuagcenter.com/portals/communications/publications/agmag/archive/2001/fall/resistance-of-louisiana-sugarcane-to-deterioration-from-freezing-temperatures) | 現地試験記事 | サトウキビ商用品種 — 最低22–24°F、凍結8–15時間、茎組織等の損傷 | 地上部の致死で根株を含む株全体の死亡ではない |
+| `P01` | [University of Maine Cooperative Extension, volunteer potato](https://extension.umaine.edu/publications/1090e/) | 普及資料・研究引用 | ジャガイモ地中塊茎 — 27°F未満の長期曝露で多くが除去されるが深い塊茎は越冬可能 | 塊茎の存否であって地上部損傷ではない |
+| `T01` | [USFS FEIS, Carnegiea gigantea species review 2021](https://research.fs.usda.gov/feis/species-reviews/cargig) | USFS生態学レビュー | サワロサボテン — -5.6℃未満15–20時間の寒波で重大枯死; -8.3℃/19時間に耐えた報告もある | 矛盾に見える事例は場所・生育段階・条件・組織差;決定的閾値にしない |
+| `O01` | [Nobel & de la Barrera 2003, New Phytologist](https://nph.onlinelibrary.wiley.com/doi/10.1046/j.1469-8137.2003.00675.x) | 一次生理実験 | Opuntia ficus-indica — 茎節で-6℃以下の凍害;果実・根で-7℃60分の生体染色損傷 | サワロ・小型球形サボテン等の別種へ直接転用不可 |
+| `O02` | [Goldstein & Nobel 1994, Plant Physiology](https://pmc.ncbi.nlm.nih.gov/articles/PMC159246/) | 一次生理実験 | Opuntia humifusaなど — O. humifusa -24℃程度までの耐凍性と順化差 | Opuntiaの種内外差が大きい;全サボテンの共通設定は不適当 |
+| `N01` | [Luoranen et al. 2024, New Forests](https://link.springer.com/article/10.1007/s11056-024-10060-y) | 一次実験 | Pinus sylvestris, Betula pendula, Picea abies — 真冬順化苗・芽: マツ-30～-40℃、シラカバ約-30℃、トウヒ最低-50℃ | CCTOのPine/Birch樹種が未指定;苗木と成木の区別必須 |
+| `N02` | [USFS FEIS, Pinus rigida review](https://research.fs.usda.gov/feis/species-reviews/pinrig) | 研究引用の生態レビュー | Pinus rigida — 苗木の1月の組織耐凍性-31.7℃など、季節変化 | CCTOのPineは未同定;マツ属の近縁種参考 |
+| `H01` | [Penn State Extension, Hop Production](https://extension.psu.edu/hop-production) | 普及資料 | ホップ — 休眠根茎は春先から植付可能;温室移植苗は春霜に弱い | 温度・生存率の直接データなし;同一個体の地上部と根茎を区別 |
+| `D01` | [Moso bamboo cold acclimation leaf study 2022](https://pubmed.ncbi.nlm.nih.gov/35723499/) | 一次実験要旨 | Phyllostachys edulis — 葉の低温順化適応機構 | 生存率/全株致死値ではなくP. edulisへの種同定も未完了 |
+
+## Source mapping for every current CCTO plant
+
+An evidence association does **not** imply a verified whole-plant lethal parameter. Empty mappings are deliberately left open. Names are the current CCTO Def map, not newly verified scientific taxonomic names.
+
+| DefName | Current plant | Current cold mode | Source IDs | Collection stage | What is and is not supported |
+|---|---|---|---|---|---|
+| `Plant_Rice` | Rice | death | `F01`, `R01` | 対象資料あり・端点注意 | 生育段階別被害/低温障害;全株死亡は未測定 |
+| `Plant_Potato` | Potato | death | `F01`, `P01` | 対象資料あり・端点注意 | 地上部と地下塊茎は別挙動 |
+| `Plant_Corn` | Corn | death | `F01`, `M01` | 対象資料あり・端点注意 | 幼苗死亡率と生育段階別被害を区別 |
+| `Plant_Strawberry` | Strawberry | death | `S01` | 対象資料あり・端点注意 | 花芽の凍害で株の越冬死ではない |
+| `Plant_Haygrass` | Haygrass | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Cotton` | Cotton | death | `F01` | 対象資料あり・端点注意 | 霜害閾値の総説のみ |
+| `Plant_Devilstrand` | Devilstrand | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Healroot` | Healroot | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Hops` | Hops | dormancy | `H01` | 対象資料あり・端点注意 | 地上部 vs 休眠根茎;定量致死データなし |
+| `Plant_Smokeleaf` | Smokeleaf | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Psychoid` | Psychoid | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_TreeCocoa` | Cocoa | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeBamboo` | Bamboo | death | `D01` | 対象資料あり・端点注意 | Moso葉の順化機構;ゲーム樹種特定は未検証 |
+| `Plant_TreeBirch` | Birch | dormancy | `N01` | 対象資料あり・端点注意 | Betula pendula実験;ゲーム側のカバノキ種不明 |
+| `Plant_TreeCecropia` | Cecropia | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_TreeCypress` | Cypress | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Dandelion` | Dandelion | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Daylily` | Daylily | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeDrago` | Drago tree | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_TreeMaple` | Maple | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeOak` | Oak | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreePalm` | Palm | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreePine` | Pine | death | `N01`, `N02` | 異種比較・数値不可 | 前者はマツ属複数種の参考;Great Firはモミ属でありマツの値を転用禁止 |
+| `Plant_TreePoplar` | Poplar | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Rose` | Rose | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_SaguaroCactus` | Saguaro cactus | death | `T01` | 対象資料あり・端点注意 | 同種の生態資料;曝露例の条件差あり |
+| `Plant_TreeTeak` | Teak | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Timbershroom` | Timbershroom | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Tinctoria` | Tinctoria | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_TreeWillow` | Willow | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Agarilux` | Agarilux | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Agave` | Agave | death | `O01`, `O02` | 異種比較・数値不可 | 近縁/他属のサボテン実験であり同種ではない。Agaveはサボテン科ではないため転用禁止 |
+| `Plant_Alocasia` | Alocasia | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Ambrosia` | Ambrosia bush | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Astragalus` | Astragalus | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Berry` | Berry bush | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Brambles` | Brambles | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Bryolux` | Bryolux | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Bush` | Bush | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Chokevine` | Chokevine | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Clivia` | Clivia | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Rafflesia` | Giant rafflesia | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Glowstool` | Glowstool | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `Plant_Grass` | Grass | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_ShrubLow` | Low shrubs | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Moss` | Moss | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_PincushionCactus` | Pincushion cactus | death | `O01`, `O02` | 異種比較・数値不可 | 近縁/他属のサボテン実験であり同種ではない。Agaveはサボテン科ではないため転用禁止 |
+| `Plant_TallGrass` | Tall grass | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_HealrootWild` | Wild healroot | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_Plant_Onions` | Onion | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_Plant_Lentils` | Lentil | death | `F01` | 対象資料あり・端点注意 | 発芽/開花/結実の霜害帯 |
+| `DankPyon_Plant_Cabbages` | Cabbage | death | `F01`, `C01` | 対象資料あり・端点注意 | 葉片損傷/生育段階別霜害;株死亡との混同禁止 |
+| `DankPyon_Plant_Garlic` | Garlic | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_Plant_Mushrooms` | Mushroom | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02` | 対象資料あり・端点注意 | 春小麦vs順化冬小麦;2者を混同しない |
+| `DankPyon_Plant_Flax` | Flax | death | `F01` | 対象資料あり・端点注意 | 亜麻は生育段階別被害温度 |
+| `DankPyon_Plant_Sugarcane` | Sugarcane | death | `U01` | 対象資料あり・端点注意 | 地上部茎損傷/品質悪化;地下株生存は別 |
+| `DankPyon_Plant_Carrots` | Carrot | death | `F01` | 対象資料あり・端点注意 | 発芽段階;根部生存の直接データなし |
+| `DankPyon_Plant_Herb` | Herb | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_Plant_Tomatoes` | Tomato | death | `F01` | 対象資料あり・端点注意 | 農作物生育段階別霜害;全株致死ではない |
+| `DankPyon_Plant_Grape` | Grape | dormancy | `F02`, `G01`, `G02` | 対象資料あり・端点注意 | 品種別芽のLT50・順化曲線;根株/幹は別 |
+| `DankPyon_Plant_Pumpkins` | Pumpkin | death | `F01` | 間接比較のみ | FAO一覧のMelonsやSquashと同一視不可;該当する品目は別照合 |
+| `DankPyon_Tree_Apple` | Apple | dormancy | `F02` | 対象資料あり・端点注意 | 開花前後の花芽被害で樹体死亡ではない |
+| `DankPyon_Tree_Lemon` | Lemon | death | `F02` | 対象資料あり・端点注意 | レモン果実/芽;樹体全体の死亡ではない |
+| `DankPyon_Tree_Mulberry` | Mulberry | dormancy | `F02` | 間接比較のみ | F02はリンゴ等の果樹で桑そのものを扱わない;単なる比較群 |
+| `DankPyon_Tree_GriffonBerry` | Griffon berry | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_Plant_Mindwort` | Mindwort | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_Plant_Poppy` | Poppy | death | `F01` | 対象資料あり・端点注意 | Poppy品目は特定種・野生型同定を要する |
+| `DankPyon_Plant_Fleawort` | Fleawort | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_Plant_FlyAgaric` | Fly agaric | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_Plant_MindwortWild` | Wild mindwort | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_Plant_PoppyWild` | Wild poppy | death | `F01` | 対象資料あり・端点注意 | Poppy品目は特定種・野生型同定を要する |
+| `DankPyon_Plant_FleawortWild` | Wild fleawort | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_Plant_FlyAgaricWild` | Wild fly agaric | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `DankPyon_GreatOak` | Great oak | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_GreatIter` | Great Iter | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+| `DankPyon_GreatFir` | Great fir | death | `N01`, `N02` | 異種比較・数値不可 | 前者はマツ属複数種の参考;Great Firはモミ属でありマツの値を転用禁止 |
+| `DankPyon_GreatWillow` | Great willow | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
+
+## Current scope and next useful searches
+
+- **27 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 27 empirically validated species: the category includes weak comparative cross-taxon references. **51 / 78** still lack a mapped source in this pass.
+- **High-value direct research gaps**: exact species of CCTO wild trees/bushes (Quercus, Salix, Populus, Cecropia, teak, cocoa), medicinal crops in MO (mindwort/fleawort/herb identification, fly agaric mycelium), garlic/onion overwinter tissues, plant roots/crowns vs foliage, any CCTO fictitious plants.
+- **Species identity gate**: `Plant_TreePine` is generic pine and `DankPyon_GreatFir` is not pine; none of the published Scots pine/saguaro/Opuntia values are valid global pine/fir/cactus/Agave thresholds.
+- **Biology/code interface gate**: decide which endpoint a RimWorld whole `Plant` represents (growth-point death versus leaf injury and loss of yield), and distinguish cold acclimation for viable winter survivors. The draft linear degree-hour formula has not been fitted; **do not issue species parameters, migrate XML, run native tests, or approve Workshop graphs from this registry alone**.
