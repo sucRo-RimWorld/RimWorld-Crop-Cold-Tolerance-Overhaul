@@ -555,3 +555,34 @@ spread, lethal cold doses, acclimation and response kinetics
 unapproved until calibrated. No new XML or C# implementation was
 activated by this research; the existing Draft accumulator still
 lacks the individual-susceptibility feature.
+
+
+### Winter-wheat time-dose evidence affects model-scope choice (2026-10-21)
+
+Three direct winter-wheat studies are now cited in
+[ColdDamageEvidenceLedger](ColdDamageEvidenceLedger.md) as W03–W05 and
+analysed in [ColdDamageCalibration](ColdDamageCalibration.md#winter-wheat-duration--severity-studies-2026-10-21-new-direct-ccto-owned-analogue).
+
+- A thresholded freezing-degree-day accumulation model, using **soil**
+  minimum temperature below a reported study-specific -12°C reference,
+  has empirical support for certain acclimated winter-wheat experiments
+  (W05). It is **not** a verified general wheat damage-onset temperature
+  or a coefficient for ambient-air temperature.
+- Duration mortality sensitivity differs greatly between winter-wheat
+  cultivars (W04). This can motivate per-Def/class parameters but does
+  not set the stable *within-cohort* susceptibility distribution width.
+- W03 reports non-monotonic whole-plant survival after longer continuous
+  freezing exposure, which a fixed-susceptibility + purely nonnegative
+  accumulated-damage model **cannot produce**. This is a documented
+  evidence conflict, not authorization to implement continuous
+  acclimation in every plant.
+
+**Design gate:** keep implementation simple where it reproduces the
+main study outcomes, and consider **winter cereal-specific
+acclimation/state** only if needed for ordinary climate realism.
+Do not silently treat study soil minima, outdoor air temperature
+and RimWorld's current plant `AmbientTemperature` as identical.
+Neither a global quadratic injury law nor a universal recovery
+rate is approved by these experiments. New runtime code/XML remains
+on hold until source-specific calibration reaches a defensible
+level for a representative crop class.
