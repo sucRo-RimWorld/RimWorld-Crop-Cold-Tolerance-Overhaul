@@ -227,3 +227,48 @@ from one generic group label to all plants in that group.
 before claiming species-specific values, collect whole-plant mortality or
 post-freeze regrowth endpoints where possible, and bound group-level values
 only when evidence supports the analogy. No new CCTO XML values are approved.
+
+
+## New primary controlled-survival evidence: onion (2026-10-21)
+
+The [species evidence ledger](ColdDamageEvidenceLedger.md) now includes
+**ON03: Peffley, Ortiz & Corgan 1981** ([DOI](https://doi.org/10.21273/HORTSCI.16.6.773);
+[full original two-page paper](https://pdfs.semanticscholar.org/4f3a/3c0c6125529759251b863550fb12b392e020.pdf)).
+The original article, Table 1 and survival-curve Figure 1 were examined
+rather than relying only on a university breeding-project summary.
+
+- Species: *Allium cepa* 'New Mexico Yellow Grano' and 'Yellow Granex'.
+- Material: **58-, 74-, and 90-day seedlings**, harvested after autumn
+  field establishment; leaves clipped and roots shortened.
+- Treatment: **-4°C overnight followed by about 1°C/hour cooling**;
+  replicate groups of 25 plants were removed at each one-degree interval
+  from -6 to -14°C and thawed.
+- Endpoint: seedlings transplanted into a warm greenhouse; **root
+  regeneration after three weeks** determined *whole-plant survival*.
+  A visually intact shoot was NOT accepted as survival when its stem plate
+  had died.
+- Original LT50 (Table 1): **-8.7°C at 58 d, -10.5°C at 74 d, -10.8°C
+  at 90 d**; abstract rounds the 58 d result to -8.8°C. Figure 1
+  provides survival percentages against final freeze temperature.
+- **Secondary-source conflict:** NMSU project page (ON01) says about
+  -14°C LT50 for December seedlings of Yellow Grano and Granex. It does
+  not agree with ON03, so do not transfer that figure to CCTO or attribute
+  it to this verified primary experiment without reconciling sources.
+
+**Interpretation:** valuable population-level *survival* data with
+plant-age differences; unlike many prior sources, this study measures
+post-freeze regrowth and not merely electrolyte leakage or frost damage
+to a leaf or bud. It is **not a duration-response trial at fixed
+temperatures**: the rate and total elapsed freezing time change with
+the temperature reached. A single set of measured endpoints therefore
+cannot independently fit injury onset, exposure-time exponent and
+recovery speed. Keep new CCTO numeric parameters unapproved until
+independent observations or a clearly documented approximation are
+available.
+
+**Taxon gate update:** `Plant_Tinctoria` is an explicitly engineered,
+fictional dye plant, not a known *Isatis tinctoria* clone; `Plant_Rafflesia`
+depicts a giant parasitic flowering plant, where visible flower death and
+endoparasite death must not be equated. The separate taxonomic notes in
+the ledger are **not** cold-treatment evidence and do not increase the
+53/78 count of mapped cold references.
