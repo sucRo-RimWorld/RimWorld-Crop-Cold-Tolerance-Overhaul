@@ -14,7 +14,7 @@
 ## GitHub bibliography retention and verification (2026-10-21)
 
 **This GitHub-tracked document is the canonical reference register for the
-CCTO numerical recalibration research.** The **50 unique source IDs** below
+CCTO numerical recalibration research.** The **52 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
 non-transferability warnings. Source IDs repeated in the later whole-plant
 endpoint extraction are cross-references, **not** additional independent
@@ -73,6 +73,8 @@ candidate numbers.
 | `MP01` | [Mura et al. 2025 Acer saccharum bud hardiness](https://pmc.ncbi.nlm.nih.gov/articles/PMC12528974/) | 一次苗木順化試験 | Sugar maple苗木、4℃人工順化と自然越冬後の芽のLT50/芽吹き時期を比較 | 芽と新梢の凍害測定であって樹木全体の死亡ではない; generic Mapleの同一種も未同定 |
 | `BR01` | [Oregon State University Blackberry garden guide](https://extension.oregonstate.edu/catalog/ec-1303-growing-blackberries-your-home-garden) | 査読済み大学普及資料 | Rubus属のブラックベリー。多年生地下根/株元と2年生の地上茎が別;寒害は品種/冬前の気温/成長段階で異なる | 凍結による枝・花芽損傷と根株死亡を区別。RimWorld Bramblesの種が同定できない |
 | `MO01` | [Zhao et al. 2024 Morus alba bud dormancy and cold resistance](https://pmc.ncbi.nlm.nih.gov/articles/PMC11728178/) | 201集団を用いたGWAS＋遺伝子機能試験 | Morus albaの芽の休眠解除時期と耐寒性の遺伝的相関、MaFAD2過剰発現で芽吹き遅延 | 全株生存率/致死曝露時間を示さない;MO桑の品種は未定 |
+| `V01` | [Freezing tolerance and genetic loci in *Boechera stricta* (2015)](https://pmc.ncbi.nlm.nih.gov/articles/PMC4416058/) | 一次株生存率/群集遺伝比較 | 凍結後に50%の個体が死亡するLT50を生存率曲線から推定し、低温順化・系統間の耐凍性差を記録。親系統の順化後LT50は短日条件で約-11.3℃/ -8.6℃。 | **異種に係数を転用しない**。LT50は半数死亡の集団統計で、同一遺伝型の全株がちょうどこの温度で死亡するわけではない。今回の用途は個体差モデルの根拠のみ。 |
+| `V02` | [Natural variation of *Arabidopsis lyrata* subsp. *petraea* survival under freezing (2018)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6233594/) | 一次株生存率/集団比較 | 2℃で2日低温順化した複数集団を凍結処理し、処理後14日の個体生存率から集団LT50を推定。集団間LT50の範囲は約-8.6～-6.2℃、-7℃では比較対象集団の生存率約76%対34%。 | **集団間の差と集団内の散らばりは別物**。この差をそのまま1種の株個体差分布幅として使わない。 |
 | `Q01` | [Cold acclimation of Quercus robur in northern range (2007)](https://www.sciencedirect.com/science/article/abs/pii/S0098847207001876) | 一次生理実験 | 2年生ヨーロッパナラの枝/幹で、9月初旬に耐凍性約-10℃、12月初旬に約-36℃ | 同種不明のCCTO Oak/Great Oakに数値を直輸入しない;樹冠全体の死亡ではない |
 | `P02` | [Populus tremula × P. tremuloides, chilling acclimation](https://pubmed.ncbi.nlm.nih.gov/15095138/) | 一次生理実験 | 3か月苗の4℃14日順化で葉の耐凍性が-5.7→-9.8℃;4℃自体では個体は生存し成長ほぼ停止 | 組織耐性と株死亡を分離;交雑ポプラを野生種と同じにしない |
 | `S02` | [Rosenblad et al. 2024, montane willow freezing sensitivity](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.20028) | 一次実験 | Salix spp.春の新梢を凍結させ、挿し穂の再発根で生存可否/LT50評価 | 春芽の再発根で成木樹体死亡とは異なる;冬の順化状態と比較禁止 |
