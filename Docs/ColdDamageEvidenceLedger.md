@@ -11,6 +11,44 @@
 - One field observation or an LT50 for buds, leaves, detached tissues, or stored produce is not a universal deterministic death temperature. Always record whether data refer to whole-plant mortality, shoot or crown damage, flowering/yield, fruit injury or winter dormancy.
 - **Critical technical distinction:** FAO Table 4.5 reports **stage-dependent ranges of critical frost *damage* temperatures** for field crops, not the duration to death. The separate FAO Table 4.4 is the highest freezing temperature of harvested *produce in storage* and is **excluded** from whole-plant calibration.
 
+## GitHub bibliography retention and verification (2026-10-21)
+
+**This GitHub-tracked document is the canonical reference register for the
+CCTO numerical recalibration research.** The **49 unique source IDs** below
+carry titles, direct literature/extension URLs, study endpoints and
+non-transferability warnings. The 10 repeated source IDs in the later
+whole-plant endpoint extraction are cross-references, **not** 10 additional
+sources. The adjacent 78-Def table is the source-to-plant index, including
+explicit no-source rows. Do not silently delete a reference during
+recalibration: preserve source IDs in the register and mark later
+superseding evidence or corrections.
+
+The *source being listed* does not mean its original full text, numeric
+protocol or suitability for lethal-dose fitting is verified. Review status
+must accompany any numerical parameter derived from the source:
+
+| Source IDs | Check completed during 2026-10-21 research | Remaining gate |
+|---|---|---|
+| `ON01` | NMSU onion breeding-project page confirms 90% survival at -13°C for some Japanese accessions and ~-14°C December-seedling LT50 for named varieties | Original Peffley (1981) experiment and freeze-treatment duration not obtained; no validated dose curve |
+| `RO01` | Journal article landing/full-text page confirms 2022 research on 17 rose cultivars; field winter damage scored 0–5 with 5 meaning whole-plant death, and a separate modeled whole-plant LT50 | Verify cultivar-by-cultivar numerical LT50 against field exposure and differentiate modeled whole-plant LT50 from stem electrolyte-leakage LT50 |
+| `CY01` | Forest Research and Management Organization Japanese abstract confirms winter hardiness of Hinoki cypress around -25°C and strong seasonal/clone variation | The linked detailed PDF is retained but its individual 43-clone table and exposure protocols have not been revalidated in this check; generically named Cypress is not necessarily Hinoki |
+| Other 46 source IDs | Preserved with their reported endpoint and URL from earlier collection | Original methods, page access and numerical protocol require source-by-source verification before fitting; do not claim these were all independently rechecked today |
+
+For `CY01`, a text-accessible institutional summary is also available at
+https://www.ffpri.go.jp/labs/kanko/364-1.html ; the registry retains
+the underlying report at
+https://www.ffpri.go.jp/pubs/bulletin/351/documents/364-1.pdf .
+The two links refer to the same research report, not independent evidence.
+
+**Maintenance rule:** When an input is used to select an XML parameter,
+record the source ID, exact organism/cultivar, measured material (whole
+plant / regrowth / bud / leaf / tissue), season/acclimation, exposure
+temperature/duration and post-thaw observation period; distinguish direct
+experiment, a secondary-review quotation and a numerical estimate.
+Unsupported onset temperatures, fatal doses and recovery rates remain
+unapproved. Historical Git commits preserve superseded and withdrawn
+candidate numbers.
+
 ## Reviewed source registry
 
 | ID | Source | Type | Reported target and outcome | Constraint |
