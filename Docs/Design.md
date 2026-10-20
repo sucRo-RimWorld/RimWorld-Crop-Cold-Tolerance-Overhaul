@@ -495,3 +495,33 @@ individual-precise "death temperature". If a Workshop graph is made
 after calibration, show a **population mortality/survival band** versus
 temperature or exposure time with its stated acclimation/age assumptions,
 alongside the species median, not one deterministic all-plants-dead curve.
+
+
+### Calibrated-population evidence review, not a fitted model (2026-10-21)
+
+[ColdDamageCalibration.md — empirical multi-point mortality curves](ColdDamageCalibration.md#empirical-multi-point-mortality-curves--targeted-review-2026-10-21)
+compares whole-plant survivorship for ON03 onion, V03 *Arabidopsis*,
+V04 tall fescue and V05 chickpea across multiple freezing treatment
+temperatures. The records separate observed LT50, source-provided
+LT10/LT90, all-survived/all-died finite-sample observations, and
+reported survival percentages. They are not interchangeable
+measurement types.
+
+The results support an **individual-variation feature** but do
+**not** establish one normally distributed, symmetric temperature
+threshold or shared variance for all species. At least one
+*Arabidopsis* line reports an asymmetric LT10/LT50/LT90 curve;
+onion seedling age shifts cohort median independently of the
+within-cohort spread; chickpea recovery fractions show a sharp
+transition. Use a small selection of positively bounded
+susceptibility profile families only after comparing their fit with
+the actual study conditions. Until that analysis, no curve family
+or variance percentage is accepted and CCTO remains on the
+unchanged legacy production XML.
+
+A practical first candidate is **a stable per-plant multiplier
+on incremental injury**, with per-species median coefficients.
+This preserves the existing injury clamp at 1.0 without per-Tick
+randomness, but requires stable plant IDs and careful save/load
+verification at the end of numeric implementation. It is
+**design-only**, not currently active in code.
