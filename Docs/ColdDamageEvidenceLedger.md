@@ -15,6 +15,10 @@
 
 | ID | Source | Type | Reported target and outcome | Constraint |
 |---|---|---|---|---|
+| `CY01` | [森林総合研究所・高木1993『九州におけるスギ，ヒノキ幼齢木の凍害と防止』](https://www.ffpri.go.jp/pubs/bulletin/351/documents/364-1.pdf) | 一次現地・凍結実験 | Chamaecyparis obtusa(ヒノキ)の自然条件厳冬期耐凍性約-25℃。43クローンから取った枝葉を0℃2週間/-3℃40日順化後、-26/-28/-30℃に凍結し水ざし1か月で生死を判定。-30℃で100%生存のクローン2、80%のクローン2 | **切断枝葉**の水ざし再生/死であり植栽ヒノキ全個体の致死温度ではない。ゲームのCypressがChamaecyparisか未確認。森林総研原文p.36を確認 |
+| `AS01` | [Pan et al. 2015, Astragalus membranaceus freezing injury](https://www.sciencedirect.com/science/article/abs/pii/S0098847214001944) | 一次苗実験 | A. membranaceus var. mongholicusの苗、72時間の凍結ストレスで葉/根の酸化障害・イソフラボノイド保護作用を分析。低温前処理で凍害軽減 | Astragalusの種は多数、Defの種不明。葉根の組織障害であって72時間耐える/枯れる温度値ではない |
+| `FI01` | [USFS Silvics of North America, Abies balsamea](https://research.fs.usda.gov/silvics/balsam-fir) | USFS林業生態学レビュー | Abies balsameaは冷温帯に適応し冬越しするが、晩発芽苗は越冬生存率が低い;霜柱/雪害/乾燥も苗の死亡原因 | Great FirのモデルがAbiesか要確認。本文に寒波の℃・連続曝露・株死亡率の制御試験はない |
+| `PA01` | [Texas A&M AgriLife Extension 2021 freeze assessment](https://www.plantanswers.com/articles/dealing-with-freeze-damage-on-plants.asp) | 大学園芸普及・過去の現地観察 | 1980年代の約0°F(約-17.8℃)のテキサス寒波ではSabal等一部ヤシが生存し、他のヤシは死亡したという観察 | ヤシ科内で属/種差が大きい。厳密な曝露時間・屋内外/葉温・調査標本数がないので全ヤシの致死値不可 |
 | `ON01` | [New Mexico State University onion breeding cold-hardiness trial](https://onion.nmsu.edu/projects.html) | 大学農業育種プロジェクト/先行実験引用 | 1979–80年の400系統から選抜。日本由来の一部タマネギ系統で-13℃における生存率90%; Yellow Grano/Granex 12月苗のLT50約-14℃ | 元論文Peffley 1981に遡る要確認;系統・苗齢・曝露時間・土壌温度が不明。二点は別系統であり同じ致死曲線の２点ではない |
 | `ON02` | [UMass Amherst overwintered onion low-tunnel variety trial 2011–12](https://www.umass.edu/agriculture-food-environment/vegetable/special-topics/winter-production-storage/production/variety-trials-for-overwintered-onions) | 大学農場栽培比較 | 保護トンネル内の越冬後生存率、Keepsake/Top Keeper 100%、Bridger/Candy >95%、ネギ類約90% | 穏冬・被覆栽培で最低株温度を記録していない;寒波致死閾値の直接根拠にはならない |
 | `RO01` | [Rouet et al. 2022, Mapping Winterhardiness in Garden Roses](https://doi.org/10.21273/JASHS05189-22) | 一次野外調査＋統計モデル | 17園芸バラ品種、冬害尺度の最悪値は株死亡(5)。50%株死亡LT50をロジット推定し冬害指数と比較 | 同属RosaではあるがゲームRoseの品種不明;温度は統計推定/冬全体の気温履歴。茎組織電解質漏出のLT50と株死亡のLT50は別 |
@@ -82,13 +86,13 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_TreeBamboo` | Bamboo | death | `D01` | 対象資料あり・端点注意 | Moso葉の順化機構;ゲーム樹種特定は未検証 |
 | `Plant_TreeBirch` | Birch | dormancy | `N01` | 対象資料あり・端点注意 | Betula pendula実験;ゲーム側のカバノキ種不明 |
 | `Plant_TreeCecropia` | Cecropia | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `Plant_TreeCypress` | Cypress | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreeCypress` | Cypress | dormancy | `CY01` | 同科/近縁種の枝の再生試験 | ヒノキは枝葉-30℃生存の強順化クローン例を含むが、CCTO Cypressの種は不明;樹体死亡ではない |
 | `Plant_Dandelion` | Dandelion | dormancy | `DA01` | 同種・越冬生態 | 寒地ロゼット/地下部から再生。定量凍結死は未測定 |
 | `Plant_Daylily` | Daylily | dormancy | `DY01` | 同属品種・根傷害 | Hemerocallis培地温度-9.4℃で商品性を失う根傷害;地植え個体の死亡温度でない |
 | `Plant_TreeDrago` | Drago tree | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `Plant_TreeMaple` | Maple | dormancy | `MP01` | 同属・芽/順化のみ | Acer saccharum苗の芽の凍害LT50、成木個体死ではない |
 | `Plant_TreeOak` | Oak | dormancy | `Q01` | 同属・順化耐性 | ヨーロッパナラ2年苗の幹・枝耐凍性;木全体の死亡は別 |
-| `Plant_TreePalm` | Palm | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_TreePalm` | Palm | death | `PA01` | 同科の寒波生存観察 | 約-18℃の寒波で耐えたヤシ種と死んだ種がある。種不明のPalmへ一律適用不可 |
 | `Plant_TreePine` | Pine | death | `N01`, `N02` | 異種比較・数値不可 | 前者はマツ属複数種の参考;Great Firはモミ属でありマツの値を転用禁止 |
 | `Plant_TreePoplar` | Poplar | dormancy | `P02` | 同属・葉順化の実験 | 交雑ポプラ葉の耐凍性-5.7→-9.8℃;成木枯死ではない |
 | `Plant_Rose` | Rose | dormancy | `RO01` | 同属品種別・全株LT50 | 17品種の冬の死亡/損傷調査を定量化;枝電解質漏出のLT50と全株LT50は別 |
@@ -101,7 +105,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_Agave` | Agave | death | `A01`, `A02` | 同属種実測・種未確定 | Agave 3種の寒波生存差; CCTOのAgaveがどの種か要確認 |
 | `Plant_Alocasia` | Alocasia | death | `AL01` | 属単位・葉と株基部 | 葉は凍結で死亡しても基部から再生する。全株致死への換算禁止 |
 | `Plant_Ambrosia` | Ambrosia bush | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `Plant_Astragalus` | Astragalus | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
+| `Plant_Astragalus` | Astragalus | dormancy | `AS01` | 同属の葉根損傷研究 | 黄耆苗72時間凍結で組織のストレス変化。DefのAstragalusの同定・致死値なし |
 | `Plant_Berry` | Berry bush | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_Brambles` | Brambles | dormancy | `BR01` | Rubus属比較・多年生根 | ブラックベリー枝の冬害と多年生地下茎を区別。種が同定できない |
 | `Bryolux` | Bryolux | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
@@ -143,12 +147,12 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `DankPyon_Plant_FlyAgaricWild` | Wild fly agaric | dormancy | `M02` | 異種菌類・参考限定 | 菌糸体と地上子実体を区別; ベニテングタケ実測ではない |
 | `DankPyon_GreatOak` | Great oak | dormancy | `Q01` | 近縁モデル・参考限定 | Great Oakの実在種同定なし;Quercus roburの枝の数値を流用禁止 |
 | `DankPyon_GreatIter` | Great Iter | dormancy | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
-| `DankPyon_GreatFir` | Great fir | death | — | 直接資料未収集 | モミ類とマツ属は別属; N01/N02のマツ耐性を流用禁止 |
+| `DankPyon_GreatFir` | Great fir | death | `FI01` | モミ属の越冬生態参考 | Abies balsameaの耐雪・越冬生態。冷害定量死亡率なし;Great Firの種未同定 |
 | `DankPyon_GreatWillow` | Great willow | dormancy | `S02`, `S03` | 同属・近縁モデル | Great Willowが実在どのSalix種か未同定 |
 
 ## Current scope and next useful searches
 
-- **49 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 49 empirically validated species: the category includes weak comparative cross-taxon references. **29 / 78** still lack a mapped source in this pass.
+- **53 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 53 empirically validated species: the category includes weak comparative cross-taxon references. **25 / 78** still lack a mapped source in this pass.
 - **High-value direct research gaps**: exact species of CCTO wild trees/bushes (Quercus, Salix, Populus, Cecropia, teak, cocoa), medicinal crops in MO (mindwort/fleawort/herb identification, fly agaric mycelium), onion overwinter tissues, plant roots/crowns vs foliage, any CCTO fictitious plants.
 - **Species identity gate**: `Plant_TreePine` is generic pine and `DankPyon_GreatFir` is not pine; none of the published Scots pine/saguaro/Opuntia values are valid global pine/fir/cactus/Agave thresholds.
 - **Biology/code interface gate**: decide which endpoint a RimWorld whole `Plant` represents (growth-point death versus leaf injury and loss of yield), and distinguish cold acclimation for viable winter survivors. The draft linear degree-hour formula has not been fitted; **do not issue species parameters, migrate XML, run native tests, or approve Workshop graphs from this registry alone**.
@@ -171,3 +175,22 @@ These are the only source rows in this pass whose endpoints **directly involve s
 | `CL01` | Clivia potted specimen accidentally frozen | Plant ultimately died and the foliage perished | Single anecdote, no recorded air/plant minimum or exposure duration; *not suitable* for fitting |
 
 **Do not count** a tissue electrolyte-leakage LT50 as whole-plant LT50; do not automatically treat winter field mortality as cold-only (frost heave, desiccation, pathogens and winter shelter may contribute). `G03` garlic likewise reports some plant survival under accession-specific frost exposures but protocol/detail have not yet been cross-verified; retain it in the registry as provisional and audit its primary experiment before quantitative fitting.
+
+
+### Boundary of the remaining 25 unmapped Defs
+
+Unmapped names include fictional constructs (Devilstrand, Healroot,
+Smokeleaf, Psychoid, Timbershroom, Agarilux, Bryolux, Glowstool, Mindwort,
+Fleawort and equivalents), an unconfirmed plant/taxon identity (Tinctoria,
+Drago tree, Great Iter, Chokevine), and **broad biologically ambiguous
+labels** (Berry bush, Bush, Low shrubs, Herb, Rafflesia-as-generic). These
+do **not** have a unique biological death temperature. Before further
+species lookup, inspect in-game textures, Def descriptions and mod author
+intent. Identifying a plant as a broad ecological type is permissible but
+must not claim a verified real-species LT50.
+
+Do not infer that lack of species-specific studies means the organism cannot
+survive frost. For real named groups where only tissue endpoints exist, keep
+the generic plant death model explicitly approximate and avoid altering
+natural biome vegetation until the selected model reproduces repeated winter
+survival plausibly.
