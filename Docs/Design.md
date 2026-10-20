@@ -443,3 +443,55 @@ one source/comparison and left **25** unmapped. The 12 abandoned synthetic
 numerical proposals remain withdrawn. Retain current production XML and
 legacy death/dormancy presentation until a documented plant-class model is
 validated against source-derived outcome constraints.
+
+
+### Stable per-plant cold-injury susceptibility (2026-10-21 author direction)
+
+**Accepted goal:** plants of the same Def exposed to the same cold should
+not be guaranteed to die on exactly the same long-tick. The model should
+approximate **population-level whole-plant survival**, including the meaning
+of whole-plant-mortality LT50 where that endpoint is actually measured.
+No arbitrary variance percentage, exact distribution or numerical death
+dose is approved until empirical calibration.
+
+The low-cost first implementation candidate is a **plant-specific lethal
+accumulated-injury multiplier**, while retaining the Def's calibrated common
+damage-onset temperature and temperature-response function. Each spawned
+plant receives a stable susceptibility rank, deterministically derived from
+a persistent plant identifier and a fixed, versioned seed/hash rather than
+drawing random numbers on every temperature check. This avoids a whole-map
+per-tick scan and preserves outcomes through save/load without storing an
+additional random state. Verify identifier stability across save/load,
+copy/despawn/respawn, and seeded construction before selecting code. New
+plantings can receive a different rank. Do not make weather-dependent
+randomness masquerade as stable physiological susceptibility.
+
+For example, for a calibrated reference cold dose **D50** in a specified
+growth/acclimation state and treatment protocol, define each plant's
+lethal dose as the inverse of a chosen positive-valued susceptibility
+distribution evaluated at its stable rank. Calibrate the distribution
+median to **D50** so that about half the population dies by this reference
+dose. Use measured survival-at-severity curves (e.g. LT10/LT50/LT90 or
+multiple mortality percentages) to estimate the **spread**. LT50 alone
+determines a median point, **not** the width, and an LT50 from tissue
+electrolyte leakage is **not** a whole-plant survival datum. With thin
+evidence, keep dispersion conservative and label it a gameplay
+approximation rather than assigning a pretend scientific standard
+deviation. Age, cultivar, microclimate, cold acclimation and plant condition
+may contribute to observed mortality spread; independent random genetic
+variation is *not* a justified interpretation of the whole spread.
+
+Do not add fixed per-plant mortality randomness to plants that are
+**dormancy-only**, and do not introduce a new instant-death route. Native
+legacy death-temperature users remain unchanged until explicitly migrated.
+For new damage-model users, the existing draft hardcoded lethal
+`damage >= 1` and clamping in `ColdDamageProgress.Advance` must be
+reconciled with the chosen distribution at the numerical-model integration
+step; no working per-plant variation is claimed yet.
+
+**Presentation:** the plant Info Card retains the **species-level**
+`損傷開始温度` and existing `休眠温度`; do not display a false
+individual-precise "death temperature". If a Workshop graph is made
+after calibration, show a **population mortality/survival band** versus
+temperature or exposure time with its stated acclimation/age assumptions,
+alongside the species median, not one deterministic all-plants-dead curve.
