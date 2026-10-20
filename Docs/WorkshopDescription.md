@@ -78,8 +78,14 @@ art from unapproved hypothetical species values.
 
 - **Horizontal axis:** actual ambient plant temperature (°C), colder to
   the left.
-- **Vertical axis:** simulated *continuous exposure time until modelled
-  plant death* (in-game hours/days) at that fixed temperature.
+- **Vertical axis:** simulated *continuous exposure time until 50% of
+  modelled plants have died* (population median, in-game hours/days) at
+  that fixed temperature, **if** an empirically calibrated population
+  mortality curve is available. Do not label this as a guaranteed death
+  time for one plant.
+- **Individual variance:** optionally display an evidenced 10–90% death
+  percentile band around the median. Omit numerical bands rather than
+  invent an unmeasured spread from LT50 alone.
 - Show only a few distinct, representative plant curves per image
   (for example cold-sensitive crop, intermediate crop, cold-hardy
   crop). Group plant classes into separate charts rather than crowding
@@ -104,8 +110,10 @@ art from unapproved hypothetical species values.
   bilingual Workshop rule; don't bury scientific caveats in tiny type.
 
 **Fallback if survival times are too sensitive to unstated conditions:**
-a fixed-duration chart of modelled cold injury versus temperature,
-clearly labeled with its reference duration and stage. Choose after
+a fixed-duration chart of the **modelled surviving population
+fraction (%) versus ambient temperature**, clearly labeled with its
+reference exposure duration, growth stage and acclimation state.
+Keep observed biological percentages separate from model predictions. Choose after
 actual parameter fitting, not before. The purpose is understanding
 relative cold tolerance, not making new scientific claims.
 
