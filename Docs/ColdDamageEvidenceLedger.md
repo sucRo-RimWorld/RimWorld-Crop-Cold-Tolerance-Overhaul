@@ -92,7 +92,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `Plant_Grass` | Grass | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_ShrubLow` | Low shrubs | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_Moss` | Moss | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
-| `Plant_PincushionCactus` | Pincushion cactus | death | `O01`, `O02` | 異種比較・数値不可 | 近縁/他属のサボテン実験であり同種ではない。Agaveはサボテン科ではないため転用禁止 |
+| `Plant_PincushionCactus` | Pincushion cactus | death | `O01`, `O02` | 異種比較・数値不可 | 他属のウチワサボテン類でありピンクッションサボテンと同種ではない |
 | `Plant_TallGrass` | Tall grass | dormancy | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
 | `Plant_HealrootWild` | Wild healroot | death | — | 直接資料未収集 | ゲーム架空種/分類不明。実在種への同定を先行 |
 | `DankPyon_Plant_Onions` | Onion | death | — | 直接資料未収集 | 植物種・品種/組織/生育段階に対応する資料を検索 |
@@ -127,7 +127,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 
 ## Current scope and next useful searches
 
-- **28 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 27 empirically validated species: the category includes weak comparative cross-taxon references. **50 / 78** still lack a mapped source in this pass.
+- **28 / 78** Defs have a **source or explicit comparative reference** in this first ledger. This is *not* 28 empirically validated species: the category includes weak comparative cross-taxon references. **50 / 78** still lack a mapped source in this pass.
 - **High-value direct research gaps**: exact species of CCTO wild trees/bushes (Quercus, Salix, Populus, Cecropia, teak, cocoa), medicinal crops in MO (mindwort/fleawort/herb identification, fly agaric mycelium), garlic/onion overwinter tissues, plant roots/crowns vs foliage, any CCTO fictitious plants.
 - **Species identity gate**: `Plant_TreePine` is generic pine and `DankPyon_GreatFir` is not pine; none of the published Scots pine/saguaro/Opuntia values are valid global pine/fir/cactus/Agave thresholds.
 - **Biology/code interface gate**: decide which endpoint a RimWorld whole `Plant` represents (growth-point death versus leaf injury and loss of yield), and distinguish cold acclimation for viable winter survivors. The draft linear degree-hour formula has not been fitted; **do not issue species parameters, migrate XML, run native tests, or approve Workshop graphs from this registry alone**.
