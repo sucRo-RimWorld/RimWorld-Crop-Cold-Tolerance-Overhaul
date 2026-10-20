@@ -525,3 +525,33 @@ This preserves the existing injury clamp at 1.0 without per-Tick
 randomness, but requires stable plant IDs and careful save/load
 verification at the end of numeric implementation. It is
 **design-only**, not currently active in code.
+
+
+### Distribution-shape audit: symmetric baseline versus asymmetric exceptions (2026-10-21)
+
+The research comparison in
+[ColdDamageCalibration.md — Population-variation model shape audit](ColdDamageCalibration.md#population-variation-model-shape-audit-2026-10-21-exploratory-not-approved-parameters)
+uses *whole-plant* LT10/LT50/LT90 and five-point survival percentages.
+
+Observed *Arabidopsis* Ler under specified non-/briefly acclimated
+conditions has LT10 around -1.5°C, LT50 around -7.5°C, LT90 around
+-8.5°C: a **highly asymmetric** mortality curve. An ordinary
+single-scale logistic or normal CDF cannot match all three quantiles.
+By contrast, many genotypes show near-symmetric transitions.
+In a separate five-point chickpea study, exploratory unweighted
+two-parameter logistic and probit fits both miss a published 80%
+survival observation at -10°C by approximately 19–20 percentage points.
+These are **evidence about survival curve shape**, not a universal
+recommended parameter set; chickpea treatment denominators and
+sampling error are not sufficiently specified for statistical
+uncertainty-based model choice.
+
+**Current engineering recommendation (candidate, not final approval):**
+prefer a minimal symmetric positive susceptibility distribution for
+classes where reliable measurements show an adequately symmetric
+response. Permit a bounded/asymmetric profile **only for a group
+where repeatable direct observations require it**. Keep species-specific
+spread, lethal cold doses, acclimation and response kinetics
+unapproved until calibrated. No new XML or C# implementation was
+activated by this research; the existing Draft accumulator still
+lacks the individual-susceptibility feature.
