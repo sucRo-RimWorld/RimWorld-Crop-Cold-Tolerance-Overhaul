@@ -326,3 +326,71 @@ Relevant primary examples:
   uses temperature which killed 50% of plants after specified
   acclimation/deacclimation, unlike LT50 electrolyte-leakage measures
   elsewhere.
+
+
+## Empirical multi-point mortality curves — targeted review 2026-10-21
+
+**Status:** source-backed *constraints*, not approved CCTO parameters or a
+species-wide distribution. Evidence IDs refer to
+[ColdDamageEvidenceLedger](ColdDamageEvidenceLedger.md) (V03–V05, ON03).
+This section compares **whole-plant survival/recovery**, not leaf
+electrolyte leakage. No model coefficients are changed in C# or XML.
+
+| Source | Plant / physiological state | Exposure and follow-up | Whole-plant mortality / survival constraints | What is actually identified |
+|---|---|---|---|---|
+| `ON03` | *Allium cepa* Yellow Grano/Granex, 58/74/90-day field seedlings | Overnight -4°C, ~1°C/h cooling ramp, removed at different final temperature; surviving if root regeneration at 3 weeks | LT50 **-8.7/-10.5/-10.8°C** respectively (Table 1); Fig. 1 contains age-specific **probit-fitted percentage-survival curves** covering the transition from few survivors to almost all survivors | Within-age mortality slope is visibly nonzero; **age differences in LT50 are not a measure of within-age variation**. Individual curve quantiles can be digitized later with a documented reading error, not guessed from the diagram |
+| `V03` | *Arabidopsis thaliana* Ler, Columbia, esk-1, frs-1, with/without cold acclimation | Whole potted plants frozen for **2h** at treatment temperature 0 to -15°C; judged alive if producing a new leaf within 10d | Original reports **LT10/LT50/LT90 from plant mortality**. Most genotypes have LT10/LT90 close to LT50 (roughly 1–2°C variation around it); **Ler** before acclimation or after 1 day is strongly **asymmetric**, LT10 ~-1.5°C while LT50 ~-7.5°C and LT90 ~-8.5°C | **Both slope and shape are conditional**: a universal symmetric/normal logistic thermal-threshold distribution fails to represent this exceptional treatment |
+| `V04` | *Schedonorus arundinaceus* 2 cultivars, 1–2 leaf seedlings (n=1594), 5–6 leaf tillering (n=1845) | ~16h freezer experiment, 24h cooling chamber, then **14d greenhouse recovery**; plants rated alive/dead | Seedling LT50 **-5.7/-5.5°C**; tillered LT50 **-6.0/-5.7°C** (summer-active/SD). **Every sampled seedling survived ≥-4°C**, and **none survived ≤-8°C**. Source models individual binary outcomes with logistic regression | The finite-sample **observed transition band** spans at most the observed ~4°C endpoints, but these are *not* published LT10/LT90 and do not identify exact variance or universal tail bounds |
+| `V05` | *Cicer arietinum* KAKA genotype, after ~4 months natural cold acclimation | Cooled at 2°C/h, ice nucleation induced at -2°C, held **2h** at each 0/-6/-10/-12/-14°C treatment, then **4 weeks recovery** | KAKA whole-plant survival **100 / 95 / 80 / 70 / 0%** at the five listed temperatures. In this experimental protocol, the 50% survival point falls **between -12 and -14°C** under monotonic interpolation (not an original reported decimal estimate) | A temperature–survival curve with a sharp final fall is directly observed. No second duration at the same temperature is provided, so it **does not determine severity exponent or time-dose parameters** |
+
+### Reasoning and implications for CCTO
+
+- **Biological reference is not the CCTO death time.** All four sources
+  either cool through a ramp or impose one exposure duration, and follow
+  survivors for different recovery intervals. Sampling a minimum air
+  temperature without these conditions does not make its reported LT50 a
+  game-ready parameter.
+- **Separate state changes from random susceptibility:** onion age shifts
+  LT50 by up to ~2°C; the fescue two developmental stages and Arabidopsis
+  cold acclimation also shift cohort response. Moving the median between
+  states cannot be substituted by simply widening one fixed
+  per-plant distribution. The **width at a fixed stage and physiological
+  state** is the only part initially modeled as stable individual
+  susceptibility.
+- **LT50 is only one percentile.** For sources publishing LT10/LT50/LT90
+  of whole-plant death, estimate the shape/dispersion of mortality **under
+  each source's exact protocol**. If only 0/50/100% are known as in V04,
+  record them as **observed sample boundaries**, not genuine LT0/LT100
+  of an infinite population. If source proportions jump abruptly as in
+  V05, do not invent intermediate LT10/LT90 or force a smooth symmetric
+  shape.
+- **Two candidate simulation distributions, neither selected:**
+  positive (e.g. lognormal/log-logistic) susceptibility in **lethal
+  accumulated cold dose**, or a bounded/piecewise quantile mapping
+  for profiles that require non-symmetric tails. Both can have median
+  1.0 before normalization and produce stable per-plant thresholds.
+  Median matching alone does **not** validate the tails, skew or width.
+  Do not automatically transfer *Arabidopsis* or chickpea spread to
+  wheat, corn, wild trees, or fictional plants.
+- **Engineering simplification:** if the accepted model keeps
+  `ColdDamageProgress.Advance` clamped at 1 and kills when injury
+  reaches 1, encode per-plant lethal-dose variation as the **reciprocal
+  sensitivity multiplier on each increment** (or equivalently normalize
+  damage by that plant's dose first); a separate variable death threshold
+  above 1 would conflict with the current clamp. Avoid extra per-tick
+  random sampling. Stable identity/hash and save guarantees remain
+  untested and must be confirmed before implementation.
+- **What can be calibrated now:** species- and state-specific **relative
+  mortality curves at the protocols above** and categorical response
+  differences (symmetric/narrow vs asymmetric, flat vs rapid transition).
+  **What cannot be calibrated yet:** a generic CCTO dose–mortality
+  distribution for each of its 78 plants, universal variance width,
+  acclimation kinetics, the winter-cold time exponent, or recovery
+  speed. Preserve unresolved uncertainty rather than constructing
+  invented precision or silently moving production XML.
+
+**References:**
+- Peffley et al. 1981: [original Figure 1 and Table 1](https://pdfs.semanticscholar.org/4f3a/3c0c6125529759251b863550fb12b392e020.pdf).
+- Reyes-Díaz et al. 2006: [Oxford Academic, Fig. 2, LT10–LT90](https://academic.oup.com/jxb/article/57/14/3687/584622).
+- Interrante et al. 2020: [Wiley article, Figures 1–2](https://acsess.onlinelibrary.wiley.com/doi/10.1002/ael2.20017).
+- Nabati et al. 2026: [Springer Nature, Methods/Survival results](https://link.springer.com/article/10.1186/s12870-026-08352-w).
