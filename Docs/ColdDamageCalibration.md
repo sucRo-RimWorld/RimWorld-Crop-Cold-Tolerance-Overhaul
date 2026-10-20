@@ -513,3 +513,64 @@ reported precision.
 [V04 tall-fescue methods and logistic model](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/ael2.20017),
 [V05 chickpea five percentages and recovery protocol](https://link.springer.com/article/10.1186/s12870-026-08352-w),
 [ON03 onion original Table 1/Figure 1](https://pdfs.semanticscholar.org/4f3a/3c0c6125529759251b863550fb12b392e020.pdf).
+
+
+## Winter wheat duration × severity studies (2026-10-21; new direct CCTO-owned analogue)
+
+Three more primary papers (ledger IDs `W03`–`W05`) examine
+**whole-plant survival/mortality under more than one duration**, a
+better match to CCTO's requested dose mechanism than a single LT50
+experiment. **No actual parameters are adopted.** Source outcomes
+apply to acclimated winter wheat and are **not an identification
+of the generic MO Wheat Def as winter-hardy wheat**.
+
+| Study | Exposure and measured outcome | What it constrains | What it does not prove |
+|---|---|---|---|
+| `W03` Skinner 2014, *Crop Science* 54 | Six cultivars, -13.5 to -16.5°C for 2/3/4h; average survival dropped by about 50% as time **below -10°C** increased 325→525min, but **rose again** after about 675min to roughly the 325min survival level | Winter wheat's survival is not always a simple monotonic cumulative harm function of time; paper suggests temperature-triggered rapid hardening in some circumstances | Not an exact recovery rate, a generic crop rule, or evidence that every plant heals continuously while frozen; the full experimental tables and source diagnosis remain open |
+| `W04` Zheng et al. 2018, *Crop Science* 58 | Four field-acclimated winter wheat cultivars held for increasing days at their **respective critical frost temperature**; paper reports 8.6, 22.3, 11.1 and 9.4 **% per additional day** plant mortality changes by cultivar | Duration sensitivity varies strongly *between cultivars*, even in one winter-cereal species. Whole-plant death differs from tiller and leaf damage | The publication's abstract does not resolve percent relative vs **percentage-point** absolute changes, exact treatment denominators or each critical temperature; do not use the 4 slopes as per-tick lethal rates |
+| `W05` Zheng et al. 2018, *Agricultural and Forest Meteorology* 260–261 | Two-year controlled study: **soil minima** -14/-17/-20°C at differing 1–10-day exposures; proposes freezing degree-days below a **soil minimum -12°C** threshold. Reports plant/tiller mortality increases **1.0/1.4 % per °C·day** respectively | A source-tested thresholded accumulated-cold metric exists for **acclimated winter wheat in soil-temperature space**; provides an empirically motivated candidate response family | **-12°C is not the universal damage-start threshold of wheat**; soil-temperature degree-days cannot be copied directly to RimWorld's plant `AmbientTemperature`, and abstract effect sizes are not a plant-level CDF or per-individual lethal dose |
+
+**Important:** `W03` demonstrates an apparent **non-monotonic**
+survival-time curve. A pure incremental damage model with
+`damage += nonnegative dose`, no acclimation during frost,
+and fixed susceptibility *necessarily* predicts nonincreasing
+survival with longer uninterrupted exposure at identical treatment
+conditions. No static distribution can fix that exception:
+variation changes *which* plants die, not the monotonic property.
+A selective physiological-state/acclimation mechanism could
+approximate this finding, but implementing it solely to reproduce
+one counterintuitive study without independent verification would
+add extra state and TPS costs. **Do not automatically select it now.**
+
+**Practical model constraints after adding W03–W05:**
+
+1. A light common frost and a winter-hardy wheat stand's
+   root/crown exposure are **not the same temperature signal**.
+   `W05` is measured using daily **soil** minima, so a game
+   using instant above-ground ambient temperature must document
+   the difference and test it against actual biome temperatures.
+2. A cold accumulated-dose profile (possibly with a threshold)
+   is a credible **plant-class candidate** for overwintering cereals,
+   not a universal law. `W05` suggests a linear frost-degree-day
+   relation for the *measured range*, whereas other classes may
+   need a steeper severity curve.
+3. Distinguish **within-cohort fixed susceptibility** from
+   **changing cold hardiness** across cultivar, growth stage
+   or acclimation, and from a transient cold-triggered response
+   as discussed in `W03`.
+4. Do not infer plant-level lethal-dose distribution width from
+   regression of **population mean mortality vs duration**.
+   Determine baseline severity/time response first; then match
+   population LT10/LT50/LT90 or survival proportions under
+   equivalent controlled treatment.
+5. Source access: W03 and W04 primary journal **abstracts**
+   were accessible, W05 abstract via journal indexing/FAO AGRIS.
+   **Full original tables and uncertainty were not retrieved** in this
+   pass. The figures above are original abstract descriptions,
+   not freshly reanalysed raw survival data. No numerical
+   parameter fitting is authorized from those summaries alone.
+
+**References:**
+- W03 [Skinner (2014) DOI 10.2135/cropsci2013.09.0623](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2013.09.0623).
+- W04 [Zheng et al. (2018) DOI 10.2135/cropsci2018.01.0014](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2018.01.0014).
+- W05 [Zheng et al. (2018) DOI 10.1016/j.agrformet.2018.05.011](https://doi.org/10.1016/j.agrformet.2018.05.011).
