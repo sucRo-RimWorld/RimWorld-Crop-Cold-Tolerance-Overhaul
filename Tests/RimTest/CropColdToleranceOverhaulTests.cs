@@ -59,6 +59,29 @@ namespace CropColdToleranceOverhaul.Tests
         }
 
         [Test]
+        public static void LethalDoseVariationIsOptInAndMustBeBounded()
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDamageStartTemperature = -5f;
+            extension.coldDamageDegreeHoursToDie = 48f;
+
+            Assert.That(extension.coldDamageLethalDoseVariation).Is.EqualTo(0f);
+            Assert.That(extension.HasColdDamageModel).Is.True();
+
+            extension.coldDamageLethalDoseVariation = 0.25f;
+            Assert.That(extension.HasColdDamageModel).Is.True();
+            Assert.ThatCollection(extension.ConfigErrors().ToList()).Is.Empty();
+
+            extension.coldDamageLethalDoseVariation = 1f;
+            Assert.That(extension.HasColdDamageModel).Is.False();
+            Assert.ThatCollection(extension.ConfigErrors().ToList()).Has.Count(1);
+
+            extension.coldDamageLethalDoseVariation = float.NaN;
+            Assert.That(extension.HasColdDamageModel).Is.False();
+            Assert.ThatCollection(extension.ConfigErrors().ToList()).Has.Count(1);
+        }
+
+        [Test]
         public static void InfiniteDeathTemperatureIsRejected()
         {
             ColdToleranceExtension extension = new ColdToleranceExtension();
@@ -176,6 +199,32 @@ namespace CropColdToleranceOverhaul.Tests
             Assert.That(half).Is.EqualTo(0.5f);
             Assert.That(recovered).Is.BetweenInclusive(0.39f, 0.41f);
             Assert.That(dead).Is.EqualTo(1f);
+        }
+    }
+
+    [TestSuite]
+    public static class IndividualColdDamageTests
+    {
+        [Test]
+        public static void PersistentPlantIdentityKeepsLethalDoseBoundedAndRepeatable()
+        {
+            Type type = typeof(ColdToleranceExtension).Assembly.GetType(
+                "CropColdToleranceOverhaul.ColdDamageProgress", true);
+            MethodInfo multiplier = type.GetMethod(
+                "LethalDoseMultiplier", BindingFlags.Static | BindingFlags.NonPublic);
+            if (multiplier == null)
+                throw new InvalidOperationException("Missing stable dose mapper.");
+
+            float disabled = (float)multiplier.Invoke(null, new object[] { 101, 0f });
+            float a = (float)multiplier.Invoke(null, new object[] { 101, 0.25f });
+            float samePlant = (float)multiplier.Invoke(null, new object[] { 101, 0.25f });
+            float anotherPlant = (float)multiplier.Invoke(null, new object[] { 987654, 0.25f });
+
+            Assert.That(disabled).Is.EqualTo(1f);
+            Assert.That(a).Is.EqualTo(samePlant);
+            Assert.That(a).Is.BetweenInclusive(0.75f, 1.25f);
+            Assert.That(anotherPlant).Is.BetweenInclusive(0.75f, 1.25f);
+            Assert.That(a == anotherPlant).Is.False();
         }
     }
 
