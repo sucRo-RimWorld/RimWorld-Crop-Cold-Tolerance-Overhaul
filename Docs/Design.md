@@ -1186,3 +1186,50 @@ publication were authorized by this quantitative audit.
 The coldDamageStartTemperature Info Card label remains
 **損傷開始温度** and the existing dormancy label
 **休眠温度** remains unchanged.
+
+
+### Distribution transfer and tail audit (2026-10-21)
+
+[W07/W04 comparison and extreme-rank calculations](ColdDamageCalibration.md#w07-weibull-transfer-and-tail-risk-gate-2026-10-21)
+add a concrete **STOP** to the previous "prioritize a better
+individual distribution" candidate:
+
+- W07's -16°C 5-point fitted Weibull **shape 0.6566917**
+  is **not** a plant-class parameter. W04 uses different
+  cultivars, field pre-hardening and soil-temperature cycles,
+  and an author-fitted **delayed exponential survival curve**;
+  neither W07 shape nor its temperature-dose units can be
+  transferred unchanged to W04, let alone generic MO Wheat.
+  Rescaling that W07 shape against *W04 regression-derived
+  predictions* yields discrepancies, **not** independently
+  validated prediction errors.
+- The W07 Weibull's inverse-CDF has a long unbounded tail:
+  model median **6.01h**, 99th-percentile lethal duration
+  **107.44h**, 99.9th **199.22h** at its one -16°C
+  condition (time values **not mapped to game days**).
+  With the present **24-bit** plant-ID rank, rare extreme
+  extrapolations exist. No empirical tail cutoff or
+  truncation percentile has been approved.
+- Hence neither the current uniform distribution nor
+  Weibull/log-logistic becomes the final biological
+  individual-variation law solely by low five-point RMSE.
+  Keep **accumulated exposure**, **individual lethal-dose
+  mapping**, **temperature severity**, and **acclimation**
+  as distinct responsibilities. Reuse the same sparse
+  opt-in engine and deterministic rank while the correct
+  class/state-calibrated mapping remains **not selected**.
+- **No new CDF implementation, runtime timer, random
+  death rolls, numerical plant XML, gameplay test or
+  release** is authorized by this cross-study audit.
+  The existing Draft opt-in C# is an *uncalibrated*
+  prototype, and PR #24 stays Draft.
+
+**Next implementable scientific gate, not another
+unbounded bibliography sweep:** confirm one suitable
+same-cultivar, same-stage full-plant mortality
+temperature×duration protocol (with original counts
+and treatment-temperature histories), or explicitly
+accept a bounded **ecological gameplay approximation**
+instead of claiming source-calibrated parameters.
+Do not choose an arbitrary Weibull tail cap merely
+to make a test or demonstration pass.
