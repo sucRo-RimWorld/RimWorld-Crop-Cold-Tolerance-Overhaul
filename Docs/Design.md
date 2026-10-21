@@ -1112,7 +1112,7 @@ plant values:
 - **Winter wheat** (W07 via W08, secondary-reported -16°C durations):
   a fixed-state **linear** degree-hour engine with one *uniform* stable
   individual lethal-dose spread cannot fit the 1h ~80% and 24h ~17%
-  survival observations simultaneously at any valid \`0<=w<1\`.
+  survival observations simultaneously at any valid `0<=w<1`.
   The best five-point boundary approximation has ~**13.86pp RMSE**,
   compared with an in-sample Weibull ~1.59pp. This challenges the
   uniform threshold **distribution**, not necessarily the reusable
@@ -1138,3 +1138,51 @@ source-matched and game-timescale-labelled profile is justified.
 Preserve all existing production thresholds and dormancy for now.
 No code/XML update, build, native test or publication was performed
 during this mathematical audit; PR #24 remains Draft.
+
+
+### Follow-up decision: distribution is not severity (2026-10-21)
+
+[Quantitative research source](ColdDamageCalibration.md#distribution-versus-temperature-severity-model-identifiability-audit-2026-10-21)
+and the existing [W07 comparison CSV](Research/WinterWheatW07DurationSurvival.csv)
+separate **(a)** temperature severity, **(b)** per-plant
+lethal-exposure distribution, **(c)** prior acclimation/state,
+and **(d)** a genuinely nonadditive time-course model.
+The six previously proposed ecological/evidence groups are not
+six mandatory runtime formulas.
+
+**Decision for this Draft:**
+
+- Preserve the current **additive exposure and sparse state**, stable
+  plant-ID percentile and legacy dormancy/death compatibility.
+  Do not add a temperature exponent just to improve a single
+  constant-temperature wheat survival series.
+- At -16°C the W07/W08 five duration points challenge the **uniform
+  lethal-dose spread** (best limiting fit **13.86pp RMSE**).
+  Keeping additive exposure and changing the *threshold distribution*
+  improves in-sample fits (log-logistic **3.00pp**, Weibull **1.59pp**),
+  without requiring an expensive per-plant exposure timer.
+  A nonlinear **duration** transform with extra state could also fit
+  (**1.45pp**, three coefficients); this alone does not justify it.
+- These results **do not approve Weibull** or any plant-specific
+  distribution, including the existing uniform `w`; unknown
+  sampling uncertainty, long-survivor tail, breeding genotype and
+  physiological-state limits prevent direct XML calibration.
+  The present uniform implementation remains an opt-in prototype
+  with no migrated production Def.
+- Maize M01 supports temperature-versus-duration tradeoffs but
+  cannot identify a unique onset and intensity exponent from
+  only two approximate median-mortality points. Rice R02 requires
+  acclimation differentiation (or an explicitly limited single-state
+  approximation), **not merely another fixed individual CDF**.
+- New CDF families or acclimation state **must not be implemented
+  yet** solely from these in-sample comparisons. The smallest
+  defensible future implementation keeps one reusable accumulator
+  and selects a class-/species-scoped stable lethal-dose mapping
+  **only after** matching whole-plant study conditions and
+  game-time conversion.
+
+No plant numeric settings, C# features, runtime checks or Steam
+publication were authorized by this quantitative audit.
+The coldDamageStartTemperature Info Card label remains
+**損傷開始温度** and the existing dormancy label
+**休眠温度** remains unchanged.
