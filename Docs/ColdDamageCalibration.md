@@ -1743,23 +1743,23 @@ obtained; W08 is *not* an independent cohort.
 
 For any fixed positive severity under the current linear accumulator,
 the individual lethal hour is a uniform multiplicative threshold:
-\`t_lethal = t50 * (1 + w * (2u - 1))\`,
-\`0 <= u <= 1\`, \`0 <= w < 1\`. Here \`t50\` is the
+`t_lethal = t50 * (1 + w * (2u - 1))`,
+`0 <= u <= 1`, `0 <= w < 1`. Here `t50` is the
 **cohort-median lethal exposure in hours under this temperature only**,
 not a CCTO XML calibration. In the idealized large-cohort limit,
-\`S(t) = clamp((1 + w - t/t50) / (2w), 0, 1)\` for \`w > 0\`
-(and a step at \`w=0\`).
+`S(t) = clamp((1 + w - t/t50) / (2w), 0, 1)` for `w > 0`
+(and a step at `w=0`).
 
 - Requiring both S(1h)=0.80 and S(24h)=0.17 puts both points inside the
   uniform ramp. Algebra requires **w = 23 / 15.06 = 1.5272**,
-  which violates the valid API range \`w<1\` and would give negative
-  low-end lethal doses. At any valid \`w\`, these two exact fractions
+  which violates the valid API range `w<1` and would give negative
+  low-end lethal doses. At any valid `w`, these two exact fractions
   **cannot simultaneously be reproduced** by the fixed-state model.
 - A numerical **unweighted five-point least-squares lower bound** over
-  \`t50>0, 0<w<1\` occurs as \`w -> 1\`, \`t50≈7.8061h\`,
+  `t50>0, 0<w<1` occurs as `w -> 1`, `t50≈7.8061h`,
   yielding idealized predicted survival
   **93.59/80.78/61.57/23.14/0%** at 1/3/6/12/24h,
-  **RMSE≈13.86 percentage points**. Boundary \`w=1\` itself
+  **RMSE≈13.86 percentage points**. Boundary `w=1` itself
   is invalid in the Draft XML API; values are a limiting *infimum*,
   not an admissible optimum or proposed XML values.
 - Existing in-sample W07 CSV comparators:
@@ -1770,7 +1770,7 @@ not a CCTO XML calibration. In the idealized large-cohort limit,
   common nonnegative severity accumulator**; time-course shape and
   temperature-severity law are distinct parameters.
 
-**Decision:** do not lock \`coldDamageLethalDoseVariation\` as a
+**Decision:** do not lock `coldDamageLethalDoseVariation` as a
 source-calibrated uniform distribution for winter wheat. Retain stable
 per-plant ranks, but make the threshold distribution a separately
 audited *optional class choice* only if additional matched observations
@@ -1783,9 +1783,9 @@ uses Lindsey (2024) quoting Buican (1969): approximately **50%
 seedling mortality** for -2°C × 48h and -6°C × 2h. Under the
 **conditional assumption** of a common cohort, fixed state, matching
 post-treatment endpoint, and linear severity
-\`h(T) = max(0, Tonset - T)\`, equating median lethal doses gives
+`h(T) = max(0, Tonset - T)`, equating median lethal doses gives
 
-\`48 * (Tonset + 2) = 2 * (Tonset + 6)\`,
+`48 * (Tonset + 2) = 2 * (Tonset + 6)`,
 hence **Tonset = -84/46 ≈ -1.8261°C**, **D50 ≈8.3478
 °C·h**, and an **unmeasured prediction** at -4°C of **3.84h**.
 These are algebraically fitted *hypothetical* quantities, not measured
@@ -1820,7 +1820,7 @@ warm recovery. The original study attributes this difference to
 pre-exposure chilling acclimation.
 
 With the same 4°C exposure and the Draft's fixed
-onset/dose/\`w\`, the initial-zero-damage cohort has the same
+onset/dose/`w`, the initial-zero-damage cohort has the same
 simulated survival distribution in both treatments: hashed
 individual variation does *not* encode the prior 12°C
 preconditioning. Even if an onset above 4°C produces injury,
@@ -1853,3 +1853,56 @@ Vanilla/MO 48 finite thresholds and 30 dormancy behaviors unchanged;
 consumer plants remain owned by AMJC/AMJE/CCTO-for-VPE.
 No XML values, code semantics, game launch or Workshop graphs are
 approved by this analysis.
+
+
+## Distribution versus temperature severity: model-identifiability audit (2026-10-21)
+
+**Scope:** compare what can be explained by (A) changing **individual lethal-dose distribution** while keeping the existing *additive linear accumulated exposure*, versus (B) changing **temperature severity** while leaving that distribution intact. This is mathematical in-sample diagnosis based on the existing [W07/W08 dataset](Research/WinterWheatW07DurationSurvival.csv), not a calibrated plant profile or approval to modify the experimental C# API.
+
+### Separate the three biological/model axes
+
+Let `H(t) = integral[g(T(t), state(t)) dt]` be nonnegative **accumulated cold exposure**. A persistent plant rank `u` maps to a fixed positive **lethal exposure** `Q(u)`; the plant dies when `H(t) >= Q(u)`. Cohort survival at exposure `H` is `S(H)=1-F_Q(H)`.
+
+- **Temperature severity `g(T)`** determines how fast exposure accumulates at different temperatures. At **one constant T**, `H(t)=g(T)*t`. Changing just `g(T)` only rescales the **time axis**, so it cannot fix the shape of a survival curve at that temperature if the per-plant threshold distribution is otherwise unchanged.
+- **Susceptibility distribution `F_Q`** determines how many plants die early or survive late at a fixed dose. Its shape can change the **survival curve at one temperature**, without changing the cheap existing accumulation or adding repeated random rolls.
+- **Physiological state** (age, acclimation, deacclimation, organ protection) changes the temperature response and/or effective threshold over prior history. It cannot be identified from a fixed-condition duration curve, and is not equivalent to persistent plant-ID variability.
+
+A time-nonlinear exposure `H(t) = [g(T)*t]^q` at constant T is a **fourth, different model intervention**: it does not just change the temperature-severity function `g(T)`; its non-additivity across stopped/restarted freezes generally requires event-duration or physiological-state handling.
+
+### W07 via W08: one-temperature shape comparison
+
+For Kharkov winter wheat, the **five rounded secondary-reported** -16°C whole-plant survival points are 80/63/53/33/17% at 1/3/6/12/24 hours. Assuming uniform fixed initial state, no interim recovery, uniform weighting and a constant -16°C signal, the following fits use *only those five points*. The original 1975 survival count/uncertainty table remains unchecked. Original W07 and review W08 are **one** trial, not independent evidence.
+
+| Candidate at constant -16°C | Parameters fitted | RMSE, percentage points | Interpretation |
+|---|---:|---:|---|
+| **Additive linear exposure + bounded uniform lethal dose** (current Draft form) | 2 (median time, spread) | **13.86** (limiting boundary `w->1`) | Even best possible valid-`w` limit cannot reproduce both early and late reported survival; `w=1` itself is forbidden |
+| Additive linear exposure + **exponential lethal-dose distribution** | 1 (scale) | **7.77** | Better shape, no extra time-state; not proof that deaths occur by independent repeated hazards |
+| Additive linear exposure + **log-logistic lethal-dose distribution** | 2 (scale, shape) | **3.00** | Better illustrative finite-data fit, heavy tail not validated |
+| Additive linear exposure + **Weibull lethal-dose distribution** | 2 (scale, shape) | **1.59** | Best of the shown *two-parameter distribution choices*, within the five fitted data; not plant-class validation |
+| **Nonadditive power-of-time exposure** + bounded uniform lethal dose | 3 (median time, spread, time exponent) | **1.45** | Numerical alternative with an extra free coefficient, *not* changing `g(T)` alone; not valid additive degree-hours or demonstrated physiology |
+
+Derived predictions and fit coefficients are retained **only as candidate computations** in [WinterWheatW07DurationSurvival.csv](Research/WinterWheatW07DurationSurvival.csv). In particular the 3-parameter nonadditive illustration uses `S(t)=clamp((1+w-(t/t50)^q)/(2w),0,1)`, with `t50~6.218h`, `w~0.637`, `q~0.264`. This can match the five fitted percentages to ~1.45pp RMSE, but it would behave differently for two separate cold events totaling the same duration; interpreting `q` as a temperature exponent would be a category error.
+
+The Weibull comparison instead fits `S(t)=exp(-(t/10.500h)^0.6567)` for **this treatment only**: an inverse-CDF lethal-dose transform could theoretically use the existing persistent per-plant rank without a new timer. However **unbounded distribution tails** can create exceptionally hardy simulated plants, especially when extrapolating beyond the five observed treatment durations; truncation/tail behavior, save compatibility and biological correspondence are unsolved. A good 5-point in-sample fit is **not sufficient** to select this as the CCTO default. Do not present distribution parameters as a measured LT10/LT90 family.
+
+**Identifiability finding:** with only one constant temperature, an altered lethal-dose CDF and a nonadditive time function can produce almost the same survivorship. The observed curve alone cannot decide which represents biology. The cheap additive accumulator with a **candidate alternative stable-threshold distribution** is the **smaller engineering change**, not yet an approved physiological model.
+
+### M01 maize: distribution changes do not identify temperature severity
+
+The separate -2°C/48h and -6°C/2h ~50%-mortality points constrain the **ratio** of severity at two temperatures **conditionally on identical cultivar, stage, state and endpoint**. Median lethal time cancels the cohort distribution if it is the same across treatments. They do not identify a unique onset and severity exponent simultaneously. As the [existing M01 candidate table](Research/MaizeM01DegreeHourIdentifiability.csv) demonstrates, linear and quadratic severity hypotheses both fit those two medians and disagree about an unmeasured -4°C exposure. Changing the Weibull/log-logistic **distribution** cannot resolve that temperature-law ambiguity.
+
+M03's +0.3±0.3°C prolonged chilling and M04 genotype-dependent mortality are separate protocols, **not third/fourth observations of the same cohort**. Neither establishes a crop-wide damage onset, variance, dose or acclimation state transition. Do not combine the studies into one synthetic temperature-duration surface.
+
+### R02 rice: neither static parameter family models the treatment contrast
+
+The [original Sagehashi 2023 study](https://doi.org/10.1080/1343943X.2023.2236344) found **0%** survival without conditioning and **88–100%** after 12°C/5d preconditioning when both subsequently faced 4°C/10d. **Neither a changed `g(4°C)` nor a changed fixed within-cohort CDF alone** can give different expected outcomes for the two otherwise identically modelled cohorts: a memory of physiological conditioning, or explicitly separate known experimental states, is needed. It would be inaccurate to introduce a universal arbitrary acclimation multiplier on this single comparison.
+
+### Bounded decision for PR #24
+
+1. **Retain** the sparse, opt-in additive exposure engine and stable plant identity as an *engineering prototype*, preserving all fixed-threshold and dormancy production defaults.
+2. **Do not change temperature-severity exponent** merely to improve W07's one-temperature survival curve. That curve provides no cross-temperature calibration; M01's two median points alone are underidentified.
+3. **Prioritize threshold-CDF shape as the next bounded candidate comparison**, but do not declare Weibull, log-logistic, uniform spread, shape coefficients or lethal dose **approved**. Any eventual change must avoid extra RNG and address tail/extreme-individual behavior, existing normalized-injury save data, and deterministic save/load.
+4. **Do not add** per-plant freeze-duration, daily acclimation counters, repeated hazard rolls or six distinct runtime engines from these fits. If rice chilling is an initial playable target, a separately bounded acclimation/state decision is necessary first.
+5. For a real numerical activation, obtain sufficiently documented **same-stage, same-cultivar whole-plant** mortality/survival across temperatures and durations, with sample counts and the relevant thermal signal. Explicitly translate experimental vs RimWorld time without distorting measured endpoints. No game launch is justified solely by these unapproved numbers.
+
+**Status:** source-data fitting only, not C# / XML or gameplay validation. Existing 48 finite-death + 30 dormancy Vanilla/MO Defs remain untouched; AMJ/VPE consumers keep their own numeric ownership. Draft PR #24 must remain Draft; no Steam/Workshop graph or release.
