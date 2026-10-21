@@ -952,3 +952,112 @@ CCTO formula as validated on W05.
 5. No XML, C#, SaveState, Workshop graph or
    native RimWorld tests were altered/performed
    as a result of this analysis.
+
+
+## W10 full-plant cold-freezing factorial design: paired LD50 / LT50 (2026-10-21)
+
+Husiny, Ficht, Whiting, Booker, Hooker, McElroy & Lyons (2024),
+*Canadian Journal of Plant Science* 104:256–264,
+[doi:10.1139/cjps-2023-0143](https://doi.org/10.1139/cjps-2023-0143),
+was reviewed as original published article text, methods and **Table 2
+and Table 3** via its [open article reproduction on ResearchGate](https://www.researchgate.net/publication/377906631_Improved_methods_to_estimate_days_and_temperature_to_fifty_percent_mortality_of_winter_wheat_Triticum_aestivum_L_under_low-temperature_flooding_and_ice_encasement).
+The original paper provides a **real, publicly cited individual-plant
+dataset** at [Borealis DOI 10.5683/SP3/YHOZUK](https://doi.org/10.5683/SP3/YHOZUK),
+but attempts to open the hosting service currently return HTTP **403**.
+Therefore **the primary paper/table is read; its archived *raw binary
+treatment observations* are NOT accessed or reconstructed**.
+
+**Experimental biological endpoint:** intact whole wheat in sand/peat,
+Zadoks 21 (three leaves, one tiller), acclimated **3.5°C for 4 weeks**.
+After freezing, thawed **2d at 4°C**, then **3-week greenhouse regrowth**;
+individual plant alive = visible above-soil regrowth, dead = no regrowth.
+Experiments tested ice encasement and no ice, with per-study pooled
+temperature/duration means reported where ice effect was not statistically
+significant. Crown soil temperature monitoring was included; do not treat
+the prescribed air/chamber minimum as a recorded constant crown temperature.
+
+**Two experiment arms are NOT an entire crossed temperature × duration
+matrix of the same plant cohorts:**
+
+1. **LD50 duration arm:** plants held approximately **-4°C**
+   (ice/no-ice) and sampled at freeze days **0/4/8/12/16/20/25/32**,
+   12 plants per cultivar/treatment/experimental unit, two replicates.
+   Original authors used probit on log10(days) to infer LD50. In
+   particular **Norstar's source LD50=33d is 1d beyond the highest
+   *observed* duration of 32d**, so the numerical half-mortality
+   duration is partly **model extrapolation**.
+2. **LT50 temperature arm:** pre-held at **-4°C for 0 versus 7 days**,
+   separate cohorts then progressively frozen to **-4/-7/-10/-13/
+   -16/-19°C**, ~3°C/h cooling, with **1h at each step**. Original
+   Table 2 reports LT50 from this staged freezing ramp, pooled over
+   ice and no ice, with three replicates and 12 plants per experimental
+   unit. No one acute-temperature hold lasted seven days.
+
+### Published regression-derived whole-plant medians
+
+| Cultivar | Growth habit | LD50 (days at -4°C) | LT50 before additional 7d at -4°C | LT50 after additional 7d at -4°C | LT50 shift in 7d (warmer = less hardy) |
+|---|---|---:|---:|---:|---:|
+| Norstar | winter-hardy | **33** (model extrapolation beyond last 32d observation) | -13.6°C | -13.2°C | +0.4°C |
+| CM614 | winter | **20** | -12.7°C | -12.6°C | +0.1°C |
+| Branson | winter | **18** | -11.9°C | -11.6°C | +0.3°C |
+| AC Carberry | spring control | **not estimable** (all dead by day 4 in LD experiment) | -6.6°C | -2.7°C | +3.9°C |
+
+**Warning about Carberry:** the duration and LT50 arms are *different
+samples/experiment series*. The source reports 100% mortality by day 4
+at -4°C in one, yet derives a day-7 LT50 of -2.7°C in the other.
+Do **not** merge these endpoints as if the same identical plants
+survived the entire seven-day pre-hold and then endured a new minimum.
+Treatment handling, baseline mortality and conditional-probit
+methods require raw-data reconciliation.
+
+**Quantitative interpretation:** same-species/cultivar whole-plant
+hardiness shifts **only +0.1 to +0.4°C after 7d** for the three winter
+varieties but **+3.9°C** for the spring wheat control. That supports a
+*cohort-state-dependent loss of hardiness*, not a global fixed random
+per-plant tolerance spread. At -4°C prehold, median duration
+differs dramatically among winter cultivars, even though
+their additional acute-freezing LT50 scores are all around -12 to
+-14°C. Duration and acute temperature stress are
+**separate axes that cannot be conflated**.
+
+[Original-table W10 source values and arm-separation
+CSV](Research/WinterWheatW10HusinyWholePlantLT50.csv)
+preserves all eight Table 2 original LT50 means, the three
+LD50 values, spring control censored/non-estimable result,
+the time points and the exact treatment caveats. Nothing
+in this file is a plant-level observed cold-death time
+for a particular temperature and no individual survival
+rows were manufactured.
+
+**Comparison against proposed CCTO model:** a single
+plant-static lethal accumulated dose can approximate
+population death under a **fixed treatment protocol**;
+it is insufficient by itself to explain this genotype-
+specific change in acute cold tolerance after long -4°C
+pre-exposure. A selective, lightweight pre-acclimation/
+de-acclimation or stage-dependent tolerance state
+might eventually be justified for winter cereals; the
+very different spring control indicates its dynamics
+must not be universal. But the present 0/7d LT50
+means do **not** identify onset temperature,
+cold degree-hour severity exponent, random rank
+distribution width or thermal recovery kinetics.
+
+**High-yield next evidence step:** obtain and inspect
+the **published Borealis dataset** (dataset DOI above)
+only if accessible via a supported archive route.
+The original design includes up to **two duration arms,
+six freezing-temperature levels and 12 individual
+plant outcomes per experimental unit**, making it a
+much more relevant source for unbiased binary
+population curve fitting than inventing extra
+parameters from W05's abstract.
+If the archive remains unavailable, do not claim
+cross-validation or fit a full 2D death surface;
+the published table/fit endpoints above remain
+usable as **bounds/relative ordering only**.
+
+**Status:** evidence collected, no CCTO numeric field approved;
+no stock XML, gameplay C#, native tests or Workshop values
+changed. Continue using W10 source ID in the
+species evidence registry.
