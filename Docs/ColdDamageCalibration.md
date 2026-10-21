@@ -1720,3 +1720,136 @@ interpretation, no CCTO game-data or
 source-code values changed, original
 5-point text and original figure
 remain separately and visibly attributed.
+
+
+## Quantitative feasibility gate — wheat, maize, rice (2026-10-21)
+
+**Purpose:** test the *shape and identifiability* of the current Draft C#
+linear-degree-hour + deterministic uniformly dispersed lethal-dose model
+before choosing plant settings. This is a numerical source audit, **not an
+approved balance patch or validation on held-out data**. All calculations
+below assume a steady treatment temperature, zero initial injury, no
+recovery during exposure, identical physiological state within a cohort,
+and an ideal uniform distribution of hashed plant ranks. Actual RimWorld
+sampling and 60-day-calendar conversion are not included.
+
+### W07/W08 Kharkov winter wheat: structural limit of uniform thresholds
+
+The [W07 duration-series CSV](Research/WinterWheatW07DurationSurvival.csv)
+records **secondary-review-quoted** survival at constant -16°C: 80, 63,
+53, 33, 17% after 1, 3, 6, 12 and 24 hours. The W07 original
+survival-count table, group denominators and uncertainties have not been
+obtained; W08 is *not* an independent cohort.
+
+For any fixed positive severity under the current linear accumulator,
+the individual lethal hour is a uniform multiplicative threshold:
+\`t_lethal = t50 * (1 + w * (2u - 1))\`,
+\`0 <= u <= 1\`, \`0 <= w < 1\`. Here \`t50\` is the
+**cohort-median lethal exposure in hours under this temperature only**,
+not a CCTO XML calibration. In the idealized large-cohort limit,
+\`S(t) = clamp((1 + w - t/t50) / (2w), 0, 1)\` for \`w > 0\`
+(and a step at \`w=0\`).
+
+- Requiring both S(1h)=0.80 and S(24h)=0.17 puts both points inside the
+  uniform ramp. Algebra requires **w = 23 / 15.06 = 1.5272**,
+  which violates the valid API range \`w<1\` and would give negative
+  low-end lethal doses. At any valid \`w\`, these two exact fractions
+  **cannot simultaneously be reproduced** by the fixed-state model.
+- A numerical **unweighted five-point least-squares lower bound** over
+  \`t50>0, 0<w<1\` occurs as \`w -> 1\`, \`t50≈7.8061h\`,
+  yielding idealized predicted survival
+  **93.59/80.78/61.57/23.14/0%** at 1/3/6/12/24h,
+  **RMSE≈13.86 percentage points**. Boundary \`w=1\` itself
+  is invalid in the Draft XML API; values are a limiting *infimum*,
+  not an admissible optimum or proposed XML values.
+- Existing in-sample W07 CSV comparators:
+  one-parameter exponential **7.77pp RMSE**,
+  two-parameter Weibull **1.59pp RMSE**. They use rounded,
+  secondary-reported points and unverified counts. This comparison
+  **does not choose a universal Weibull distribution or disprove a
+  common nonnegative severity accumulator**; time-course shape and
+  temperature-severity law are distinct parameters.
+
+**Decision:** do not lock \`coldDamageLethalDoseVariation\` as a
+source-calibrated uniform distribution for winter wheat. Retain stable
+per-plant ranks, but make the threshold distribution a separately
+audited *optional class choice* only if additional matched observations
+support it. No new C# CDF implementation is authorized by this fit.
+
+### M01 maize: two matched median points do not identify a severity law
+
+The [existing M01 hypothesis CSV](Research/MaizeM01DegreeHourIdentifiability.csv)
+uses Lindsey (2024) quoting Buican (1969): approximately **50%
+seedling mortality** for -2°C × 48h and -6°C × 2h. Under the
+**conditional assumption** of a common cohort, fixed state, matching
+post-treatment endpoint, and linear severity
+\`h(T) = max(0, Tonset - T)\`, equating median lethal doses gives
+
+\`48 * (Tonset + 2) = 2 * (Tonset + 6)\`,
+hence **Tonset = -84/46 ≈ -1.8261°C**, **D50 ≈8.3478
+°C·h**, and an **unmeasured prediction** at -4°C of **3.84h**.
+These are algebraically fitted *hypothetical* quantities, not measured
+onset or approved XML. Shifting onset +0.1°C while keeping both
+study durations fixed changes the weak-frost dose from ~8.35 to
+~13.15°C·h, but the strong-frost dose only to ~8.55°C·h;
+the fit is sensitive near -2°C. The already-tracked CSV also shows
+different severity exponents reproducing the *same two observed
+medians* but yielding distinct -4°C forecasts.
+
+Same-species M03 independently reports **irreversible seedling death**
+after prolonged **+0.3±0.3°C** chilling, whereas the M01 linear
+onset above implies **zero injury** there. Those sources do not
+share verified cultivar/stage/history, so their parameters must
+**not** be fitted as if a single 3-point trial. Together they
+identify a **physiological scope gap**: an exclusively
+below-freezing onset cannot represent prolonged above-zero chilling
+for at least some maize seedlings.
+
+**Decision:** preserve separate severe-frost and nonfreezing-chilling
+regimes as model *candidates*, not necessarily separate runtime
+components; do not select onset, exponent, recovery or dose from two
+rounded mortality observations.
+
+### R02 rice: physiological conditioning is structurally absent
+
+[Sagehashi (2023), DOI 10.1080/1343943X.2023.2236344](https://doi.org/10.1080/1343943X.2023.2236344)
+reports 10-day-old rice seedlings exposed to **4°C for 10 days**:
+**0% survival** unacclimated versus **88–100% survival** for
+six cultivars preconditioned at **12°C for 5 days**, evaluated after
+warm recovery. The original study attributes this difference to
+pre-exposure chilling acclimation.
+
+With the same 4°C exposure and the Draft's fixed
+onset/dose/\`w\`, the initial-zero-damage cohort has the same
+simulated survival distribution in both treatments: hashed
+individual variation does *not* encode the prior 12°C
+preconditioning. Even if an onset above 4°C produces injury,
+a **static** profile does not reproduce the 0% versus 88–100%
+conditioning contrast. These percentages are specific
+experimental outcomes, not universal population probabilities.
+
+**Decision:** realistic rice seedling chilling requires a
+physiological-state distinction *or an explicitly acknowledged
+single-state approximation*. Neither an across-the-board 4°C
+death setting nor an unmeasured acclimation multiplier is
+approved. Do not convert 10 laboratory days into 10 game days
+without an explicit time-scale decision.
+
+### Shared outcome and bounded next design gate
+
+| Species evidence | What is mathematically supported | What remains non-identifiable |
+|---|---|---|
+| W07 via W08 winter wheat | Fixed-state **uniform lethal thresholds** cannot closely match the *reported* -16°C duration curve; in-sample limiting RMSE ~13.86pp | Source counts, uncertainty, independent conditions, class-wide survival CDF, temperature function |
+| M01/M03 maize | Two approximate freeze-median points admit multiple severity laws; prolonged *above-zero* chilling can be lethal under other experimental conditions | Physiological onset, exponent, cross-condition cohort identity, recovery rate, distribution width |
+| R02 rice | Measured acclimation treatment changes cohort survival **at the same 4°C exposure** | Quantitative acclimation kinetics, temperature/duration survival surface, game-calendar translation |
+
+**Implementation boundary:** the existing cheap opt-in sparse accumulator and
+persistent per-plant rank can remain a **Draft mechanism**. Do not
+commit to one universal distribution family, a single chilling/frost
+severity curve or 6 runtime categories from this comparison. Grouping
+plants by study/response type is for *evidence triage*, not proof
+of six implementation laws. Keep existing production
+Vanilla/MO 48 finite thresholds and 30 dormancy behaviors unchanged;
+consumer plants remain owned by AMJC/AMJE/CCTO-for-VPE.
+No XML values, code semantics, game launch or Workshop graphs are
+approved by this analysis.
