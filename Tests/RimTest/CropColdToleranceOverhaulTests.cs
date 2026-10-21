@@ -81,6 +81,12 @@ namespace CropColdToleranceOverhaul.Tests
             extension.coldDamageLethalDoseVariation = float.NaN;
             Assert.That(extension.HasColdDamageModel).Is.False();
             Assert.ThatCollection(extension.ConfigErrors().ToList()).Has.Count(1);
+
+            // An orphan variation setting must not silently be ignored.
+            extension.coldDamageLethalDoseVariation = 0.25f;
+            extension.coldDamageStartTemperature = float.NaN;
+            extension.coldDamageDegreeHoursToDie = float.NaN;
+            Assert.ThatCollection(extension.ConfigErrors().ToList()).Has.Count(1);
         }
 
         [Test]
@@ -227,6 +233,14 @@ namespace CropColdToleranceOverhaul.Tests
             Assert.That(a).Is.BetweenInclusive(0.75f, 1.25f);
             Assert.That(anotherPlant).Is.BetweenInclusive(0.75f, 1.25f);
             Assert.That(a == anotherPlant).Is.False();
+
+            MethodInfo advance = type.GetMethod(
+                "Advance", BindingFlags.Static | BindingFlags.NonPublic);
+            float damageA = (float)advance.Invoke(null,
+                new object[] { 0f, -10f, -5f, 10f * a, 0f, 2500 });
+            float damageB = (float)advance.Invoke(null,
+                new object[] { 0f, -10f, -5f, 10f * anotherPlant, 0f, 2500 });
+            Assert.That(damageA > damageB).Is.True();
         }
     }
 
