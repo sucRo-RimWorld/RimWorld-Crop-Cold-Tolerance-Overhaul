@@ -32,6 +32,7 @@ namespace CropColdToleranceOverhaul
                     {
                         if (record == null || record.plant == null
                             || record.plant.Destroyed || !record.plant.Spawned
+                            || float.IsNaN(record.damage)
                             || record.damage < 0f || record.damage >= 1f
                             || ColdToleranceUtility.ExtensionFor(record.plant)?.HasColdDamageModel != true)
                             continue;
