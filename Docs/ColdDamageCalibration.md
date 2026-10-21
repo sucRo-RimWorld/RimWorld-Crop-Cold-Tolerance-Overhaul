@@ -1061,3 +1061,79 @@ usable as **bounds/relative ordering only**.
 no stock XML, gameplay C#, native tests or Workshop values
 changed. Continue using W10 source ID in the
 species evidence registry.
+
+
+## W10 raw-data retrieval attempt and significance-aware state-model decision (2026-10-21)
+
+### Provenance/access
+
+Husiny et al. (2024) publish the raw individual plant responses at
+[Borealis, DOI 10.5683/SP3/YHOZUK](https://doi.org/10.5683/SP3/YHOZUK).
+The following read-only retrieval paths were attempted without success:
+
+- Publisher-identified [Borealis dataset page](https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/YHOZUK): **HTTP 403** using public web retrieval.
+- Dataverse native dataset metadata `/api/datasets/:persistentId/?persistentId=doi:10.5683/SP3/YHOZUK`: unavailable using web retrieval.
+- Alternative Scholars Portal Dataverse hostname and DOI resolver: neither provided a readable data table.
+- Current execution environment's outbound network access cannot resolve the Borealis hostname. This is **an access limitation here**, NOT evidence that the archive is unpublished, missing or restricted to registered users.
+
+**Stop condition:** do not fabricate the paper's 12-plant binomial observations or assume that Table 2 LT50 medians are individual raw records. Do not persist a blank/fake raw dataset or build a new extraction/test infrastructure just to bypass the access issue. The source-linked published statistics remain the evidence until a verifiable raw dataset is available.
+
+### Correction: winter-wheat 0-to-7-day LT50 movement is not significant
+
+The source's original Table 2 gives Tukey HSD multiple-comparison
+letter groups at **alpha = 0.05**. Sharing any letter means the two
+published group means do **not** differ significantly.
+
+| Cultivar | Day 0 (LT50 °C, letters) | Day 7 (LT50 °C, letters) | Observed shift | Statistically different? |
+|---|---:|---:|---:|---|
+| Norstar, winter | −13.6 a | −13.2 ab | +0.4°C | **No**, common `a` |
+| CM614, winter | −12.7 bc | −12.6 bcd | +0.1°C | **No**, common `b/c` |
+| Branson, winter | −11.9 cd | −11.6 d | +0.3°C | **No**, common `d` |
+| AC Carberry, spring | −6.6 e | −2.7 f | +3.9°C | **Yes**, no common letters |
+
+**Both groups already underwent 4 weeks of cold acclimation before
+the LT50 experiment.** Day 0 is *not* unacclimated spring/summer wheat.
+The observed winter cultivar changes were **not** demonstrated losses
+of winter hardiness by the paper's inferential test. Earlier prose
+describing their +0.1–0.4°C arithmetic differences as physiological
+deacclimation **overstates the evidence** if stated without statistical
+uncertainty. The statistically significant Carberry change is within
+its *separate LT50 treatment arm*; Carberry had 100% death by day 4
+in the different LD50 experiment. Therefore we cannot fit a common
+7-day per-plant acclimation decay constant from these means.
+
+[W10 primary-table CSV](Research/WinterWheatW10HusinyWholePlantLT50.csv)
+now preserves the Tukey letter groups and a boolean within-cultivar
+day0/day7 significance check. Original published LT50 values,
+experimental-arm separation and the unverified raw-data status are
+otherwise unchanged.
+
+### Minimal state-model evaluation for CCTO
+
+| Approach | Runtime state / cost | Does W10 require it? | Biological limit |
+|---|---|---|---|
+| **A: fixed cohort/Def baseline** with already approved elapsed damage + per-plant stable fatal-dose rank | **No separate acclimation timer**, no periodic new map scan; compute only when existing plant callback runs | **W10's three already-acclimated winter cultivars are compatible** with no statistically demonstrated median shift over this 7d window | Cannot represent an unacclimated plant acquiring hardiness over several prior cool weeks or losing it after spring warming |
+| **B: per-map temperature/season proxy** shared by every plant | Few map-level values, but needs update/inference and ignores greenhouse/microclimate differences | **Not established** by W10 | Indoors, heaters, snow/soil temperature and growth stage differ per cell; a global mean confounds them |
+| **C: stored per-plant acclimation state** updated through the existing callback | One extra scalar/history time per opted-in plant, must persist for *all acclimating plants even when undamaged*, not just sparse injury records; more memory/save work | **Not warranted by W10 winter 0/7d comparison alone** | Could capture actual cooling/deacclimation over weeks if the acquisition/loss kinetics and plant thermal signal are separately calibrated |
+
+**First-implementation recommendation:** **defer C and B**, not
+the general biological possibility of acclimation. Keep the
+minimal fixed-Def median + stable individual susceptibility
+candidate for already-defined physiological states, and prioritize
+correct plant death/mortality-versus-dose curves. **Do not**
+set a 0.1–0.4°C/7d hardiness decay coefficient for winter
+wheat; that would be fitting *non-significant noise*.
+Treat AC Carberry's +3.9°C as a clear *cohort response under that
+protocol*, but not a reason to attach state timers to all
+plants. Later adopt opt-in per-plant acclimation only if a
+repeated experiment AND intended game conditions show
+that omitting it materially breaks overwinter survival.
+
+The recommendation is an evidence-based scope filter, **not**
+a proof that winter wheat never acclimates in nature. Before
+using class A for actual winter-colony gameplay, it still
+needs a justified initial/acclimated state and a temperature×
+duration fatal-dose response at the chosen game time scale.
+Neither `coldDamageStartTemperature` nor the dose
+distribution width is newly approved. **No new C#,
+XML or native game tests were performed.**
