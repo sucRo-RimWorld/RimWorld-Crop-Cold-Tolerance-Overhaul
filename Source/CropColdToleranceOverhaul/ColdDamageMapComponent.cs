@@ -69,9 +69,15 @@ namespace CropColdToleranceOverhaul
             // Never charge a skipped season at a single sampled temperature.
             int elapsed = Math.Max(0, Math.Min(2000, now - record.lastTick));
             if (elapsed == 0) return;
+            // Scale fatal accumulated dose, not the [0,1] injury threshold:
+            // this preserves sparse saves and the existing injury clamp.
+            float lethalDegreeHours = extension.coldDamageDegreeHoursToDie;
+            if (extension.coldDamageLethalDoseVariation > 0f)
+                lethalDegreeHours *= ColdDamageProgress.LethalDoseMultiplier(
+                    plant.thingIDNumber, extension.coldDamageLethalDoseVariation);
             record.damage = ColdDamageProgress.Advance(
                 record.damage, temperature, extension.coldDamageStartTemperature,
-                extension.coldDamageDegreeHoursToDie,
+                lethalDegreeHours,
                 extension.coldDamageRecoveryPerHour, elapsed);
             record.lastTick = now;
             if (record.damage >= 1f)
