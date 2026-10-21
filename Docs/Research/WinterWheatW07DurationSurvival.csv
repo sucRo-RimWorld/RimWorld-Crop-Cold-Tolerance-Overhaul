@@ -5,11 +5,16 @@
 # 120h all-dead observation is outside fitting set; 0 of observed plants is not theoretical zero survival probability.
 # -6C 120h separate 100 percent survival finding has NO -6C fitted curve. No temperature severity coefficient can be inferred from one viable second-temperature datum.
 # These are not production CCTO coefficients. Original paper protocol remains to verify.
-source_id,temperature_C,exposure_h,reported_cohort_survival_fraction,predicted_simple_exponential,predicted_weibull,used_for_fit
-W07_via_W08,-16,1,0.800,0.90079,0.80776,true
-W07_via_W08,-16,3,0.630,0.73093,0.64452,true
-W07_via_W08,-16,6,0.530,0.53426,0.50035,true
-W07_via_W08,-16,12,0.330,0.28543,0.33567,true
-W07_via_W08,-16,24,0.170,0.08147,0.17890,true
-W07_via_W08,-16,120,0.000,0.00000,0.00707,false
-W07_via_W08,-6,120,1.000,,,false
+# Shape-vs-severity follow-up, 2026-10-21. All fitted at ONE temperature (-16C), over five 1/3/6/12/24h points; RMSE in percentage points. These fits cannot identify g(T) across temperatures or acclimation.
+# Best limiting valid-API uniform lethal thresholds: t50=7.806076h, w->1 from below (w=1 is NOT valid); RMSE=13.8622pp. The g(-16C) factor is absorbed into t50, so changing only g(T) cannot improve this best-fit duration shape.
+# Fixed linear cumulative exposure + nonuniform lethal threshold: log-logistic t_scale=5.5538396h, shape=0.9178803, RMSE=3.0012pp; Weibull comparator already above gives RMSE=1.5886pp. Exponential (1 parameter) RMSE=7.7702pp.
+# Alternative NONADDITIVE injury-time transform: uniform thresholds with (t/t50)^q; t50=6.217703h, w=0.637041, q=0.264095, RMSE=1.4539pp. THREE free parameters, no evidence for q and not compatible with simply adding hourly degree-hours across separate cold events without extra state.
+# The 120h and -6C rows were NOT used for fitting; new model comparison columns left blank for those conditions. These values are numerical thought experiments, not validated prediction or XML settings.
+source_id,temperature_C,exposure_h,reported_cohort_survival_fraction,predicted_simple_exponential,predicted_weibull,used_for_fit,predicted_uniform_linear_boundary,predicted_loglogistic_linear,predicted_uniform_nonlinear_time
+W07_via_W08,-16,1,0.800,0.90079,0.80776,true,0.93595,0.82831,0.80047
+W07_via_W08,-16,3,0.630,0.73093,0.64452,true,0.80784,0.63768,0.63742
+W07_via_W08,-16,6,0.530,0.53426,0.50035,true,0.61568,0.48228,0.50735
+W07_via_W08,-16,12,0.330,0.28543,0.33567,true,0.23137,0.33023,0.35116
+W07_via_W08,-16,24,0.170,0.08147,0.17890,true,0.00000,0.20696,0.16359
+W07_via_W08,-16,120,0.000,0.00000,0.00707,false,,,
+W07_via_W08,-6,120,1.000,,,false,,,
