@@ -2199,3 +2199,50 @@ decision, not as source-calibrated reality. Do not
 repeat blind literature searches or replace absent
 mortality by FDD's single slope. Draft PR #24 remains
 nonactivated and unreleased.
+
+
+### Source-bounded approximation: W13 24h acclimation interval (2026-10-21)
+
+This **derived constraint** is computed only from the
+original published survival percentages in
+[W13 Table 2 CSV](Research/WinterWheatW13Deryabin24hSurvival.csv).
+Within each cohort, assume only that 24-hour whole-plant
+survival is **nonincreasing as the freezing target
+gets colder**. No logistic/probit fit, new measured
+values or midpoint selection is required.
+
+| Wheat cultivar | Unacclimated 24h LT50 bracket | 4°C×7d pre-acclimated 24h LT50 bracket | Possible coldward 24h LT50 shift |
+|---|---|---|---|
+| Moskovskaya 39 | (-3, 0)°C | (-7, -5)°C | **2 to 7°C** |
+| Zlata | (-3, 0)°C | (-5, -3)°C | **0 to 5°C** |
+
+The shift intervals follow by subtracting the endpoint
+brackets, **not** by observing a particular exact LT50.
+As further directly observed source contrasts,
+Moskovskaya 39 survival at -3°C changes
+**35% → 97% (+62 percentage points)** and at
+-5°C **0% → 65% (+65 points)** after acclimation.
+Zlata at -3°C changes **15% → 60% (+45 points)**,
+and at -5°C **0% → 7% (+7 points)**.
+
+**Use in an empirical-constrained approximation:**
+the numerical bracket and direction can reject a
+candidate whose **24h source-state predictions**
+fall outside the corresponding observed survival
+bounds. The bracket does not identify
+the true 24h LT50 within it, a fatal accumulated
+degree-hour dose, the onset of tissue injury,
+a temperature severity exponent, acclimation
+kinetics or its decay after warmer weather.
+Sampling uncertainty at observed 0/100% is
+unavailable; do not treat the brackets as
+confidence intervals. The bound is study-specific
+24h *freezer-target* temperature, **not** automatic
+RimWorld map-air-temperature tolerance.
+
+This is the first practical distinction under the
+[owner design approximation policy](Design.md#evidence-constrained-approximation-policy-2026-10-21):
+a model can obey measured biological **constraints**
+without claiming every internal rate is measured.
+No new C# behavior or production values are derived
+from these intervals alone.
