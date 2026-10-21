@@ -1026,3 +1026,78 @@ rate and warm recovery coefficient remain
 *uncalibrated*. Test source for deterministic
 ranking and input bounds was added; tests **have
 not** been executed in native RimWorld.
+
+
+### First-cold observation must not charge unknown history; crop calibration gate (2026-10-21)
+
+**Implementation correction (Draft C#):** the earliest version of
+`ColdDamageMapComponent.UpdatePlant` created a cold-damage record with
+`lastTick = now - 2000` on **the first sampled cold temperature**,
+and immediately charged the prior 2000 ticks at that temperature.
+This **fabricates up to 0.8 in-game hours of past freezing** and
+can kill a plant immediately on observing an abrupt cold snap:
+exactly the player-visible failure this cumulative system is meant
+to avoid. Now the first cold sample **only starts** a
+`damage = 0, lastTick = now` observation; the next sample charges
+bounded elapsed time. The zero-damage record is **retained at
+PostLoadInit** so saving/reloading mid-freeze does not repeatedly
+reset the observation. Warm samples remove zero records, and
+legacy death/dormancy plants remain unaffected. Existing positive
+damage records keep their fields and normalized meaning.
+
+This is a conservative sampling approach: a short freeze entirely
+between scheduled plant callbacks may not be detected, and there
+is no false claim of continuous sensor data or catch-up through
+the unknown history. Existing 2000-tick integration cap stays.
+
+**Direct rice evidence R02 (not a production coefficient):**
+[Sagehashi (2023), DOI 10.1080/1343943X.2023.2236344](https://doi.org/10.1080/1343943X.2023.2236344)
+studied living **10-day-old Hokkaido rice seedlings** at
+`4°C for 10 days` followed by 10d greenhouse recovery.
+All six tested rice cultivars had **0%** live seedlings
+when transferred directly to 4°C, yet **88–100%**
+survived if first held at **12°C for five days**.
+Survival loss duration extended by **8–10 days**
+for Oboroduki and Kitaaoba after acclimation.
+**Fixed rank and fixed dose alone cannot reproduce
+both physiological states**, even with perfect
+within-cohort susceptibility fitting.
+The source provides **neither** a generic onset
+temperature `coldDamageStartTemperature`
+**nor** genotype-independent lethal degree-hours
+or susceptibility width. Do not convert “4°C
+× 10 days” into a blanket CCTO rice fatal-dose
+parameter, or assume every RimWorld rice seedling
+was already acclimated.
+
+**Activation shortlist (status, not a proposed XML migration):**
+
+| CCTO plant group | Supported experiment | Numerically identifiable now | Source-specific blocker |
+|---|---|---|---|
+| Corn (`Plant_Corn`) | M01 approximate two freeze-temperature LT50 durations; M03 separate +0.3°C prolonged-chilling deaths | Two conditional freeze-law parameters **only if exponent chosen independently**; no unique class law | Growth stage/seed cohort not matched, chilling/icing mechanisms differ, neither within-cohort width nor recovery established |
+| Rice (`Plant_Rice`) | R02 4°C×10d same-species whole-seedling mortality with/without 12°C×5d acclimation | **0% vs 88–100%** survival for specific state treatments, not a continuous dose surface | Acclimation/state is a dominant missing variable; no meaningful single default fatal dose |
+| MO Lentil (`DankPyon_Plant_Lentils`) | L01–L04 genotype-specific cold-acclimated whole-seedling survival, C03 *other-species* 5×5 cross-check | Qualitative survival bounds for named genotypes | Generic MO variety identity and acclimation, full same-genotype time×temperature survival and spread missing |
+| MO Wheat (`DankPyon_Plant_Wheat`) | W04 complete whole-plant mortality regression for specific field-acclimated winter cultivars, W10 separate LD50/LT50 arms | Four **regimen-specific** survival-time curves (W04), but **not** a common air-temperature severity law | Soil min/max cycles, overwinter physiological state and 60-day RimWorld calendar mapping |
+
+**First playable class migration is therefore
+NOT yet source-calibrated**. The engineering feature can be
+built and checked without silently assigning untested numbers
+to all Vanilla/MO plants. To unlock one species, pick one
+measured physiological state and compare it with
+the intended colonist planting/winter weather:
+then determine a class severity curve, dose
+median and **within-genotype** mortality spread
+under that specific thermal signal, plus
+the explicit mapping from laboratory hours/days
+to game hours. The existing old threshold
+will remain active for all production plants until
+that requirement is met, rather than falsely
+advertising laboratory accuracy.
+
+**Testing stage:** no native gameplay performed
+by this correction. Required eventual consolidated
+acceptance includes first-cold sampling, continuous
+frost across save/load, warmth clearing zero records,
+identity-stable individual fatal doses, and legacy
+dormancy/death regression; do not start an
+additional unrelated CI/test matrix.
