@@ -1,0 +1,26 @@
+# W13 primary source: Deryabin et al. (2024), Metabolites 14(4):199, DOI 10.3390/metabo14040199, original paper Table 2.
+# https://www.mdpi.com/2218-1989/14/4/199
+# Triticum aestivum two named genotypes: freezing-tolerant Moskovskaya 39 (M39) and cold-sustainable Zlata (Zl).
+# Prior conditioning: 22C control or 4C for 7 days; then freeze target 0/-3/-5/-7C for 24h; survival endpoints as reported in Table 2.
+# Published percentages and plus/minus values are Table 2 data, NOT fitted model outputs; 0 / 100% are observed outcomes, not exact population probabilities.
+# Different pre-conditioning states are separate experimental cohorts, NOT within-genotype random spread. Only one freeze HOLD DURATION (24h): no time severity curve or lethal degree-hour formula identifiable.
+# Target temperature is not proof of plant crown/soil temperature equality or continuous target temperature for 24h; check original trial ramp, post-thaw survival criterion and plant numbers before importing simulation values.
+# W13 is independent from earlier W01-W12; a REAL SAME-SPECIES TEMPERATURE/ACCLIMATION constraint only. Does not validate fixed onset, dose, individual CDF or RimWorld gameplay calendar.
+# No production XML, numerical thresholds or Weibull shape adopted. Exact reference kept for later source review.
+source_id,cultivar,preconditioning_C,preconditioning_days,freezing_target_C,freezing_hold_h,reported_whole_plant_survival_pct,reported_plusminus_pct,reported_letter
+W13,Moskovskaya 39,22,0,0,24,100,,a
+W13,Moskovskaya 39,22,0,-3,24,35,2,c
+W13,Moskovskaya 39,22,0,-5,24,0,,
+W13,Moskovskaya 39,22,0,-7,24,0,,
+W13,Moskovskaya 39,4,7,0,24,100,,a
+W13,Moskovskaya 39,4,7,-3,24,97,3,a
+W13,Moskovskaya 39,4,7,-5,24,65,4,b
+W13,Moskovskaya 39,4,7,-7,24,15,2,d
+W13,Zlata,22,0,0,24,100,,a
+W13,Zlata,22,0,-3,24,15,2,d
+W13,Zlata,22,0,-5,24,0,,
+W13,Zlata,22,0,-7,24,0,,
+W13,Zlata,4,7,0,24,100,,a
+W13,Zlata,4,7,-3,24,60,3,b
+W13,Zlata,4,7,-5,24,7,2,e
+W13,Zlata,4,7,-7,24,0,,
