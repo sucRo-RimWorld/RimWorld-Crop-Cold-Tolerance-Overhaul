@@ -338,6 +338,22 @@ namespace CropColdToleranceOverhaul.E2E
             ctx.Assert(
                 infinite.ConfigErrors().Count() == 1,
                 "An infinite death temperature should report one configuration error.");
+
+            ColdToleranceExtension recovery = new ColdToleranceExtension();
+            recovery.coldDeathTemperature = -15f; // Legacy fallback remains legal.
+            recovery.coldDamageStartTemperature = -5f;
+            recovery.coldDamageDegreeHoursToDie = 10f;
+            foreach (float invalid in new[] { -0.1f, float.NaN, float.PositiveInfinity, float.NegativeInfinity })
+            {
+                recovery.coldDamageRecoveryPerHour = invalid;
+                ctx.Assert(
+                    !recovery.HasColdDamageModel && recovery.ConfigErrors().Count() == 1,
+                    "Invalid cold injury recovery must not activate the opt-in model.");
+            }
+            recovery.coldDamageRecoveryPerHour = 0f;
+            ctx.Assert(
+                recovery.HasColdDamageModel && !recovery.ConfigErrors().Any(),
+                "Zero recovery must retain a valid cumulative cold injury model.");
         }
 
         [Then("CCTO Info Card stat construction matches fixed-death and dormancy configuration")]
