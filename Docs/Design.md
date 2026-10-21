@@ -634,3 +634,53 @@ temperature-duration combinations, including post-thaw
 recovery details, remains the key missing evidence for
 numeric acceptance. PR Draft implementation is still
 uncalibrated; no production XML changed.
+
+
+### Fixed-susceptibility feasibility and dose-calibration status (2026-10-21)
+
+The evidence-driven time-response feasibility study now includes
+[W07-via-W08 Kharkov cohort data and exploratory fit](ColdDamageCalibration.md#controlled-constant-temperature-survival-duration-kharkov-wheat-w07-via-w08)
+plus its [machine-readable observations and comparison](Research/WinterWheatW07DurationSurvival.csv).
+
+**Specific finding:** In the quoted -16°C Kharkov
+winter-wheat series (1,3,6,12,24h; observed survivor
+fractions 80/63/53/33/17%), a one-parameter constant
+survival hazard gives 7.77 percentage-point in-sample
+RMSE; a two-parameter Weibull survival-time curve
+gives 1.59pp. The **original 1975 study
+survival table has not been read directly**: a 2025
+open-access scholarly review (W08) repeats the figures.
+The same review quotes no Kharkov deaths after
+5 days at -6°C, but only a single temperature/time
+data cell for that condition. Hence Weibull-versus-
+exponential fit does **not** identify a cold-injury
+rate across temperatures or endorse a universal
+positive-dose distribution.
+
+**Runtime implication:** one stable susceptibility
+draw/rank per plant (from a validated persistent ID)
+can be transformed into a candidate survival-time
+distribution for a given source regimen without
+periodic RNG draws; **an initial uniform random rank
+with an inverse-CDF threshold is a deterministic
+representation of a population survival curve**
+once the rank is fixed. More flexible survival
+time curves are an **opt-in calibrated exception**,
+not a mandatory replacement of the simplest default.
+The Weibull shape <1 is a *population effect* and
+does not by itself imply an individual plant recovers
+while frozen.
+
+**W05 missing-data boundary:** original whole-plant
+survival **per temperature×duration treatment**
+has not been accessible, despite a source-supported
+two-factor 2018 winter-wheat study design. Aggregate
+mortality-versus-soil-degree-days alone does not
+authorize a generic game ambient-air cold-damage
+equation. Therefore the first activation of the
+new damage engine remains gated on **a defensible
+temperature/time response model in at least one
+owning plant class**, separate from individual
+survival dispersion. No numeric plant XML,
+new code, save schema, native acceptance or
+published Workshop text was changed.
