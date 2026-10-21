@@ -160,8 +160,8 @@ The underlying E2E runner:
 - runs framework regression scenarios and live cold-behavior scenarios;
 - clears the previous isolated save-data and Pickle report directories before every run, preventing a startup failure from being mistaken for a stale earlier PASS;
 - writes fresh reports to `TestResults\Pickle`;
-- in full balance mode, parses the fresh `summary.json` and requires exactly 14 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-supported-living-plant coverage scenario;
-- after scenario validation, scans the isolated runtime log and fails the full gate if CCTO itself emitted any ERROR-level entry; a clean 14/14 scenario count is not sufficient when the mod logged an error;
+- in full balance mode, parses the fresh `summary.json` and requires exactly 16 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-supported-living-plant coverage scenario;
+- after scenario validation, scans the isolated runtime log and fails the full gate if CCTO itself emitted any ERROR-level entry; a clean 16/16 scenario count is not sufficient when the mod logged an error;
 - exits with Pickle's pass/fail/error result, an integration-summary error if the expected balance scenarios were not actually run, or a runtime-log error-gate failure;
 - is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
@@ -194,6 +194,22 @@ Framework regression scenarios check:
 - unconfigured plants retain the vanilla per-plant threshold range;
 - extension validation accepts dormancy-only and finite fixed death values while rejecting incomplete/infinite configurations;
 - CCTO Info Card stat construction matches fixed-death, dormancy-only, and combined configurations.
+
+The Draft cumulative-injury branch adds two scoped native Pickle scenarios
+to the earlier 14-case integration suite: (a) first cold sample zero
+then bounded 2,000-tick frost accumulation and warm recovery, and
+(b) opt-in cumulative damage coexisting with cold dormancy through
+fatal exposure. The scenarios adjust only the saved observation timestamp
+to inject a known elapsed interval; they exercise a *real spawned plant,
+Harmony cold check and map component*, **not** ordinary tick scheduling.
+They do **not** perform a real game save/reload. The existing
+RimTest input check covers invalid negative/NaN/infinite recovery.
+After these changes the expected full integrated Pickle gate is
+**16 clean scenarios**; previous 14-case pass evidence is for
+the unchanged old suite, not a passing test of these two additions.
+No native test has yet been run for PR #24. A future single
+consolidated original-game run must cover actual save/reload,
+timed cold exposure, source/loaded DLL hashes and ERROR gate.
 
 Live-map scenarios check:
 
