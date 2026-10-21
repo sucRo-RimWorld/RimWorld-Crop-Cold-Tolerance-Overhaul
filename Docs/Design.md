@@ -858,3 +858,69 @@ and biome-survival boundaries; no invented
 claim of laboratory precision. Dormancy-only
 plants and legacy death temperatures remain
 unchanged until expressly migrated.
+
+
+### New two-factor seedling-survival evidence and owned-lentil boundary (2026-10-21)
+
+The [C03 2023 open original paper](ColdDamageCalibration.md#first-primary-5--5-temperature-and-duration-whole-plant-study--chickpea-2026-10-21)
+establishes a **genuine 5 temperatures × 5 target-hold durations
+factorial study of whole-plant survival** after a four-week
+regrowth endpoint. It uses **six-leaf chickpea seedlings**
+from a seed collection of incompletely specified
+genetic identity, **not CCTO's MO Lentils**.
+At −12°C target temperature, the source quotes
+survival fractions **75/78/25/8/0% at 1/2/3/4/5h**.
+The source's five time-specific fitted LT50 values
+are **−12.1/−12.1/−10.5/−11.0/−9.0°C**.
+Some neighboring points are nonmonotonic
+(sample variation/source fitting). Target
+holding times exclude cooling ramps that
+vary by temperature.
+
+In-sample source-percentage fitting demonstrates
+that neither a constant-rate exponential nor
+a two-parameter Weibull fully reproduces
+the reported −12°C time trajectory
+(**17.2 vs 10.1 percentage-point RMSE**;
+Weibull itself is 18.8pp high at 1h).
+This is a **model-check example**,
+not authorization to add a global Weibull
+random draw or per-species coefficients.
+[Reproducible C03 observations/fit CSV](Research/LegumeC01FreezingSurvival.csv)
+clearly separates published percentages and
+reported LT50 from derived model predictions.
+
+For **CCTO-owned MO Lentils**, *Lens culinaris*,
+the [evidence ledger](ColdDamageEvidenceLedger.md)
+now cites L01 (40 genotypes, −13/−15/−18°C)
+and L02 (18 genotypes, 0/−15/−18/−20°C
+at 1h) as **direct same-species whole-plant
+survival** sources. L02 records >80%
+survival for several *named* genotypes
+at −15°C and no survivors among sampled
+genotypes at −20°C; it does **not**
+supply the multiple exposure durations
+needed to fit an independently validated
+lentil lethal-dose curve. L01's fractions
+of genotypes meeting *non-significance*
+versus their maximum survival must
+not be mistaken for proportions
+of individual seedlings living.
+
+**Minimum-scope decision for the first
+numerical activation:** keep
+calibration restricted to stage- and
+species-labelled cohort evidence.
+Do not force the same damage law
+from chickpea onto lentil, or
+from long-hardened wheat onto
+maize. Do not start 78 species XML
+migration while even the first
+candidate class's damage onset,
+fatal time-temperature dose and
+intra-cohort susceptibility
+spread remain unquantified. The
+current C# code is still an
+**opt-in uncalibrated framework
+prototype** and has not been
+modified by this research pass.
