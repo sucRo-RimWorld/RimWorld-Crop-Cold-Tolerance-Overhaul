@@ -62,6 +62,13 @@ namespace CropColdToleranceOverhaul
                 yield return "[CCTO] Lethal degree-hours must be positive.";
             }
 
+            if (coldDamageLethalDoseVariation > 0f
+                && (float.IsNaN(coldDamageStartTemperature)
+                    || float.IsNaN(coldDamageDegreeHoursToDie)))
+            {
+                yield return "[CCTO] Individual lethal-dose variation requires a complete cold-damage model.";
+            }
+
             if (float.IsInfinity(coldDeathTemperature))
             {
                 yield return "[CCTO] coldDeathTemperature must be a finite value.";
