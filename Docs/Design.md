@@ -1287,3 +1287,74 @@ were reviewed against the owner's Vanilla/MO plant data.
   settings. No code, production XML, native test,
   main merge or publication follows from this
   documentary decision; PR #24 remains Draft.
+
+
+### Evidence-constrained approximation policy (2026-10-21)
+
+**Development decision:** continue using **explicitly labelled,
+empirically constrained gameplay approximations**, rather than
+suspending all engineering until inaccessible W05 mortality
+cells are retrieved. This **does not** approve a particular
+plant-specific onset, lethal accumulated dose, recovery rate,
+individual spread, Weibull law, time conversion, or new
+production XML. Preserve the opportunity for full source
+calibration if the original observations become available.
+
+**Separate the deliverables:**
+
+1. **Generic framework:** keep the existing sparse,
+   opt-in additive cold-injury prototype and stable plant-ID
+   rank; finish technical correctness and consolidated native
+   acceptance when a coherent slice is ready. Do not
+   require plant-specific balance values merely to verify
+   the optional API. Framework correctness is not biological
+   calibration or a crop-release claim.
+2. **First playable plant:** require a *single*
+   well-specified cultivar/physiological-state approximation,
+   its source evidence and runtime mapping. Only after
+   the explicit candidate's observable consequences,
+   limitations and compatibility are reviewed may the
+   owning plant Def be switched from the legacy model.
+   The 48 fixed-lethal and 30 dormancy production profiles
+   retain their current settings until individually justified.
+
+**Minimum source-to-game contract before crop opt-in:**
+
+| Axis | Required acceptance information |
+|---|---|
+| Plant and state | Owning Def, biological proxy/cultivar, growth stage, winter acclimation and how game code knows that state |
+| Experimental endpoint | Whole-plant live/dead or recovery after thaw; sample counts, evidence source, temperature and duration; do not use tiller or leaf loss as whole-plant death |
+| Provenance | Distinguish exact observed values, interpolation between observations, extrapolation outside tests and **gameplay-assumed** parameters |
+| Exposure | Plant/crown/soil versus sampled map-air temperature, cooling ramp, 24h freeze versus multi-day frost and mapping experimental hours to RimWorld hours |
+| Model | Nonnegative severity, dose distribution, upper-tail behavior, irreversible/reversible injury and which constants cannot be inferred |
+| Player outcome | Short snaps versus prolonged freeze, warmer breaks, repeat freezes, season transitions, existing dormancy and save compatibility |
+| Activation | Predicted survival at measured conditions contrasted with source data, bounded extrapolation and smallest appropriate final runtime check |
+
+**Prohibited transfers:** W13's 24h temperature and
+acclimation table cannot determine its duration curve;
+W07's single-temperature Kharkov duration curve cannot
+be mixed with W13 or W05 as the same genotype; W05's
+20 treatment combinations with **0 recovered mortality
+values** are not a 20-point survival calibration;
+M01's two approximate maize mortality medians
+do not identify onset *and* severity exponent together.
+Neither a fitted RMSE nor an arbitrary upper-tail cutoff
+constitutes scientific approval.
+
+**Next bounded work:** retain the current C# API and
+select one defensible **one-state** candidate profile
+using source-matched whole-plant observations. Treat
+missing dimensions as named, sensitivity-bounded
+engineering assumptions rather than measurements.
+Wheat W13 is a valid 24h constraint but not proof that
+generic Medieval Overhaul wheat represents either
+named winter cultivar; do not silently activate it.
+No new six-class runtime system, universal acclimation
+counter, or guessed production values. Consolidate
+game tests only after a real implementation slice.
+
+**Decision boundary:** authorization here is for the
+*approximation method*, NOT a specific numerical
+parameter or production migration. Keep PR #24 Draft;
+no changes to C#, live XML, Steam or default gameplay
+from this design-policy update alone.
