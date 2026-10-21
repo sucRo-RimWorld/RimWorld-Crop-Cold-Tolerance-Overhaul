@@ -14,7 +14,7 @@
 ## GitHub bibliography retention and verification (2026-10-21)
 
 **This GitHub-tracked document is the canonical reference register for the
-CCTO numerical recalibration research.** The **74 unique source IDs** below
+CCTO numerical recalibration research.** The **75 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
 non-transferability warnings. Source IDs repeated in the later whole-plant
 endpoint extraction are cross-references, **not** additional independent
@@ -130,6 +130,8 @@ candidate numbers.
 | `H01` | [Penn State Extension, Hop Production](https://extension.psu.edu/hop-production) | 普及資料 | ホップ — 休眠根茎は春先から植付可能;温室移植苗は春霜に弱い | 温度・生存率の直接データなし;同一個体の地上部と根茎を区別 |
 | `D01` | [Moso bamboo cold acclimation leaf study 2022](https://pubmed.ncbi.nlm.nih.gov/35723499/) | 一次実験要旨 | Phyllostachys edulis — 葉の低温順化適応機構 | 生存率/全株致死値ではなくP. edulisへの種同定も未完了 |
 
+| `W13` | [Deryabin, Zhukova, Naraikina & Venzhik (2024), *Metabolites* 14(4):199, doi:10.3390/metabo14040199](https://www.mdpi.com/2218-1989/14/4/199) | **一次論文・表2を確認、全株生存率（24h一定）** | *Triticum aestivum* Moskovskaya 39 と Zlata の苗。通常22°C対照と4°C×7日順化の2状態を分け、0/−3/−5/−7°C×24h後の苗生存率を比較。M39 の−3°Cは35%→97%、−5°Cは0%→65%（順化前→順化後）；Zlata の−3°Cは15%→60%。原著表2の16条件を [W13 CSV](Research/WinterWheatW13Deryabin24hSurvival.csv) に転記 | 同一研究・同一品種で**温度と順化の効果を直接比較**できるが、曝露時間は24hのみ。24hの温度応答は制約できても時間積算係数は同定できない。元個体数・凍結冷却経路・地上/株温度・復温後判定を再確認するまでは数値XML採用不可。MO Wheatの品種は特定されていない |
+
 ## Source mapping for every current CCTO plant
 
 An evidence association does **not** imply a verified whole-plant lethal parameter. Empty mappings are deliberately left open. Names are the current CCTO Def map, not newly verified scientific taxonomic names.
@@ -190,7 +192,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `DankPyon_Plant_Cabbages` | Cabbage | death | `F01`, `C01` | 対象資料あり・端点注意 | 葉片損傷/生育段階別霜害;株死亡との混同禁止 |
 | `DankPyon_Plant_Garlic` | Garlic | dormancy | `G03`, `G04` | 同種・株生存/葉成長 | 冷順化したニンニクの系統差;葉面積/死亡を分離 |
 | `DankPyon_Plant_Mushrooms` | Mushroom | death | `M02` | 近縁菌類・参考限定 | 4属の培養菌糸LT50と再成長; MOキノコの同定・環境は未確定 |
-| `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02`, `W03`, `W04`, `W05`, `W06`, `W07`, `W08`, `W09`, `W10`, `W11`, `W12` | 冬小麦の株・冠部生存、曝露時間/温度、積算寒度の研究 | W07のKharkov -16℃時間別生存率はW08総説を通じた**二次確認**で原著数表未取得。W09の冠部再生は土壌越冬全株と異なる。W04原著の株死亡回帰を再構成済み。W10は全株再生のLD50/LT50を独立試験で算定、元生死データはBorealis指定だが未取得。W11/12のFROSTOLは土壌温度・雪・春化から季節LT50を予測する既存モデルで、公開されたクラス一致は地域差が大きい。MO Wheatの種類・順化・土壌気温差には一律移植しない。 |
+| `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02`, `W03`, `W04`, `W05`, `W06`, `W07`, `W08`, `W09`, `W10`, `W11`, `W12`, `W13` | 冬小麦の株・冠部生存、曝露時間/温度、積算寒度の研究 | W07のKharkov -16℃時間別生存率はW08総説を通じた**二次確認**で原著数表未取得。W09の冠部再生は土壌越冬全株と異なる。W04原著の株死亡回帰を再構成済み。W10は全株再生のLD50/LT50を独立試験で算定、元生死データはBorealis指定だが未取得。W11/12のFROSTOLは土壌温度・雪・春化から季節LT50を予測する既存モデルで、公開されたクラス一致は地域差が大きい。W13は同一品種の24h低温・事前順化群の生存率を報告するが、曝露時間変化は未測定。MO Wheatの種類・順化・土壌気温差には一律移植しない。 |
 | `DankPyon_Plant_Flax` | Flax | death | `F01` | 対象資料あり・端点注意 | 亜麻は生育段階別被害温度 |
 | `DankPyon_Plant_Sugarcane` | Sugarcane | death | `U01` | 対象資料あり・端点注意 | 地上部茎損傷/品質悪化;地下株生存は別 |
 | `DankPyon_Plant_Carrots` | Carrot | death | `F01` | 対象資料あり・端点注意 | 発芽段階;根部生存の直接データなし |
