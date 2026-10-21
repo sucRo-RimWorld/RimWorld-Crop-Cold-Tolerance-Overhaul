@@ -1350,7 +1350,7 @@ holding duration.
 
 ### Bounded numerical model-shape comparison at -12°C
 
-The [C03 CSV](Research/LegumeC01FreezingSurvival.csv)
+The [C03 CSV](Research/LegumeC03ChickpeaFreezingSurvival.csv)
 separates **observed and author-reported** values from
 our **exploratory model predictions**. Unweighted
 least squares to the **five published rounded
