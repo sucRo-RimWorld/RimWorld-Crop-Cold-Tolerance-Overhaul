@@ -1415,3 +1415,143 @@ conditioned at 4°C for 7 days only*.
   profiles, Japanese UI labels, C# and saves.
   Draft PR #24 remains Draft; no game test
   or Workshop promotion from this fit alone.
+
+
+### Time and acclimation implementation boundary (2026-10-21)
+
+**Resolved process-level design:** retain direct **game-hour**
+accumulation for *acute cold injury*. Treat **hardening
+(acclimation)** as a separate biological process, **not**
+a multiplier inferred from RimWorld's shorter calendar.
+No biological rate or crop activation is approved here.
+
+#### In-game versus laboratory time
+
+- The implemented sparse injury engine divides ticks by
+  **2,500 ticks/game-hour**. RimWorld has 24 hours/day,
+  60,000 ticks/day and **60 days/year** (15 days/quadrum).
+  An acute *24 lab-hour constant-temperature* treatment
+  is compared initially with **24 game-hours of continuously
+  observed matched temperature**. This is a declared
+  **numerical comparison convention**, *not evidence of
+  biological equivalence* or an approved game lethal dose.
+- **Do not multiply acute injury by 365/60 or 60/365**
+  merely to represent compressed game seasons. A
+  one-day cold snap remains a one-day weather event.
+  The degree-hour accumulator already measures exposure
+  in game-hours; no mandatory time-scale XML field
+  is needed.
+- The W13 **4°C ×7 lab-day preconditioning** is a
+  different physiological process. Seven game days
+  would consume nearly half a 15-day quadrum;
+  scaling by the calendar ratio would yield
+  ~1.15 game days. Neither hardening duration is
+  *measured* or *automatically approved*: W13
+  measured the endpoints, **not** the progress
+  during those seven days or loss of hardening
+  after a warm spell. Rate choice must use
+  explicit gameplay sensitivity and source
+  identification, not a universal clock rule.
+- A source **freezer target** is not automatically
+  plant crown temperature; the current engine
+  uses **AmbientTemperature**. W05 measures
+  cycling soil minima. Seasonal and physical
+  temperature mappings remain explicit limitations.
+- The existing CheckMakeLeafless sample captures
+  only the current ambient temperature. First
+  below-onset observation has no retroactive injury;
+  elapsed intervals are capped at 2,000 ticks
+  (0.8 game-hour), so missing/staggered callbacks
+  can undercount a long exposure. Do not claim that
+  an ideal continuous 24h fit is **already**
+  faithfully executed over 24 game-hours.
+  Verify this only with the smallest consolidated
+  end-stage real-game acceptance.
+
+#### Physiological state: design choice and cost
+
+| Option | UX and technical consequence | Choice |
+|---|---|---|
+| All wheat always fully cold hardened | Warm-grown/new wheat receives unearned frost resistance, contrary to W13 | **Reject** |
+| Treat dormancy, minGrowthTemperature or winter quadrum as hardening | No prior-temperature memory; indoor or recently planted crops become falsely acclimated | **Reject** |
+| Universal daily 7-day hardening rule | Invents cross-species temperature band, rate and loss kinetics; ignores 15-day quadrums | **Reject now** |
+| Optional, species-scoped *separately saved* hardening state | Temperature-history based, but increases per-plant state even without injury; requires numerical calibration and UX validation | **Preferred future architecture** |
+| Current opt-in injury without acclimation | Cheap sparse prototype and backwards-compatible; cannot claim to simulate W13 pre-hardened plant generally | **Retain for PR #24** |
+
+For a later **source-supported** optional hardening
+implementation, the expected contract is:
+
+1. **Cold injury**, **hardening** and Vanilla
+   **dormancy** are three distinct concepts.
+   Dormancy still begins below the plant's
+   existing minGrowthTemperature. Hardening
+   cannot be inferred from dormant status or
+   plant-ID random rank.
+2. Newly spawned plants have no retroactive
+   observed cool-temperature history.
+   An eligible, moderately cool exposure may
+   raise bounded hardening, warmer exposure may
+   reduce it, and severe freezing must not
+   grant **instant full protection**.
+   The hardening response to a freeze depends
+   on the state *before* that freeze.
+   Temperature band, rates, decay, cultivar
+   range and interpolation of hardening into
+   dose/onset all remain **unapproved numeric
+   hypotheses**, not values measured by W13.
+3. A per-plant saved state is required for the
+   history-dependent response and must also
+   survive warm intervals. If using existing
+   staggered plant callbacks, no *new per-tick
+   scan of every plant* is warranted.
+   Unlike sparse injury-only state, it will
+   store records for some **non-injured
+   cool-exposed plants**, increasing memory.
+   Stale references must be pruned; state can
+   be dropped only once injury and hardening
+   have both genuinely cleared. Save/load
+   behavior and planting/removal require
+   focused eventual checks.
+4. Keep temperature context physical:
+   ambient air, protected indoor climate and
+   soil/crown frost are **not interchangeable**.
+   Do not make plant hardiness a latitude or
+   seasonal calendar buff. W13's 22°C
+   untreated versus 4°C ×7d pretreated
+   cohorts do **not** provide a universal
+   multi-step response trajectory.
+5. Before activating any crop's acclimation
+   profile, require at least a defensible
+   source/state assignment, a stated game
+   clock interpretation, short/multi-day
+   frost outcomes, warm-spell dehardening
+   assumptions and measured constraints.
+   Existing studies of winter wheat, including
+   FROSTOL, establish that hardening and
+   dehardening matter but do not validate a
+   one-rate-for-all-crops shortcut.
+
+**Implementation sequence:** finish the existing
+C# sparse opt-in injury slice and defer only
+the *physiological hardening* subsystem.
+The experimental W13 M39 A/B coefficient
+sets remain research-only; no generic MO Wheat
+XML activation. Avoid a placeholder
+acclimation counter that cannot yet have
+defensible gameplay behavior.
+Preserve the **48 existing fixed death profiles**,
+**30 dormancy profiles**, their Japanese Info
+Card labels and old-save defaults.
+No new biological numerical values, production
+XML, native test, merge or Workshop release
+are authorized by this decision. PR #24
+remains Draft.
+
+**External evidence:** RimWorld time
+https://rimworldwiki.com/wiki/Time ;
+W13 Deryabin et al. 2024
+https://doi.org/10.3390/metabo14040199 ;
+FROSTOL Bergjord et al. 2008
+https://doi.org/10.1016/j.eja.2007.10.002
+(soil temperature, hardening and dehardening;
+not general crop coefficients).
