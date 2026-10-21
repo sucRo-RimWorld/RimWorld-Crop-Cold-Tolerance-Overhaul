@@ -25,6 +25,9 @@ namespace CropColdToleranceOverhaul
                     && !float.IsNaN(coldDamageDegreeHoursToDie)
                     && !float.IsInfinity(coldDamageDegreeHoursToDie)
                     && coldDamageDegreeHoursToDie > 0f
+                    && !float.IsNaN(coldDamageRecoveryPerHour)
+                    && !float.IsInfinity(coldDamageRecoveryPerHour)
+                    && coldDamageRecoveryPerHour >= 0f
                     && !float.IsNaN(coldDamageLethalDoseVariation)
                     && !float.IsInfinity(coldDamageLethalDoseVariation)
                     && coldDamageLethalDoseVariation >= 0f
