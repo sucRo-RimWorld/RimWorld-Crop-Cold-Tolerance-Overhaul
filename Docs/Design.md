@@ -726,3 +726,53 @@ species median. A full general CCTO fatal-dose
 equation still has no empirically validated
 temperature×time surface for whole plants. No new
 numeric XML or C# has been approved.
+
+
+### No extra acclimation state for the first calibrated slice (2026-10-21 evaluation)
+
+The complete original Table 2 comparison from
+[Husiny et al. 2024, W10](ColdDamageCalibration.md#w10-raw-data-retrieval-attempt-and-significance-aware-state-model-decision-2026-10-21)
+includes **Tukey HSD significance groups**. Following four
+weeks' shared acclimation, the winter cultivars' day-0 vs
+day-7 changes in LT50 (-13.6→-13.2°C Norstar;
+-12.7→-12.6°C CM614; -11.9→-11.6°C Branson)
+are **not significant at alpha 0.05**. The
+spring cultivar AC Carberry has a significant
+-6.6→-2.7°C shift, but it had 100% mortality
+by freeze day 4 in the **different** duration
+arm and its physiological history cannot be
+transferred between those cohorts.
+
+**Minimal-scope candidate:** the first numerically
+calibrated plant response should use the existing
+elapsed-dose accumulator and stable individual
+susceptibility **without new per-plant acclimation
+timers**. Do not derive winter-wheat dynamic hardiness
+loss rates from those nonsignificant differences.
+A shared map-wide ambient-temperature proxy is
+also excluded as an evidence-free substitute for
+root/crown and indoor microclimate conditions.
+A per-plant acclimation state remains an **opt-in
+future mechanism**, conditional on repeatable
+physiology data and a demonstrated game-world
+survival need. This avoids storing state for every
+overwintering plant before it suffers cold damage.
+
+**Limit:** the W10 day-0 plants were themselves
+cold-acclimated; this does not make fully acquired
+hardiness realistic for newly planted warm-grown
+crops. Before activating a winter-hardiness
+profile, specify which physiological state the
+game cohort represents and compare ordinary
+winter survival in representative biomes. Fixed
+individual variability alone cannot create
+seasonal acclimation. There is **no authorized
+new XML value or changed runtime behavior** here.
+
+The Borealis DOI
+[10.5683/SP3/YHOZUK](https://doi.org/10.5683/SP3/YHOZUK)
+continues to link the primary individual responses,
+but public portal/API access was not obtainable in
+this execution context. The reference source remains
+in GitHub; no individual responses have been invented
+or identified from the medians.
