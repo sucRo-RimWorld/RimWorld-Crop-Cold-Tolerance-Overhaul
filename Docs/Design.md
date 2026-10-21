@@ -684,3 +684,45 @@ owning plant class**, separate from individual
 survival dispersion. No numeric plant XML,
 new code, save schema, native acceptance or
 published Workshop text was changed.
+
+
+### 2024 whole-plant LD50/LT50 study extends calibration constraints
+
+[Husiny et al. (2024) W10 original study and accessible
+individual-data DOI](ColdDamageCalibration.md#w10-full-plant-cold-freezing-factorial-design-paired-ld50--lt50-2026-10-21)
+adds one methodological advance. Intact cold-acclimated wheat
+(Zadoks 21) was scored dead or alive by **3-week post-thaw
+regrowth**, with two **separate** tests:
+
+1. **Cold duration at -4°C**: original fitted population
+   LD50 Norstar 33 days (extrapolates beyond last
+   observed 32d), CM614 20d, Branson 18d.
+   Spring control AC Carberry had complete observed
+   mortality by day 4 (LD50 not estimable).
+2. **Acute LT50 after 0 versus 7d at -4°C**:
+   winter cultivars' fitted LT50 shifted warmer by
+   only 0.1–0.4°C; spring wheat control shifted
+   warmer by 3.9°C. Cooling used sequential
+   one-hour holds at temperature steps, NOT a
+   constant seven-day minimum.
+
+[Machine-readable author-table records](Research/WinterWheatW10HusinyWholePlantLT50.csv)
+preserve all exact reported paired LT50 medians and
+observed/extrapolated LD50 classifications.
+The paper explicitly links a raw individual-level
+dataset [DOI 10.5683/SP3/YHOZUK](https://doi.org/10.5683/SP3/YHOZUK);
+the archive currently returns HTTP 403 to our web
+retrieval, so raw mortality counts and joint
+temperature×duration response cells have NOT been
+obtained or numerically fitted.
+
+**Design implication:** the same species may show
+very different duration tolerance and different
+pre-freeze *state* dependence. Fixed individual
+susceptibility remains a promising lightweight
+abstraction within each physiological state, but
+must not substitute for stage/acclimation in the
+species median. A full general CCTO fatal-dose
+equation still has no empirically validated
+temperature×time surface for whole plants. No new
+numeric XML or C# has been approved.
