@@ -6,9 +6,12 @@
 # These LD50 and LT50 are DIFFERENT experiments and endpoints refer to regrowth after two-day thaw and 3-week greenhouse recovery; they are not rectangular raw mortality grid.
 # 3-leaf/one-tiller wheat 4 weeks at 3.5 C acclimation, 12 plants per cultivar/ice/temperature experimental unit, 3 LT50 replicates.
 # AC Carberry 100 percent death by freeze day 4 in LD50 experiment, cannot estimate median; Table 2 separate experiment still reports a day7 LT50. Do NOT combine independent cohorts into one treatment history.
+# Source Table 2 uses Tukey HSD letter groups (alpha 0.05): if day0 and day7 share ANY letter, mean LT50 difference is not statistically significant. All three winter cultivars share letters, spring Carberry shares none.
+# Interpretation: the observed 0.1-0.4C winter differences DO NOT justify numerical cold-state kinetics. The +3.9C spring contrast does not isolate ambient-chill acclimation effects from prehold survival/ice; independent experiment arm at -4C had spring 100% dead by day4.
+# Data archive Borealis Dataverse UI and public API were attempted but could not be retrieved in this environment. No individual binary observations have been seen.
 # Calibrated numeric CCTO onset/damage susceptibility/distribution parameters remain NOT APPROVED.
-cultivar,growth_habit,LD50_days_at_minus4C,LT50_day0_C,LT50_after_7d_at_minus4C_C,LT50_loss_after_prehold_C,source_id
-Norstar,winter,33,-13.6,-13.2,0.4,W10
-CM614,winter,20,-12.7,-12.6,0.1,W10
-Branson,winter,18,-11.9,-11.6,0.3,W10
-AC Carberry,spring,NA_early100pct_mortality_by_day4,-6.6,-2.7,3.9,W10
+cultivar,growth_habit,LD50_days_at_minus4C,LT50_day0_C,LT50_after_7d_at_minus4C_C,LT50_loss_after_prehold_C,source_table2_day0_tukey_letters,source_table2_day7_tukey_letters,within_cultivar_day0_v_day7_significant_alpha_0_05,source_id
+Norstar,winter,33,-13.6,-13.2,0.4,a,ab,false,W10
+CM614,winter,20,-12.7,-12.6,0.1,bc,bcd,false,W10
+Branson,winter,18,-11.9,-11.6,0.3,cd,d,false,W10
+AC Carberry,spring,NA_early100pct_mortality_by_day4,-6.6,-2.7,3.9,e,f,true,W10
