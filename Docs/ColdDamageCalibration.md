@@ -1492,3 +1492,148 @@ spread are **not identified**.
    production XML unchanged;
    skip unnecessary native
    tests and new CI fixtures.
+
+
+## Monotonic mortality audit / matching-lentil literature (2026-10-21)
+
+**Source-ID correction:** the earlier chickpea CSV was erroneously
+called `LegumeC01FreezingSurvival.csv` and carried rows with
+`source_id=C01`. However **C01 in the bibliography is the NARO
+cabbage leaf-injury study**. Its correct chickpea source ID is **C03**,
+not C01. The file is now
+[LegumeC03ChickpeaFreezingSurvival.csv](Research/LegumeC03ChickpeaFreezingSurvival.csv);
+the inaccurate file has been deleted on this Draft branch, with
+the original version retained in Git history. **No measured data
+were changed by the source-ID correction.**
+
+### Can a strict non-recovering cumulative injury law explain C03's minor inversions?
+
+An incremental cold-dose model with **nonnegative** severity
+and a fixed individual threshold must produce **nonincreasing
+population survival** with *greater injury dose* under a
+matching temperature trajectory. The five **reported**
+whole-plant values at −12°C in C03 are 75/78/25/8/0%
+for 1/2/3/4/5 **target-temperature hold hours**.
+Fit the smallest **unweighted nonincreasing isotonic regression**
+using pooled adjacent violators (PAVA); this imposes
+only monotonicity, no exponential, Weibull or normal shape:
+
+| Target hold (h) | Reported whole-plant survival % | Fitted monotonic % |
+|---:|---:|---:|
+| 1 | 75 | **76.5** |
+| 2 | 78 | **76.5** |
+| 3 | 25 | 25 |
+| 4 | 8 | 8 |
+| 5 | 0 | 0 |
+
+**In-sample RMSE** over five equally weighted *published rounded
+percentages* is **0.948683 percentage points**, compared with
+**17.21pp** for the 1-parameter exponential and **10.11pp**
+for the 2-parameter Weibull in the previous pass.
+This comparison is **descriptive only**: the nonparametric
+monotone fit effectively has multiple free knot values,
+and it **does not predict outside the five source
+time points**, correct for the long cooling ramp or
+estimate population uncertainty. Its close fit does
+**not** prove that a physically meaningful cumulative
+cold-dose model has been identified.
+
+Likewise, the *authors' separately model-derived*
+temperature LT50 at 1/2/3/4/5h is
+−12.1/−12.1/−10.5/−11.0/−9.0°C.
+With the expected **nondecreasing LT50**
+as the hold gets longer, unweighted isotonic
+smoothing produces
+**−12.1/−12.1/−10.75/−10.75/−9.0°C**
+(in-sample RMSE **0.158114°C**). Again this
+merely demonstrates that the apparent 3→4h
+inversion is small; it is NOT an additional
+experiment or a calibrated time-temperature
+response. **Reported data remain intact**
+alongside clearly labelled computed values
+in the corrected C03 CSV.
+
+**Interpretation:** the minor inversion between the
+1h and 2h survivors does *not* by itself
+justify implementing an extra cold-triggered
+recovery/acclimation timer. A dose that grows
+during fixed severe exposure remains
+*compatible* with this small discrepancy
+given unknown denominators, figure rounding,
+varying cooling ramps and source-model fits.
+A distribution fitting method is still
+required to **interpolate across temperatures**,
+rather than memorizing five observations.
+
+### Additional direct studies of CCTO-owned lentil
+
+- **L03** [Barrios et al. (2017), original open text](https://pmc.ncbi.nlm.nih.gov/articles/PMC5493078/):
+  *Lens culinaris* Precoz×WA8649041
+  recombinant inbred lines (RILs);
+  **36 seedlings per RIL and frost level**
+  across two trials, **three weeks
+  acclimation (6/4°C day/night)**. Tests
+  reach −3/−6/−9/−12/−15°C;
+  hold **15h at −3°C**, then **1h at each
+  colder level**. Living plants scored
+  **after four weeks recovery**. Almost
+  every RIL survived the −3°C
+  regimen, with strong genotype-related
+  survival differences at colder
+  endpoints. **Figure 2 has counts of
+  RILs in 12 frost-response categories**,
+  not per-RIL binary survivor counts.
+  Neither manuscript nor listed
+  supplementary transcriptomics files
+  provide a numeric whole-plant
+  survival matrix for temperature×time.
+- **L04** [Ali, Johnson & Stushnoff (1999), publisher abstract](https://doi.org/10.1017/S0021859699006917):
+  after **6–8 weeks cold acclimation**,
+  holding **−15°C for 3h** at
+  2–3°C/h cooling was useful to
+  distinguish lentil genotypes at
+  P<0.01. **No original genotype
+  mortality fractions are quoted
+  in the accessible abstract**.
+- **L05** [2026 seed study](https://doi.org/10.3389/fpls.2026.1802566):
+  -2°C duration LD50 is measured for
+  **lentil seed germination/viability**,
+  e.g. CDC KR-1 34d, QG-1 15d,
+  Shasta 0d. **Seeds are not growing
+  plants**; do not adopt those
+  figures as plant `coldDamageDegreeHoursToDie`.
+
+### Implementability decision after reviewing owned lentil
+
+**More direct same-species evidence exists**, but
+there is still **no admissible within-genotype
+*whole-plant* survival matrix across
+both temperature and holding time**
+for lentil available from these
+papers. The 2023 C03 matrix
+*establishes plausibility of a monotone
+lethal-dose curve under a fixed
+cold-sensitive seedling protocol*,
+not the numerical threshold or dose
+for `DankPyon_Plant_Lentils`.
+Moreover CCTO's generic cultivated
+MO Lentil is not known to be
+3–8-week hardened Precoz/RIL material;
+importing −15°C tolerance would
+improperly assign winter-acclimated
+genotype values to every new planting.
+
+**Next bounded coding task, when severity
+parameters have an accepted class/state
+reference:** preserve sparse map updates,
+use a **stable per-plant rank for a
+source-calibrated lethal-dose
+threshold**, retain unchanged
+dormancy-only and legacy plants,
+and validate one fully scoped
+candidate profile. Do not add
+state timers or multiple runtime
+CDF families to explain the tiny
+C03 sampling inversion. **No
+CCTO production XML/code value
+is newly approved by this pass.**
