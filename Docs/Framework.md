@@ -112,6 +112,44 @@ third-party subclasses and mod removal still need actual runtime checks.
 No Vanilla/MO/VPE/AMJ plant is opted in by this framework change.
 
 
+### Stable per-plant lethal-dose variation (experimental, opt-in)
+
+An optional field `coldDamageLethalDoseVariation` controls the **fractional
+half-width** of the lethal-dose multiplier. Its default is **0**, meaning
+no individual variation and **no change to any existing plant**.
+
+```xml
+<!-- Syntax example, NOT a crop balance recommendation: -->
+<coldDamageLethalDoseVariation>0.2</coldDamageLethalDoseVariation>
+```
+
+For a nonzero half-width `w`, a deterministic rank `u` is derived by
+mixing the plant's **persistent `thingIDNumber`**, and the effective
+lethal accumulated dose is `baseDose * (1 + w * (2*u-1))`.
+The 0.2 example produces a **bounded uniform simulation distribution**
+between roughly 0.8× and 1.2× the base lethal degree-hours, with median
+1.0×; the distribution family and 0.2 figure are **not fitted to
+population LT10/LT50/LT90 data and not approved for any species**.
+Accepted values require separate ecological calibration.
+
+The field is valid only for a real finite number **0 ≤ w < 1**, and
+must accompany a valid opt-in cold-damage model to have any effect.
+No extra random draws occur during updates; no extra plant field,
+additional map scan, or new save record is introduced. Existing
+sparse positive-damage save entries remain the same format, with
+damage always normalized to [0,1]. Changing XML variation or lethal-dose
+values **mid-save** alters the meaning of existing accumulated injury:
+this is not automatically re-scaled, so avoid treating it as a
+lossless save migration. Verify identity stability across save/load
+and re-spawning during the consolidated runtime acceptance stage.
+
+A uniform threshold is a **reversible computational baseline** rather
+than a validated universal survival probability law. More complex
+skewed curves, chilling-vs-freezing severity, and physiological
+acclimation are not added by this field. The Info Card continues to
+show the **species-level 損傷開始温度** and existing **休眠温度**,
+not a pseudo-exact death temperature for each plant.
+
 ### Calibration status and future compatibility
 
 The optional XML fields above are an **unvalidated experimental draft
