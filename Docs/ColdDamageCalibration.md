@@ -1137,3 +1137,148 @@ duration fatal-dose response at the chosen game time scale.
 Neither `coldDamageStartTemperature` nor the dose
 distribution width is newly approved. **No new C#,
 XML or native game tests were performed.**
+
+
+## First identifiable crop-class response audit: maize (2026-10-21)
+
+**Practical result:** plant-level fatal exposure and same-species
+non-freezing chilling are supported by primary studies; nevertheless
+there are currently not enough interchangeable observations to select
+a unique `(onset, severity exponent, fatal dose, susceptibility spread,
+recovery)` tuple. This section defines the **minimal viable next
+implementation boundary** rather than indefinitely collecting
+unrelated endpoints.
+
+### Distinct maize sources that must NOT be merged into one cohort
+
+- **M01**: [Lindsey et al. (2024) reviewing Buican (1969)](https://doi.org/10.1002/csc2.21212)
+  states approximately 50% seedling mortality at **-2°C / 48h**,
+  and separately **-6°C / 2h**, followed by **10d recovery**.
+  Buican's original plant cultivar/stage/sample counts and full
+  temperature ramp have not been obtained. Thus these are
+  *secondary-source, approximate population LT50 severity-time
+  pairs*, not verified original continuous-temperature traces.
+- **M03**: [Creencia & Bramlage (1971)](https://pmc.ncbi.nlm.nih.gov/articles/PMC365875/)
+  measured *maize seedlings at +0.3 ± 0.3°C*. Leaf injury after
+  **36h** was reversible at 21°C; after **48–60h** some
+  seedlings collapsed irreversibly while most recovered, and after
+  **72h** the transferred seedlings ultimately died. **Non-freezing
+  / near-zero chilling can be lethal**, and ordinary leaf symptoms
+  can be reversible. The abstract supplies neither measured LT50
+  nor individual sample counts at those durations. It is a
+  *separate experiment* from M01 and cannot simply be treated as
+  an additional M01 temperature-time measurement.
+- **M04**: [Jiang et al. (2016)](https://pmc.ncbi.nlm.nih.gov/articles/PMC5054024/)
+  tested **30 distinct maize inbred lines**, all at **-1°C for
+  3h**, then 3d recovery. Genotype-specific cohort survival
+  ranged from **5.01%** to **97.3%**. This is powerful evidence
+  of *between-genotype differences*, **not the width of one
+  genotype's individual susceptibility distribution**.
+
+### Exact conditional fits do NOT identify the correct temperature law
+
+Consider the candidate family (for an as-yet uncalibrated freezing
+component only):
+
+```text
+h_p(T) = [max(0, T_onset - T)]^p
+D(t) = integral h_p(T) dt
+median mortality at D50, under one fixed physiological cohort
+```
+
+For **each independently chosen p**, the two M01 approximate
+50% death points can be fit *exactly* by solving onset
+and D50. The [numerically reproducible sensitivity table](Research/MaizeM01DegreeHourIdentifiability.csv)
+reports:
+
+| Assumed temperature exponent p | Solved hypothetical onset °C | Hypothetical median fatal dose (°C^p·h) | Predicted T50 at −4°C (h), **not measured** |
+|---:|---:|---:|---:|
+| 0.5 | −1.993 | 4.003 | 2.83 |
+| 1.0 (linear degree-hours) | −1.826 | 8.348 | 3.84 |
+| 1.5 | −1.454 | 19.388 | 4.77 |
+| 2.0 (quadratic) | −0.974 | 50.520 | 5.52 |
+| 3.0 | +0.123 | 459.022 | 6.55 |
+
+**This is an algebraic sensitivity analysis, not five alternative
+empirical measurements.** The source's -2/-6°C LT50 pair has
+only two constraints; for every chosen p, temperature onset and
+median dose can be adjusted to fit exactly, yet predicted -4°C
+median time varies by **more than a factor of two**.
+No `p`, onset, D50, recovery rate, or variability width is
+identified without additional survival-temperature/time
+observations at matching stage and acclimation.
+The computed positive onset under p=3 is a
+*fit artifact*, not evidence that that physiological
+threshold exists.
+
+More importantly, at the observed +0.3°C chilling
+condition of M03, the simplistic linear/quadratic
+**M01-fitted freezing-only curves yield zero dose**
+and cannot explain the mortality under prolonged
+chilling at nominally above-zero temperature.
+This does **not** falsify M01 or M03: they are
+distinct cohorts/studies, and the frozen/chilling
+injury mechanisms can differ. It does show that
+CCTO's **`損傷開始温度` cannot universally be equated
+to the onset of actual ice formation or fixed below 0°C**
+for every non-dormant crop. A light, source-backed
+**cold-sensitive class profile** may need a mild
+positive-temperature chilling contribution alongside
+rapid subzero injury, without adding more per-plant
+state or a second global map scan. Numerical onset,
+profile breakpoint and transitions remain unapproved.
+
+### Existing external realism precedent — FROSTOL
+
+- **W11** [Bergjord Olsen et al. (2008)](https://doi.org/10.1016/j.eja.2007.10.002):
+  FROSTOL models winter-wheat *changing LT50*
+  using **soil temperature at 2cm depth, snow depth,
+  vernalization and hardening/dehardening/stress**,
+  reporting fitted LT50 model R²≈0.84 in its studied
+  sites.
+- **W12** [Bergjord Olsen (2018)](https://doi.org/10.1111/jac.12238):
+  independent winter-survival **class** comparison
+  averaged **75% agreement in Sweden** and
+  **37% in Norway**, indicating meaningful
+  environmental/other winterkill failure modes.
+  These figures are **classification accuracy**,
+  not individual mortality response or proof of
+  universally correct LT50 values.
+
+**Consequences:** complete FROSTOL would require
+crown/soil temperature, snow, plant developmental
+state and daily updates; none are available as
+reliable universal plant-specific inputs in the
+current CCTO accumulator. **Do not copy its
+coefficients** or impose a global wintertime timer.
+Preserve deferred, class-specific acclimation
+as a future option, consistent with the W10
+significance-gated initial-scope decision.
+
+**Concrete next gating measurement:** one additional
+matching **whole-seedling** mortality/survival
+observation under a third freeze
+temperature/duration for the same maize
+cohort as M01, ideally with full cooling and
+thaw history, would distinguish severity exponents.
+For mild chilling, matched cohorts at 0–5°C
+with repeated exposure/recovery rates would
+identify an independent chilling contribution.
+For within-genotype variation, use multiple
+survival proportions under otherwise identical
+conditions; do not infer the individual coefficient
+distribution from M04's 30 distinct inbred-line
+survival percentages. Until then **the table is
+a sensitivity study and XML/C# values remain
+unchanged**.
+
+**Project scope decision:** do not block all
+78 CCTO species on obtaining raw multi-dimensional
+survival grids impossible for fictional/generic
+plant labels; use a small number of defensible
+class analogues, record which parameters are
+measured, which are conditional estimates and
+which are unsupported, and protect default
+dormancy/biome vegetation. There is no scientific
+basis to declare one experimental maize cohort's
+quadratic or linear rate universally correct.
