@@ -1,0 +1,12 @@
+# Mathematical sensitivity check only. M01 two 50%-seedling-death observations from Lindsey et al 2024 review quoting Buican 1969 (-2C 48h, -6C 2h, 10-day postfreeze mortality).
+# Source https://doi.org/10.1002/csc2.21212. Original Buican study, exact cultivar, freezing ramp and sample counts NOT obtained. All rows are conditional exact fits to TWO reported rounded LT50 points.
+# Candidate response h(T)=max(0,T_onset - T)^p. Lethal median dose D50=h(-2)*48=h(-6)*2. This identity alone does NOT determine p or true physiological onset.
+# D50 units depend on exponent p (degree^p * hours), so rows are not directly comparable dose magnitudes.
+# modelled T=-4C duration is a PREDICTION not measured, and differs between hypotheses. M03 +0.3C 72h death from different study is not fitted: cannot combine it with M01 as same cultivar/cohort.
+# No CCTO value, source death temperature, UI onset, recovery speed, or variance approved.
+hypothetical_severity_exponent_p,solved_onset_C,median_lethal_dose_C_power_p_hours,fitted_t50_at_minus2_C_h,fitted_t50_at_minus6_C_h,unmeasured_predicted_t50_at_minus4_C_h,source_id
+0.5,-1.993043,4.003477,48,2,2.8260,M01
+1,-1.826087,8.347826,48,2,3.8400,M01
+1.5,-1.453577,19.388078,48,2,4.7713,M01
+2,-0.974091,50.519532,48,2,5.5176,M01
+3,0.122580,459.021872,48,2,6.5513,M01
