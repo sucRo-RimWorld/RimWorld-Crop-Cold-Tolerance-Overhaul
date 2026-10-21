@@ -1,0 +1,15 @@
+# Cohort survival after fixed -16C exposure, cold-acclimated Kharkov winter wheat. Arora (2025) REVIEW quotes Pomeroy Andrews Fedak (1975) W07. Original W07 data table has NOT been inspected.
+# W07 https://doi.org/10.4141/cjps75-079; W08 https://pmc.ncbi.nlm.nih.gov/articles/PMC12624383/. W07 and W08 describe the SAME trial, not independent data.
+# Models unweighted-least-squares fitted to published rounded percentage survival at 1/3/6/12/24h only; original survival counts and uncertainties unavailable.
+# Exp S=exp(-rate*t), rate=0.1044790183 per h; Weibull S=exp(-(t/scale)^shape), scale=10.5002350 h, shape=0.6566917.
+# 120h all-dead observation is outside fitting set; 0 of observed plants is not theoretical zero survival probability.
+# -6C 120h separate 100 percent survival finding has NO -6C fitted curve. No temperature severity coefficient can be inferred from one viable second-temperature datum.
+# These are not production CCTO coefficients. Original paper protocol remains to verify.
+source_id,temperature_C,exposure_h,reported_cohort_survival_fraction,predicted_simple_exponential,predicted_weibull,used_for_fit
+W07_via_W08,-16,1,0.800,0.90079,0.80776,true
+W07_via_W08,-16,3,0.630,0.73093,0.64452,true
+W07_via_W08,-16,6,0.530,0.53426,0.50035,true
+W07_via_W08,-16,12,0.330,0.28543,0.33567,true
+W07_via_W08,-16,24,0.170,0.08147,0.17890,true
+W07_via_W08,-16,120,0.000,0.00000,0.00707,false
+W07_via_W08,-6,120,1.000,,,false
