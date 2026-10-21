@@ -2133,3 +2133,69 @@ qualification decision:** direct W13 empirical evidence
 added, original 16 points indexed, **no production-ready
 plant-specific numeric injury profile qualified**. No
 runtime code, native tests, release, or Steam page updated.
+
+
+### W05 exact treatment grid now indexed; observed outcomes still unavailable (2026-10-21)
+
+The *bounded W05 primary source acquisition attempt* checked
+[the publisher-indexed abstract and accessible excerpt](https://www.sciencedirect.com/science/article/pii/S0168192318301631),
+[the DOI/publisher page](https://doi.org/10.1016/j.agrformet.2018.05.011),
+[FAO AGRIS](https://agris.fao.org/search/en/providers/122535/records/65defde17c7033e84bec586f)
+and [ResearchGate's publication entry](https://www.researchgate.net/publication/325699751_Effect_of_freezing_temperature_and_duration_on_winter_survival_and_grain_yield_of_winter_wheat),
+plus bounded searches for an open author's PDF/accepted manuscript,
+figure/table transcript or downloadable supplement. ResearchGate
+exposes a "Request full-text" route, not the required
+treatment-level observations; direct publisher full-text retrieval
+was not available. **Do not claim access to the original numerical
+figure, its individual counts, or supplemental raw data.**
+
+The accessible original-study abstract explicitly names **Jing411
+strong-winter wheat** (the accessible methods excerpt additionally
+identifies 2014–2016 trials) and **20 total temperature × duration
+treatments**, enumerated verbatim as study design in
+[W05 treatment-availability CSV](Research/WinterWheatW05TreatmentAvailability.csv):
+
+| Study soil minimum target | Freezing days | Reported treatment cells | Whole-plant mortality data retrieved |
+|---|---|---:|---|
+| -14°C (T1) | 2, 4, 6, 8, 10 | 5 | **0/5** |
+| -17°C (T2) | 1, 2, 3, 5, 6, 7, 8, 9 | 8 | **0/8** |
+| -20°C (T3) | 1, 2, 3, 4, 5, 6, 8 | 7 | **0/7** |
+
+**0/20 retrieved is a source-access status; it is NOT 0%
+biological mortality.** The CSV carries blank measured-value
+fields with explicit `NOT_RETRIEVED` status, not fabricated zero
+observations.
+
+The paper's abstract reports increased **whole-plant** and
+*tiller* mortality of about **1.0%** and **1.4%** per soil-
+minimum-defined freezing degree-day **relative to its −12°C
+FDD threshold**, respectively. These are summarized
+regression slopes, **not** an identified independent
+whole-plant temperature×duration mortality surface:
+the appropriate intercept, linked per-cell values,
+nonlinearities, denominators and exact soil histories
+are not accessible in that text. The paper also reports
+grain yield and spike losses; those are separate
+physiological endpoints, not whole-plant death.
+
+**Identifiability decision:** an exact design matrix
+without the **response column** contains no information
+to estimate lethality, distribution shape or relative
+severity beyond the aggregate stated slope. The
+simulated `coldDamageStartTemperature` is **not**
+simply the paper's −12°C FDD reference because the
+source integrates soil daily minima and CCTO currently
+samples map temperature every plant callback.
+No production onset, fatal dose, spread, recovery or
+crown/air conversion is approved. No numerical fitting
+against this missing response matrix is valid.
+
+**Stop condition:** obtain the original W05 whole-plant
+mortality figure/table/supplement for the 20 treatments
+with at least endpoint and sample counts/temperature
+protocol; alternatively choose an **explicitly
+approximate gameplay profile** in a separate design
+decision, not as source-calibrated reality. Do not
+repeat blind literature searches or replace absent
+mortality by FDD's single slope. Draft PR #24 remains
+nonactivated and unreleased.
