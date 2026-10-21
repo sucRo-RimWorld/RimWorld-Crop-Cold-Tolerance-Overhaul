@@ -3,6 +3,30 @@ namespace CropColdToleranceOverhaul
 {
     internal static class ColdDamageProgress
     {
+        // Each plant's persistent Thing ID maps to one fixed percentile without RNG
+        // or extra saved state. The bounded uniform dose spread is experimental;
+        // species-specific population variance has NOT been calibrated.
+        internal static float LethalDoseMultiplier(int thingId, float halfWidth)
+        {
+            if (halfWidth <= 0f) return 1f;
+
+            // Stable 32-bit avalanche; avoids randomized string.GetHashCode and
+            // Verse.Rand state. IDs are persisted by RimWorld across save/load.
+            uint h = unchecked((uint)thingId);
+            unchecked
+            {
+                h ^= h >> 16;
+                h *= 0x7feb352du;
+                h ^= h >> 15;
+                h *= 0x846ca68bu;
+                h ^= h >> 16;
+            }
+
+            // 24 high bits: deterministic rank strictly within (0,1).
+            float percentile = ((h >> 8) + 0.5f) / 16777216f;
+            return 1f + halfWidth * (2f * percentile - 1f);
+        }
+
         // 2,500 ticks per game hour. One unit of damage is fatal.
         internal static float Advance(float prior, float temperature, float onset,
             float lethalDegreeHours, float recoveryPerHour, int elapsedTicks)
