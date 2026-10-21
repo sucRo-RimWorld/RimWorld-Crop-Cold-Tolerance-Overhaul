@@ -1101,3 +1101,40 @@ frost across save/load, warmth clearing zero records,
 identity-stable individual fatal doses, and legacy
 dormancy/death regression; do not start an
 additional unrelated CI/test matrix.
+
+
+### Three-species numeric model feasibility gate (2026-10-21)
+
+The [bounded quantitative comparison](ColdDamageCalibration.md#quantitative-feasibility-gate--wheat-maize-rice-2026-10-21)
+evaluates the **existing experimental Draft API**, not newly selected
+plant values:
+
+- **Winter wheat** (W07 via W08, secondary-reported -16°C durations):
+  a fixed-state **linear** degree-hour engine with one *uniform* stable
+  individual lethal-dose spread cannot fit the 1h ~80% and 24h ~17%
+  survival observations simultaneously at any valid \`0<=w<1\`.
+  The best five-point boundary approximation has ~**13.86pp RMSE**,
+  compared with an in-sample Weibull ~1.59pp. This challenges the
+  uniform threshold **distribution**, not necessarily the reusable
+  nonnegative accumulation mechanism. It does not approve Weibull
+  for all plants.
+- **Maize** (M01) has two approximate 50%-mortality
+  temperature/duration pairs which permit multiple severity
+  exponents with different unmeasured predictions. A conditional
+  linear fit gives ~**-1.826°C onset**, **not** a measured biological
+  onset or an XML candidate. M03 separately documents severe
+  **above-zero prolonged chilling**, from different plant/stage
+  conditions; do not merge those studies into one cohort.
+- **Rice** (R02) has **0% versus 88-100%** survival after a matching
+  4°C × 10d exposure with/without 12°C × 5d acclimation. Stable
+  plant IDs alone cannot represent the physiological-state change.
+
+**Design disposition:** retain sparse opt-in infrastructure and stable
+per-plant identity; keep susceptibility distribution,
+temperature-severity law and acclimation as **separate design axes**.
+Do not turn six evidence-class categories into six mandatory runtime
+formulas, or activate any Vanilla/MO/consumer plant until a
+source-matched and game-timescale-labelled profile is justified.
+Preserve all existing production thresholds and dormancy for now.
+No code/XML update, build, native test or publication was performed
+during this mathematical audit; PR #24 remains Draft.
