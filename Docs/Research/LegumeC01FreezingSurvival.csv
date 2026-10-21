@@ -1,0 +1,17 @@
+# Source C01 Nabati et al. 2023 Frontiers in Plant Science 14:1239008 doi:10.3389/fpls.2023.1239008 https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2023.1239008/full
+# Biological material Cicer arietinum chickpea, SIX-LEAF seedlings from Mashhad seed collection. Specific cultivar/genetic uniformity NOT reported.
+# Five-by-five 0/-6/-8/-10/-12C x 1/2/3/4/5 hour target holds, 4 replicates with 8 plants per pot originally. Cooling from +5C at 2C per hour BEFORE the prescribed held hours. Slow thaw ~24h at 5C. Alive after 30-day greenhouse recovery.
+# The raw 25-condition SU% grid is displayed in original Figure 2A but is not available as a numerical table; ONLY textual published values are captured here. NEVER fabricate 25-cell numeric table.
+# Full 5x5 experiment is FACTORIAL across temperatures and target-hold durations but total subzero exposure including cooling ramp differs by target. No same-unique-genotype identification and no binomial exact denominator verified.
+# For T=-12C, quoted survival at 1/2/3/4/5h: 75,78,25,8,0 percent. Nonmonotonic +3pt from 1->2h may be sampling/rounding; don't overwrite published values.
+# Original Figure 2A LT50 per 1/2/3/4/5h: -12.1,-12.1,-10.5,-11,-9 C. 4h LT50 is 0.5C colder than 3h, incompatible with strict cumulative monotonic damage if considered exact.
+# Exploratory curves on five -12C survival values ONLY: simple exponential exp(-lambda*t) lambda=0.37148125 per target-h (in-sample RMSE 17.21 percentage points); Weibull exp(-(t/tau)^k), tau=2.80851693 h k=2.66565341 (RMSE 10.11pp). Unweighted least squares of rounded percentages, NOT original source fits / binomial likelihood / out-of-sample comparison.
+# To avoid research overclaim: two-coefficient Weibull misses the 1h 75% survival by 18.8 percentage points despite lower total RMSE. No model adopted in CCTO.
+# This source is CHICKPEA not CCTO's MEDIEVAL OVERHAUL Lentil. The two 2020/2023 source Lentil studies have different genotypes and are not calibration clones.
+# Per-species curve and game-time compression remain unresolved; no XML/C# values are approved.
+source_id,minimum_C,held_h,observed_wholeplant_survival_pct,reported_LT50_C_at_this_hold,exploratory_exp_survival_pct,exploratory_weibull_survival_pct
+C01,-12,1,75,-12.1,68.97,93.82
+C01,-12,2,78,-12.1,47.57,66.73
+C01,-12,3,25,-10.5,32.81,30.35
+C01,-12,4,8,-11,22.63,7.68
+C01,-12,5,0,-9,15.61,0.95
