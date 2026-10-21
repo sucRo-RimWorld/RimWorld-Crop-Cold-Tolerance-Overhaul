@@ -32,7 +32,7 @@ namespace CropColdToleranceOverhaul
                     {
                         if (record == null || record.plant == null
                             || record.plant.Destroyed || !record.plant.Spawned
-                            || record.damage <= 0f || record.damage >= 1f
+                            || record.damage < 0f || record.damage >= 1f
                             || ColdToleranceUtility.ExtensionFor(record.plant)?.HasColdDamageModel != true)
                             continue;
                         if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
@@ -62,8 +62,12 @@ namespace CropColdToleranceOverhaul
             if (record == null)
             {
                 if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
-                record = new ColdDamageRecord { plant = plant, lastTick = now - 2000 };
+                // Initial cold reading has no known exposure history.
+                // Preserve the zero-damage observation across save/load so
+                // reloading cannot reset an already observed cold interval.
+                record = new ColdDamageRecord { plant = plant, lastTick = now };
                 states.Add(plant, record);
+                return;
             }
 
             // Never charge a skipped season at a single sampled temperature.
