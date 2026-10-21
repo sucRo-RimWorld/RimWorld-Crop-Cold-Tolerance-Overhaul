@@ -90,6 +90,29 @@ namespace CropColdToleranceOverhaul.Tests
         }
 
         [Test]
+        public static void InvalidRecoveryCannotEnableDamageModel()
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDeathTemperature = -15f; // Valid legacy fallback.
+            extension.coldDamageStartTemperature = -5f;
+            extension.coldDamageDegreeHoursToDie = 10f;
+
+            foreach (float invalid in new[]
+            {
+                -0.1f, float.NaN, float.PositiveInfinity, float.NegativeInfinity
+            })
+            {
+                extension.coldDamageRecoveryPerHour = invalid;
+                Assert.That(extension.HasColdDamageModel).Is.False();
+                Assert.ThatCollection(extension.ConfigErrors().ToList()).Has.Count(1);
+            }
+
+            extension.coldDamageRecoveryPerHour = 0f;
+            Assert.That(extension.HasColdDamageModel).Is.True();
+            Assert.ThatCollection(extension.ConfigErrors().ToList()).Is.Empty();
+        }
+
+        [Test]
         public static void InfiniteDeathTemperatureIsRejected()
         {
             ColdToleranceExtension extension = new ColdToleranceExtension();
