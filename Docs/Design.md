@@ -981,3 +981,48 @@ the unrelated MO Lentil Def. The first live
 plant-class migration still requires source-matched
 temperature/time evidence and a stated game
 time-scale. C# / plant XML remain unchanged.
+
+
+### Individual lethal-dose variation: implementation staged, values uncalibrated (2026-10-21)
+
+The Draft C# opt-in injury engine now includes a **zero-default**
+`ColdToleranceExtension.coldDamageLethalDoseVariation` fractional
+half-width `w`, validated as `0 <= w < 1`. Each plant's persistent
+integer Thing ID deterministically maps to rank `u` and lethal-dose
+multiplier `1 + w*(2*u-1)`. At `w=0`, the multiplier is exactly
+1.0. With `w>0`, the current bounded uniform *simulation*
+distribution approximates a cohort median at 1.0, but it is
+**NOT an empirically fitted species population distribution**:
+no LT10/LT90 or variance number is approved. This candidate
+choice is reversible before any production Def opts in and must not
+be reported as scientifically validated.
+
+Implementation changes are confined to the Draft experimental
+opt-in path: extension validation, stable hash function,
+and using the per-plant multiplier on lethal degree-hours
+**before the existing damage-clamp [0,1]**. No CCTO
+Vanilla/MO, consumer, or dormancy-only plant XML
+has been migrated. No map-wide plant scan, per-tick
+random sampling, per-plant acclimation history, or
+new save fields are introduced. Existing positive
+damage records store normalized injury and lastTick;
+XML coefficient changes partway through a save alter
+their physical interpretation. Save/load persistence
+of `Thing.thingIDNumber`, destruction/re-spawning,
+and XML edits across saves remain runtime acceptance
+items, not claims of completed verification.
+
+This implementation supplies the previously approved
+**engineering mechanism for stable individual differences**,
+not the missing species-class biological coefficients.
+Reference research remains in
+[ColdDamageCalibration.md](ColdDamageCalibration.md)
+and [ColdDamageEvidenceLedger.md](ColdDamageEvidenceLedger.md).
+Framework consumers see only documented opt-in
+`Docs/Framework.md` semantics; existing default
+behavior and published Workshop copy stay unchanged.
+The Draft prototype's linear degree-hour injury
+rate and warm recovery coefficient remain
+*uncalibrated*. Test source for deterministic
+ranking and input bounds was added; tests **have
+not** been executed in native RimWorld.
