@@ -1233,3 +1233,59 @@ accept a bounded **ecological gameplay approximation**
 instead of claiming source-calibrated parameters.
 Do not choose an arbitrary Weibull tail cap merely
 to make a test or demonstration pass.
+
+
+### First candidate decision: matched wheat factorial evidence (2026-10-21)
+
+**CCTO owner-level outcome:** do not activate a first
+opt-in crop simply because an individual Weibull/linear
+curve fits one winter wheat experiment. [Current primary
+experiment acquisition gate and complete W13 24h cohort
+table](ColdDamageCalibration.md#w13-measured-24-hour-wheat-frost-bounds-and-2d-activation-gate-2026-10-21)
+were reviewed against the owner's Vanilla/MO plant data.
+
+- **First complete 2D calibration target:**
+  `DankPyon_Plant_Wheat`, biological model **Jing411
+  winter wheat / W05**. W05 directly studied one cultivar at
+  soil minima −14/−17/−20°C over multiple freeze
+  durations, but its *per-treatment whole-plant
+  mortality cells and soil/crown temperature history*
+  are **not currently verified in accessible data**.
+  The published aggregate slope is NOT enough to infer
+  an onset, distribution or fatal accumulated dose.
+- **New matched-temperature validation axis:**
+  primary W13 Deryabin et al. 2024 directly reports
+  wheat seedling survival at 0/−3/−5/−7°C for
+  24h with and without 4°C×7d acclimation.
+  Same-genotype observed 24h LT50 brackets include
+  M39 conditioned (−7,−5)°C versus untreated
+  (−3,0)°C; this **is not** a 24h biological
+  onset value or matched duration curve.
+  W13 has exactly **one** freeze duration and uses
+  different cultivars/stage from W05; cannot jointly
+  fit W05+W13 as a single experiment.
+- The W07/W08 constant-temperature time curve and
+  W10 separated LD50/LT50 experimental arms are
+  **independent non-mergeable constraints**.
+  C03 chickpea's full-factorial study does not
+  calibrate MO lentil because it is **another species**
+  and the 25-cell original individual outcomes
+  are unavailable.
+- **No first source-validated plant injury XML
+  can be enabled at this stage.** Missing W05
+  factorial whole-plant observations, physical
+  plant-temperature versus in-game ambient mapping,
+  physiological state and lab-to-60-day-game-year
+  exposure scaling are **relevant blockers**.
+  Preserve the 48 current fixed-death profiles,
+  30 dormant profiles, owner boundaries, current
+  sparse opt-in prototype and the already accepted
+  Japanese Info Card terminology.
+- Prefer a **single bounded W05 original figure/table
+  acquisition** rather than extending the same
+  inconclusive literature search indefinitely.
+  Do not invent individual trial counts or use
+  source-derived 24h LT50 bounds as lethal game-hour
+  settings. No code, production XML, native test,
+  main merge or publication follows from this
+  documentary decision; PR #24 remains Draft.
