@@ -245,6 +245,40 @@ namespace CropColdToleranceOverhaul.Tests
     }
 
     [TestSuite]
+    public static class ColdDamageObservationTests
+    {
+        [Test]
+        public static void FirstColdSampleRecordsTimeWithoutRetroactiveInjury()
+        {
+            // The first reading must never assume that the previous
+            // 2,000 unobserved game ticks had the same temperature.
+            Plant plant = new Plant();
+            plant.thingIDNumber = 404;
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDamageStartTemperature = -5f;
+            extension.coldDamageDegreeHoursToDie = 10f;
+
+            ColdDamageMapComponent component = new ColdDamageMapComponent(null);
+            MethodInfo update = typeof(ColdDamageMapComponent).GetMethod(
+                "UpdatePlant", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo field = typeof(ColdDamageMapComponent).GetField(
+                "states", BindingFlags.Instance | BindingFlags.NonPublic);
+
+            if (update == null || field == null)
+                throw new InvalidOperationException("Cold observation API missing.");
+
+            int readingTick = Find.TickManager.TicksGame;
+            update.Invoke(component, new object[] { plant, extension, -10f });
+
+            Dictionary<Plant, ColdDamageRecord> states =
+                (Dictionary<Plant, ColdDamageRecord>)field.GetValue(component);
+            Assert.That(states.ContainsKey(plant)).Is.True();
+            Assert.That(states[plant].damage).Is.EqualTo(0f);
+            Assert.That(states[plant].lastTick).Is.EqualTo(readingTick);
+        }
+    }
+
+    [TestSuite]
     public static class InfoCardStatTests
     {
         private static readonly MethodInfo AppendCctoStatsMethod = FindAppendCctoStatsMethod();
