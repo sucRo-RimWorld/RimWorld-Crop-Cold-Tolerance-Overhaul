@@ -105,10 +105,18 @@ When these fields are valid, they take precedence over any legacy
 label remains unchanged. Onset describes the beginning of accumulated
 injury, not a guaranteed lethal temperature.
 
-Only plants that have positive cold damage consume per-plant saved
-state (map component). Data are removed after recovery/death, and stale
-records are pruned. Changing XML between old and new models, old saves,
-third-party subclasses and mod removal still need actual runtime checks.
+Only plants with an observed below-onset reading or remaining cold
+damage consume per-plant saved state (map component). The **first cold
+reading initializes a zero-damage observation** at the current game tick;
+it does not retroactively charge the preceding 2,000 ticks at a temperature
+that was not recorded. A second cold reading accumulates elapsed exposure
+capped to 2,000 ticks. The zero-damage observation is also **saved and
+reloaded**, preventing save/load from restarting that interval. Warm
+observations at zero damage remove the record; recovered/dead plants are
+removed, and stale references are pruned. This cannot reconstruct a
+brief cold spike between two sampled readings. Changing XML between
+old and new models, old saves, third-party subclasses and mod removal
+still need actual runtime checks.
 No Vanilla/MO/VPE/AMJ plant is opted in by this framework change.
 
 
