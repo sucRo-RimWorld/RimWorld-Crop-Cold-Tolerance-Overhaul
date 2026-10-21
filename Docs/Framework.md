@@ -140,6 +140,17 @@ between roughly 0.8× and 1.2× the base lethal degree-hours, with median
 population LT10/LT50/LT90 data and not approved for any species**.
 Accepted values require separate ecological calibration.
 
+**Invalid recovery-rate values are a disabled-model condition, not only
+a Def configuration warning.** The opt-in model requires
+`coldDamageRecoveryPerHour` to be finite and nonnegative
+(default zero). Negative, NaN, and infinite recovery rates now
+fail both ConfigErrors and HasColdDamageModel; this prevents
+a negative recovery rate from causing injury to increase
+under warm temperatures. If the model is disabled, only
+a separately valid legacy fixed-death/dormancy configuration
+can provide the CCTO-managed behavior; invalid XML is not
+a supported gameplay profile.
+
 The field is valid only for a real finite number **0 ≤ w < 1**, and
 must accompany a valid opt-in cold-damage model to have any effect.
 No extra random draws occur during updates; no extra plant field,
