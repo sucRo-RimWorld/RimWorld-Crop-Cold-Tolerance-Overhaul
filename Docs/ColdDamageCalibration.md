@@ -1906,3 +1906,130 @@ The [original Sagehashi 2023 study](https://doi.org/10.1080/1343943X.2023.223634
 5. For a real numerical activation, obtain sufficiently documented **same-stage, same-cultivar whole-plant** mortality/survival across temperatures and durations, with sample counts and the relevant thermal signal. Explicitly translate experimental vs RimWorld time without distorting measured endpoints. No game launch is justified solely by these unapproved numbers.
 
 **Status:** source-data fitting only, not C# / XML or gameplay validation. Existing 48 finite-death + 30 dormancy Vanilla/MO Defs remain untouched; AMJ/VPE consumers keep their own numeric ownership. Draft PR #24 must remain Draft; no Steam/Workshop graph or release.
+
+
+## W07 Weibull transfer and tail-risk gate (2026-10-21)
+
+**Question:** Does the very good five-point Weibull fit in winter wheat W07
+justify using a Weibull lethal-exposure distribution in all CCTO plants?
+**Answer: no**; the fit is an in-sample description of a single
+cold-acclimated Kharkov wheat protocol, and important physiological
+and gameplay extrapolations are uncontrolled.
+
+### 1. Other whole-plant wheat evidence has a different model shape
+
+The [Zheng et al. (2018) original study, W04](https://doi.org/10.2135/cropsci2018.01.0014)
+tracks **four different field-acclimated winter wheat cultivars** exposed
+for **multiple days** to **cultivar-specific cycling soil temperatures**.
+Its author's published fit is:
+
+`S(n) = (1-P)^max(0,n-K)`
+
+where `n` is a consecutive experimental freeze *day*, `K`
+is a cultivar-specific delay, and `P` is a subsequent daily
+conditional death fraction. This is a **shifted exponential time
+response**, not the W07 `S(t)=exp(-(t/lambda)^0.65669)`
+curve at constant -16°C. The two studies differ in cultivar,
+temperature signal (soil-cycle versus constant treatment),
+acclimation and hour/day exposure protocol.
+
+**Bounded numerical transfer diagnostic (NOT an independent validation):**
+retain the *W07-fitted Weibull shape* 0.6566917, allow its time
+**scale** to refit separately for each W04 cultivar, and compare the
+result to the **W04 author's own regression-predicted whole-plant
+survival at 3, 5, 8 days**, as preserved in
+[W04 regression CSV](Research/WinterWheatW04Regression.csv). Unweighted
+least squares over those three *derived* points gives:
+
+| W04 cultivar | W07-shape Weibull best scale (days) | RMSE versus W04 fitted predictions (pp) |
+|---|---:|---:|
+| Jing411 | 25.006 | 6.50 |
+| Nongda211 | 6.629 | 11.26 |
+| Zhengmai366 | 11.773 | 4.88 |
+| Yanzhan4110 | 31.787 | 9.24 |
+
+These RMSE numbers measure **disagreement between two fitted model
+families under incompatible protocols**. None of the 3/5/8-day
+W04 survival values is an independently recovered treatment-level
+observation; all are computed from the W04 author's rounded
+`K/P` regression. Accordingly **DO NOT** report the above as a
+held-out performance score, cross-study prediction failure, or
+evidence that any one CDF is biologically true. The defensible
+finding is **that W07's fitted shape is not a transferable fixed
+parameter merely because both studies use winter wheat**.
+A family-level fixed shape remains unapproved.
+
+### 2. Extreme-percentile behavior of the W07 Weibull fit
+
+Take the W07 -16°C in-sample parameters from
+[W07 comparison CSV](Research/WinterWheatW07DurationSurvival.csv):
+`scale=10.500235h`, `shape=0.6566917`.
+If interpreted as one persistent lethal-exposure quantile under
+constant -16°C, its inverse survival quantile is
+
+`t(u)=scale * [-ln(1-u)]^(1/shape)`, where `u` is
+the fixed individual rank (0 to 1, **not** a new hourly
+RNG draw). This yields the following **model predictions**, not
+measured plant tolerances:
+
+| Cumulative fraction dead (`u`) | Modelled lethal time at -16°C | Relative to model median |
+|---|---:|---:|
+| 50% | 6.01 h | 1.0x |
+| 90% | 37.39 h | 6.22x |
+| 99% | 107.44 h | 17.88x |
+| 99.9% | 199.22 h | 33.15x |
+| 99.99% | 308.73 h | 51.38x |
+
+The model still predicts **0.707% survival at 120h**,
+whereas W07/W08 reports **no observed survivors** at 120h.
+This is *not* a statistical contradiction without the study's
+actual trial denominator (with 30 independent plants, the
+Weibull prediction has about **80.8% chance** of zero
+observed survivors). It is likewise **not** evidence that the
+0.707% survival tail accurately reflects biology.
+
+The Draft C# stable identifier maps plant IDs to an approximately
+uniform **24-bit percentile** strictly below 1. Under this
+*unmodified illustrative Weibull*, the **maximum possible
+24-bit rank** could map to approximately **808 game hours
+(~33.7 game days)** of continuous -16°C survival if
+experimental hours were naively equated to in-game hours.
+This extreme rank is **not guaranteed to occur in a colony**;
+its significance is potential extrapolation, not a measured
+in-game or real-world survivor. For 1,000 independent
+uniform ranks the expected largest percentile is near
+99.9%, corresponding to the model's roughly 199h tail.
+Real plant IDs and generated populations are not truly
+independent biological samples, and the 60-day RimWorld
+calendar mapping is **unresolved**.
+
+**Implication:** an unbounded inverse-CDF is not automatically safe for
+large outdoor crop fields or prolonged winters. Arbitrarily
+clipping at 99%, 99.9%, 120h or 2x the median would
+change the inferred mortality curve and has **no empirical
+approval**. The appropriate action is to record an explicit
+upper-tail extrapolation policy once matched whole-plant
+survival evidence and gameplay-time scaling exist.
+
+### 3. Decision / stop condition for choosing the CDF
+
+1. **Do not promote Weibull as a universal distribution**, do not
+   use W07's 0.6566917 shape as a fixed wheat-class constant,
+   and do not assign its quantiles to MO Wheat or other plants.
+2. **Preserve** the cheap sparse additive injury accumulator and
+   stable plant percentile as the experimental mechanism.
+   A fixed individual inverse-CDF needs neither repeated random
+   death rolls nor a per-plant exposure-duration timer.
+3. **No additional fitting families or tail truncation
+   implementation now**: the next missing evidence is one
+   same-cultivar/same-state whole-plant experiment across
+   durations and, for a true severity curve, multiple
+   controlled plant/crown temperatures, sample denominators
+   and warm-recovery endpoints.
+4. Before later selecting a distribution, check **LT10/LT50/LT90
+   and extreme survivorship**, source stage/acclimation,
+   finite rank bounds, mid-save XML change behavior,
+   and **game-time versus biological-time conversion**.
+5. Keep PR #24 **Draft** with all production XML unchanged.
+   This audit does not authorize new C#, a native RimWorld
+   test, Workshop graph or publication.
