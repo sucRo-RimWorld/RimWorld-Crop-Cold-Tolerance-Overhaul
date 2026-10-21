@@ -1358,3 +1358,60 @@ game tests only after a real implementation slice.
 parameter or production migration. Keep PR #24 Draft;
 no changes to C#, live XML, Steam or default gameplay
 from this design-policy update alone.
+
+
+### First single-state quantitative candidate gate: W13 M39 (2026-10-21)
+
+[Exact mathematical comparison](ColdDamageCalibration.md#w13-single-cohort-approximate-fit-identifiability-2026-10-21)
+and [reproducible candidate table](Research/WinterWheatW13Moskovskaya39ConditionalFits.csv)
+is now available for *Moskovskaya 39 wheat seedlings
+conditioned at 4°C for 7 days only*.
+**It does not describe all generic MO Wheat.**
+
+- At **24-hour** target conditions the source's
+  whole-seedling survival at **0/−3/−5/−7°C**
+  is **100/97/65/15%**. The current additive
+  cold injury with *bounded uniform lethal-dose
+  variation* can produce **100/100/65/15%**
+  (in-sample **1.50 percentage-point RMSE**)
+  without introducing another runtime engine or
+  changing the individual CDF family.
+- This does **not** identify an onset or fatal
+  degree-hours. Mathematically different
+  **unapproved example** sets
+  (onset **−1.6°C**, baseline lethal
+  **96°C·h**, variation **0.5**)
+  and (onset **−3.1°C**, baseline lethal
+  **60°C·h**, variation **0.8**)
+  give the **same four 24-hour predictions**.
+  At −5°C for 48h, their *unmeasured forecasts*
+  diverge to **0%** versus **17.5% survival**.
+  These examples are **neither empirical parameter
+  estimates nor production XML values**.
+- The observed **−3°C 97±3%** is
+  **not** an observed 100%; both examples miss its
+  central value by +3 points and its uncertainty
+  cannot be treated as a verified confidence
+  interval without the original sampling definition.
+- Pre-acclimation is a **prerequisite state** of
+  this treatment. The existing generic opt-in
+  accumulator has **no biological hardening state**;
+  applying either fitted profile to all MO Wheat
+  would silently assume identical physiology.
+  Experiments use freezer target temperatures and
+  lab exposure hours, not the current RimWorld
+  map-air sampled temperature and seasonal clock.
+- **Disposition:** the current linear + uniform
+  implementation is numerically feasible at the
+  one measured 24h profile, so **do not introduce
+  a Weibull CDF, nonadditive exposure or acclimation
+  subsystem to solve this isolated fit**.
+  **Neither example qualifies for plant activation**;
+  first require a bounded game-time translation,
+  physiologically applicable default-state policy
+  and the intended short/multi-day frost outcomes
+  (or matched empirical durations).
+  Preserve current 48 finite-death, 30 dormancy
+  profiles, Japanese UI labels, C# and saves.
+  Draft PR #24 remains Draft; no game test
+  or Workshop promotion from this fit alone.
