@@ -168,3 +168,57 @@ interpret example onset, lethal dose or recovery fields as biology-backed
 values, and must not migrate their XML from the fixed model before
 calibration and API stabilization. Existing legacy extension semantics
 remain unchanged.
+
+
+### Time unit and acclimation non-feature (2026-10-21)
+
+The opt-in API's coldDamageDegreeHoursToDie
+means **degrees × in-game hours**. The runtime
+uses **2,500 ticks per in-game hour**; no
+365/60 or 60/365 season-length multiplier
+is applied to acute cold damage.
+Treating a source's 24 laboratory hours
+as 24 uninterrupted game-hours is a
+**comparison assumption**, not evidence
+of a source-matched fatal dose.
+
+The engine reads **AmbientTemperature**
+at CheckMakeLeafless samples, not soil/crown
+temperature; it does not replay the actual
+temperature trajectory between samples.
+The initial sub-onset observation is not
+backfilled, and elapsed intervals are
+capped at 2,000 ticks. Consequently
+continuous laboratory exposure cannot
+be assumed to equal exactly accumulated
+gameplay exposure without a scoped runtime
+check.
+
+**Cold acclimation is not implemented or
+implicitly granted.** Setting coldDormancy
+or minGrowthTemperature does **not** track
+hardening; being in winter or at a
+high latitude does not establish a
+previous 4°C×7-day conditioning state.
+A future optional per-plant hardening
+feature must represent prior cool
+exposure and warm dehardening separately
+from damage/dormancy, with saved
+history and independently justified
+species parameters. The W13 7-day
+conditioning duration cannot be taken
+as universal 7 in-game days or
+automatically compressed by the
+60-day game year.
+
+**Consumer warning:** do not copy the
+published winter-wheat acclimated
+one-state fit examples into generic
+Medieval Overhaul wheat XML. They
+have no approved default-state
+mapping or short/long-freeze
+behavior. For exact design constraints
+see [time and acclimation boundary](Design.md#time-and-acclimation-implementation-boundary-2026-10-21).
+Existing 48 production fixed-death
+thresholds and 30 dormancy profiles
+remain unchanged.
