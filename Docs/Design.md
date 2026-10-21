@@ -924,3 +924,28 @@ current C# code is still an
 **opt-in uncalibrated framework
 prototype** and has not been
 modified by this research pass.
+
+
+### Lentil source-scope and monotonicity check (2026-10-21)
+
+[ColdDamageCalibration.md](ColdDamageCalibration.md) now compares
+the published C03 chickpea 1–5h survival fractions to an unweighted
+nonincreasing isotonic fit. The observed 75/78/25/8/0% at -12°C
+becomes a modelled 76.5/76.5/25/8/0% (RMSE 0.95 percentage
+points). This is a descriptive within-sample fit, not a fitted
+temperature-dose equation. Minor mortality inversions do not
+justify an additional per-plant physiological-state mechanism.
+
+The properly identified data file is
+[LegumeC03ChickpeaFreezingSurvival.csv](Research/LegumeC03ChickpeaFreezingSurvival.csv).
+The previous file incorrectly used ID C01, which belongs to a
+cabbage study; the wrong file was removed and Git history retained.
+
+L03 and L04 add direct lentil (*Lens culinaris*) whole-plant
+recovery experiments, but not a complete same-genotype
+temperature-by-duration survival matrix. L05 measures
+seed germination rather than survival of growing plants and is
+excluded from lethal-dose calibration. Do not migrate
+winter-acclimated lentil experimental tolerances to
+the unclassified MO Lentil Def without a stated physiological
+state and time-scale conversion. Production code/XML remains unchanged.
