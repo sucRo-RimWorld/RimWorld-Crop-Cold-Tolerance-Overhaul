@@ -1,0 +1,29 @@
+# W05 treatment DESIGN inventory only, NOT whole-plant observations. Every mortality cell intentionally BLANK; no 0% is inferred.
+# Zheng et al. 2018, Agricultural and Forest Meteorology 260-261:1-8, doi:10.1016/j.agrformet.2018.05.011
+# https://www.sciencedirect.com/science/article/abs/pii/S0168192318301631
+# https://agris.fao.org/search/en/providers/122535/records/65defde17c7033e84bec586f
+# Experiment 2014-2016, Jing411 strong-winter wheat. Treatments use SOIL MINIMUM targets per study; these are NOT steady crown or map-air temperatures.
+# All 20 temperature-duration combinations are stated in publisher-indexed abstract. It does NOT provide plant mortality percentages per cell, denominator, or temperature cycle for full dose calculation.
+# Abstract FDD slope ~1.0% plant mortality per C-degree-day below soil minimum -12C; not a lookup table and no intercept. Do not reconstruct per-cell mortality from this slope.
+# Source full figure/table and supplementary primary numerical observations not retrieved from publisher, ResearchGate/request-full-text, FAO AGRIS or targeted open manuscript searches, as of 2026-10-21.
+source_id,cultivar,soil_minimum_target_C,freeze_duration_days,observed_whole_plant_mortality_fraction,observed_mortality_status,treatment_source_level
+W05,Jing411,-14,2,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-14,4,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-14,6,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-14,8,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-14,10,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,1,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,2,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,3,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,5,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,6,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,7,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,8,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-17,9,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-20,1,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-20,2,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-20,3,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-20,4,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-20,5,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-20,6,,NOT_RETRIEVED,publisher_indexed_abstract
+W05,Jing411,-20,8,,NOT_RETRIEVED,publisher_indexed_abstract
