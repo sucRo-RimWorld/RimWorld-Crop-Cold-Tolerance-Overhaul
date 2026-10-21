@@ -1281,9 +1281,7 @@ were reviewed against the owner's Vanilla/MO plant data.
   30 dormant profiles, owner boundaries, current
   sparse opt-in prototype and the already accepted
   Japanese Info Card terminology.
-- Prefer a **single bounded W05 original figure/table
-  acquisition** rather than extending the same
-  inconclusive literature search indefinitely.
+- The bounded **W05 original figure/table acquisition** was attempted. The original publisher-indexed study gives the exact **20 freezing treatment combinations** (5 at −14°C, 8 at −17°C, 7 at −20°C), now indexed in [W05 treatment availability](Research/WinterWheatW05TreatmentAvailability.csv), but **0 of 20 observed whole-plant mortality values were retrievable**. This is source-access status, not a mortality percentage. [Detailed accession gate](ColdDamageCalibration.md#w05-exact-treatment-grid-now-indexed-observed-outcomes-still-unavailable-2026-10-21). Do not re-create the results from the paper's single aggregated FDD slope or imply these daily soil minima are continuous ambient readings. Seek the original outcome figure/table and denominators only if source-backed activation is still the chosen release scope.
   Do not invent individual trial counts or use
   source-derived 24h LT50 bounds as lethal game-hour
   settings. No code, production XML, native test,
