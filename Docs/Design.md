@@ -949,3 +949,35 @@ excluded from lethal-dose calibration. Do not migrate
 winter-acclimated lentil experimental tolerances to
 the unclassified MO Lentil Def without a stated physiological
 state and time-scale conversion. Production code/XML remains unchanged.
+
+
+### C03 full 25-condition plot limits the monotone-dose claim (2026-10-21 correction)
+
+The earlier statement that C03's nonmonotonic survival can be
+represented with ~0.95 percentage-point RMSE is restricted to
+the five **verbatim** source outcomes at -12°C. Inspection of
+[original Figure 2A](https://www.frontiersin.org/files/Articles/1239008/xml-images/fpls-14-1239008-g002.webp)
+shows a much larger **apparent** inversion at -10°C:
+3h survival ~60%, 4h survival ~93%. A [clearly
+labelled approximate graph transcription and monotone
+projection](Research/ChickpeaC03Figure2Approx25.csv)
+places the 25-condition **minimum monotone** fitting
+RMSE at ~5.29 percentage points. Other 20 points
+were visually approximated, not source-published raw
+counts; the paper's error bars do not establish
+which inversion is significant. Refer to the
+[calibration correction](ColdDamageCalibration.md#correction--audit-the-complete-c03-figure-not-only-the--12c-text-row-2026-10-21)
+for provenance and meaning.
+
+**Resulting design boundary:** a nonnegative dose plus
+persistent per-plant susceptibility remains an affordable
+biological abstraction, **not quantitatively verified
+against the entire C03 temperature×duration study**.
+Do not add dynamic acclimation, new per-tick sampling,
+or asymmetrical probability families merely to
+interpolate an uncertain small survival experiment.
+Nor may C03 chickpea parameters be inserted into
+the unrelated MO Lentil Def. The first live
+plant-class migration still requires source-matched
+temperature/time evidence and a stated game
+time-scale. C# / plant XML remain unchanged.
