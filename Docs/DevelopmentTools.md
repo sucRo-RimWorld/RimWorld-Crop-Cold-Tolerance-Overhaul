@@ -342,3 +342,56 @@ CCTO-specific default:
 
 Do not spend Astra merely on routine CCTO file edits or compile-error loops.
 
+
+
+### 2026-10-21 actual original Linux 1.6 CCTO opt-in acceptance
+
+**Actual validated owner source:** `d58e2c160b9ccd424c2ed50d9f8335188da64fb4`
+(compile fix for the required `RimWorld.Plant` namespace).
+Project manually invoked [Actions #39597538963](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39597538963)
+on its isolated native slot 3. Source-pinned CCTO was compiled
+against the independently owned original RimWorld Linux
+**1.6.4871 rev600**. Generated CCTO assembly SHA256:
+`a1166f42928d89925555e6231a722dc5b23348f30100eaf4d5f8f1eb0c9420ea`.
+The test companion uses an isolated, **test-only renamed
+packageId** to select exactly that compiled DLL rather
+than the older host-staged CCTO production DLL. Its
+source-owned MO fixture contains Defs, **not live MO assemblies**.
+
+**Verified actual native result:** Pickle **16/16 passed**;
+0 failed, 0 skipped, 0 flaky; 0 detected Unity ERROR;
+game exit code 0; no timeout. The two newly exercised
+cold-injury scenarios used a real spawned Plant, actual
+CCTO Harmony postfix and map component. The 2000/1000-tick
+intervals were **injected by adjusting the saved record's
+lastTick**; this proves code behavior at known intervals,
+not normal scheduled delivery. Existing fixed cold death,
+dormancy, info-card and loaded Vanilla+MO-fixture balance
+cases all passed. The existing extension-validation
+Pickle scenario also checks invalid negative/NaN/infinite
+recovery and valid zero recovery.
+
+**Failures and correction:** preceding Project
+[Actions #39597165888](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39597165888)
+failed on production **C# compilation** (CS0246
+`Plant` missing `using RimWorld;` in
+`ColdDamageMapComponent.cs`), *before native game
+launch*. Fixed in owner commit
+`d58e2c160b9ccd424c2ed50d9f8335188da64fb4`;
+subsequent scoped real-game run above is the accepted evidence.
+
+**Not covered by this run:** real save-and-reload
+reconstruction of `cctoColdDamageStates`; normal
+tick-scheduling accuracy, intermittent cold spikes,
+RimWorld **1.7** with the changed C#; real complete
+Medieval Overhaul assemblies; existing saves;
+long-term balance, variation statistics, actual
+crop-specific XML opt-in, Workshop deployment.
+These cannot be called PASS from the 16 tests.
+The feature remains optional and **no production
+plant is switched to the cumulative model**.
+PR #24 remains Draft for biological coefficient /
+consumer-activation decisions; existing 48
+fixed-death and 30 dormancy settings remain
+unchanged. Do not automatically rerun the
+whole game suite for this documentation addition.
