@@ -14,7 +14,7 @@
 ## GitHub bibliography retention and verification (2026-10-21)
 
 **This GitHub-tracked document is the canonical reference register for the
-CCTO numerical recalibration research.** The **73 unique source IDs** below
+CCTO numerical recalibration research.** The **74 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
 non-transferability warnings. Source IDs repeated in the later whole-plant
 endpoint extraction are cross-references, **not** additional independent
@@ -115,6 +115,7 @@ candidate numbers.
 | `W02` | [Skinner et al. 2018, PLOS ONE](https://pmc.ncbi.nlm.nih.gov/articles/PMC6005534/) | 一次実験 | 冬小麦12系統 — 5週間順化後のLT50に光周期/品種差 | LT50は群の50%死亡であり一律枯死温度ではない |
 | `B01` | [Wójcik-Jagła & Rapacz 2023, Scientific Reports](https://www.nature.com/articles/s41598-023-47318-y) | 一次実験 | 冬・兼用型大麦 — 順化後の凍結処理、脱順化に伴うLT50・再生の変化 | 春型大麦や実ゲームの大麦全般に自動適用できない |
 | `C01` | [NARO 1997, キャベツ幼植物の耐凍性向上と糖蓄積](https://www.naro.go.jp/project/results/laboratory/vegetea/1997/vegetea97-004.html) | 一次研究成果要旨 | キャベツ2–3葉期 — 5℃順化、-8℃凍結後の葉片の電解質漏出 | 葉片損傷であり株全体の死亡率ではない |
+| `R02` | [Sagehashi (2023), *Plant Production Science*, doi:10.1080/1343943X.2023.2236344](https://www.tandfonline.com/doi/full/10.1080/1343943X.2023.2236344) | **同種全株生存試験の原著公開本文・図説明、表の要約確認** | 北海道イネ6品種の**10日齢苗**を4℃×10日曝露し、27℃で10日回復後に生存を確認。**非順化群は全品種0%生存**、12℃×5日事前順化群は**88～100%生存**。Oboroduki非順化10日・順化18日、Kitaaoba非順化8日・順化18日までの曝露で全株死亡と報告。品種内3反復。 | 4℃保持10日と12℃事前順化5日は異なる生理状態。定温の温度×時間完全格子なし・10日値は死亡率でありLT50でない。紙面Fig2の中間生存率・個体数は未確定。**同じ固定の損傷開始温度と致死量では事前順化前後の0%対88～100%を再現できない**。 |
 | `R01` | [da Cruz et al. 2013, Food and Energy Security](https://onlinelibrary.wiley.com/doi/10.1002/fes3.25) | 学術レビュー | イネ — 約10–13℃の初期生育障害・18–20℃の生殖生長期被害 | 収量/生理障害であり全株死亡閾値ではない |
 | `G01` | [Ferguson et al. 2011, Annals of Botany](https://rex.libraries.wsu.edu/esploro/outputs/journalArticle/Dynamic-thermal-time-model-of-cold/99900547082801842) | 一次観測/モデル比較 | ブドウ Cabernet Sauvignon, Chardonnay, Concord — 22年までの芽耐寒観測に基づく順化・脱順化モデル(R²=0.82–0.89) | 芽の耐寒でありブドウ樹の死亡ではない |
 | `G02` | [Cornell Finger Lakes Grape Program 2023 winter hardiness](https://blogs.cornell.edu/flxgrapes/2023/02/15/winter-hardiness-update-february-8-2023/) | 実測・普及資料 | ブドウ品種別 — 低温芽LT10/LT50(°F)、実際の気温と比較 | 芽損傷リスク;全樹死と混同禁止 |
@@ -135,7 +136,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 
 | DefName | Current plant | Current cold mode | Source IDs | Collection stage | What is and is not supported |
 |---|---|---|---|---|---|
-| `Plant_Rice` | Rice | death | `F01`, `R01` | 対象資料あり・端点注意 | 生育段階別被害/低温障害;全株死亡は未測定 |
+| `Plant_Rice` | Rice | death | `F01`, `R01`, `R02` | R02では10日齢苗の4℃×10日後全株生存を直接測定し順化による0%→88～100%差を確認 | **成長阻害/不稔(R01)と全株死亡(R02)を区別**。R02の12℃×5日順化は4℃生存に決定的で、固定個体差のみのモデルへ直接移植不可。環境/段階を選ばずに4℃10日で全Riceが死ぬ設定は不適切。 |
 | `Plant_Potato` | Potato | death | `F01`, `P01` | 対象資料あり・端点注意 | 地上部と地下塊茎は別挙動 |
 | `Plant_Corn` | Corn | death | `F01`, `M01`, `M03`, `M04` | 同一種の凍結株生存・非凍結チリング不可逆死・系統差（条件ごとに別） | M01: 別原著の−2℃48h/−6℃2hで各約50%苗死亡。M03: **+0.3±0.3℃で72h後回復不能死亡**、36hなら多く回復。M04: −1℃3h後の30近交系の生存率5～97%は**系統間差**。各実験を同一系統/苗齢の温度×時間データとして合成しない。 |
 | `Plant_Strawberry` | Strawberry | death | `S01` | 対象資料あり・端点注意 | 花芽の凍害で株の越冬死ではない |
