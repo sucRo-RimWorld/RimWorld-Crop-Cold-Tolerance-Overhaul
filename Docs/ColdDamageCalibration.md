@@ -2033,3 +2033,103 @@ survival evidence and gameplay-time scaling exist.
 5. Keep PR #24 **Draft** with all production XML unchanged.
    This audit does not authorize new C#, a native RimWorld
    test, Workshop graph or publication.
+
+
+## W13 measured 24-hour wheat frost bounds and 2D activation gate (2026-10-21)
+
+### Original source and complete published survival grid
+
+**W13 primary study:** Deryabin, Zhukova, Naraikina & Venzhik (2024),
+*Metabolites* 14(4):199, [DOI 10.3390/metabo14040199](https://doi.org/10.3390/metabo14040199),
+[original Table 2](https://www.mdpi.com/2218-1989/14/4/199).
+The table reports **whole-seedling survival**, not isolated
+leaf electrolyte leakage or percent growth reduction, for two
+*Triticum aestivum* genotypes: freezing-tolerant Moskovskaya 39
+and cold-sustainable Zlata, comparing the **22°C non-acclimated
+control** with **4°C for 7 days pre-acclimation**.
+The freezer target was **0/−3/−5/−7°C, each for 24 hours**.
+The original 16 published observations, including source-reported
+± values where supplied, are preserved in
+[W13 original table CSV](Research/WinterWheatW13Deryabin24hSurvival.csv).
+
+| Genotype and pre-treatment | 0°C ×24h | -3°C ×24h | -5°C ×24h | -7°C ×24h |
+|---|---:|---:|---:|---:|
+| Moskovskaya 39 / unacclimated | 100% | 35±2% | 0% | 0% |
+| Moskovskaya 39 / 4°C ×7d | 100% | 97±3% | 65±4% | 15±2% |
+| Zlata / unacclimated | 100% | 15±2% | 0% | 0% |
+| Zlata / 4°C ×7d | 100% | 60±3% | 7±2% | 0% |
+
+**Literal, source-supported 24-hour LT50 bounds only** (assuming
+population survival declines between adjacent tested freeze targets):
+M39 unacclimated **between −3°C and 0°C**;
+M39 acclimated **between −7°C and −5°C**;
+Zlata unacclimated **between −3°C and 0°C**;
+Zlata acclimated **between −5°C and −3°C**.
+These are **intervals containing 50% survival**, not
+source-calculated LT50s, model fitted intercepts,
+physiological damage-onset temperatures or candidate
+RimWorld cold-death XML values. Exact 0%/100%
+experimental outcomes do not imply mathematical population 0/1.
+
+**What this actually unlocks:** a direct *species- and
+genotype-matched* 24h temperature-response constraint and
+an independent empirical demonstration of acclimation for
+wheat. The matching freeze duration and growth context must
+be preserved when comparing each row. W13 does **NOT**
+supply more than one exposure duration in any physiological
+state, and its cooling/ramp details, sample denominators,
+plant versus air temperature and post-thaw survival criterion
+require a dedicated full-method check before parameter adoption.
+The variety and physiological state of generic
+`DankPyon_Plant_Wheat` remain unspecified.
+
+### Bounded CCTO candidate comparison
+
+| Candidate | Same organism and frozen-stage whole-plant endpoint? | Temperature × duration surface? | Status |
+|---|---|---|---|
+| **W05, Jing411 winter wheat** (Zheng et al. 2018) | **Yes**: one named cultivar over 3 minimum soil temperatures and multiple freeze days | **Study performed**, but treatment-level alive/dead numbers and complete original temperature histories have not been recovered from accessible primary text; 1%/°C·d aggregate gradient cannot reconstruct cells | **Best direct 2D dataset acquisition target; no 2D fit allowed now** |
+| **W13, M39 and Zlata wheat** (Deryabin et al. 2024) | **Yes**: 24h seedling survival by genotype and pre-acclimation state | **No**: four temperatures, **one** duration in each state; extra conditioning axis is not extra freeze-duration evidence | **Valid 24h temperature and acclimation bounds only** |
+| **W07 via W08, Kharkov winter wheat** | **Yes**, but source percentages are quoted second-hand | **No**: five duration points at only **one** temperature (-16°C) | **Duration-shape comparison only**; no independent cross-temperature law or universal Weibull |
+| **W10 Husiny et al. 2024** | **Yes**: cultivar-specific whole-plant LD50 and LT50 | **No joint 2D grid**: LD50 and LT50 from separately structured experiment arms; Borealis raw data still unavailable | **Separate marginal constraints**, not synthetic paired factorial survival |
+| **C03 chickpea 5×5** | **Yes** for whole *Cicer arietinum* regrowth; **not** MO *Lens culinaris* | **Yes in experimental design**, but five -12°C text results plus approximate graph readings, with conspicuous non-monotone plotted samples and no raw counts | **Methodology stress-test only**; never transcribe as MO Lentil lethality |
+
+### Implementation decision, grounded in the original data
+
+- **CCTO-owned best candidate for the first complete 2D
+  calibration is MO Wheat / *Triticum aestivum* using W05
+  Jing411 as an explicit *winter-cultivar single-state* study,
+  NOT the unidentified generic MO Wheat variety. W13 can
+  constrain the likely impact of physiological conditioning
+  under a separate experimental protocol, but W05+W13
+  **must not be pooled as one synthetic cultivar**.
+- For a genuine two-dimensional fatal-degree-hour profile,
+  source original **W05 per-temperature/per-duration whole
+  plant mortality cells**, sampling denominator/variation,
+  field-acclimation dates, **measured crown/soil thermal
+  histories**, and thaw/regrowth criterion are required.
+  Without these, **no reproducible comparison of linear vs
+  nonlinear severity or source-backed onset/dose is possible**.
+- No CCTO crop meets the entire acceptance gate *from the
+  evidence currently obtained*. This is a scoped finding
+  about **accessible validated evidence**, not proof that
+  qualifying studies do not exist or that biological
+  realism requires a universal equation.
+- Do not add CDF shapes, acclimation counters or plant XML
+  values just to make use of W13; **existing 48 legacy
+  finite-death and 30 dormancy plants stay unchanged**.
+  The 60-day game-year transformation and natural
+  map-air versus measured root/crown temperature are
+  independent calibration blockers even after finding a
+  complete laboratory survival grid.
+- **Stop unbounded literature expansion:** use existing
+  W05 as the precise source acquisition target. A later
+  author-approved *ecological approximation* can be
+  explicitly marked approximate, but cannot be described
+  as measured 2D mortality or accepted implicitly through
+  a low-RMSE graph.
+
+**Research complete for the current first-model
+qualification decision:** direct W13 empirical evidence
+added, original 16 points indexed, **no production-ready
+plant-specific numeric injury profile qualified**. No
+runtime code, native tests, release, or Steam page updated.
