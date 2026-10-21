@@ -1282,3 +1282,213 @@ which are unsupported, and protect default
 dormancy/biome vegetation. There is no scientific
 basis to declare one experimental maize cohort's
 quadratic or linear rate universally correct.
+
+
+## First primary 5 × 5 temperature-and-duration WHOLE-PLANT study — chickpea (2026-10-21)
+
+**Major evidence improvement over W04/W05/W10 and M01:** an
+open-access original experiment includes **five temperatures × five
+target-temperature holding durations** and judges **intact seedling
+survival after four weeks**, not detached-leaf conductivity or
+tiller-only injury. **C03:** Nabati et al. (2023),
+[*Frontiers in Plant Science* 14:1239008,
+doi:10.3389/fpls.2023.1239008](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2023.1239008/full).
+Six-leaf *Cicer arietinum* seedlings from the Mashhad collection,
+four replicates, eight seedlings originally per pot, were
+exposed to **0/-6/-8/-10/-12°C × 1/2/3/4/5h**.
+The freezer was lowered from +5°C at **2°C/h** before
+each target-temperature hold, then plants spent ~24h
+at +5°C to thaw and 30d in a glasshouse to score
+living vs dead plants. **The source does not identify
+one verified uniform cultivar/clone**, and individual
+binomial records are not available. This makes it
+a *single growth-stage crop-group factorial protocol*,
+not evidence that the results apply to every legume.
+
+The source's **Figure 2A contains 25 plotted survival
+values**. There is no machine-readable original
+25-cell survival table in the article HTML; **do not
+invent or visually guess the missing percentages**.
+However, the original text gives **10 useful
+source-derived numeric anchors**: five
+survival percentages at the same −12°C and five
+temperature-LT50 medians (computed by source's own
+three-parameter logistic fitting) at each
+holding duration.
+
+| Held at -12°C, hours | 1 | 2 | 3 | 4 | 5 |
+|---|---:|---:|---:|---:|---:|
+| **Observed whole-plant survival %** | **75** | **78** | **25** | **8** | **0** |
+| **Source-fitted LT50°C at this duration** | **-12.1** | **-12.1** | **-10.5** | **-11.0** | **-9.0** |
+
+- Survival is **not exactly monotonic** at 1→2h
+  (75→78%) despite a longer hold, and the
+  source's LT50 becomes 0.5°C *colder* at
+  3→4h rather than warmer. These
+  details **must be preserved as published**.
+  They are not proof of biological recovery
+  while frozen; likely variation/rounding/source
+  fitting contributes, but the exact cause and
+  uncertainty cannot be determined without
+  treatment-level measurements.
+- "LT50" above is the **temperature giving
+  50% *plant mortality* at each hold** as
+  fitted by the source, not the CCTO individual
+  death temperature. Five source LT50
+  estimates are **derived from the same
+  experimental grid**, not five independent
+  external validation studies.
+- **Target hold duration is not total cold
+  exposure.** Reaching −12°C from +5°C
+  at 2°C/h takes ~8.5h of ramping, while
+  reaching −6°C takes ~5.5h; the time
+  series below each temperature threshold
+  differs. **Do not simply model the
+  1h versus 5h target hold as total exposure.**
+  Exact plant/tissue temperature and ice
+  nucleation paths are not provided.
+
+### Bounded numerical model-shape comparison at -12°C
+
+The [C03 CSV](Research/LegumeC01FreezingSurvival.csv)
+separates **observed and author-reported** values from
+our **exploratory model predictions**. Unweighted
+least squares to the **five published rounded
+whole-plant survival percentages** (1–5h only),
+using observed hold hours as the input:
+
+```text
+Exponential population survival
+S(t) = exp(-lambda * t)
+fit lambda ≈ 0.37148 per target-h
+5-point in-sample RMSE ≈ 17.21 percentage points
+
+Two-parameter Weibull population survival
+S(t) = exp(-(t/tau)^k)
+fit tau ≈ 2.8085 target-h, k ≈ 2.66565
+5-point in-sample RMSE ≈ 10.11 percentage points
+```
+
+**The Weibull fit is still poor** for the
+1h measurement (predicted 93.8% vs
+observed 75%, **+18.8 percentage points**).
+Its apparent smaller RMSE is **not evidence
+of a good validated CCTO curve**, and the
+exponential and Weibull models have unequal
+numbers of free parameters. Exact survivor
+counts, the covariance of shared source
+LT50 fits and separate independent replicates
+have not been recovered. The fit is not
+binomial maximum likelihood, a scientific
+effect-size estimate, or model cross-validation.
+No coefficient or distribution shape is
+approved for use.
+
+### Direct CCTO-owning plant cross-check: lentil, not chickpea
+
+The actual CCTO/MO plant `DankPyon_Plant_Lentils`
+is *Lens culinaris*. Two additional **same-species
+original studies** are now source IDs `L01`
+and `L02` in the evidence ledger:
+
+- **L01:** Nabati et al. (2020),
+  [doi:10.22092/sppi.2020.123186](https://www.researchgate.net/publication/352977909_Freezing_Tolerance_in_Some_Lentil_Genotypes_under_Controlled_Conditions).
+  Forty genotypes tested at **−13/−15/−18°C**.
+  Its published summary says **100%, 93%, 30%
+  *of genotypes*** at those temperatures
+  were **not significantly different from
+  their own maximum 100% survival**.
+  **That is not a 100/93/30% seedling
+  survival curve.** Only MLC12/17/95
+  are described as maintaining
+  100% observed survival across all
+  three tested temperatures. Original
+  method detail and individual genotype
+  mortality cells not accessible.
+- **L02:** Nabati et al. (2023),
+  [FAO AGRIS primary-article summary](https://agris.fao.org/search/en/providers/122294/records/66fa71abdb9bf9ac61020558).
+  Eighteen genotypes tested at
+  **0/−15/−18/−20°C**, 2°C/h ramp
+  from +5°C and **1h target hold**;
+  after three weeks' recovery,
+  **five named MLC genotypes**
+  retained >80% plant survival at
+  −15°C, while **none of the 18
+  genotypes survived −20°C** in
+  sampled treatments. Those are
+  measured survival observations at
+  specific temperatures for an
+  actual CCTO plant species, **not
+  exact whole-species deterministic
+  death temperatures**. Their
+  within-genotype raw counts and
+  a multi-duration series remain
+  unavailable.
+
+**Combining C03 with L01/L02 as if
+`Lens culinaris` and `Cicer arietinum`
+were one species is forbidden.** C03
+validates the *methodological need*
+for duration×intensity treatment;
+L01/L02 constrain *lentil-specific
+field/experimental phenotype* under
+one specified duration. The CCTO
+whole-lentil lethal dose, chilling
+onset and individual susceptibility
+spread are **not identified**.
+
+### Implementation decision from this bounded literature pass
+
+1. The source now demonstrates directly
+   why a shared **linear degree-hours**
+   equation cannot simply claim
+   population-level biological
+   validation. **No model form
+   wins robustly** after allowing
+   the unknown underlying ramp
+   and sampling error.
+2. Preserve the **low-cost common
+   accumulation engine**, a
+   stable rank per plant and
+   **class-specific candidate
+   severity functions** for later
+   numerical fitting. Do not
+   enable a new plant class on
+   guessed onset/dose/variance.
+3. Prioritise **two measured
+   biological regimes**, not
+   78 incompatible hand-tuned
+   formulas: severe below-zero
+   freeze exposure, plus
+   prolonged nonfreezing
+   chilling where species
+   evidence specifically
+   requires it (maize M03).
+   The number/shape of free
+   coefficients is not yet
+   approved.
+4. **Stage and identity are
+   nonoptional metadata.**
+   Six-leaf chickpea, cold-
+   acclimated winter wheat
+   and specific lentil MLC
+   genotypes do not represent
+   identical colony plant
+   cohorts; distinguish
+   cohort medians from
+   within-cohort susceptibility
+   variability.
+5. A separate study of
+   identical *lentil genotype*
+   across more than one
+   freeze duration, or an
+   independently recovered
+   25-cell C03 source table
+   with uncertainty, would
+   permit more reliable shape
+   testing. Until then preserve
+   the *experimental* opt-in
+   C# accumulator and current
+   production XML unchanged;
+   skip unnecessary native
+   tests and new CI fixtures.
