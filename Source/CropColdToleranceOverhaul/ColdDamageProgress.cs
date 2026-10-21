@@ -23,8 +23,8 @@ namespace CropColdToleranceOverhaul
             }
 
             // 24 high bits: deterministic rank strictly within (0,1).
-            float percentile = ((h >> 8) + 0.5f) / 16777216f;
-            return 1f + halfWidth * (2f * percentile - 1f);
+            double percentile = ((h >> 8) + 0.5d) / 16777216d;
+            return (float)(1d + halfWidth * (2d * percentile - 1d));
         }
 
         // 2,500 ticks per game hour. One unit of damage is fatal.
