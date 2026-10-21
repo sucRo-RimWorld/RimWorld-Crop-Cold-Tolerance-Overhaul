@@ -14,7 +14,7 @@
 ## GitHub bibliography retention and verification (2026-10-21)
 
 **This GitHub-tracked document is the canonical reference register for the
-CCTO numerical recalibration research.** The **59 unique source IDs** below
+CCTO numerical recalibration research.** The **62 unique source IDs** below
 carry titles, direct literature/extension URLs, study endpoints and
 non-transferability warnings. Source IDs repeated in the later whole-plant
 endpoint extraction are cross-references, **not** additional independent
@@ -96,6 +96,9 @@ candidate numbers.
 | `W01` | [Skinner & Garland-Campbell 2008, Canadian Journal of Plant Science](https://www.ars.usda.gov/research/publications/publication/?seqNo115=221641) | 実験論文・USDA要旨 | 低温順化した冬小麦25品種 — -5℃/15週で生存率0–100%;20週で0–33% | 品種・順化済み苗に限定;農地の気温を直に入れてはいけない |
 | `W03` | [Skinner 2014, *Crop Science* 54:1523–1529, doi:10.2135/cropsci2013.09.0623](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2013.09.0623) | 一次試験・公開原著要旨確認 | 低温順化した冬小麦6品種、-13.5～-16.5℃に2/3/4時間保持。-10℃以下の総経過時間が325→525分になると平均生存率が約50%低下。しかし**675分の方が生存率が上昇して325分時点と同程度**になる例を報告。 | 冷却経路/低温刺激下の適応反応を著者が示唆。**総曝露時間に単調増加する損傷量だけでは当該結果を再現できない**。品種別原表と各条件の生存率は全文未照合なので係数不可。 |
 | `W04` | [Zheng et al. 2018, *Crop Science* 58:1740–1750, doi:10.2135/cropsci2018.01.0014](https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2018.01.0014) | 一次試験・原著要旨確認 | 野外で順化した冬小麦4品種を冬季に各品種の臨界凍結温度で異なる日数保持。追加1日当たりの株死亡率の増分はJing411 **8.6%**、Nongda211 **22.3%**、Zhengmai366 **11.1%**、Yanzhan4110 **9.4%**と報告。分げつ・新葉・古葉では死亡率増分が異なる。 | 原著要旨の「% per day」が割合増減かパーセンテージポイント増減か全文で判定していない。**絶対死亡確率に数値を直用しない**。品種別臨界温度・原表・生存個体数の照合必要。 |
+| `W07` | [Pomeroy, Andrews & Fedak (1975), *Canadian Journal of Plant Science* 55:529–535, doi:10.4141/cjps75-079](https://doi.org/10.4141/cjps75-079) | **一次論文書誌/要旨確認・原著詳細表未取得** | 低温順化したKharkov冬小麦の曝露時間と生存を比較。論文要旨に-6℃で5日まで重篤な障害なし、-20℃付近で低温を長くすると損傷増加と記載。**個別生存率はW08の2025年総説による原著引用**：-16℃で1/3/6/12/24時間の生存率80/63/53/33/17%、5日後0%、-6℃で5日後100%。 | W07原著全図表は未直接読了。**二次報告の率を原著から直接転記したと主張しない**。個体数・誤差棒・凍結処理前の冷却期間・株の回復判定・条件について未照合。W08とは同一試験、独立データ2件に数えない。 |
+| `W08` | [Arora (2025), *Physiologia Plantarum* 177:e70633, doi:10.1111/ppl.70633](https://pmc.ncbi.nlm.nih.gov/articles/PMC12624383/) | **公開原文閲覧済み・総説／W07の二次再掲** | 原著W07のKharkov小麦を引用し、-16℃での5時間点の生存割合80/63/53/33/17%と5日で0%、-6℃5日で100%と明記。Gusta et al. (1997) の-15℃曝露の50%死亡時間も引用（Siouxland6.5日・Norstar13日）。植物組織のLT50と再生による株死亡LT50が別指標であることを整理。 | 論文表や実測の生存個体数はW08自身の実験ではない。W07とW08は同じデータ系列であり**独立再現ではない**。温度・冷却・順化の研究間比較は限定的。 |
+| `W09` | [Gusta & Fowler (1977), *Canadian Journal of Plant Science* 57:213–219, doi:10.4141/cjps77-029](https://doi.org/10.4141/cjps77-029) · [原著本文テキスト](https://www.researchgate.net/publication/250381843_Factors_affecting_the_cold_survival_of_winter_cereals) | **一次論文・原著公開本文の該当節確認** | 野外順化した冬小麦5品種の冠部を徐冷凍結し、最低温度へ到達直後/1h/24h後の再生生存（LD50）を比較。本文は1h保持は到達直後と同等で、24h保持するとLD50が約4℃暖かくなったと報告。冷却速度・再凍結・融解速度も評価。 | 試験は**切除冠部（crown）の再生判定**で全株を土壌ごと凍結する条件ではない。表1から各品種のLD50を正確に転記するには紙面図表の確認が必要。W07の時間生存5点とは独立の実験。 |
 | `W06` | [Wu et al. 2024, *Frontiers in Plant Science* 15, doi:10.3389/fpls.2024.1419381](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1419381/full) | **原著HTML全文・表2～4確認** | 冬小麦Nongda211/Zhengmai366/Yanzhan4110の同品種ごとに、複数の試験温度と1/2/3日の凍結処理を比較。**分げつ死亡率**を気温とのロジスティック曲線で近似（表3）、冠部土壌温度の積算寒度TSE_h(℃·時)/TSE_d(℃·日)で線形回帰（表4）。TSE_hに対する50%分げつ死亡値=106.9/86.5/84.7℃·時、R²=0.83/0.93/0.86。土壌最低温度は指定気温より1/2/3日処理で平均7.5/4.8/4.2℃高い。 | **分げつ死亡であり全株死亡ではない**。冠部測定温度と屋外気温は別。表3 Yanzhan4110の2日式「0.90*Tmin+17.18」は表のLT50=-12.7℃と**代数的に一致しない**（式は約-19.1℃を示す）：誤植/転記確認まで該当係数は計算に使用禁止。実測の個体別生存数は表3/4に含まれない。 |
 | `W05` | [Zheng et al. 2018, *Agricultural and Forest Meteorology* 260–261:1–8, doi:10.1016/j.agrformet.2018.05.011](https://doi.org/10.1016/j.agrformet.2018.05.011) · [FAO AGRIS](https://agris.fao.org/search/en/records/65defde17c7033e84bec586f) | 一次試験・要旨確認（本文未取得） | 2年の順化冬小麦試験で**土壌最低温度**-14/-17/-20℃、それぞれ1～10日程度の異なる曝露日数を比較。**土壌最低温度-12℃以下**からの積算凍結度日(FDD)と株・分げつ死亡率を分析し、FDD 1℃·日当たり死亡率がそれぞれ**1.0% / 1.4%**増加と報告。 | 空気温度ではなく**土壌**の観測量。上昇率の統計的定義、交互作用/誤差、シーズン・品種詳細未確認。**-12℃は当該実験の閾値であり汎用小麦の損傷開始温度ではない**。 |
 | `W02` | [Skinner et al. 2018, PLOS ONE](https://pmc.ncbi.nlm.nih.gov/articles/PMC6005534/) | 一次実験 | 冬小麦12系統 — 5週間順化後のLT50に光周期/品種差 | LT50は群の50%死亡であり一律枯死温度ではない |
@@ -175,7 +178,7 @@ An evidence association does **not** imply a verified whole-plant lethal paramet
 | `DankPyon_Plant_Cabbages` | Cabbage | death | `F01`, `C01` | 対象資料あり・端点注意 | 葉片損傷/生育段階別霜害;株死亡との混同禁止 |
 | `DankPyon_Plant_Garlic` | Garlic | dormancy | `G03`, `G04` | 同種・株生存/葉成長 | 冷順化したニンニクの系統差;葉面積/死亡を分離 |
 | `DankPyon_Plant_Mushrooms` | Mushroom | death | `M02` | 近縁菌類・参考限定 | 4属の培養菌糸LT50と再成長; MOキノコの同定・環境は未確定 |
-| `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02`, `W03`, `W04`, `W05`, `W06` | 冬小麦の株生存・分げつ死亡・曝露日数・積算寒度の一次研究 | W04は株の死亡率対凍結サイクル日数を著者回帰式で記録。W06は複数温度×日数に対する分げつ死亡率であり**株の死亡率に代用しない**。品種・生育段階・順化・気温/土壌冠温を区別し、MO Wheatに一律転用しない。 |
+| `DankPyon_Plant_Wheat` | Wheat | death | `F01`, `W01`, `W02`, `W03`, `W04`, `W05`, `W06`, `W07`, `W08`, `W09` | 冬小麦の株・冠部生存、曝露時間/温度、積算寒度の研究 | W07のKharkov -16℃時間別生存率はW08総説を通じた**二次確認**で原著数表未取得。W09の冠部再生は土壌越冬全株と異なる。W04のみ原著表の株死亡回帰を再構成済み。MO Wheatの種類・順化・土壌気温差には一律移植しない。 |
 | `DankPyon_Plant_Flax` | Flax | death | `F01` | 対象資料あり・端点注意 | 亜麻は生育段階別被害温度 |
 | `DankPyon_Plant_Sugarcane` | Sugarcane | death | `U01` | 対象資料あり・端点注意 | 地上部茎損傷/品質悪化;地下株生存は別 |
 | `DankPyon_Plant_Carrots` | Carrot | death | `F01` | 対象資料あり・端点注意 | 発芽段階;根部生存の直接データなし |
