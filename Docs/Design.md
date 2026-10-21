@@ -886,7 +886,7 @@ Weibull itself is 18.8pp high at 1h).
 This is a **model-check example**,
 not authorization to add a global Weibull
 random draw or per-species coefficients.
-[Reproducible C03 observations/fit CSV](Research/LegumeC01FreezingSurvival.csv)
+[Reproducible C03 observations/fit CSV](Research/LegumeC03ChickpeaFreezingSurvival.csv)
 clearly separates published percentages and
 reported LT50 from derived model predictions.
 
