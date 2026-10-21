@@ -1637,3 +1637,86 @@ CDF families to explain the tiny
 C03 sampling inversion. **No
 CCTO production XML/code value
 is newly approved by this pass.**
+
+
+## Correction — audit the complete C03 figure, not only the -12°C text row (2026-10-21)
+
+**Scope correction to the previous 5-point PAVA assessment:** the
+**0.95 percentage-point** monotone-fit RMSE applies **ONLY** to
+five exact *published in text* survival percentages at **-12°C**,
+and cannot be described as a 5×5 study-wide model fit. The
+[original C03 Figure 2A image](https://www.frontiersin.org/files/Articles/1239008/xml-images/fpls-14-1239008-g002.webp)
+shows other survival-time inversions. In particular, **-10°C
+for 3 h appears around 60% survival, while -10°C for 4 h
+appears around 93% survival** (difference ~33 percentage
+points). At **-8°C** the plotted 3-h survival is around 85%
+and the 4/5-h samples appear at 100%. The source does not
+supply a machine-readable raw 25-cell data table.
+Do **not** treat visually read data as exact measured numbers,
+or claim that these inversions are merely ±3% sampling noise.
+
+A limited, clearly identified approximate transcription is
+recorded in [ChickpeaC03Figure2Approx25.csv](Research/ChickpeaC03Figure2Approx25.csv).
+The source's five verbatim values at -12°C are **exact
+published text**. The other 20 displayed percentages are
+**visually estimated from plotted curves**, nominally within
+~5 percentage points where intermediate; this is *reading
+tolerance*, NOT a published statistical confidence interval,
+raw individual survival record or measured sample size.
+The original plot has standard-error bars and may reflect
+sampling differences between treatments; no claim of
+statistical significance is made here.
+
+**Monotone-only comparison across all graph-read points:**
+
+| Treatment minimum | Reported/text or approximate 3h survival | Approximate 4h survival | The closest monotone PAVA 3h / 4h |
+|---|---:|---:|---:|
+| -8°C | ~85% | ~100% | ~95% / ~95% (also 5h ~95%) |
+| -10°C | ~60% | ~93% | ~76.5% / ~76.5% |
+| -12°C | 25% **(verbatim)** | 8% **(verbatim)** | 25% / 8% |
+
+Columnwise, equally weighted nonincreasing PAVA applied
+to the 25 text/graph-read values produces a **minimum**
+in-sample RMSE of **~5.29 percentage points** among
+all functions that are monotone in holding time
+for each temperature (assuming the read values
+are exact inputs for this descriptive calculation).
+This is a **constraint-relaxation bound, NOT a fitted
+physical CCTO dose law**. No monotone cumulative-dose
+plus persistent-threshold function can fit the
+approximate 25 observations with *less*
+squared-error under the same sample weights,
+and most parametric physical models will do worse.
+The large apparent -10°C inversion remains
+greater than two nominal ±5pp graph-reading
+errors combined; **whether the study's treatment
+differences are statistically distinguishable
+cannot be decided without underlying raw
+replicates and proper analysis**.
+
+**Practical implementation implication:** retaining
+an inexpensive **nonnegative accumulated-damage
+engine is still justified as a deliberate
+approximation**, but the original chickpea
+study's complete 5×5 displayed results do
+*not* constitute a close numerical
+validation of such a model. Do not force
+a dynamic cold-recovery state into RimWorld
+merely to match one ambiguous plot, and
+do not select a shared linear/quadratic/
+Weibull exponent or an individual-variance
+width from this source. The experiment is
+for *Cicer arietinum*, whereas the CCTO
+owning crop is *Lens culinaris*, with
+different source-specific state and
+growth-stage constraints. A source with
+per-treatment whole-plant binomial counts,
+temperature histories and repeated trials
+is still required to claim quantitative
+prediction of a temperature×time surface.
+
+**Status:** corrected model-evidence
+interpretation, no CCTO game-data or
+source-code values changed, original
+5-point text and original figure
+remain separately and visibly attributed.
