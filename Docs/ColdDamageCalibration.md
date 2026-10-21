@@ -799,3 +799,156 @@ were accessible from an author-hosted/mirrored reproduction,
 W03 full original trial data remain inaccessible, and
 W05 original treatment-level data remain inaccessible.
 Do not claim that all three earlier full originals were obtained.
+
+
+## Controlled constant-temperature survival duration: Kharkov wheat (W07 via W08)
+
+**Materially new evidence (2026-10-21):** The 2025 open-access
+Arora [review W08](https://pmc.ncbi.nlm.nih.gov/articles/PMC12624383/)
+§5 quotes time-specific **whole-plant regrowth survival** from
+[Pomeroy, Andrews & Fedak (1975) W07](https://doi.org/10.4141/cjps75-079)
+for *cold-acclimated Kharkov winter wheat*. **The numerical survival
+percentages have been verified against W08, not the original 1975
+article's table/figure**, which was not directly obtainable in this
+review. Do not count W07+W08 as two independent experiments.
+
+| Constant freeze exposure for Kharkov | 1h | 3h | 6h | 12h | 24h | 120h |
+|---|---:|---:|---:|---:|---:|---:|
+| **−16°C: published survival** | 80% | 63% | 53% | 33% | 17% | 0% |
+| **−16°C: fitted 1-parameter exponential** | 90.1% | 73.1% | 53.4% | 28.5% | 8.1% | ~0% |
+| **−16°C: fitted 2-parameter Weibull** | 80.8% | 64.5% | 50.0% | 33.6% | 17.9% | 0.7% |
+
+**Separately:** At **−6°C for 120h**, the same Kharkov wheat
+cohort reportedly had **100% survival**. The dataset has **no
+independent replicated temperatures×time points sufficient to fit a
+temperature-severity exponent**; −16°C was the multi-time exposure,
+whereas −6°C has an all-survived endpoint only.
+
+**Model comparison (unweighted least squares; 1,3,6,12,24h only):**
+
+```text
+t = hours held at the quoted freezing temperature
+Observations are percentage survival from a SECONDARY review,
+with original sample sizes, raw binary outcomes and uncertainty
+NOT yet available. Do not present this as binomial MLE.
+
+Constant-hazard / exponential:
+   S_E(t) = exp(-λ * t), λ = 0.104479 h^-1
+   RMSE over 5 in-fit percent survival points = 7.77 percentage points
+
+Variable-hazard / Weibull:
+   S_W(t) = exp(-(t/τ)^k), τ = 10.500235 h, k = 0.656692
+   RMSE over same 5 in-fit points = 1.59 percentage points
+   Model 50%-survival time = τ*(ln 2)^(1/k) = 6.01 h
+```
+
+The fitted Weibull has **shape k < 1**, mathematically implying
+a *decreasing instantaneous hazard* with frozen exposure time.
+This is a convenient population-curve representation, NOT proof
+that the Kharkov plant actually becomes more cold-hardy as it freezes.
+The reported percentage survival also combines biological variation,
+selection of earlier-susceptible plants, experimental stage/protocol
+and unknown sampling noise. There is no reason to transfer this
+fit to other varieties or conditions.
+
+The 120h all-dead observation was **not used to fit either model**.
+A Weibull extension predicts about 0.7% population survival there,
+not literally zero. **Zero observed survivors in a finite experiment
+is consistent with a small positive underlying probability**; no
+numerical certainty or calibration claim is justified without
+its sample denominator. Comparisons above are *in-sample fits*,
+not cross-validation. Model shape and tail behavior are not
+approved in CCTO.
+
+[Reproducible source and calculation CSV](Research/WinterWheatW07DurationSurvival.csv)
+contains every review-quoted survival fraction, both model
+predictions and a per-row flag specifying which percentages were
+used in the fit. The original 1975 DOI and 2025 full-text review
+are retained separately in the evidence ledger as W07/W08.
+
+### Independent protocol-level constraints from Gusta & Fowler 1977 (W09)
+
+A separate [1977 original experiment](https://doi.org/10.4141/cjps77-029)
+with winter-cereal **excised crown tissue** reports that
+holding a frozen tissue **for 1h** did not materially shift the
+50%-regrowth-injury temperature relative to removing it at
+the instant the freezing target temperature was reached,
+but **24h holding shifted the lethal temperature about 4°C
+warmer**. It also reports pronounced supercooling/ice-nucleation,
+freeze-thaw cycle and thaw-rate effects. This is **NOT**
+independent biological replication of the Kharkov −16°C
+cohort survival data; it is an independent experiment
+supporting the broad principle that **duration matters**.
+Because the tissue was excised and exposed under a laboratory
+freeze protocol, this is not an exact whole-plant temperature
+parameter either.
+
+### Reassessment of W05 full numerical data accessibility
+
+[Zheng et al. 2018 W05](https://www.sciencedirect.com/science/article/abs/pii/S0168192318301631)
+publisher summary and [author-indexed ResearchGate record](https://www.researchgate.net/publication/325699751_Effect_of_freezing_temperature_and_duration_on_winter_survival_and_grain_yield_of_winter_wheat)
+confirm one acclimated **Jing411** winter-wheat cultivar exposed
+to distinct soil-minimum cycles of **−14, −17, and −20°C**.
+The published experiment's freeze-cycle-day treatment sets
+are **−14°C: 2/4/6/8/10 days**, **−17°C:
+1/2/3/5/6/7/8/9 days**, and **−20°C:
+1/2/3/4/5/6/8 days**. The study's abstract reports
+approximately **1.0% plant mortality increase per
+1°C·day** of soil freeze degree-days below its
+study-specific **−12°C** threshold (and **1.4% tiller
+mortality**), but **the full per-temperature/per-duration
+*whole-plant* mortality cell values and uncertainty
+remain inaccessible**. The paper uses *soil minimum
+temperature*, which cannot be treated as continuously
+maintained crown temperature or RimWorld ambient air
+temperature. The abstract percentage slope may refer
+to a regression of average mortality against dose and
+should NOT be used as a per-plant random hazard or
+absolute 100%-death point without model intercept,
+population denominator and trial details.
+
+**Model-fitting consequence:** W05 is genuinely
+a **two-factor whole-plant trial**, but available public
+summaries do not provide a defensible full 2D empirical
+mortality surface. Do **not** invent its treatment cells,
+digitize unreadable figures, or advertise a 2D
+CCTO formula as validated on W05.
+
+### Decision to carry forward
+
+1. **Evidence now justifies a stable per-plant
+   lethal-exposure *distribution* as a lightweight
+   population-survival abstraction.** W04 models
+   survival over full freeze cycles in one genotype's
+   specific soil cycle, while W07-via-W08 supplies
+   multiple duration/survival points under −16°C
+   that fit a flexible two-coefficient survival curve.
+   Their inferred time scales are **study-specific**.
+2. **A single exponential population survival rate
+   is inadequate** to describe this one Kharkov
+   five-point series (in-sample 7.77 percentage-point
+   RMSE), whereas a Weibull shape can reproduce it
+   more closely (1.59pp). The fit alone does
+   not authorize Weibull across all CCTO plants,
+   because it uses an extra free parameter, five
+   rounded points and unverified denominators.
+3. **Do not equate** the Weibull time shape, a
+   temperature-injury severity exponent, and a
+   cross-plant variance coefficient. They model
+   *different axes and biological phenomena*.
+   Likewise a field-acclimated cultivar versus
+   spring wheat is not an interchangeable parameter
+   set. The survival CDF's role is fixed per-plant
+   susceptibility, not repeat random checks.
+4. **Missing critical data:** same-plant whole-
+   survival over multiple freeze *temperatures AND
+   durations*, preferably with shared acclimation,
+   soil/air/crown temperature trace, raw live/dead
+   counts and regrowth criterion. A controlled
+   independent protocol supporting that space
+   remains needed before production CCTO
+   `coldDamageStartTemperature`/`coldDamageDegreeHoursToDie`
+   and distribution spread are locked.
+5. No XML, C#, SaveState, Workshop graph or
+   native RimWorld tests were altered/performed
+   as a result of this analysis.
