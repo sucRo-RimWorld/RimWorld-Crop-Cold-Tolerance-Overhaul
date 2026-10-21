@@ -776,3 +776,85 @@ but public portal/API access was not obtainable in
 this execution context. The reference source remains
 in GitHub; no individual responses have been invented
 or identified from the medians.
+
+
+### Species-class cold response must include chilling where supported (2026-10-21)
+
+The [new empirical maize audit](ColdDamageCalibration.md#first-identifiable-crop-class-response-audit-maize-2026-10-21)
+now distinguishes M01 near-frost seedling 50%-death
+time/temperature pairs, M03 **nominal +0.3°C near-zero
+chilling that can end in irreversible whole-seedling death
+after prolonged exposure**, and M04 30 inbred-line cohort
+survival differences at the same **−1°C for 3 hours**.
+These are different experiments and genotypes; they
+must **not** be fit as if they were one coherent
+three-temperature treatment grid.
+
+**Scientific requirement:** do not hardcode all damage onset
+to <0°C or force leaf/crown freezing to be synonymous with
+plant death. Especially for susceptible juvenile crops,
+long enough *above-freezing chilling* may be injurious,
+and shorter durations may be reversible. Existing UI
+label `損傷開始温度` still communicates a species-class
+model onset, not a precise lethal point. Chilling
+and stronger freezing can be distinct **response
+regimes within the same inexpensive accumulated-dose
+engine** if the selected plant class has evidence.
+This does not approve a new global two-profile option,
+warm/cold rate, recovery number, or another map scan.
+
+**Mathematical identifiability gate:** M01's approximate
+-2°C×48h and -6°C×2h 50%-death points are exactly
+compatible with multiple different power-law
+temperature functions. Their extrapolations to -4°C
+differ materially (linear 3.84h vs quadratic 5.52h
+under separately refitted conditional onset and median
+dose). Neither model is uniquely validated, and
+joining M03's +0.3°C result from another cohort does
+not resolve that ambiguity. The [CSV with several
+conditional functions](Research/MaizeM01DegreeHourIdentifiability.csv)
+is **an algebraic sensitivity analysis, not new
+observed death data**. Do not assign its fitted
+onsets/lethal doses to production Corn XML.
+
+**Engineering constraint from current draft source:** its
+`ColdDamageProgress.Advance` is fixed
+linear degree-hours and clamps at 1.0, while
+`ColdDamageMapComponent` stores sparse injury and
+runs from `Plant.CheckMakeLeafless`. This is
+a minimal opt-in proof of concept, **not** a
+validated biological injury profile or active
+individual-variation implementation. Any future
+shape/threshold choice must first reconcile
+the clamp, plant identity stability, sparse
+update history (at most 2000 ticks sampled)
+and recovery semantics. Do not add per-plant
+acclimation timers based on a nonsignificant
+W10 winter-wheat state change.
+
+**External evidence check:** FROSTOL W11 models
+winter-wheat LT50 across a season from crown
+soil temperature, snow, vernalization, hardening
+and dehardening; its W12 geographic
+out-of-sample comparison classifies winter
+survival with 75% agreement in Sweden and
+37% in Norway. This is evidence that
+environmental state matters and a mature
+model can still fail outside its calibration
+conditions, **not** support for importing
+FROSTOL coefficients or runtime dependencies
+into the CCTO light-weight engine.
+
+**Next user-visible acceptance:** release a
+selected plant-class profile only after a
+defensible *stage-labelled* time–temperature
+mortality calibration and explanation of
+experimental days versus compressed
+RimWorld game days. Then activate opt-in
+values for that class and run one consolidated
+gameplay test. Fictional/general wild plants
+may use explicitly marked ecological analogues
+and biome-survival boundaries; no invented
+claim of laboratory precision. Dormancy-only
+plants and legacy death temperatures remain
+unchanged until expressly migrated.
