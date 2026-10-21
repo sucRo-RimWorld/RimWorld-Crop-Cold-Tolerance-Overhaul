@@ -64,6 +64,8 @@ namespace CropColdToleranceOverhaul.Tests
             ColdToleranceExtension extension = new ColdToleranceExtension();
             extension.coldDamageStartTemperature = -5f;
             extension.coldDamageDegreeHoursToDie = 48f;
+            // Keep a legal legacy fallback to isolate the variation validation.
+            extension.coldDeathTemperature = -15f;
 
             Assert.That(extension.coldDamageLethalDoseVariation).Is.EqualTo(0f);
             Assert.That(extension.HasColdDamageModel).Is.True();
