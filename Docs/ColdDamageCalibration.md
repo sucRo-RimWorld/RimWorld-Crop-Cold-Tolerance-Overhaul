@@ -2246,3 +2246,130 @@ a model can obey measured biological **constraints**
 without claiming every internal rate is measured.
 No new C# behavior or production values are derived
 from these intervals alone.
+
+
+## W13 single-cohort approximate-fit identifiability (2026-10-21)
+
+**Scope:** one experiment **only**: Moskovskaya 39
+(*Triticum aestivum*) grown under the published
+**4°C × 7-day pre-acclimation state** in W13 Deryabin et al. 2024
+[DOI 10.3390/metabo14040199](https://doi.org/10.3390/metabo14040199).
+Source [Table 2 outcomes](Research/WinterWheatW13Deryabin24hSurvival.csv)
+are **whole-plant survival after 24h frost targets**:
+0°C **100%**, −3°C **97±3%**, −5°C **65±4%**,
+−7°C **15±2%**. These plus/minus notations are recorded as
+published, **not** established binomial confidence intervals
+or permission to reinterpret 97% as a measured 100%.
+
+### Fit the *existing*, not a new runtime formula
+
+For one hypothetical homogenous initial physiological state,
+**zero warm recovery**, one constant frozen target temperature,
+an ideal continuum of fixed plant-ID percentiles,
+and a *hypothetical lab-to-simulation time mapping of 1:1*,
+the current Draft uniform-threshold additive model predicts
+
+`S(T,h) = clamp((1+w - h*max(0,A-T)/D)/(2w), 0, 1)`
+
+where `A` is damage onset (°C), `D` is baseline
+lethal degree-hours and `0<w<1` is the symmetric
+individual lethal-dose half-width. (For `w=0`, survival
+is the step-function limiting case.)
+
+**A continuum of distinct internal parameters agrees with
+the same two central 24-hour targets.** Solving for
+`S(-5,24)=0.65` and `S(-7,24)=0.15`
+while both lie inside the linear uniform ramp gives
+
+`w*D = 48 °C·h`, `A = 2/w - 5.6 °C`.
+
+Consequently the four observed 24h targets can be
+approximately reproduced by, among others, these
+**mathematical counterexamples**:
+
+| Hypothesis | Onset `A` | Dose `D` | Half-width `w` | 24h survival at 0 / −3 / −5 / −7°C |
+|---|---:|---:|---:|---|
+| A (illustration only) | −1.6°C | 96 °C·h | 0.50 | **100 / 100 / 65 / 15%** |
+| B (illustration only) | −3.1°C | 60 °C·h | 0.80 | **100 / 100 / 65 / 15%** |
+| **W13 observed** | — | — | — | **100 / 97 / 65 / 15%** |
+
+Unweighted four-point in-sample **RMSE=1.50 percentage
+points** in each hypothetical case; both are off by
+**+3 points at −3°C**, exact at the other three reported
+central percentages. Numerical minimization over the
+three valid continuous parameters confirms this
+**1.50pp minimum** for the current bounded uniform
+24h curve, when interpreting the four rounded
+percentages as equally weighted exact proportions.
+No plant denominators are supplied for a statistical
+goodness-of-fit test. These coefficient values are
+**not measured biological parameters or XML recommendations**.
+
+### Hold out the biological claim: divergent unmeasured durations
+
+The research reports **only 24h** frozen target tests
+for this cohort; at other durations these two otherwise
+24h-indistinguishable candidates make sharply different
+predictions:
+
+| Target and exposure | A predicted survival | B predicted survival | Direct W13 observation? |
+|---|---:|---:|---|
+| −7°C ×6h | **100%** | **88.125%** | **No** |
+| −7°C ×12h | **82.5%** | **63.75%** | **No** |
+| −5°C ×48h | **0%** | **17.5%** | **No** |
+| −3°C ×48h | **80%** | **100%** | **No** |
+
+All 32 reproducible constant-temperature
+candidate/extrapolation calculations, with blank
+observed columns for unmeasured durations, are in
+[W13 single-state hypothesis CSV](Research/WinterWheatW13Moskovskaya39ConditionalFits.csv).
+The different 6/12/48h forecasts are **model
+non-identifiability**, NOT measured cultivar survival.
+
+### Release/gate outcome for the first one-state approximation
+
+1. **Technical outcome:** the *existing* linear
+   additive + bounded uniform individual thresholds
+   are **mathematically sufficient to approximate
+   the observed 24h M39-acclimated series** without
+   introducing a new CDF or nonlinear time engine.
+   A 1.50pp in-sample error is **not** evidence for
+   a correct extrapolated fatal-hours law.
+2. **Biological stop:** no measured 6/12/48h
+   survivor fractions at matched cultivar, stage,
+   state and target/ramp. Because both A and B
+   obey the same 24h constraints yet diverge in
+   ordinary long/short game frosts, **neither
+   coefficient set is uniquely accepted**.
+   W07 Kharkov and W05 Jing411 must not be
+   joined as if the same cultivar.
+3. **Physiological state stop:** CCTO has **no
+   explicit previous-4°C-for-7-days acclimation
+   tracking** in its current Draft cold-damage
+   API. Applying a state-specific M39 fit to
+   all generic MO Wheat would implicitly and
+   incorrectly assume every plant was preconditioned.
+4. **Game integration stop:** W13's frozen target
+   is a treatment temperature, not measured
+   instantaneous RimWorld map-air temperature;
+   original freezing/warming trajectory, *lab
+   hours versus the 60-day game year*, existing
+   first-sample-no-retroactive-damage rule, and
+   2,000-tick integration cap prevent equating
+   this perfect constant-target calculation with
+   24 in-game hours of actual callback processing.
+   Recovery is deliberately fixed at zero for
+   these comparisons because W13 does not
+   measure repair per hour.
+5. **Decision:** **do not migrate** generic
+   `DankPyon_Plant_Wheat` or publish one of
+   A/B as source-calibrated. The demonstration
+   satisfies a *bounded numerical feasibility*
+   review, **not crop activation**. Keep present
+   C# formula, legacy plant values and Draft
+   PR #24 intact. To choose between A/B for
+   gameplay, a *separately approved approximate
+   freeze-duration/tail and time-scale policy*
+   or matched-source duration evidence is needed.
+   Do not extend the search for arbitrary extra
+   correlations merely to select one value.
