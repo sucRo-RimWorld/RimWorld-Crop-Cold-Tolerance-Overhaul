@@ -176,7 +176,7 @@ namespace CropColdToleranceOverhaul.E2E
             Require(record.lastTick == tick,
                 "Last observation Tick changed across Scribe save/load: "
                 + record.lastTick + " versus " + tick);
-            Require(ColdToleranceUtility.ExtensionFor(plant)?.HasColdDamageModel == true,
+            Require(plant.def.GetModExtension<ColdToleranceExtension>()?.HasColdDamageModel == true,
                 "Loaded crop lost its opt-in cold damage extension");
 
             // Then exercise *the reloaded instance*, not a replacement Plant.
