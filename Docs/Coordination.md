@@ -1,5 +1,12 @@
 # CCTO Coordination
 
+### CCTO-V2-HP-20261022 — author-directed simplified HP injury (Draft PR #31)
+
+**Owner:** CCTO Code/framework Draft [PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), based on existing Draft PR #24. **State: SOURCE CHANGED ON DRAFT ONLY, NOT MERGED OR NATIVE ACCEPTED.** The author chose ordinary **Plant HP as the visible cold-injury measure** and **no CCTO-specific injury recovery**: cold exposure subtracts HP through ordinary damage handling; warm exposure stops adding cold damage and does not restore HP. Code branch `feat/ccto-v2-direct-plant-hp-20261022` head `9749a9ba26e00c23761f772a61fec5d7199ffae4` includes retained fractional HP remainder, old experimental injury-save conversion, and updated draft HP test premises. Formal Draft sources `Docs/Framework.md`, `Docs/Design.md` and `Docs/ColdDamageBalanceV2Assessment.md` clarify that old normalized-injury/recovery numbers no longer predict this new model. The legacy recovery XML field currently remains readable but does not heal HP.
+
+**Balance/XML action:** Previous 7 V2 numeric candidates and scenario survival percentages are **not approved and must be re-evaluated** for irreversible HP injury and external damage. 41 entries remain blank. Production **48 fixed-death / 30 dormancy** entries unchanged. Code has not been compiled or tested in original RimWorld since the HP change. Do not infer prior 1.6 native Pickle/Scribe PASS or forest climate forecasts validate HP integration. Do not publish or merge the parent Draft until its new behavior and relevant compatibility are accepted; avoid automatic native tests. No author relay is required: this main coordination entry supplies the cross-workstream status.
+
+
 ### CCTO-NATIVE-FOREST-CLIMATE-20261022 — original RimWorld 1.6 seasonal tile evidence
 
 **Owner:** CCTO Balance/XML Draft [PR #24](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/24), Project native runtime. **State: REAL ORIGINAL-GAME WORLD/TILE CLIMATE DATA CAPTURED, 7 V2 NUMERIC CANDIDATES UNAPPROVED; 48 legacy fixed-death / 30 dormancy live XML unchanged.**
