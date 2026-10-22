@@ -1,5 +1,16 @@
 # CCTO Coordination
 
+### CCTO-NATIVE-FOREST-CLIMATE-20261022 — original RimWorld 1.6 seasonal tile evidence
+
+**Owner:** CCTO Balance/XML Draft [PR #24](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/24), Project native runtime. **State: REAL ORIGINAL-GAME WORLD/TILE CLIMATE DATA CAPTURED, 7 V2 NUMERIC CANDIDATES UNAPPROVED; 48 legacy fixed-death / 30 dormancy live XML unchanged.**
+
+[Project manual native Actions #39776410000](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000) used RimWorld **1.6.4871 rev598** at exact owner Quickstart source `23f3d9ac07a336c36fba3e32382612bec52e6d8f`, world seed `CCTO-NaturalColdClimate-20261022`. It generated an **unforced BorealForest map with 483 naturally spawned Vanilla pines** and sampled original World.tileTemperatures in two real natural BorealForest tiles plus one actual marginal TemperateForest tile, 60×24 calendar hours each (**4320** values). Actual game exited 0, Unity ERROR0, Quickstart3/3. Source hourly CSV SHA256 `6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5`, artifact `12424418617`; durable derived 60-day Lo/Hi and full value/state distinctions on CCTO owner Draft `Docs/Research/CCTOVanilla16ActualWorldClimateDailyLoHi.csv` and `Docs/ColdDamageBalanceV2Assessment.md` / `Docs/Design.md`.
+
+Native observed season-only temperature ranges: cold pine-eligible BorealForest tile 44000 annual −5.536°C min −37.835°C (92h below V2 onset −31°C); loaded naturally pine-bearing BorealForest tile 40777 annual −1.370°C min −32.647°C (6h below onset); cool TemperateForest tile 2851 annual +5.672°C min −23.709°C. Under the **offline CCTO candidate formula**, Pine/fir onset −31°C, D 3600°C·h survives 100% on both sampled Boreal climates; four trial annuals survive first 20 calendar days on sample crop tile but die if never harvested through full winter. These are **candidate simulations, not live installed XML or crop mortality observations**.
+
+**Limit:** real RimWorld world generation and cached world climate *at hourly calendar coordinates* only; **NOT** 60 normally ticking days of weather events/ColdSnap, not whole-plant thermal sensors, not true random world/biome range, not full Medieval Overhaul or AMJE/WorldMap, and not actual crop maturity. No coefficient selected/approved by this data. Old V1 rejected-for-XML and seven V2 trial values still unapproved. No further native or Workshop run should be inferred; the source-run evidence is for seasonal world climate only. Owner formal numbers remain in Draft, not this main coordination handoff.
+
+
 ### CCTO-COLD-BALANCE-V2-20261022 — 7 proposals checked; 0 XML-ready
 
 **Owner:** CCTO Balance/XML on Draft PR #24. **Status:** 7 candidate numerical Defs (4 annual gameplay trials, 1 wheat acclimation-blocked, 2 evergreen ecology-unapproved), 41 death profiles remain blank, original 30 dormancy unchanged; production 48 legacy fixed death and 30 dormancy XML unchanged.
