@@ -68,7 +68,7 @@ namespace CropColdToleranceOverhaul
             {
                 if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
                 // No retroactive cold exposure on the first observation.
-                record = new ColdDamageRecord { plant = plant, lastTick = now };
+                record = new ColdDamageRecord { plant = plant, lastTick = now, lastObservationWasCold = true };
                 states.Add(plant, record);
                 return;
             }
@@ -81,7 +81,14 @@ namespace CropColdToleranceOverhaul
                 // HP is never automatically restored; no need to retain a
                 // warm-only observation. Fractional remainder is preserved
                 // after frost even when this sample is warm.
+                record.lastObservationWasCold = false;
                 if (record.pendingHitPointDamage <= 0f) states.Remove(plant);
+                return;
+            }
+
+            if (!record.lastObservationWasCold)
+            {
+                record.lastObservationWasCold = true;
                 return;
             }
 
@@ -140,12 +147,14 @@ namespace CropColdToleranceOverhaul
         public Plant plant;
         public int lastTick;
         public float pendingHitPointDamage;
+        public bool lastObservationWasCold;
 
         public void ExposeData()
         {
             Scribe_References.Look(ref plant, "plant");
             Scribe_Values.Look(ref lastTick, "lastTick", 0);
             Scribe_Values.Look(ref pendingHitPointDamage, "pendingHitPointDamage", 0f);
+            Scribe_Values.Look(ref lastObservationWasCold, "lastObservationWasCold", false);
         }
     }
 }
