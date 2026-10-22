@@ -76,5 +76,20 @@
       "wild_biome",
       "source_state_contrast"
     ]
+  },
+  "current_recalibration": {
+    "name": "V2 target-first",
+    "stage": "under_review_partial_only",
+    "predeclared_targets": "Docs/ColdDamageBalanceV2Targets.md",
+    "proposed_data": "Docs/ColdDamageBalanceV2Candidates.csv",
+    "independent_scenario_review": "Docs/ColdDamageBalanceV2Assessment.md",
+    "supported_count": 78,
+    "original_dormancy_unchanged": 30,
+    "numeric_candidate_unapproved_annuals": 2,
+    "numeric_candidate_biological_model_blocked": 3,
+    "original_death_profiles_without_v2_values": 43,
+    "xml_activation_authorized": false,
+    "xml_migration_performed": false,
+    "reference_status": "V1 rejection retains effect; numeric candidates in V2 are not release coefficients"
   }
 }
