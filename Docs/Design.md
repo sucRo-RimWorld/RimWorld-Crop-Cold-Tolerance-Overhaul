@@ -1875,3 +1875,37 @@ these candidate numbers. The
 new rows are suitable for further
 review, **not for a blanket 48-Def
 migration or release**.
+
+
+### V2 parameter sensitivity remains unapproved (2026-10-22)
+
+The V2 onion, pumpkin and two-quadrum evergreen
+proposals also received a separate **post-selection
+temperature perturbation audit**, reported in
+[the V2 assessment](ColdDamageBalanceV2Assessment.md#post-selection-temperature-sensitivity-check--not-a-predeclared-acceptance-pass).
+The same three-night onion condition changes
+from **72.5%** survival at −4°C nights to
+**37.1%** at −4.2°C; pumpkin from **58.9%**
+at −1°C to **20.7%** at −1.2°C. Sixty days
+of pine/fir −35°C nights give **100%**
+survival under ideal zero-history assumptions,
+but −35.2°C nights yield **90%**. These
+perturbations were **not** part of the original
+predeclared S19–S31 acceptance set and
+cannot retroactively be called successful
+pre-selection testing.
+
+Meeting the narrow original targets is
+**not sufficient evidence of robust
+climate gameplay balance**. Do not
+automatically retune or approve the
+same candidate values based on arbitrary
+new threshold checks. A representative
+temperature-frequency profile, plant
+temperature offset and permissible
+player-visible failure envelope must
+be considered before any V2 coefficient
+is labelled ready for XML. Owner
+[review status](ColdDamageBalanceReview.json)
+remains `rejected_for_xml` for V1 and
+no V2 numerical profile is approved.
