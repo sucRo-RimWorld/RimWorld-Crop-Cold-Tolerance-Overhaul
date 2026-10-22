@@ -1743,3 +1743,61 @@ Do not reset the V1 review file to
 `accepted_for_xml`; no production XML
 integration or game-test rerun has been authorized
 by this numeric analysis alone.
+
+
+### V2 recovery and physiological-state boundary (2026-10-22)
+
+**Draft engine decision, not a biological numerical approval.**
+Commit `9dfd6d7a501676a28ee4fa92f84181b7e364af34`
+changes opt-in injury recovery to **T ≥ max(A, 0°C)**,
+where T is RimWorld AmbientTemperature and A is the
+plant's injury onset. Below A, accumulate injury;
+between a negative A and 0°C, preserve existing injury
+without falsely repairing frozen plants; above the
+threshold, recover injury at the existing configured rate.
+For above-zero chill onset, recovery remains at A.
+This adds **no per-plant fields, state, XML parameters,
+UI or new map scans**. The ambient 0°C floor is a
+simple gameplay thaw proxy, not an experimentally
+measured tissue repair threshold. Existing 1.6 native
+test results precede this change: updated branch
+**compilation and real-game behavior unverified**.
+
+**Separate conditioning policy:** retain winter
+wheat and rice's *existing fixed death* production
+rules while lack of actual physiological history
+makes numerical cumulative-damage coefficients
+non-identifiable. W13 and R02 show same condition
+following different prior temperature histories
+produces radically different survival: there is
+no defensible constant hardiness multiplier for
+all generic wheat/rice. Do not equate dormancy,
+random ThingID sensitivity, time since planting
+or calendar winter with hardening.
+
+Future acclimation, if separately justified by
+source+gameplay evidence, must be an **optional
+history-aware per-plant state** on just the
+eligible species. It must survive before cold
+injury, respond to **observed cool exposure**,
+and decay separately in warm periods; it is
+not an automatic part of the sparse injury record.
+Avoid a universal hardening rule across all crops
+and avoid inventing rates from one endpoint.
+Only after actual state/time parameters and
+climate outcomes are accepted can wheat or
+rice opt into full injury simulation.
+
+[Independent V2 acceptance outcomes and revised
+winter carryover analysis](ColdDamageBalanceV2Assessment.md)
+show that the pine/fir **3300°C·h candidate**
+can still lose ≈18% of the simulated population
+after 60 days of −35°C nights/−30°C days
+**without** imaginary subzero healing.
+That is an unresolved ecological consequence,
+not proof of appropriate wild-tree balance.
+All 5 V2 numeric rows remain *unapproved*,
+V1 is still rejected and no production XML
+changed. This policy resolves only the
+code-level recovery flaw and the allowable
+scope of later conditioning work.
