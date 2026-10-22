@@ -1994,3 +1994,82 @@ degree-hours based on a single
 external subtropical trace.
 No runtime, XML or prior
 native test evidence changed.
+
+
+### Native original RimWorld 1.6 climate input for V2 numerical review (2026-10-22)
+
+**New, genuinely original-game climate evidence:** the
+manual Project 1.6 climate collector
+[Actions #39776410000](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000)
+built and loaded a source-pinned temporary
+CCTO Quickstart against original **RimWorld Linux
+1.6.4871 rev598**. The naturally generated
+BorealForest sample map contained **483 original
+wild `Plant_TreePine` plants**. The original
+`TileTemperaturesComp` was sampled
+**hourly for a whole 60-day game calendar**
+on **two real pine-eligible BorealForest
+tiles** and **one unforced marginal
+TemperateForest crop tile**, producing
+**4320 original world-temperature samples**,
+game process exit 0, Unity ERROR 0,
+Quickstart 3/3 PASS. The original
+unrounded CSV is retained in Project
+artifact 12424418617 (SHA256
+`6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5`);
+a [stable 180 daily low/high
+subset](Research/CCTOVanilla16ActualWorldClimateDailyLoHi.csv)
+is stored in this owner repo.
+
+**Reality boundary:** this was
+the game's real seasonal *world-tile*
+temperature component queried
+at calendar times, **not**
+60 days of map ticking,
+weather incidents or observed
+plant frost injury. The unforced
+cold pine forest tile's annual
+mean was **−5.536°C**
+and its sampled minimum
+**−37.835°C**; it spent
+only **92 hours below the
+Pine candidate onset −31°C**.
+The median pine-bearing forest
+tile (−1.370°C annual mean)
+spent only **6 hours** below
+−31°C. Ideal V2 Pine/fir
+A=−31°C,D=3600°C·h survives
+100% in both temperature
+sequences; this establishes
+**candidate resilience on these
+two Vanilla calendar pathways
+only**, not physiological
+appropriateness or global forest
+biome validity. In a similarly
+unforced temperate farming tile
+(+5.672°C mean, minimum −23.709°C),
+four numerical annual trial crops
+survive the first 20 calendar
+days from game start, but die
+before a hypothetical full
+year if never harvested.
+No actual harvest/maturity
+was tested.
+
+The [temperature-driven
+candidate output and
+full evidence distinctions](ColdDamageBalanceV2Assessment.md#original-rimworld-16-cold-forest-and-farming-tile-generated-calendar-2026-10-22)
+replace earlier reliance on
+unverified uniform -40°C
+offsets applied to a subtropical
+third-party daily log. **The
+seven V2 coefficient rows remain
+UNAPPROVED**; no XML, runtime
+or Steam changes are implied.
+Full Medieval Overhaul was not
+loaded, so Great Fir ecology
+is a proxy transfer only.
+Actual incident weather,
+existing planted/preserved crops,
+sunlight, growth maturity and
+1.7 remain unknown.
