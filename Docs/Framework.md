@@ -233,3 +233,41 @@ see [time and acclimation boundary](Design.md#time-and-acclimation-implementatio
 Existing 48 production fixed-death
 thresholds and 30 dormancy profiles
 remain unchanged.
+
+
+### Save/load ordering: PostLoadInit versus plant spawning (2026-10-22)
+
+The opt-in per-map `cctoColdDamageStates` records are
+serialized with a deep `ColdDamageRecord` and a
+`Scribe_References` **Plant** reference; their
+`damage` (0..1) and `lastTick` are saved. On
+`PostLoadInit`, the resolved referenced `Plant`
+**can still report `Spawned=false` even when it
+will become an ordinary spawned plant moments
+later**. Therefore `PostLoadInit` must not
+discard records solely on that flag. Invalid
+or deleted references, disabled opted-in Defs,
+NaN/negative/fatal damage and ultimately stale
+unspawned plants retain their respective
+existing validation/pruning paths; when the
+map is live, `Prune()` still excludes
+unspawned/destroyed/unsupported plants.
+This preserves legitimate in-progress frost
+dose across real Scribe save/load without
+rewinding or backdating the observation clock.
+
+**Direct native evidence:** in [original 1.6
+two-process save/reload Actions #39709845297](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39709845297),
+a real .rws restored `Plant_Potato2204`,
+`damage=0.20` and `lastTick=30` unchanged
+at Scribe `PostLoadInit`, with later actual
+temperature recovery and subsequent manual
+bounded cold observation supported. The
+source correction is
+`4061fc57331fc0153558abd550c0675e687a1135`.
+This confirms **1.6 test-only opt-in save
+compatibility**, not biological calibration,
+real 1.7, preexisting player saves or normal
+tick scheduling. No released Vanilla/MO
+production Def has opted into accumulated
+injury; default gameplay remains legacy.
