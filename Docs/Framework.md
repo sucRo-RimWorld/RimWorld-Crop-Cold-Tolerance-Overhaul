@@ -92,7 +92,7 @@ damage instead of instantaneous death:
 **These numbers are XML examples only; no plant has these values approved.**
 Both onset and lethal dose must be supplied. The dose unit is **°C ×
 in-game hours** below onset. `coldDamageRecoveryPerHour` is the fraction
-of lethal injury cleared per warm in-game hour (optional, default zero);
+of lethal injury cleared per game-hour only when ambient temperature is **at least max(0°C, injury onset)** (optional, default zero);
 injury is capped to [0,1]. At 1 the plant dies. Calculations run on the
 existing plant leafless check, not every tick, and cap elapsed time to
 2,000 ticks per evaluation. They sample current ambient temperature and
@@ -168,6 +168,48 @@ skewed curves, chilling-vs-freezing severity, and physiological
 acclimation are not added by this field. The Info Card continues to
 show the **species-level 損傷開始温度** and existing **休眠温度**,
 not a pseudo-exact death temperature for each plant.
+
+### Injury recovery versus cold acclimation (2026-10-22)
+
+The opt-in engine now has three states determined entirely by the current
+ambient temperature `T` and plant-specific injury onset `A`:
+
+- `T < A`: **accumulate cold injury**.
+- `A ≤ T < max(A, 0°C)`: **preserve existing injury**; the plant does not
+  take further injury but also does **not** repair frozen tissue merely
+  because it is a little warmer than its injury onset.
+- `T ≥ max(A, 0°C)`: **recover injury** at
+  `coldDamageRecoveryPerHour`, if nonzero.
+
+For `A ≥ 0°C` (a hypothetical rice chilling profile, for example),
+the middle range is empty and recovery starts at onset. For `A < 0°C`
+(a frost-hardy pine, for example), **−30°C no longer heals damage
+when onset is −31°C**; +4°C can heal. This is a deliberately minimal,
+species-agnostic **ambient thaw proxy**, not a measured tissue
+temperature or repair-rate study. It changes no XML schema, exposes
+no new UI control, and adds no persistent state or per-tick scan.
+It applies **only to opted-in cumulative-damage plants**, not
+existing 48 fixed-death or 30 dormancy definitions.
+
+**Cold acclimation remains a distinct, unimplemented process.**
+A frozen-but-no-longer-injuring plant does not thereby become hardened.
+No `coldDormancy`, `minGrowthTemperature`, season, per-plant
+lethal-dose rank or incidental freezing event grants prior
+experimental cool-exposure history. Rice and wheat remain
+**unmigrated**, because identical ambient trajectories following
+different conditioning states have been measured to yield
+different whole-plant survival. Future species-scoped hardening
+will require its own saved temperature-history response and
+source- or author-approved rates; this recovery change does not
+justify an automatic hardening implementation.
+
+Biological context: [freeze–thaw repair in Arabidopsis](https://pmc.ncbi.nlm.nih.gov/articles/PMC6971927/)
+was observed after thawing and subsequent days at +4°C;
+the [FROSTOL winter-wheat model](https://doi.org/10.1016/j.eja.2007.10.002)
+separately handles hardening/dehardening and low-temperature stress,
+using crown/soil temperature, not a universal ambient recovery threshold.
+The **0°C switch is a gameplay convention**, not their numeric result.
+No real-game testing of the changed branch has yet occurred.
 
 ### Calibration status and future compatibility
 
