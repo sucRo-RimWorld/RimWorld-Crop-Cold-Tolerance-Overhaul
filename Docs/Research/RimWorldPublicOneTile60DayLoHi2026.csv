@@ -1,0 +1,66 @@
+# External RimWorld diagnostic example, NOT a native CCTO test or representative cold-biome time series.
+# Source: HugsLib public log dated 2026-02-17, https://gist.github.com/HugsLibRecordKeeper/ba53570c4204c9ed922f863a5a37c4b1
+# Source context: heavily modded RimWorld 1.6 log; section 'Temperature for each day this year'; one tile, latitude 22.2169, tile annual average 16.1C, seasonal shift 11.41637C.
+# Source is a game-generated daily Lo/Hi diagnostic for a 60-day year, NOT 60 days of continuously observed hourly ambient temperature, and NOT a verified vanilla-only climate distribution.
+# Values below are a transcription of the single externally published diagnostic, not independently recreated from RimWorld binaries.
+day,daily_low_C,daily_high_C
+0,6.13,15.82
+1,9.37,20.93
+2,14.29,20.98
+3,9.74,18.95
+4,10.40,21.04
+5,14.33,23.62
+6,13.33,22.45
+7,12.33,23.25
+8,15.19,26.50
+9,19.13,27.37
+10,17.01,26.21
+11,18.70,27.13
+12,18.38,26.50
+13,20.39,27.62
+14,14.80,23.16
+15,17.42,28.56
+16,21.81,31.30
+17,22.64,34.98
+18,25.54,33.65
+19,26.20,34.24
+20,21.58,30.68
+21,23.86,36.02
+22,27.89,34.02
+23,22.40,30.90
+24,20.58,29.85
+25,21.83,31.25
+26,21.71,28.78
+27,17.55,26.96
+28,16.10,25.77
+29,15.44,26.11
+30,17.08,25.32
+31,13.41,23.85
+32,14.30,23.23
+33,13.57,21.77
+34,11.12,19.09
+35,9.12,19.29
+36,11.38,18.43
+37,11.88,23.78
+38,14.82,20.61
+39,9.61,15.79
+40,4.44,10.21
+41,2.17,9.89
+42,2.13,11.74
+43,2.97,10.87
+44,-1.09,7.95
+45,-0.74,10.01
+46,-0.84,10.30
+47,2.53,13.71
+48,3.14,10.55
+49,0.12,9.70
+50,0.23,10.86
+51,2.15,10.49
+52,-1.04,8.04
+53,0.41,11.44
+54,3.46,12.54
+55,2.87,12.70
+56,4.12,11.77
+57,1.37,9.49
+58,-0.42,8.54
+59,0.76,13.55
