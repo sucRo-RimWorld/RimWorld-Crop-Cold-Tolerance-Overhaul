@@ -182,10 +182,20 @@ namespace CropColdToleranceOverhaul.E2E
             }
             Require(object.ReferenceEquals(record.plant, plant),
                 "Cross-reference is not the actual reloaded plant instance");
-            AssertDamage(record.damage, ExpectedDamage, "after reload");
-            Require(record.lastTick == tick,
-                "Last observation Tick changed across Scribe save/load: "
-                + record.lastTick + " versus " + tick);
+            // The loaded game may run several hundred real ticks while
+            // the Root_Play verification hook waits. Compare the exact
+            // Scribe-phase snapshot to source, not later recovered damage.
+            Require(ColdDamageScribeSnapshot.Restored
+                && ColdDamageScribeSnapshot.PlantId == expectedId
+                && ColdDamageScribeSnapshot.PlantNumber == number,
+                "Scribe PostLoadInit did not restore this precise Plant record");
+            AssertDamage(ColdDamageScribeSnapshot.Damage, ExpectedDamage,
+                "at immediate Scribe PostLoadInit");
+            Require(ColdDamageScribeSnapshot.LastTick == tick,
+                "Original observation tick not restored at Scribe PostLoadInit");
+            Require(record.lastTick >= tick && record.damage >= 0f
+                && record.damage <= 1f,
+                "Live loaded game produced invalid accumulated injury state");
             Require(plant.def.GetModExtension<ColdToleranceExtension>()?.HasColdDamageModel == true,
                 "Loaded crop lost its opt-in cold damage extension");
 
@@ -207,6 +217,49 @@ namespace CropColdToleranceOverhaul.E2E
                 + " actualScribeGameReload=true plantReferenceRestored=true"
                 + " tickRestored=true damageRestored=true"
                 + " continuedDamage=" + updated.damage.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+        }
+    }
+
+    // Take the exact Scribe PostLoadInit snapshot *before* the reloaded
+    // game ticks, so ambient warm recovery cannot contaminate persistence.
+    [HarmonyPatch(typeof(ColdDamageMapComponent), "ExposeData")]
+    public static class ColdDamageScribeSnapshot
+    {
+        public static bool Restored;
+        public static float Damage;
+        public static int LastTick;
+        public static int PlantNumber;
+        public static string PlantId;
+
+        private static readonly FieldInfo StatesField =
+            typeof(ColdDamageMapComponent).GetField("states",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+
+        [HarmonyPostfix]
+        public static void AfterScribe(ColdDamageMapComponent __instance)
+        {
+            if (Environment.GetEnvironmentVariable("AMJ_CCTO_SAVE_RELOAD") != "1"
+                || Scribe.mode != LoadSaveMode.PostLoadInit) return;
+            string id = Environment.GetEnvironmentVariable("AMJ_CCTO_EXPECT_ID");
+            var states = StatesField.GetValue(__instance)
+                as Dictionary<Plant, ColdDamageRecord>;
+            if (states == null || string.IsNullOrEmpty(id)) return;
+            foreach (var pair in states)
+            {
+                if (pair.Key == null || pair.Key.ThingID != id) continue;
+                ColdDamageRecord record = pair.Value;
+                if (record == null || !object.ReferenceEquals(record.plant, pair.Key))
+                    continue;
+                Restored = true;
+                Damage = record.damage;
+                LastTick = record.lastTick;
+                PlantId = pair.Key.ThingID;
+                PlantNumber = pair.Key.thingIDNumber;
+                Log.Message("CCTO_COLD_SCRIBE_SNAPSHOT restored=true"
+                    + " damage=" + Damage + " lastTick=" + LastTick
+                    + " plant=" + PlantId);
+                return;
+            }
         }
     }
 
