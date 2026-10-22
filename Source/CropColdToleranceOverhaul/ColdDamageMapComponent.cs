@@ -127,9 +127,6 @@ namespace CropColdToleranceOverhaul
         public Plant plant;
         public int lastTick;
         public float pendingHitPointDamage;
-        // Compatibility read access for prior experimental tests; HP is authoritative.
-        public float damage => plant == null || plant.MaxHitPoints <= 0
-            ? 0f : 1f - (float)plant.HitPoints / plant.MaxHitPoints;
 
         public void ExposeData()
         {
