@@ -7,6 +7,7 @@ No RimWorld process, XML mutation or external access.
 """
 import argparse
 import csv
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -149,13 +150,33 @@ def main():
     enabled_xml = [str(p.relative_to(ROOT)) for p in PATCHES
                    if p.is_file() and ("<coldDamageStartTemperature>" in
                                       p.read_text(encoding="utf-8"))]
-    ready = status == "accepted_for_xml" and not blockers
+    acceptance = review.get("acceptance") or {}
+    scenarios = acceptance.get("independent_scenarios") or []
+    required = set(acceptance.get("required_scenarios") or [])
+    witnessed = {x.get("id") for x in scenarios if isinstance(x, dict)
+                 and all(isinstance(x.get(k), str) and x[k].strip()
+                         for k in ("id", "expected", "predicted",
+                                   "source_context", "disposition"))}
+    table_hash = hashlib.sha256(TABLE.read_bytes()).hexdigest()
+    evidence_ready = (
+        acceptance.get("author_decision") == "approved"
+        and bool(acceptance.get("decision_reference"))
+        and acceptance.get("accepted_table_sha256") == table_hash
+        and required == {"short_frost", "repeated_nights",
+                         "prolonged_freeze", "warm_recovery",
+                         "wild_biome", "source_state_contrast"}
+        and required <= witnessed
+    )
+    ready = status == "accepted_for_xml" and not blockers and evidence_ready
     print(json.dumps({"arithmetic_and_schema": "CONSISTENT_ONLY_NOT_APPROVED",
          "table_row_count": len(rows),
          "review_status": status,
          "unresolved_blockers": blockers,
          "xml_activated": enabled_xml,
          "independent_scenarios": cases,
+         "exact_table_sha256": table_hash,
+         "required_independent_cases_recorded": sorted(required & witnessed),
+         "actual_acceptance_evidence_complete": evidence_ready,
          "ready_for_xml": ready}, ensure_ascii=False, indent=2))
     if enabled_xml and not ready:
         print("ERROR: unreviewed cold-injury XML activation is forbidden", file=sys.stderr)
