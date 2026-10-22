@@ -66,9 +66,15 @@ Feature: CCTO cold tolerance runtime behavior
     Then the CCTO plant HP is recorded at first observation
     When I advance 4000 complete RimWorld game ticks
     Then the CCTO plant HP decreased from last observation
-    When I set the CCTO test outdoor temperature to 10
+    When I retain a fractional CCTO cold HP remainder
+    And I set the CCTO test outdoor temperature to 10
     And I advance 4000 complete RimWorld game ticks
     Then the CCTO plant HP did not recover
+    When I set the CCTO test outdoor temperature to -10
+    And I simulate 1000 ticks between CCTO damage observations
+    Then the CCTO plant HP did not recover
+    When I simulate 1000 ticks between CCTO damage observations
+    Then the CCTO plant HP decreased from last observation
     And the CCTO test plant is alive
 
   Scenario: Cumulative frost and dormancy coexist until fatal accumulated exposure
