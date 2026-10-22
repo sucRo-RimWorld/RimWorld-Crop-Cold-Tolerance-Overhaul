@@ -1909,3 +1909,88 @@ is labelled ready for XML. Owner
 [review status](ColdDamageBalanceReview.json)
 remains `rejected_for_xml` for V1 and
 no V2 numerical profile is approved.
+
+
+### V2 seasonal climate eligibility versus frozen-night arithmetic (2026-10-22)
+
+V2's early 15-/60-day **fixed nightly
+temperature** scenarios were **stress
+fixtures**, not proven real wild-forest
+or crop-growing-map climate frequencies.
+The separate [60-day game-generated
+one-tile forecast and synthetic colder
+offset exploration](ColdDamageBalanceV2Assessment.md#seasonal-temperature-example-and-climate-envelope-risk-2026-10-22)
+demonstrates why the earlier claim
+"pine/fir survive 60 days at −35°C"
+does **not** validate their balance
+in a real RimWorld forest biome.
+That publicly posted external 1.6
+log is one heavily modded
+**latitude 22.2169°, average 16.1°C**
+tile, *not* a representative winter
+forest tile and *not* hourly weather
+actually played over 60 days.
+Shifting its climate by uniform
+−40 to −45°C is explicitly
+**hypothetical**, not a valid
+biome/latitude world generator.
+
+For its measured daily extrema,
+the candidate onion's **−3°C**
+injury onset is never crossed
+(min reported daily low −1.09°C).
+For a hypothetical three-day
+autumn −5°C anomaly on this
+trace, ideal survival is ~67%
+and a −5.2°C anomaly ~48%,
+so crop loss remains highly
+sensitive to nearby temperature
+paths. Reusing the logged 60-day
+curve with unrealistic −43°C and
+−44°C *annual shifts* produces
+~93% and ~55% hypothetical
+pine/fir survival; these results
+are **not** probabilities of
+wild-tree mortality on a
+biologically eligible tile.
+The source
+[`RimWorldPublicOneTile60DayLoHi2026.csv`](Research/RimWorldPublicOneTile60DayLoHi2026.csv)
+contains full third-party
+provenance and limits.
+
+Also separately treat RimWorld's
+**ColdSnap** incident (~−20°C
+temporary weather anomaly for
+1.5–3.5 game days with a gradual
+onset) rather than calling
+fixed nightly climate extremes
+an ordinary cold snap. This
+event's trigger eligibility
+depends on the world's seasonal
+temperatures, unlike an
+arbitrary imposed shift.
+
+**Formal V2 decision: keep
+all seven proposals unapproved
+without further coefficient
+changes.** The necessary
+independent validation input
+is a small set of **actual
+RimWorld-generated, tree-bearing
+cold-map seasonal Lo/Hi
+distributions with their
+world-tile settings**, plus
+one representative crop-growing
+tile. Simulations for these
+maps must respect real season/
+incident frequency and
+the difference between ambient
+temperature and crown/root
+temperature. There is no
+evidence yet to select an
+acceptable wildfire/forest
+attrition rate or retune 3600
+degree-hours based on a single
+external subtropical trace.
+No runtime, XML or prior
+native test evidence changed.
