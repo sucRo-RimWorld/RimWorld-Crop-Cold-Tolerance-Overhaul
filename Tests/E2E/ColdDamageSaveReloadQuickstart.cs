@@ -60,7 +60,7 @@ namespace CropColdToleranceOverhaul.E2E
             {
                 coldDamageStartTemperature = Onset,
                 coldDamageDegreeHoursToDie = FatalDegreeHours,
-                coldDamageRecoveryPerHour = 0.1f
+                coldDamageLethalDoseVariation = 0f
             };
             Require(damage.HasColdDamageModel, "Test-only cold damage Def invalid");
             extensions.Add(damage);
