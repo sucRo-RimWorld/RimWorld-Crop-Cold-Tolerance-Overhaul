@@ -35,6 +35,12 @@ namespace CropColdToleranceOverhaul
             float hours = elapsedTicks / 2500f;
             if (temperature < onset)
                 return Math.Min(1f, prior + (onset - temperature) * hours / lethalDegreeHours);
+            // Frozen air above a hardy plant's injury onset is neither
+            // additional lethal exposure nor a warm tissue-repair period.
+            // 0 C is a gameplay thaw proxy, not a species-specific
+            // experimentally measured repair threshold.
+            if (temperature < Math.Max(0f, onset))
+                return prior;
             return Math.Max(0f, prior - recoveryPerHour * hours);
         }
     }
