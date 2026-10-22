@@ -395,3 +395,85 @@ consumer-activation decisions; existing 48
 fixed-death and 30 dormancy settings remain
 unchanged. Do not automatically rerun the
 whole game suite for this documentation addition.
+
+
+### 2026-10-22 actual original Linux 1.6 two-process Scribe save/reload acceptance
+
+**Source tested:** CCTO Draft PR #24 commit
+`dbc555620c65e7b66666988eb29c51d5f8a31c8a`.
+**Actual original-game evidence:**
+[Project Actions #39709845297](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39709845297),
+manual-only `/amj ccto-cold-save-16`,
+RimWorld Linux **1.6.4871** on isolated native slot 1.
+The script compiled **source-pinned production DLL**
+SHA256 `68d3e8a4fa6bb8544819da0d38bb2bd782b627c4e4bcdd6350332fff8e81c2a4`
+plus the source-owned test-only Quickstart probe, with
+unique disposable package IDs, isolated save folder and
+no normal player files touched.
+
+**Actual two-process sequence and PASS:** the first
+original game generated a real **706,654-byte .rws**
+(`CCTO_ColdDamage_ActualSave16.rws`,
+SHA256 `e2e19cea6c2cf3f70c8a979e376185e3d37f704258f44da4a79d39587abd067f`)
+containing a *spawned* `Plant_Potato2204` with test-only
+cold damage **0.20**, `thingIDNumber=2204` and
+`lastTick=30`. First game exited **0** with Unity
+ERROR **0**. The second **separate** original game
+process loaded that same .rws using the real
+`Game.LoadGame` and Scribe. At the **PostLoadInit
+snapshot, before resumed time advances**, the actual
+resolved plant record contained **the same ID,
+damage 0.20, lastTick 30 and a correctly restored
+Plant reference**. After ordinary game time advanced
+during the 180-frame verification delay, warm recovery
+was observed, then a bounded 2,000-tick test frost
+continued accumulation on that *same restored Plant*,
+reaching **damage 0.39304**. Second game exited **0**,
+Unity ERROR **0**, explicit
+`CCTO_COLD_RELOAD_RESULT passed=True actualScribeGameReload=true plantReferenceRestored=true tickRestored=true damageRestored=true`;
+the strict `real_save_reload_pass=true` gate passed.
+[Evidence artifact](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39709845297)
+ID `12396766587`.
+
+**Confirmed and fixed real source defect:**
+`ColdDamageMapComponent.ExposeData()` previously discarded
+a valid plant reference during `PostLoadInit` when
+`!record.plant.Spawned`. In the **real** reload's
+Scribe phase the same plant had resolved with
+`Destroyed=false`, `damage=0.20`,
+`lastTick=30`, and `HasColdDamageModel=true`,
+but had **`Spawned=false` temporarily** while map
+spawning was incomplete. This prematurely eliminated
+the record. [Diagnostic Actions #39708995115](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39708995115).
+Owner production source fix commit:
+`4061fc57331fc0153558abd550c0675e687a1135`
+removes **only** the premature loading-phase
+`Spawned` filter; ordinary `Prune()` still rejects
+stale or unspawned plants **after** the map is live.
+The short-lived Scribe tracing instrumentation
+was removed after diagnosis.
+
+**Test timing correction, not another production fix:**
+[Actions #39709429939](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39709429939)
+demonstrated that the recovered record was present
+but **0.20→0.19304** due to actual ambient warmth
+during 180 frames before assertion. It failed a
+naive delayed strict equality. The final Quickstart
+checks the **Scribe PostLoadInit snapshot** for
+exact saved numbers, then verifies the *continuation
+from the live reloaded record*. Owner test
+commit `dbc555620c65e7b66666988eb29c51d5f8a31c8a`.
+
+**Boundaries:** this tests a **test-only opted-in
+Vanilla potato** with deliberately specified
+test parameters, not production potato XML,
+any published crop calibration, real 1.7,
+MO binaries, old existing player saves,
+naturally timed real frost exposure/callback
+scheduling, long-run performance or Workshop
+delivery. The earlier original 1.6 **16/16**
+Pickle test [Actions #39597538963](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39597538963)
+remains evidence for its earlier pinned source and
+non-save behaviors; do not claim it was rerun on
+the current head. No automatic game matrix
+or publication follows this PASS.
