@@ -85,15 +85,28 @@
     "independent_scenario_review": "Docs/ColdDamageBalanceV2Assessment.md",
     "supported_count": 78,
     "original_dormancy_unchanged": 30,
-    "numeric_candidate_unapproved_annuals": 2,
+    "numeric_candidate_unapproved_annuals": 4,
     "numeric_candidate_biological_model_blocked": 3,
-    "original_death_profiles_without_v2_values": 43,
+    "original_death_profiles_without_v2_values": 41,
     "xml_activation_authorized": false,
     "xml_migration_performed": false,
     "reference_status": "V1 rejection retains effect; numeric candidates in V2 are not release coefficients",
     "recovery_engine": "implemented_on_draft_uncompiled_unverified",
     "recovery_gate": "ambient_C >= max(onset_C, 0C)",
     "acclimation": "not_implemented; not inferred from dormancy, ThingID, season or plant age; optional observed-history state only after justified rates",
-    "evergreen_status": "thaw-code-blocker-remediated; ecology/biological/numeric acceptance remains open"
+    "evergreen_status": "thaw-code-blocker-remediated; ecology/biological/numeric acceptance remains open",
+    "additional_independent_targets": "Docs/ColdDamageBalanceV2Targets.md#extended-targets-recorded-before-new-coefficients-2026-10-22",
+    "annual_targets_verified_analytically": [
+      "MO Tomatoes S01/S02/S16",
+      "MO Cabbages S03/S04/S05",
+      "MO Onions S19/S20/S21",
+      "MO Pumpkins S22/S23/S24"
+    ],
+    "long_winter_numeric_trial": "Pine/GreatFir dose 3600 C*h, 60 day cold cycles S28/S29; no physiological/biome calibration",
+    "perennial_organ_endpoint_blocks": [
+      "Plant_Strawberry crown vs flower and ambient",
+      "Plant_Potato live tuber vs tops"
+    ],
+    "csv_structural_audit": "78 rows 13 columns; three previous unquoted scenario list fields fixed to semicolon delimiters"
   }
 }
