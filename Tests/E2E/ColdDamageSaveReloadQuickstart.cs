@@ -156,9 +156,11 @@ namespace CropColdToleranceOverhaul.E2E
             string expectedId = Environment.GetEnvironmentVariable("AMJ_CCTO_EXPECT_ID");
             string expectedTick = Environment.GetEnvironmentVariable("AMJ_CCTO_EXPECT_TICK");
             string expectedNumber = Environment.GetEnvironmentVariable("AMJ_CCTO_EXPECT_NUMBER");
+            int tick = 0;
+            int number = 0;
             Require(!string.IsNullOrEmpty(expectedId)
-                && int.TryParse(expectedTick, out int tick)
-                && int.TryParse(expectedNumber, out int number),
+                && int.TryParse(expectedTick, out tick)
+                && int.TryParse(expectedNumber, out number),
                 "Source phase persisted test metadata missing");
             Map map = Find.CurrentMap;
             Plant plant = map.listerThings.AllThings.OfType<Plant>()
