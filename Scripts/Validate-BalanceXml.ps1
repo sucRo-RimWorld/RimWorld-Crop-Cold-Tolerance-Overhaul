@@ -10,6 +10,23 @@ function Fail([string]$Message) {
   exit 1
 }
 
+# Fail closed if a rejected cumulative-injury candidate is ever copied
+# into production XML.  Arithmetic/schema integrity is not balance approval.
+$reviewPath = Join-Path $RepoRoot "Docs/ColdDamageBalanceReview.json"
+if (Test-Path -LiteralPath $reviewPath) {
+  $review = Get-Content -LiteralPath $reviewPath -Raw -Encoding UTF8 | ConvertFrom-Json
+  $xmlFiles = @(Get-ChildItem -LiteralPath (Join-Path $RepoRoot "Patches") -Recurse -File -Filter "*.xml")
+  $injuryXml = @($xmlFiles | Where-Object {
+    (Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8) -match '<coldDamageStartTemperature>'
+  })
+  if ($injuryXml.Count -gt 0) {
+    $unresolved = @($review.reasons | Where-Object { $_.state -ne "resolved" })
+    if ($review.status -ne "accepted_for_xml" -or $unresolved.Count -gt 0) {
+      Fail "Unapproved cold-injury XML blocked: review state $($review.status), unresolved $($unresolved.Count). See Docs/ColdDamageBalanceReview.json"
+    }
+  }
+}
+
 function Ok([string]$Message) {
   Write-Host "[OK] $Message" -ForegroundColor Green
 }
