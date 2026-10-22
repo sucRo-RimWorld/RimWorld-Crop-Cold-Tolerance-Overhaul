@@ -340,3 +340,12 @@ enabled any cumulative injury profile.
 The engine remains opt-in pending integration,
 compatibility review and the final scoped
 real-map ecology acceptance.
+
+
+## HP-based experimental V2 revision (2026-10-22; supersedes prior internal-injury/recovery paragraphs)
+
+The proposed cumulative cold exposure now causes ordinary **Plant HP loss**. The HP bar is the player-visible injury indicator. Temperature below `coldDamageStartTemperature` consumes HP at a rate proportional to degree-hours and the plant's maximum HP. Damage from fire, animals and cold shares HP; there is **no CCTO-specific recovery** and no automatic repair of cold injury. HP reaching zero uses the game's ordinary damage/destruction path.
+
+The retained `coldDamageRecoveryPerHour` field is **legacy experimental compatibility only**, ignored by the HP damage calculation; it must not be calibrated or copied into new plant XML. The existing `coldDamageDegreeHoursToDie` parameter means enough cumulative exposure to remove a full undamaged plant's maximum HP in the absence of other damage, not a separately stored lethal injury threshold. Existing sparse MapComponent records now store last observation tick and fractional remaining HP damage (to avoid rounding away small exposures), not another HP-like injury pool. Experimental saved normalized injury records are converted once on observation. Existing released fixed-temperature and dormancy Defs remain unchanged.
+
+The preceding draft's temperature-triggered recovery behavior and associated exact survival-rate assessments are **historical V2 proposals, no longer predictive for this revised HP model**. No crop HP tuning or real-game acceptance has been performed.
