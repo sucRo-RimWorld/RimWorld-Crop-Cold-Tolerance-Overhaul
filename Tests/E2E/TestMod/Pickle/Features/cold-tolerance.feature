@@ -60,7 +60,7 @@ Feature: CCTO cold tolerance runtime behavior
 
 
   Scenario: Cumulative frost lowers visible HP but warming does not heal it
-    Given a cumulative CCTO test plant with minimum growth 0 onset -5 dose 20 recovery 0.1
+    Given a cumulative CCTO test plant with minimum growth 0 onset -5 dose 20
     When I set the CCTO test outdoor temperature to -10
     And I force the CCTO plant cold check
     Then the CCTO plant HP is recorded at first observation
