@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "balance_table": "Docs/ColdDamageBalanceV1.csv",
+  "status": "rejected_for_xml",
+  "decision_date": "2026-10-22",
+  "decision": "Retract previous LOCKED/APPROVED claims for all 48 candidate injury tuples. Preserve them as evidence of the failed proposal only; the currently deployed 48 fixed-death and 30 dormancy XML entries remain untouched.",
+  "reasons": [
+    {
+      "id": "R1",
+      "kind": "construction_bias",
+      "state": "open",
+      "evidence": "Seven classes chose arbitrary exposure duration and relative onset, then used D=delta*hours. Checking D/(A-T)==chosen hours is circular."
+    },
+    {
+      "id": "R2",
+      "kind": "missing_independent_gameplay_check",
+      "state": "open",
+      "evidence": "No day/night weather + recovery + per-species ecological exercise was performed before locking 48 values."
+    },
+    {
+      "id": "R3",
+      "kind": "primary_survival_conflict",
+      "state": "open",
+      "evidence": "V1 wheat at -3C 24h predicts 97.62% survival while W13 22C untreated Moskovskaya39 observed 35±2% and Zlata 15±2%. Physiological acclimation absent."
+    },
+    {
+      "id": "R4",
+      "kind": "primary_survival_conflict",
+      "state": "open",
+      "evidence": "V1 rice at +4C 240h predicts zero survival, unlike conditioned rice cohorts R02 at 88-100% survival; conditioning state absent. Laboratory-to-game time mapping remains uncertain."
+    },
+    {
+      "id": "R5",
+      "kind": "endpoint_overfit",
+      "state": "open",
+      "evidence": "Conditional maize M01 two-point fit yields onset -1.826C, making median lethal time at -1.9C 112.81h and at -2.0C 47.98h; two approximate 50% endpoints are insufficient to approve the temperature response."
+    },
+    {
+      "id": "R6",
+      "kind": "recovery_semantics",
+      "state": "open",
+      "evidence": "Evergreen pine recuperates 0.003 injury per hour whenever ambient temperature >= -31C, even at -30C. The 'warmer than onset' rule was incorrectly accepted as demonstrated physiological repair."
+    },
+    {
+      "id": "R7",
+      "kind": "authority_overreach",
+      "state": "open",
+      "evidence": "Author request to determine numerical balance first did not validate assistant-generated species/group coefficients. Calling all 78 PASS conflated schema consistency with user-accepted biology/gameplay."
+    }
+  ],
+  "approval_requirements": [
+    "Replace V1 guesses with source-or-gameplay-justified independently evaluated crop/climate scenarios, including variable temperature and warm spells; document source endpoint and physiological stage.",
+    "Reconcile non-acclimated versus acclimated wheat/rice and soil-versus-air differences without treating individual randomness as physiological memory; explicitly flag unmodeled biology.",
+    "Compare each 48 candidate profiles against independent winter climate/biome safety and user-visible consequences, using a bounded representative matrix by climate/biology, not made-up assertions.",
+    "Explicitly review steep near-onset response and nonfreezing recovery semantics; document baseline old-death migration implications.",
+    "Publish a new reviewed numerical table, not relabel failed V1 as source-calibrated; retain a clear author-level decision before production XML or release.",
+    "Use the existing native runtime acceptance only after integrated code/XML changes; engine-only 1.6 Pickle/Scribe PASS cannot certify new numerical values."
+  ],
+  "scope": {
+    "production_xml_changed": false,
+    "gameplay_runtime_changed": false,
+    "old_fixed_death_def_count": 48,
+    "old_dormancy_def_count": 30
+  },
+  "reviewed_source_commit": "b4c9d9aa7f4ce93fbe9fe56fcf04722c5399c06c"
+}
