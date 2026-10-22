@@ -42,6 +42,20 @@ Results are **idealized current-code algebra**, zero prior injury and uniform th
 
 **Mechanical stop:** `Docs/ColdDamageBalanceReview.json` is the machine-owned status/blocker record; `Scripts/Validate-BalanceXml.ps1` now blocks adding opt-in XML if status is not `accepted_for_xml` or any review finding remains open. `Scripts/Review-ColdDamageBalance.py --require-xml-ready` independently rejects the failed V1; its ordinary mode displays numerical counterexamples without pretending a successful process return code means numerical balance approval. Static guards are additional protection, not a replacement for actual product-quality review.
 
+**Evidence cannot be bypassed by a one-word status edit:**
+before `accepted_for_xml` becomes operational, the review record
+must contain a documented author decision reference, the SHA256
+of the **exact accepted table bytes**, and independently
+reviewed expected-versus-predicted results (with source/condition
+context and disposition) for six scenario classes:
+short frost, repeated nights, prolonged freeze, warm recovery,
+wild-biome ecology and conditioning/state contrast.
+Both the owner balance XML validator and the offline review
+script enforce these preconditions. This is a **small, static
+pre-implementation decision gate**, not a RimWorld
+test matrix or a claim that recorded evidence must be correct
+without human scrutiny.
+
 **Scope:** the current production C# and all 48 current legacy fixed-death / 30 dormancy XML settings are unchanged; the Draft engine's previously verified 1.6 save/load technical behavior remains valid for that narrower scope. Do not launch extra native tests for the retraction. Keep the failed table for traceability, but any fresh balancing effort must start with independent acceptance scenarios, not tweaking numbers until tautological checks pass.
 
 ## Corrective action status
