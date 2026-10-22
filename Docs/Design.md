@@ -1662,3 +1662,84 @@ its own unverified coefficients "accepted".
 No V1 XML migration, PR merge or publication
 is authorized; the 48 legacy fixed-death and
 30 existing dormancy settings remain current.
+
+
+### V2 numerical recalibration — predeclared outcomes and restricted candidates (2026-10-22)
+
+**V1 remains rejected for XML.** The user's instruction to
+redo the numerical balance authorizes selecting and
+checking *new candidates*, **not** approving internally
+invented crop physiological coefficients by default.
+
+The V2 process **first** recorded independent
+[temperature-duration/biome and biological-state
+targets](ColdDamageBalanceV2Targets.md)
+(commit `07a695f741c1a36bc646d1f3149a11bbaebd939d`)
+**before** computing or writing any candidate numbers.
+Then it produced [the exact 78-Def, status-bearing V2
+table](ColdDamageBalanceV2Candidates.csv) and a
+[side-by-side independent outcome evaluation](ColdDamageBalanceV2Assessment.md).
+
+**Current scope:** 30 dormancy unchanged, 41 other
+legacy lethal profiles have no responsibly justifiable
+V2 numbers yet, 2 example annual crops (MO tomato
+and cabbage) have explicit **unapproved gameplay
+candidates**, winter wheat has a *non-acclimated*
+numeric proxy **blocked for generic MO Wheat**,
+Pine/Great Fir have two paired ecological candidates
+**blocked by below-freezing recovery semantics**;
+rice and maize are **biologically/model blocked**.
+Altogether **5 numeric candidate rows (0 XML-ready)**;
+the other **43 fixed-death profiles have blank V2
+parameter fields** (including rice/maize).
+
+V2 annual candidate numbers (not live XML):
+
+| Plant | Injury onset | Median baseline fatal dose | Individual dose half-width | Recovery/game hour |
+|---|---:|---:|---:|---:|
+| MO Tomato | 0°C | 18°C·h | 0.25 | 0.010 |
+| MO Cabbage | −3°C | 72°C·h | 0.25 | 0.007 |
+
+Both are tested only against the independent
+predeclared *gameplay* frost/night constraints.
+Their coefficients are **not lab-calibrated**.
+
+Source-conditional comparisons and proposed
+numbers for wheat and cold-evergreen trees,
+plus the fundamental near-onset maize and
+conditioning gaps for rice/wheat, remain
+**explicitly not ready for XML**. The current
+CCTO `ColdDamageProgress.Advance` recovers
+at any ambient T≥onset, including −30°C pine;
+none of the numerical retries may be approved
+by pretending this already represents thaw-only
+repair. A minimal potential no-extra-state
+correction is a **proposed** thaw floor
+`T≥max(0°C, onset)` for future review, not
+implemented code.
+
+For maize, simultaneous exact linear fits to
+M01's approximately 50% endpoints at
+−2°C×48h and −6°C×2h mathematically
+force onset ≈−1.826°C and unacceptably
+steep near-onset sensitivity; this is
+a model-assumption problem, **not** permission
+to publish arbitrary precision. For rice
+and winter wheat, physiological preconditioning
+changes measured survival at identical
+freeze conditions and requires either explicit
+state tracking or a clearly author-accepted
+limited-scope proxy. All original main/Steam
+fixed-death/dormancy XML and 1.6 native
+engine test evidence remain unchanged.
+
+**Next stage:** independently evaluate the
+remaining lifeform groups against their own
+climate/source targets, settle the extremely
+small recovery semantics change before approving
+wild trees, and resolve how to represent
+unacclimated vs acclimated cereal cohorts.
+Do not reset the V1 review file to
+`accepted_for_xml`; no production XML
+integration or game-test rerun has been authorized
+by this numeric analysis alone.
