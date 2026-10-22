@@ -346,7 +346,7 @@ namespace CropColdToleranceOverhaul.E2E
             recovery.coldDamageDegreeHoursToDie = 10f;
             ctx.Assert(
                 recovery.HasColdDamageModel && !recovery.ConfigErrors().Any(),
-                "Zero recovery must retain a valid cumulative cold injury model.");
+                "An HP cold injury configuration must validate.");
         }
 
         [Then("CCTO Info Card stat construction matches fixed-death and dormancy configuration")]
@@ -429,18 +429,16 @@ namespace CropColdToleranceOverhaul.E2E
 
 
         // Test-only approximation: never patch real balance Defs in the release.
-        [Given("a cumulative CCTO test plant with minimum growth {float} onset {float} dose {float} recovery {float}")]
+        [Given("a cumulative CCTO test plant with minimum growth {float} onset {float} dose {float}")]
         public void SpawnCumulativeColdPlant(
             PickleContext ctx,
             float minimumGrowthTemperature,
             float onset,
-            float lethalDegreeHours,
-            float recoveryPerHour)
+            float lethalDegreeHours)
         {
             ColdToleranceExtension extension = new ColdToleranceExtension();
             extension.coldDamageStartTemperature = onset;
             extension.coldDamageDegreeHoursToDie = lethalDegreeHours;
-            // Legacy test step argument is ignored: HP cold injury does not recover.
             ctx.Require(extension.HasColdDamageModel,
                 "Test cumulative model configuration must be valid.");
             ConfigureAndSpawn(ctx, minimumGrowthTemperature, extension);
