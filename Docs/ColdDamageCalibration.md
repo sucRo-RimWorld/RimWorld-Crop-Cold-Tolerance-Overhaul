@@ -1,6 +1,6 @@
 # CCTO — empirical calibration of cumulative cold damage
 
-**Latest balance-design ruling, 2026-10-22:** [V1 numerical table](ColdDamageBalanceV1.csv) and [design criteria](ColdDamageBalanceV1.md) now fix 48 **gameplay-selected** cumulative profiles and retain 30 dormant profiles. These are not empirically fitted scientific coefficients; original plant XML is not yet migrated. Earlier "not approved" notices below refer to **empirical source calibration** or historical unselected example candidates, not a veto on the separately approved V1 game-balance design.
+**Latest corrective ruling, 2026-10-22:** the [V1 numerical table](ColdDamageBalanceV1.csv) is **REJECTED FOR XML** after [independent balance audit](ColdDamageBalanceFailureAudit.md). Previous claims that all 48 gameplay values were DECIDED/LOCKED are withdrawn. Structural arithmetic checks never established biological plausibility or gameplay suitability; 30 existing dormancy profiles remain untouched. Historical source research below remains evidence, NOT approval of the rejected parameters. Original production XML has not migrated.
 
 **Reviewed 2026-10-21. Status: empirical-source verification in progress. No numerical tuples have been empirically validated as laboratory-calibrated; no Vanilla/MO, AMJ or VPE plant XML is migrated.**
 
