@@ -2373,3 +2373,116 @@ non-identifiability**, NOT measured cultivar survival.
    or matched-source duration evidence is needed.
    Do not extend the search for arbitrary extra
    correlations merely to select one value.
+
+
+## W13 four-cohort numerical constraints: observed, interpolated, identifiable (2026-10-22)
+
+### Primary survival protocol and explicit endpoint
+
+[Deryabin et al. 2024 Table 2 / §2.7](https://pmc.ncbi.nlm.nih.gov/articles/PMC11052526/)
+reports survival of *undamaged* whole wheat seedlings after
+freezer-target **24h** at 0, −3, −5 and −7°C. Following freezing,
+the actual plants spent **24h at 4°C in darkness** and then
+**72h at 22°C in light** before scoring. This is an
+undamaged-seedling/whole-seedling surviving proportion,
+**not** tiller or electrolyte-leakage percentage.
+Treatment groups must remain split by genotype and
+prior 22°C control versus **4°C ×7-day acclimation**.
+Original survival fractions are transcribed without changes
+in [W13 raw endpoint CSV](Research/WinterWheatW13Deryabin24hSurvival.csv);
+the number of frozen individuals per treatment and exact
+cooling/warming ramp are not established by Table 2.
+
+The additional [derived numerical matrix](Research/WinterWheatW13FourCohortMedianBounds.csv)
+linearly interpolates **reported survival fraction versus
+freezer target** within the two *adjacent measured temperatures*
+bracketing 50% survival. It is a **point interpolation
+assumption**, not a measured LT50, confidence interval
+or source-identified model equation.
+
+| Separate biological cohort | Original 24h survival bracket | Interpolated 24h T50 | Bounded endpoint ± sensitivity only |
+|---|---|---:|---:|
+| Moskovskaya 39, 22°C control | 100% at 0°C; 35±2% at −3°C | **−2.308°C** | −2.381 to −2.239°C |
+| Moskovskaya 39, 4°C ×7d | 65±4% at −5°C; 15±2% at −7°C | **−5.600°C** | −5.731 to −5.458°C |
+| Zlata, 22°C control | 100% at 0°C; 15±2% at −3°C | **−1.765°C** | −1.807 to −1.724°C |
+| Zlata, 4°C ×7d | 60±3% at −3°C; 7±2% at −5°C | **−3.377°C** | −3.481 to −3.269°C |
+
+The sensitivity endpoints insert each **published ± number**
+into its corresponding survival bracket, with 100% held
+fixed. They are **not sampling-error confidence bounds**
+or a calculated tolerance distribution. Under this simple
+interpolation, **the same-genotype apparent coldward T50
+shifts** are ≈**3.292°C** (M39) and ≈**1.613°C** (Zlata)
+after the prior 4°C treatment. This **does not**
+specify hardening **time rate** in-game.
+
+### What CCTO's present linear + uniform model actually identifies
+
+For a single fixed 24h, zero-recovery cohort in the
+interior of the CCTO uniform lethal-dose response,
+where `w` is the individual-dose half-width and
+`D` is the base lethal degree-hour dose:
+
+`dSurvival/dTargetTemperature = 24 / (2*w*D)`.
+
+- M39 pre-acclimated, **65% →15%** from
+  −5→−7°C, measured bracket slope 0.25/°C:
+  **w×D = 48.000 °C·h** (conditional).
+- Zlata pre-acclimated, **60% →7%** from
+  −3→−5°C, measured slope 0.265/°C:
+  **w×D ≈ 45.283 °C·h** (conditional).
+- The ± endpoint values alone bound these
+  *algebraic products* approximately to
+  **42.857–54.545** (M39) and **41.379–50.000 °C·h**
+  (Zlata), if ± is interpreted simply as a range
+  of possible reported group means. These are
+  **not fitted confidence limits**.
+- Unacclimated brackets include an **observed
+  100%** boundary; the model may be on its
+  saturation plateau. Therefore **no individual
+  w×D product** is determined from those
+  brackets. The full data still do **not**
+  independently identify `w`, `D`, onset,
+  recovery or a time-response exponent.
+- M39 and Zlata have very different whole-seedling
+  survival **at the same −5°C×24h pre-acclimated
+  treatment: 65% vs 7% (58 percentage points)**.
+  This is a **genotype difference**, not an
+  estimate of *within-genotype individual
+  lethal-dose spread*. An average of their
+  endpoint fractions would be a chosen
+  generic-wheat gameplay approximation, not
+  a third observed genotype.
+
+**Calibration ruling:** the **24h interpolated
+T50** is now a usable observed-condition
+constraint for both selected wheat genotypes;
+only `w×D` is additionally identified
+*conditionally* for two acclimated cohorts,
+not either separate setting. The present Draft
+runtime has no physical 4°C×7d hardening state,
+no plant-temperature sensor beyond
+AmbientTemperature and no independent matched
+24h versus 48h outcomes. Thus **there is still
+no justified single `DankPyon_Plant_Wheat` Def
+tuple**. Do **not** assign an onset of −5.6°C,
+or set the 48°C·h product itself as the
+fatal-dose setting. No game-side recovery rate,
+w, D or effective hardening multiplier is
+approved by this algebra.
+
+For the remaining 47 fixed-death and 30
+dormancy plant Defs, this single wheat
+protocol licenses **no cross-species
+coefficient transfer**. Corn additionally
+has independent non-freezing chilling death
+(M03), and rice's 4°C seedling survival
+changes radically with prior 12°C conditioning
+(R02): neither accepts a universal wheat
+freezer-dose curve. The first playable
+plant-specific migration remains a distinct
+later decision about a representative cultivar,
+ambient-vs-tissue exposure and ordinary
+weather consequences. Preserve default
+XML/old saves; no new native acceptance is
+needed for a purely numerical derivation.
