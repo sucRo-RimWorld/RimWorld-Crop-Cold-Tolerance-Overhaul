@@ -1607,3 +1607,61 @@ these wheat figures to other 77 Defs.
 No production migration, engine extension,
 game-test rerun or release is justified
 by this numerical interpolation alone.
+
+
+### CCTO numerical gameplay balance V1 locked before XML (2026-10-22)
+
+**Latest game-balance decision superseding all earlier statements
+that numeric gameplay choices have not yet been selected:**
+the **exact 48 future cumulative-injury profiles** are now
+fixed in the [canonical V1 numeric CSV](ColdDamageBalanceV1.csv);
+the **30 dormancy-only profiles remain unchanged**.
+[Formula, grouped class rationale, biological distinction
+and representative frost scenarios](ColdDamageBalanceV1.md)
+are the formal V1 balance decision.
+
+This is **gameplay balance**, not a retrospective
+scientific claim. Empirical laboratory fitting still
+does **not** independently identify these 48 tuples,
+recovery rates or within-cultivar susceptibility widths.
+The five intentional plant-specific compromises for
+**Rice, Corn, Potato, MO Wheat and MO Sugarcane**
+are conspicuously marked in the table; the
+other 43 use seven simple lifecycle/environment
+classes derived from the **previous** fixed death
+temperature as an *exposure-reference anchor*,
+not a new instantaneous death limit.
+
+The key forest-protection decision is that
+**Pine/Great Fir** only acquire damage below
+−31°C, with median death at −35°C after
+**720 continuous in-game hours (30 days)**
+rather than mass extinction from ordinary winter
+nights. **Bamboo** shares the same very
+slow evergreen dose law, shifted to its
+prior −18°C reference. Wild/cultivated same
+taxon profiles retain parity.
+
+**Precedence:** from this section forward, treat
+the 48 V1 values as the **selected design baseline
+for future XML integration**, not as numbers
+still pending a new bibliography search.
+Earlier W13 A/B experimental demonstrations
+and withdrawn unsourced 12-plant suggestions
+remain **research-only**; V1 is a **new explicit
+design choice**, not a promotion of either.
+Future balance changes require observed
+unacceptable game/ecology outcomes or
+materially relevant new evidence.
+
+**Do not confuse decision with deployment:**
+neither the 48 XML opt-ins nor the 30 dormant
+production files are changed by this step.
+The currently published game remains on
+the 48 fixed-death thresholds and original
+30 dormancy entries. PR #24 remains Draft
+and unmerged. C# injury accumulation and
+1.6 engine-only native-save results are
+unchanged; consolidated gameplay checks of
+the *new values* must follow actual XML
+integration, not this design choice.
