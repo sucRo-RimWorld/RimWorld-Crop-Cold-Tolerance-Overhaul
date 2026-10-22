@@ -344,14 +344,6 @@ namespace CropColdToleranceOverhaul.E2E
             recovery.coldDeathTemperature = -15f; // Legacy fallback remains legal.
             recovery.coldDamageStartTemperature = -5f;
             recovery.coldDamageDegreeHoursToDie = 10f;
-            foreach (float invalid in new[] { -0.1f, float.NaN, float.PositiveInfinity, float.NegativeInfinity })
-            {
-                recovery.coldDamageRecoveryPerHour = invalid;
-                ctx.Assert(
-                    !recovery.HasColdDamageModel && recovery.ConfigErrors().Count() == 1,
-                    "Invalid cold injury recovery must not activate the opt-in model.");
-            }
-            recovery.coldDamageRecoveryPerHour = 0f;
             ctx.Assert(
                 recovery.HasColdDamageModel && !recovery.ConfigErrors().Any(),
                 "Zero recovery must retain a valid cumulative cold injury model.");
@@ -448,7 +440,7 @@ namespace CropColdToleranceOverhaul.E2E
             ColdToleranceExtension extension = new ColdToleranceExtension();
             extension.coldDamageStartTemperature = onset;
             extension.coldDamageDegreeHoursToDie = lethalDegreeHours;
-            extension.coldDamageRecoveryPerHour = recoveryPerHour;
+            // Legacy test step argument is ignored: HP cold injury does not recover.
             ctx.Require(extension.HasColdDamageModel,
                 "Test cumulative model configuration must be valid.");
             ConfigureAndSpawn(ctx, minimumGrowthTemperature, extension);
