@@ -314,3 +314,25 @@ The source files were inspected from the original MO archive provided
 for this project, not changed or copied into CCTO; MO remains a separate
 mod/owner. This identity audit does not increase the cold-evidence
 mapping count or authorize new plant XML values.
+
+
+### Additional V2 species/organ evidence (2026-10-22)
+
+The citations below distinguish living-plant survival from
+fresh-product frost damage. These are candidate
+**context constraints**, not calibrated coefficients.
+
+| Evidence ID | Source and exact biological object | Valid constraint for CCTO | Forbidden inference |
+|---|---|---|---|
+| `ON04` | [Sato et al., 2020, Hokkaido onion sowing trials](https://www.jstage.jst.go.jp/article/hortj/89/4/89_UTD-155/_html/-char/ja), discussion cites **Tanaka (1978)**: almost all growing onion seedlings survived −2.5°C for **1–3h** | Short freezing exposure can be survived by appropriately grown seedlings; record **secondary citation**, not reproduced original Tanaka population | Do not set whole-plant LT50, dose or recovery rate using the negative temperature alone; onion-bulb scale electrolyte leakage is not seedling survival |
+| `ST01` | [Cornell Berries, 2024](https://blogs.cornell.edu/berries/2024/03/21/critical-temperatures-for-berry-crops/) and [OSU Extension strawberry guide](https://extension.oregonstate.edu/catalog/ec-1307-growing-strawberries-your-home-garden): dormant crowns, flower buds, fresh growth and weather-hardening differ; at-crown injury temperature roughly −6.7 to −12.2°C in relevant winter states | Whole strawberry life and yield differ from one leaf/bud injury threshold; must distinguish dormancy, crown and ambient | Do not call a flower bud kill, berry freezing point or crown cold injury an observed whole-plant death after N hours |
+| `PT01` | [Ontario agriculture freeze protection](https://www.ontario.ca/page/freeze-protection-methods-crops): prematurely frozen potato **tops** may result in partial loss of tuber yield/quality | Crop foliage injury does **not automatically imply entire rooted potato dies** | Do not derive a fatal `Plant_Potato` degree-hour dose from aerial top/produce injury alone; protected underground tuber temperature differs |
+| `FAO02` | [FAO Frost protection Vol.1, Table 4.1](https://www.fao.org/4/y7223e/y7223e0a.htm): susceptibility classification of **fresh harvested fruits and vegetables** including tomato, potato, onion, winter squash and mature cabbage | Relative susceptibility of marketable *produce* is useful economic background | **Does not measure alive/dead field plants**; cannot be used as a source for a universal 48-crop mortality ranking or exact onset |
+
+These provenance entries support the **predeclared**
+[S19–S31 outcome scenarios](ColdDamageBalanceV2Targets.md).
+Numeric candidates for onion and pumpkin remain **gameplay
+hypotheses**, and strawberry/potato remain withheld because
+the studied organ/stage/temperature is insufficient to
+calibrate whole-plant death. A biophysical
+root-crown/insulation model was not introduced.
