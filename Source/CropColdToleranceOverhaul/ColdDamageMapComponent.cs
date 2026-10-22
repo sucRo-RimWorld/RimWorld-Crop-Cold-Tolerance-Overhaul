@@ -31,8 +31,13 @@ namespace CropColdToleranceOverhaul
                 {
                     foreach (ColdDamageRecord record in records)
                     {
+                        // RimWorld resolves Thing references before the loaded map
+                        // has finished spawning them. A valid referenced Plant
+                        // can still have Spawned=false during PostLoadInit.
+                        // Stale/unspawned references are removed by Prune()
+                        // after the map is live, including before saving.
                         if (record == null || record.plant == null
-                            || record.plant.Destroyed || !record.plant.Spawned
+                            || record.plant.Destroyed
                             || float.IsNaN(record.damage)
                             || record.damage < 0f || record.damage >= 1f
                             || ColdToleranceUtility.ExtensionFor(record.plant)?.HasColdDamageModel != true)
