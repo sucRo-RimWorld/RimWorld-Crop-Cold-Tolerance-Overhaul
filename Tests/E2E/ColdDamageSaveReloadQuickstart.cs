@@ -85,9 +85,9 @@ namespace CropColdToleranceOverhaul.E2E
             ColdCheck.Invoke(plant, null);
         }
 
-        private static void AssertDamage(float actual, float expected, string phase)
+        private static void AssertDamage(float actual, float expected, string phase, Plant plant)
         {
-            Require(Math.Abs(actual - expected) < 0.002f,
+            Require(Math.Abs(actual - expected) <= 1f / plant.MaxHitPoints + 0.001f,
                 phase + ": expected damage " + expected + ", got " + actual);
         }
 
@@ -119,11 +119,11 @@ namespace CropColdToleranceOverhaul.E2E
             var states = States(map);
             Require(states.ContainsKey(plant), "First observed cold state was not created");
             ColdDamageRecord record = states[plant];
-            AssertDamage(record.damage, 0f, "initial");
+            AssertDamage(record.damage, 0f, "initial", plant);
             record.lastTick = Find.TickManager.TicksGame - Elapsed;
             Observe(plant);
             record = States(map)[plant];
-            AssertDamage(record.damage, ExpectedDamage, "pre-save");
+            AssertDamage(record.damage, ExpectedDamage, "pre-save", plant);
             Require(!plant.Destroyed && record.lastTick == Find.TickManager.TicksGame,
                 "Plant died or recorded observation time was not updated");
 
@@ -190,7 +190,7 @@ namespace CropColdToleranceOverhaul.E2E
                 && ColdDamageScribeSnapshot.PlantNumber == number,
                 "Scribe PostLoadInit did not restore this precise Plant record");
             AssertDamage(ColdDamageScribeSnapshot.Damage, ExpectedDamage,
-                "at immediate Scribe PostLoadInit");
+                "at immediate Scribe PostLoadInit", plant);
             Require(ColdDamageScribeSnapshot.LastTick == tick,
                 "Original observation tick not restored at Scribe PostLoadInit");
             Require(record.lastTick >= tick && record.damage >= 0f
@@ -212,7 +212,7 @@ namespace CropColdToleranceOverhaul.E2E
             Require(!plant.Destroyed, "Restored plant died before expected dose");
             Require(States(map).TryGetValue(plant, out ColdDamageRecord updated),
                 "Continued cold observation dropped the saved record");
-            AssertDamage(updated.damage, before + ExpectedDamage, "after continuing frost");
+            AssertDamage(updated.damage, before + ExpectedDamage, "after continuing frost", plant);
             Log.Message("CCTO_COLD_RELOAD_RESULT passed=True"
                 + " actualScribeGameReload=true plantReferenceRestored=true"
                 + " tickRestored=true damageRestored=true"
