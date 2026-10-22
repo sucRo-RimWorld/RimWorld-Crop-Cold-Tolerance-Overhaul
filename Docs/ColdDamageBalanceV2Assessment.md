@@ -1,6 +1,6 @@
 # CCTO V2: independent scenario review of numeric reset (2026-10-22)
 
-**Status: INCOMPLETE / NOT XML-READY.** V1's 48 profile-wide approval remains withdrawn. This V2 evaluation used the **predeclared targets** in [ColdDamageBalanceV2Targets.md](ColdDamageBalanceV2Targets.md), which was written **before** any V2 candidate numbers. The exact CCTO-owned population [V2 candidate table](ColdDamageBalanceV2Candidates.csv) has **78 unchanged identities**: **30** original dormancy, **41** death profiles with no independently grounded new numeric values, **2** non-blocked candidate-only annual profiles, **3** high-risk conditioning/intensity problems (rice, wheat, corn), **2** wild evergreen profiles whose previous recovery-logic defect has been corrected in Draft C# but whose numerical ecology is still unapproved. **No production XML opt-in has been made.**
+**Status: INCOMPLETE / NOT XML-READY.** V1's 48 profile-wide approval remains withdrawn. This V2 evaluation used the **predeclared targets** in [ColdDamageBalanceV2Targets.md](ColdDamageBalanceV2Targets.md), which was written **before** any V2 candidate numbers. The exact CCTO-owned population [V2 candidate table](ColdDamageBalanceV2Candidates.csv) has **78 unchanged identities**: **30** original dormancy, **41** death profiles without numerical candidates, **4** unapproved annual candidate profiles (tomato, cabbage, onion, pumpkin), **3** high-risk conditioning/intensity problems (rice, wheat, corn), **2** wild evergreen profiles whose previous recovery-logic defect has been corrected in Draft C# but whose numerical ecology is still unapproved. **No production XML opt-in has been made.**
 
 ## Unambiguous candidate meaning
 
@@ -17,7 +17,7 @@ For each temperature segment, normalized individual injury increases by `h * max
 | MO Wheat | **−1** | **42.67** | **0.25** | **0.016** | **BLOCKED**: a proxy for non-acclimated W13 wheat only; not the loaded generic crop |
 | Vanilla Pine / MO Great Fir | **−31** | **3300** | **0.20** | **0.004** | **UNAPPROVED**: now matches thaw-floor Draft C#; no revised-runtime/native or cross-season ecological acceptance |
 
-**No V2 coefficient is provided for rice or maize.** Their independent source constraints reveal a model-selection issue, not an arithmetic gap that can safely be filled with a guessed parameter. The remaining 41 fixed-death species likewise have no V2 adoption candidate until they have a relevant climate, stage and organism-side analogy. A species getting a blank coefficient is an **explicit decision to avoid the V1 failure**, not a missing CSV row.
+**No V2 coefficient is provided for rice or maize.** Their independent source constraints reveal a model-selection issue, not an arithmetic gap that can safely be filled with a guessed parameter. All **41** remaining fixed-death profiles have no V2 numeric candidate, including strawberry and potato where crown/top injury cannot be equated to whole-plant mortality. A species getting a blank coefficient is an **explicit decision to avoid the V1 failure**, not a missing CSV row.
 
 ## Actual output against the targets declared FIRST
 
@@ -64,52 +64,81 @@ No tweak of dose `D`, within-plant spread `w`, or recovery `r` can fix that *spe
 - R02 after a 12°C×5d preconditioning has 88–100% alive after +4°C×10d, versus 0% for unacclimated seedlings in the contrasted case. Again, a single fixed injury curve cannot predict both with identical ambient history following the conditioning period. Prior seasonal exposure, plant stage and a possible two-regime chill-versus-freeze rate need source-constrained decisions before XML.
 - Switching either rice or wheat directly back into fixed instant death is **not** a physiological calibration; it is only the current safe compatible deployment baseline until the new feature is complete.
 
-### Pine/Great Fir: implemented minimal thaw-based injury recovery
+### Additional V2 candidates after independent S19–S31 targets
 
-Draft C# commit `9dfd6d7a501676a28ee4fa92f84181b7e364af34`
-changed `ColdDamageProgress.Advance` with no extra per-species XML
-field: when ambient air temperature is **between the species'
-injury onset and 0°C**, damage is **held**, not repaired.
-At and above `max(onset, 0°C)`, injury recovers at the existing
-per-hour rate, and below onset, new injury accumulates.
+The new [S19–S31 scenarios](ColdDamageBalanceV2Targets.md)
+were **committed before** the following replacement candidates.
+Their forecasts use the **same current C# linear injury
+equation** with recovery only at `T≥max(A,0°C)`,
+the original stable **uniform lethal-dose spread** and
+no retroactive cold observation. Values are selected
+gameplay hypotheses. Source endpoints **do not measure**
+fatal dose, repair speed or within-cultivar spread.
 
-Using the *previously selected*, still **unapproved** Pine/Great
-Fir candidate values onset −31°C / dose 3300 / w 0.20 /
-recovery 0.004 per game-hour:
+| Crop | Chosen onset | Baseline median D | w | Recovery/h | Independent source/species limit |
+|---|---:|---:|---:|---:|---|
+| MO onion | **−3°C** | **21°C·h** | **0.25** | **0.009** | ON04 is a *second-hand* short −2.5°C seedling survival observation, not dose |
+| MO pumpkin | **0°C** | **20°C·h** | **0.25** | **0.008** | Warm annual crop analogy, FAO02 classifies harvested product frost injury, **not whole vines** |
+| Pine and Great Fir | **−31°C** | **3600°C·h**, previously 3300 | **0.20** | **0.004** | Ecosystem stress-test target, **not species root/crown tissue data** |
 
-- At **−35°C×12h**, the median individual accumulates
-  `48/3300≈0.01455` damage.
-- At **−30°C×12h**, it retains exactly the same damage,
-  whereas the obsolete engine incorrectly erased it.
-- At **+5°C×12h**, it can recover up to `0.048`
-  damage, down to zero.
-- Repeating **−35°C×12h and −30°C×12h** for 15 days
-  yields median damage `720/3300≈0.21818`,
-  with **100% model survival** for w 0.20,
-  assuming no missed samples.
-- Repeating that cycle for **60 days** yields median
-  damage `2880/3300≈0.87273`, with **≈81.8%
-  survival** (about 18.2% mortality) even though
-  −30°C is still below freezing. This is a
-  high-impact **unresolved** long-season ecology risk,
-  not a tested real biome forecast.
-- Continuous −40°C for 15 days still gives model
-  survival ≈54.5%, satisfying S14's *proposed*
-  quadrum stress target, not demonstrating real
-  pine/fir thermal tolerance.
+#### Independent predictions (not a game test)
 
-The C# rule is **implemented but not yet compiled or
-native-tested after change**. The species-specific
-source basis for 3300°C·h and warming rate
-0.004/h remains inadequate, and the use of ambient
-rather than root/crown temperatures remains unresolved.
-A generic new `coldDamageRecoveryTemperature` XML
-field is **not** introduced merely to solve the one
-pine example.
+| ID / specified condition | Expected before selection | Calculated V2 outcome | Numeric result |
+|---|---|---|---|
+| S19 Onion −2.5°C ×3h | At least 95% alive | **100%** | Target met, no inferred real mortality onset |
+| S20 Onion −6°C ×8h | At most 30% alive | **21.4%** | Target met, severe exposure dangerous |
+| S21 Onion −4°C ×8h then +5°C ×16h, 3 days | At least 70% alive | **72.5%** | Target met, only ~2.5 percentage points margin |
+| S22 Pumpkin −1°C ×2h | At least 80% alive | **100%** | Target met |
+| S23 Pumpkin −3°C ×8h | At most 30% alive | **10.0%** | Target met |
+| S24 Pumpkin −1°C ×8h, +10°C ×16h, 3 days | 5–90% alive | **58.9%** | Target met |
+| S25 Dormant strawberry crown −5°C ×12h | At least 95% alive | **No V2 plant-mortality coefficient** | **Blocked**: living crown and dormancy physiology not modeled |
+| S26 Strawberry crown −10°C ×12h | At least 70% alive | **No V2 plant-mortality coefficient** | **Blocked**: ambient air != crown temperature |
+| S27 Potato −2°C ×2h | Do not equate dead tops to whole-plant death | **No V2 plant-mortality coefficient** | **Blocked**: foliage vs tuber organ endpoint |
+| S28 Pine/fir −35°C ×12h, −30°C ×12h, 60 days | At least 95% alive | **100%** with D=3600 | Target met, but extreme assumed daily weather frequency not verified |
+| S29 Pine/fir four frost cycles, one +5°C full thaw day, repeat to 60 days | At least 95% alive | **100%** | Target met, assuming this artificial thaw sequence |
+| S30 Two annuals: fatal frost → warmth → fatal frost | Killed plants cannot revive | **Same map component kills at damage≥1** | Logical implementation invariant; actual new numeric run untested |
+| S31 Nature/source boundary | Product or bud injury not equal plant death | **Strawberry and potato blocked** | Endpoint distinction applied |
+
+The two annually cycling fractions and 60-day evergreen
+percentages are numerical idealizations over **5,001
+evenly spaced susceptibility percentiles**. A live
+RimWorld map has discrete weather and observation
+callbacks, making exact percentages in actual play
+dependent on those conditions.
+
+### Pine/Great Fir: why the previous 3300°·h value was revised
+
+The **predeclared S28 two-quadrum persistence target**
+exposed unacceptable cold carryover in the previous
+candidate. With zero subzero healing, the original
+D=3300 gives **~81.8% survival** at 60 days under
+−35°C ×12h and −30°C ×12h. The revised,
+still **unapproved**, D=3600 gives **100% survival**
+for the same hypothetical 60-day case. However,
+at **−40°C continuously for 15 days** it also
+changes the previously predicted survival
+from **~54.5%** to **75.0%**. This tradeoff
+was not hidden: the >50% safety objective S14
+is retained, but the very-severe-cold lethality
+is reduced. Longer or colder exposure will
+eventually be fatal. Forest balance is still
+unverified against actual seasonal thermal
+frequencies and insulating cover.
+
+During an individual `−35°C×12h` segment the
+median plant now gains `48/3600=0.01333` injury.
+A following `−30°C×12h` **holds** that injury;
+`+5°C×12h` reduces it by up to `0.048`.
+The code-level thaw behavior is implemented
+on Draft, not yet real-game-tested after change.
+This section does **not** approve the
+combined species profile as factual pine/fir
+cold tolerance, and it does not call the 0°C
+ambient thaw proxy a tissue measurement.
 
 ## V2 acceptance verdict and next decisions
 
-- **Numerical progression:** 2 non-blocked annual candidates (tomato, cabbage) satisfy their declared *gameplay* scenarios and have their assumptions exposed. Wheat and Pine/Great Fir get **3 conditionally computed but unapproved** candidate rows. The C# thaw threshold blocker for the latter two is corrected, but source/ecological and native-test acceptance remain open. The other **43 death profiles** (including rice and maize) have no V2 coefficients. The 30 dormancy definitions stay intact.
-- **Not approved:** 5 proposed numeric rows **are not author-approved**. Their consistency with scenarios is narrow and must not be promoted to 48 "BALANCE PASS" claims. The rejected V1 review state remains `rejected_for_xml`, and all production XML opt-in stays blocked.
+- **Numerical progression:** 4 unapproved annual candidates (tomato, cabbage, onion, pumpkin) meet their respective predeclared *gameplay* scenario preferences under ideal continuous air-temperature sampling. Wheat and Pine/Great Fir retain **3 conditionally computed but unapproved** candidate rows. The C# thaw threshold blocker for the latter two is corrected, but source/ecological and native-test acceptance remain open. The other **41 death profiles** (including rice, maize, strawberry and potato) have no V2 coefficients. The 30 dormancy definitions stay intact.
+- **Not approved:** 7 proposed numeric rows **are not author-approved**. Their consistency with scenarios is narrow and must not be promoted to 48 "BALANCE PASS" claims. The rejected V1 review state remains `rejected_for_xml`, and all production XML opt-in stays blocked.
 - **Material next step:** select a minimal, explicitly optional **physiological-state policy** for wheat/rice without confusing cold acclimation and injury recovery; revisit long-season wild flora outcomes and extend independently chosen weather/ecology targets to the remaining supported groups. Do not blindly inherit tomato/cabbage values across unrelated species.
 - **Testing discipline:** these are offline analytic scenarios, no new game launch. Prior 1.6 native Pickle + actual .rws verify engine mechanics only, not V2 numerical/ecological gameplay.
