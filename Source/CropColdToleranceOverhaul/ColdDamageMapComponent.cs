@@ -38,8 +38,6 @@ namespace CropColdToleranceOverhaul
                             || float.IsNaN(record.pendingHitPointDamage)
                             || record.pendingHitPointDamage < 0f
                             || record.pendingHitPointDamage >= 1f
-                            || float.IsNaN(record.legacyDamage)
-                            || record.legacyDamage < 0f || record.legacyDamage >= 1f
                             || ColdToleranceUtility.ExtensionFor(record.plant)?.HasColdDamageModel != true)
                             continue;
                         if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
@@ -70,20 +68,9 @@ namespace CropColdToleranceOverhaul
             {
                 if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
                 // No retroactive cold exposure on the first observation.
-                record = new ColdDamageRecord { plant = plant, lastTick = now, hpModelStored = true };
+                record = new ColdDamageRecord { plant = plant, lastTick = now };
                 states.Add(plant, record);
                 return;
-            }
-
-            // Migrate unreleased V2 trial saves once: their old normalized cold
-            // injury was not represented by HP. Never grant recovery.
-            if (!record.hpModelStored)
-            {
-                record.hpModelStored = true;
-                float oldLoss = record.legacyDamage * plant.MaxHitPoints;
-                record.legacyDamage = 0f;
-                ApplyHitPointLoss(plant, record, oldLoss);
-                if (plant.Destroyed) { states.Remove(plant); return; }
             }
 
             int elapsed = Math.Max(0, Math.Min(2000, now - record.lastTick));
@@ -140,8 +127,6 @@ namespace CropColdToleranceOverhaul
         public Plant plant;
         public int lastTick;
         public float pendingHitPointDamage;
-        public bool hpModelStored;
-        public float legacyDamage;
         // Compatibility read access for prior experimental tests; HP is authoritative.
         public float damage => plant == null || plant.MaxHitPoints <= 0
             ? 0f : 1f - (float)plant.HitPoints / plant.MaxHitPoints;
@@ -151,10 +136,6 @@ namespace CropColdToleranceOverhaul
             Scribe_References.Look(ref plant, "plant");
             Scribe_Values.Look(ref lastTick, "lastTick", 0);
             Scribe_Values.Look(ref pendingHitPointDamage, "pendingHitPointDamage", 0f);
-            Scribe_Values.Look(ref hpModelStored, "hpModelStored", false);
-            // Read old experimental normalized injury for one-time migration.
-            // New saves always write zero here.
-            Scribe_Values.Look(ref legacyDamage, "damage", 0f);
         }
     }
 }
