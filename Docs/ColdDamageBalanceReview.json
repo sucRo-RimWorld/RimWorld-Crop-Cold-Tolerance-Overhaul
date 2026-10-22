@@ -118,6 +118,20 @@
         "Pine/Great Fir: -35.0 vs -35.2 C nights x60 survival 100% -> 90%"
       ],
       "correction": "Do not claim robust plant/climate balance from exact chosen target examples alone"
+    },
+    "seasonal_climate_audit": {
+      "status": "INCOMPLETE: one public modded tile diagnostic, zero native forest-eligible temperature traces",
+      "source_csv": "Docs/Research/RimWorldPublicOneTile60DayLoHi2026.csv",
+      "analysis": "Docs/ColdDamageBalanceV2Assessment.md#seasonal-temperature-example-and-climate-envelope-risk-2026-10-22",
+      "external_source": "https://gist.github.com/HugsLibRecordKeeper/ba53570c4204c9ed922f863a5a37c4b1",
+      "evidence_boundary": "Daily Lo/Hi externally logged as annual diagnostic from one heavily modded 16.1C/22.2169 latitude tile; reconstructed hourly shape and translated cold sites are mathematical stress cases only",
+      "missing_inputs": [
+        "real_generated_tree_bearing_cold_tile_with_world_settings",
+        "real_generated_short_growth_season_crop_tile_with_world_settings",
+        "actual_temperature_incident_frequency_or_sample_not_only_constant_nights"
+      ],
+      "coefficient_decision": "retain 7 V2 unapproved trial rows; no change to dose/onset/recovery",
+      "native_game_launched": false
     }
   }
 }
