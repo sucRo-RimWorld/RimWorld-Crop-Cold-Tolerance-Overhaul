@@ -62,5 +62,19 @@
     "old_fixed_death_def_count": 48,
     "old_dormancy_def_count": 30
   },
-  "reviewed_source_commit": "b4c9d9aa7f4ce93fbe9fe56fcf04722c5399c06c"
+  "reviewed_source_commit": "b4c9d9aa7f4ce93fbe9fe56fcf04722c5399c06c",
+  "acceptance": {
+    "author_decision": "not_recorded",
+    "decision_reference": null,
+    "accepted_table_sha256": null,
+    "independent_scenarios": [],
+    "required_scenarios": [
+      "short_frost",
+      "repeated_nights",
+      "prolonged_freeze",
+      "warm_recovery",
+      "wild_biome",
+      "source_state_contrast"
+    ]
+  }
 }
