@@ -5,7 +5,8 @@ using Verse;
 
 namespace CropColdToleranceOverhaul
 {
-    // A sparse state store. No map-wide plant scan and no per-tick callback.
+    // Only timing and sub-HP rounding remainder are stored.
+    // Actual cold injury is ordinary visible Plant HitPoints damage.
     public sealed class ColdDamageMapComponent : MapComponent
     {
         private Dictionary<Plant, ColdDamageRecord> states;
@@ -31,15 +32,14 @@ namespace CropColdToleranceOverhaul
                 {
                     foreach (ColdDamageRecord record in records)
                     {
-                        // RimWorld resolves Thing references before the loaded map
-                        // has finished spawning them. A valid referenced Plant
-                        // can still have Spawned=false during PostLoadInit.
-                        // Stale/unspawned references are removed by Prune()
-                        // after the map is live, including before saving.
-                        if (record == null || record.plant == null
-                            || record.plant.Destroyed
-                            || float.IsNaN(record.damage)
-                            || record.damage < 0f || record.damage >= 1f
+                        // References may resolve before spawning completes.
+                        if (record == null || record.plant == null || record.plant.Destroyed
+                            || record.lastTick < 0
+                            || float.IsNaN(record.pendingHitPointDamage)
+                            || record.pendingHitPointDamage < 0f
+                            || record.pendingHitPointDamage >= 1f
+                            || float.IsNaN(record.legacyDamage)
+                            || record.legacyDamage < 0f || record.legacyDamage >= 1f
                             || ColdToleranceUtility.ExtensionFor(record.plant)?.HasColdDamageModel != true)
                             continue;
                         if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
@@ -69,37 +69,54 @@ namespace CropColdToleranceOverhaul
             if (record == null)
             {
                 if (states == null) states = new Dictionary<Plant, ColdDamageRecord>();
-                // Initial cold reading has no known exposure history.
-                // Preserve the zero-damage observation across save/load so
-                // reloading cannot reset an already observed cold interval.
-                record = new ColdDamageRecord { plant = plant, lastTick = now };
+                // No retroactive cold exposure on the first observation.
+                record = new ColdDamageRecord { plant = plant, lastTick = now, hpModelStored = true };
                 states.Add(plant, record);
                 return;
             }
 
-            // Never charge a skipped season at a single sampled temperature.
+            // Migrate unreleased V2 trial saves once: their old normalized cold
+            // injury was not represented by HP. Never grant recovery.
+            if (!record.hpModelStored)
+            {
+                record.hpModelStored = true;
+                float oldLoss = record.legacyDamage * plant.MaxHitPoints;
+                record.legacyDamage = 0f;
+                ApplyHitPointLoss(plant, record, oldLoss);
+                if (plant.Destroyed) { states.Remove(plant); return; }
+            }
+
             int elapsed = Math.Max(0, Math.Min(2000, now - record.lastTick));
             if (elapsed == 0) return;
-            // Scale fatal accumulated dose, not the [0,1] injury threshold:
-            // this preserves sparse saves and the existing injury clamp.
-            float lethalDegreeHours = extension.coldDamageDegreeHoursToDie;
-            if (extension.coldDamageLethalDoseVariation > 0f)
-                lethalDegreeHours *= ColdDamageProgress.LethalDoseMultiplier(
-                    plant.thingIDNumber, extension.coldDamageLethalDoseVariation);
-            record.damage = ColdDamageProgress.Advance(
-                record.damage, temperature, extension.coldDamageStartTemperature,
-                lethalDegreeHours,
-                extension.coldDamageRecoveryPerHour, elapsed);
             record.lastTick = now;
-            if (record.damage >= 1f)
+            if (temperature >= extension.coldDamageStartTemperature)
             {
-                states.Remove(plant);
-                ColdToleranceUtility.KillFromCold(plant);
+                // HP is never automatically restored; no need to retain a
+                // warm-only observation. Fractional remainder is preserved
+                // after frost even when this sample is warm.
+                if (record.pendingHitPointDamage <= 0f) states.Remove(plant);
+                return;
             }
-            else if (record.damage <= 0f)
-            {
-                states.Remove(plant);
-            }
+
+            float dose = extension.coldDamageDegreeHoursToDie;
+            if (extension.coldDamageLethalDoseVariation > 0f)
+                dose *= ColdDamageProgress.LethalDoseMultiplier(
+                    plant.thingIDNumber, extension.coldDamageLethalDoseVariation);
+            float lostHp = ColdDamageProgress.HitPointLoss(
+                temperature, extension.coldDamageStartTemperature, dose,
+                elapsed, plant.MaxHitPoints);
+            ApplyHitPointLoss(plant, record, lostHp);
+            if (plant.Destroyed) states.Remove(plant);
+        }
+
+        private static void ApplyHitPointLoss(Plant plant, ColdDamageRecord record, float loss)
+        {
+            if (loss <= 0f || plant.Destroyed) return;
+            float total = record.pendingHitPointDamage + loss;
+            int hitPoints = (int)Math.Min(plant.HitPoints, Math.Floor(total));
+            record.pendingHitPointDamage = total - (float)Math.Floor(total);
+            if (hitPoints > 0)
+                plant.TakeDamage(new DamageInfo(DamageDefOf.Rotting, hitPoints));
         }
 
         private void Prune()
@@ -121,14 +138,20 @@ namespace CropColdToleranceOverhaul
     public sealed class ColdDamageRecord : IExposable
     {
         public Plant plant;
-        public float damage;
         public int lastTick;
+        public float pendingHitPointDamage;
+        public bool hpModelStored;
+        public float legacyDamage;
 
         public void ExposeData()
         {
             Scribe_References.Look(ref plant, "plant");
-            Scribe_Values.Look(ref damage, "damage", 0f);
             Scribe_Values.Look(ref lastTick, "lastTick", 0);
+            Scribe_Values.Look(ref pendingHitPointDamage, "pendingHitPointDamage", 0f);
+            Scribe_Values.Look(ref hpModelStored, "hpModelStored", false);
+            // Read old experimental normalized injury for one-time migration.
+            // New saves always write zero here.
+            Scribe_Values.Look(ref legacyDamage, "damage", 0f);
         }
     }
 }
