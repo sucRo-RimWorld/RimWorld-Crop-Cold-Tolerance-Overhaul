@@ -102,8 +102,21 @@ namespace CropColdToleranceOverhaul
             float total = record.pendingHitPointDamage + loss;
             int hitPoints = (int)Math.Min(plant.HitPoints, Math.Floor(total));
             record.pendingHitPointDamage = total - (float)Math.Floor(total);
-            if (hitPoints > 0)
-                plant.TakeDamage(new DamageInfo(DamageDefOf.Rotting, hitPoints));
+            if (hitPoints <= 0) return;
+
+            // Capture the crop message context only for a potentially fatal
+            // cold hit: destroyed plants no longer expose their map reliably.
+            bool notifyDeath = hitPoints >= plant.HitPoints
+                && plant.Spawned && plant.IsCrop;
+            Map deathMap = notifyDeath ? plant.Map : null;
+            IntVec3 deathPosition = notifyDeath ? plant.Position : IntVec3.Invalid;
+            string deathDefName = notifyDeath ? plant.def.defName : null;
+            string deathLabel = notifyDeath ? plant.GetCustomLabelNoCount(false) : null;
+
+            plant.TakeDamage(new DamageInfo(DamageDefOf.Rotting, hitPoints));
+            if (notifyDeath && plant.Destroyed)
+                ColdToleranceUtility.NotifyCropDiedOfCold(
+                    deathDefName, deathLabel, deathPosition, deathMap);
         }
 
         private void Prune()
