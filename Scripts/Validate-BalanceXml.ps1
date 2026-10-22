@@ -21,8 +21,27 @@ if (Test-Path -LiteralPath $reviewPath) {
   })
   if ($injuryXml.Count -gt 0) {
     $unresolved = @($review.reasons | Where-Object { $_.state -ne "resolved" })
-    if ($review.status -ne "accepted_for_xml" -or $unresolved.Count -gt 0) {
-      Fail "Unapproved cold-injury XML blocked: review state $($review.status), unresolved $($unresolved.Count). See Docs/ColdDamageBalanceReview.json"
+    $acceptance = $review.acceptance
+    $expectedReviewCases = @("short_frost", "repeated_nights", "prolonged_freeze", "warm_recovery", "wild_biome", "source_state_contrast")
+    $submittedReviewCases = @($acceptance.independent_scenarios | Where-Object {
+      -not [string]::IsNullOrWhiteSpace([string]$_.id) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.expected) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.predicted) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.source_context) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.disposition)
+    } | ForEach-Object { [string]$_.id })
+    $missingReviewCases = @($expectedReviewCases | Where-Object { $submittedReviewCases -notcontains $_ })
+    $tableFile = Join-Path $RepoRoot "Docs/ColdDamageBalanceV1.csv"
+    $hashMatches = (Test-Path -LiteralPath $tableFile) -and
+      ([string]$acceptance.accepted_table_sha256 -eq
+       (Get-FileHash -LiteralPath $tableFile -Algorithm SHA256).Hash.ToLowerInvariant())
+    $approved = $review.status -eq "accepted_for_xml" -and
+      $unresolved.Count -eq 0 -and
+      $acceptance.author_decision -eq "approved" -and
+      -not [string]::IsNullOrWhiteSpace([string]$acceptance.decision_reference) -and
+      $missingReviewCases.Count -eq 0 -and $hashMatches
+    if (-not $approved) {
+      Fail "Unapproved cold-injury XML blocked: status=$($review.status), open=$($unresolved.Count), missingIndependentCases=$($missingReviewCases.Count), approvedEvidence=$($hashMatches). See Docs/ColdDamageBalanceReview.json"
     }
   }
 }
