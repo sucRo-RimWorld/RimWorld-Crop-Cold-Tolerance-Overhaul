@@ -1555,3 +1555,55 @@ FROSTOL Bergjord et al. 2008
 https://doi.org/10.1016/j.eja.2007.10.002
 (soil temperature, hardening and dehardening;
 not general crop coefficients).
+
+
+### First plant-specific numbers that can be bounded without guessed XML (2026-10-22)
+
+[The owner calibration calculation](ColdDamageCalibration.md#w13-four-cohort-numerical-constraints-observed-interpolated-identifiable-2026-10-22)
+and [four-cohort derived CSV](Research/WinterWheatW13FourCohortMedianBounds.csv)
+now distinguish actual **24-hour whole-wheat-seedling survival**
+from **interpolated conditional LT50** and inferred
+parameter products. The original assay counted undamaged
+seedlings after 24h at 4°C in darkness, followed by
+72h at 22°C in light. Its surviving fractions are
+not field wheat mortality under constant map air
+temperature.
+
+| Wheat cultivar/state | Linear fraction-interpolated 24h T50 | What it does **not** mean |
+|---|---:|---|
+| Moskovskaya 39, non-acclimated | **−2.308°C** | Not a death threshold, injury onset, or cold-damage Def |
+| Moskovskaya 39, 4°C ×7d acclimated | **−5.600°C** | Not generic MO Wheat frost tolerance or damage onset |
+| Zlata, non-acclimated | **−1.765°C** | Not a second sample of the same genotype |
+| Zlata, 4°C ×7d acclimated | **−3.377°C** | Not a directly measured LT50 or acclimation-rate equation |
+
+In the existing uniform-individual-lethal-dose model,
+**only the product `w*D` is conditionally identifiable**
+from two reported interior survival points: **48.000°C·h**
+for M39-acclimated and **45.283°C·h** for Zlata-acclimated,
+where `w` is the allowed fractional lethal-dose
+half-width and `D` the median baseline lethal
+degree-hours. The respective approximate
+published-± endpoint sensitivity intervals are
+42.857–54.545 and 41.379–50.000°C·h.
+These are **conditional math, not two separately
+measured biological parameters**. A 100%-survival
+boundary cannot be used as an unsaturated uniform
+distribution point. Median T50 is likewise not
+`coldDamageStartTemperature`.
+
+**Immediate crop decision:** source-verified
+**conditional medians and one combined shape/dose
+product are recorded**. The first generic wheat
+**onset, fatal dose and individual variation
+remain UNDECIDED** because multiple setting
+tuples match each cohort and acclimation/actual
+tissue temperature are not represented by
+the Draft engine. Between-genotype differences
+(65% versus 7% survival at acclimated
+−5°C×24h) are not within-genotype susceptibility.
+Do not silently map one chosen W13 genotype
+to `DankPyon_Plant_Wheat`, nor transfer
+these wheat figures to other 77 Defs.
+No production migration, engine extension,
+game-test rerun or release is justified
+by this numerical interpolation alone.
