@@ -136,6 +136,61 @@ combined species profile as factual pine/fir
 cold tolerance, and it does not call the 0°C
 ambient thaw proxy a tissue measurement.
 
+
+### Post-selection temperature-sensitivity check — NOT a predeclared acceptance PASS
+
+A separate **robustness check conducted AFTER selection** of
+the onion/pumpkin and revised evergreen candidate numbers
+tested modest temperature perturbations. These perturbation
+cases **were not in the original S19–S31 predeclared targets**,
+so they are independent adversarial diagnostics, **not**
+retrospectively predeclared acceptance tests or evidence
+that the coefficients were source-calibrated.
+
+All three-night/five-thousand-plus-individual survival
+fractions use an ideal uniform population, unchanged
+daily warm segment and changed overnight temperature.
+
+| Candidate / schedule | Original night | Original S | Perturbed night | Perturbed S |
+|---|---:|---:|---:|---:|
+| Onion, 3 cycles 8h cold +5°C 16h | −4°C | **72.5%** | −4.1°C | **54.8%** |
+| Onion, same | −4°C | **72.5%** | −4.2°C | **37.1%** |
+| Pumpkin, 3 cycles 8h cold +10°C 16h | −1°C | **58.9%** | −1.1°C | **39.8%** |
+| Pumpkin, same | −1°C | **58.9%** | −1.2°C | **20.7%** |
+| Pine/Great Fir, 60 cycles 12h cold / −30°C 12h | −35°C | **100%** | −35.1°C | **95%** |
+| Pine/Great Fir, same | −35°C | **100%** | −35.2°C | **90%** |
+| Pine/Great Fir, same | −35°C | **100%** | −36°C | **50%** |
+
+**Material concern:** onion meets the prior ≥70% survival
+criterion by a narrow margin only at exactly −4°C,
+and small sustained nightly cooling causes a very
+large change. Pumpkin's wider output spread also
+means it is highly sensitive to repeated-night
+temperature uncertainty. Pine D=3600 is **exactly
+at the uniform population's zero-mortality
+boundary** after 60 assumed −35°C nights;
+its **100%** forecast must never be described as
+a robust winter-survival guarantee.
+Cold threshold, physiological state, and ambient
+versus plant-tissue offset dominate these
+temperature perturbations.
+
+These results **do not automatically prove
+the candidates wrong**, since long exposure
+can legitimately amplify small variations.
+They **do invalidate any unconditional claim
+that meeting the original nine exact scenarios
+is sufficient for adoption**. Without a
+reviewed realistic distribution of nightly
+temperatures and plant states, the three
+candidates remain explicitly *UNAPPROVED*.
+Do not tune them using another arbitrarily
+invented resilience target and immediately
+certify the retuned values in the same step.
+The right next decision is first to determine
+how much uncertainty and long-season crop loss
+is an acceptable player-facing outcome.
+
 ## V2 acceptance verdict and next decisions
 
 - **Numerical progression:** 4 unapproved annual candidates (tomato, cabbage, onion, pumpkin) meet their respective predeclared *gameplay* scenario preferences under ideal continuous air-temperature sampling. Wheat and Pine/Great Fir retain **3 conditionally computed but unapproved** candidate rows. The C# thaw threshold blocker for the latter two is corrected, but source/ecological and native-test acceptance remain open. The other **41 death profiles** (including rice, maize, strawberry and potato) have no V2 coefficients. The 30 dormancy definitions stay intact.
