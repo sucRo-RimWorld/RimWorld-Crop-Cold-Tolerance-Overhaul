@@ -170,8 +170,16 @@ namespace CropColdToleranceOverhaul.E2E
             Require(plant.thingIDNumber == number,
                 "Plant stable identity changed over real .rws reload");
             var states = States(map);
-            Require(states.TryGetValue(plant, out ColdDamageRecord record),
-                "Saved damage record was not linked to the reloaded Plant");
+            ColdDamageRecord record;
+            if (!states.TryGetValue(plant, out record))
+            {
+                Log.Message("CCTO_COLD_RELOAD_DEBUG dictionaryCount=" + states.Count
+                    + " savedId=" + expectedId
+                    + " keys=" + string.Join(", ", states.Keys
+                        .Select(x => x == null ? "<null>" : x.ThingID).ToArray()));
+                throw new InvalidOperationException(
+                    "Saved damage record was not linked to the reloaded Plant");
+            }
             Require(object.ReferenceEquals(record.plant, plant),
                 "Cross-reference is not the actual reloaded plant instance");
             AssertDamage(record.damage, ExpectedDamage, "after reload");
@@ -199,6 +207,55 @@ namespace CropColdToleranceOverhaul.E2E
                 + " actualScribeGameReload=true plantReferenceRestored=true"
                 + " tickRestored=true damageRestored=true"
                 + " continuedDamage=" + updated.damage.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+        }
+    }
+
+    // Test-only witness of real RimWorld Scribe phase ordering.
+    // This does not mutate saved records, other mods, or any game-owned Def.
+    [HarmonyPatch(typeof(ColdDamageMapComponent), "ExposeData")]
+    public static class ColdDamageScribePhaseWitness
+    {
+        private static readonly FieldInfo RecordsField =
+            typeof(ColdDamageMapComponent).GetField("records",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+        private static readonly FieldInfo StatesField =
+            typeof(ColdDamageMapComponent).GetField("states",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+
+        [HarmonyPrefix]
+        public static void Before(ColdDamageMapComponent __instance)
+        {
+            if (Environment.GetEnvironmentVariable("AMJ_CCTO_SAVE_RELOAD") != "1"
+                || Scribe.mode != LoadSaveMode.PostLoadInit) return;
+            var loaded = RecordsField.GetValue(__instance)
+                as List<ColdDamageRecord>;
+            Log.Message("CCTO_SCRIBE_WITNESS pre mode=PostLoadInit"
+                + " records=" + (loaded == null ? -1 : loaded.Count));
+            if (loaded == null) return;
+            foreach (ColdDamageRecord rec in loaded.Take(5))
+            {
+                Plant plant = rec == null ? null : rec.plant;
+                Log.Message("CCTO_SCRIBE_WITNESS record"
+                    + " null=" + (rec == null)
+                    + " plant=" + (plant == null ? "<null>" : plant.ThingID)
+                    + " spawned=" + (plant != null && plant.Spawned)
+                    + " destroyed=" + (plant != null && plant.Destroyed)
+                    + " enabled=" + (plant != null &&
+                        plant.def.GetModExtension<ColdToleranceExtension>()?.HasColdDamageModel == true)
+                    + " damage=" + (rec == null ? -1f : rec.damage)
+                    + " tick=" + (rec == null ? -1 : rec.lastTick));
+            }
+        }
+
+        [HarmonyPostfix]
+        public static void After(ColdDamageMapComponent __instance)
+        {
+            if (Environment.GetEnvironmentVariable("AMJ_CCTO_SAVE_RELOAD") != "1"
+                || Scribe.mode != LoadSaveMode.PostLoadInit) return;
+            var state = StatesField.GetValue(__instance)
+                as Dictionary<Plant, ColdDamageRecord>;
+            Log.Message("CCTO_SCRIBE_WITNESS post stateCount="
+                + (state == null ? -1 : state.Count));
         }
     }
 
