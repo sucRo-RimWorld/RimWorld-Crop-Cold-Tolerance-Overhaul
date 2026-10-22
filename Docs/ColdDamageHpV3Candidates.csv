@@ -1,0 +1,83 @@
+# HP-only, no cold-recovery numerical rebalance V3 trial, 2026-10-22. No XML opt-in or release approval.
+# Two plant-specific parameters: injury_onset_C, full_hp_degree_game_hours. Variation 0.20 is a shared uncalibrated hypothesis.
+# Temperature and fatal-dose values are first-pass GAMEPLAY PROPOSALS informed by habitat / frost-sensitivity ordering, not measured whole-plant thresholds.
+# 30 preexisting dormancy defs remain unchanged. Do not treat the 48 proposed tuples as independently accepted balance or copy to production.
+defName,plant,mode,legacy_death_C,hp_injury_onset_C,full_hp_degree_game_hours,lethal_dose_variation,review_status
+Plant_Rice,Rice,hp_damage,-1,3,60,0.20,UNAPPROVED_HP_TRIAL
+Plant_Potato,Potato,hp_damage,-2,-3,100,0.20,UNAPPROVED_HP_TRIAL
+Plant_Corn,Corn,hp_damage,-2,0,64,0.20,UNAPPROVED_HP_TRIAL
+Plant_Strawberry,Strawberry,hp_damage,-9,-12,500,0.20,UNAPPROVED_HP_TRIAL
+Plant_Haygrass,Haygrass,hp_damage,-9,-12,220,0.20,UNAPPROVED_HP_TRIAL
+Plant_Cotton,Cotton,hp_damage,-1,2,48,0.20,UNAPPROVED_HP_TRIAL
+Plant_Devilstrand,Devilstrand,hp_damage,-1,2,70,0.20,UNAPPROVED_HP_TRIAL
+Plant_Healroot,Healroot,hp_damage,-9,-10,200,0.20,UNAPPROVED_HP_TRIAL
+Plant_Hops,Hops,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Smokeleaf,Smokeleaf,hp_damage,-4,-4,100,0.20,UNAPPROVED_HP_TRIAL
+Plant_Psychoid,Psychoid,hp_damage,-1,2,50,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreeCocoa,Cocoa,hp_damage,0,5,180,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreeBamboo,Bamboo,hp_damage,-18,-20,1400,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreeBirch,Birch,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_TreeCecropia,Cecropia,hp_damage,0,4,160,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreeCypress,Cypress,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Dandelion,Dandelion,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Daylily,Daylily,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_TreeDrago,Drago tree,hp_damage,0,2,240,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreeMaple,Maple,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_TreeOak,Oak,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_TreePalm,Palm,hp_damage,0,4,200,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreePine,Pine,hp_damage,-35,-40,5000,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreePoplar,Poplar,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Rose,Rose,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_SaguaroCactus,Saguaro cactus,hp_damage,-6,-7,700,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreeTeak,Teak,hp_damage,3,6,220,0.20,UNAPPROVED_HP_TRIAL
+Plant_Timbershroom,Timbershroom,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Tinctoria,Tinctoria,hp_damage,-4,-4,110,0.20,UNAPPROVED_HP_TRIAL
+Plant_TreeWillow,Willow,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Agarilux,Agarilux,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Agave,Agave,hp_damage,-7,-8,550,0.20,UNAPPROVED_HP_TRIAL
+Plant_Alocasia,Alocasia,hp_damage,-1,3,120,0.20,UNAPPROVED_HP_TRIAL
+Plant_Ambrosia,Ambrosia bush,hp_damage,-9,-10,240,0.20,UNAPPROVED_HP_TRIAL
+Plant_Astragalus,Astragalus,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Berry,Berry bush,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Brambles,Brambles,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Bryolux,Bryolux,hp_damage,-12,-14,450,0.20,UNAPPROVED_HP_TRIAL
+Plant_Bush,Bush,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Chokevine,Chokevine,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_Clivia,Clivia,hp_damage,-2,-3,180,0.20,UNAPPROVED_HP_TRIAL
+Plant_Rafflesia,Giant rafflesia,hp_damage,5,7,100,0.20,UNAPPROVED_HP_TRIAL
+Glowstool,Glowstool,hp_damage,-8,-10,280,0.20,UNAPPROVED_HP_TRIAL
+Plant_Grass,Grass,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_ShrubLow,Low shrubs,hp_damage,-2,-3,240,0.20,UNAPPROVED_HP_TRIAL
+Plant_Moss,Moss,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_PincushionCactus,Pincushion cactus,hp_damage,-8,-10,750,0.20,UNAPPROVED_HP_TRIAL
+Plant_TallGrass,Tall grass,dormancy,,,,,KEEP_EXISTING_DORMANCY
+Plant_HealrootWild,Wild healroot,hp_damage,-9,-10,200,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Onions,Onion,hp_damage,-3,-3.5,120,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Lentils,Lentil,hp_damage,-4,-5,120,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Cabbages,Cabbage,hp_damage,-6,-3.5,240,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Garlic,Garlic,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_Plant_Mushrooms,Mushroom,hp_damage,-1,0,90,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Wheat,Wheat,hp_damage,-6,-7,200,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Flax,Flax,hp_damage,-5,-5,140,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Sugarcane,Sugarcane,hp_damage,-5,2,90,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Carrots,Carrot,hp_damage,-4,-5,170,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Herb,Herb,hp_damage,-3,-4,110,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Tomatoes,Tomato,hp_damage,-1,0,60,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Grape,Grape,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_Plant_Pumpkins,Pumpkin,hp_damage,-1,0,68,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Tree_Apple,Apple,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_Tree_Lemon,Lemon,hp_damage,-4,-5,650,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Tree_Mulberry,Mulberry,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_Tree_GriffonBerry,Griffon berry,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_Plant_Mindwort,Mindwort,hp_damage,-3,-3,110,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Poppy,Poppy,hp_damage,-5,-6,150,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Fleawort,Fleawort,hp_damage,-6,-7,170,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_FlyAgaric,Fly agaric,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_Plant_MindwortWild,Wild mindwort,hp_damage,-3,-3,110,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_PoppyWild,Wild poppy,hp_damage,-5,-6,150,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_FleawortWild,Wild fleawort,hp_damage,-6,-7,170,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_FlyAgaricWild,Wild fly agaric,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_GreatOak,Great oak,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_GreatIter,Great Iter,dormancy,,,,,KEEP_EXISTING_DORMANCY
+DankPyon_GreatFir,Great fir,hp_damage,-35,-40,5000,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_GreatWillow,Great willow,dormancy,,,,,KEEP_EXISTING_DORMANCY
