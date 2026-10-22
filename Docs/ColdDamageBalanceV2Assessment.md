@@ -318,6 +318,184 @@ actual hourly trace, and do not call
 a synthetic cold-offset result a
 verified real forest distribution.
 
+
+
+### Original RimWorld 1.6 cold-forest and farming tile generated calendar (2026-10-22)
+
+**Actual original-game data was collected and verified** in
+[Project Actions #39776410000](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000),
+manual command `/amj ccto-climate-16`.
+RimWorld Linux **1.6.4871 rev598** generated one
+world with fixed seed
+`CCTO-NaturalColdClimate-20261022`,
+30% coverage, then generated one *unmodified*
+BorealForest map. **483 natural Vanilla pines**
+(`Plant_TreePine`) were present on that map.
+The original Vanilla
+`TileTemperaturesComp.GetOutdoorTemp`
+was sampled at **1,440 calendar hours
+(60 days) per real selected tile**, giving
+**4,320 original-game world temperature
+values**, no synthetic site temperature
+offsets. The compiled test quickstart
+source at CCTO commit
+`23f3d9ac07a336c36fba3e32382612bec52e6d8f`,
+original results SHA256
+`6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5`.
+Actions artifact ID **12424418617**
+holds the unrounded *full hourly CSV*
+plus game/version and log/Quickstart proof.
+The archival [60×3 derived daily minimum
+and maximum](Research/CCTOVanilla16ActualWorldClimateDailyLoHi.csv)
+preserves a self-contained daily subset.
+
+**Sampling limitation:** using `DebugSetTicksGame`
+and an original world temperature cache
+does **not** advance a real loaded map
+for 60 days, evolve actual weather or
+generate cold snap incidents. This is
+the original RimWorld **world/tile
+season-and-hour temperature component**
+evaluated at 60×24 dates, *not* a
+complete playthrough observation.
+The world/map's original biome,
+terrain, annual tile temperature and
+latitude were **not overwritten**.
+The three sites were deliberately
+selected from a real seed:
+cold-percentile and median qualifying
+**BorealForest** tiles with the
+pine Def's positive wild-biome weight,
+and a cool **TemperateForest**
+farming-candidate tile. This is a
+**three-tile purposeful sample**, not
+random regional frequency evidence,
+a synthetic transform of a tropical
+world nor AMJ Environment/WorldMap climate.
+**Full Medieval Overhaul was not loaded**;
+Great Fir's own native wild distribution
+remains unverified.
+
+| Original world tile | Biome / sampled world annual mean | Actual seasonal 1h sampled range | Time below −31°C | Pine generation |
+|---|---|---:|---:|---|
+| #44000, lat 53.1905 | BorealForest, **−5.536°C** | **−37.835 to +26.670°C** | **92/1,440h**; only **11h below −35°C** | Eligible biome, this specific tile was **not loaded as a map** |
+| #40777, lat 49.2266 | BorealForest, **−1.370°C** | **−32.647 to +29.621°C** | **6/1,440h**; **0h below −35°C** | **483 pines naturally spawned on its actual map** |
+| #2851, lat 45.0841 | TemperateForest, **+5.672°C** | **−23.709 to +34.605°C** | None | Farming candidate tile (world tile only, not a loaded map) |
+
+**Independent V2 survival application.**
+Do not use the mathematical world-temperature
+probe as proof of current deployed CCTO
+crop XML or actual live tick scheduling.
+The postprocessed formula used the existing
+Draft `ColdDamageProgress.Advance`
+for each calendar **hour** at exactly
+the recorded temperature, initial
+zero damage, recovery only for
+`T≥max(onset,0)`, and **10,001 equally
+spaced lethal susceptibility ranks**.
+Once injury reaches 1, a plant is
+irreversibly killed. No first-sample
+or 2,000-tick interval cap is simulated
+because the probe samples single
+2,500-tick hours, not actual map ticks.
+
+| Candidate | Natural boreal cold tile, 60d | Natural pine-bearing boreal median tile, 60d | Marginal crop tile, 60d without harvest |
+|---|---:|---:|---:|
+| Vanilla Pine / proxy MO Great Fir, A=−31°C D=3600°C·h w=0.20 | **100% survive** | **100% survive** | 100% survive (not representative natural pine cultivation) |
+| MO Onion A=−3°C D=21°C·h w=0.25 | 0% | 0% | **0%**, first deaths day **28** |
+| MO Cabbage A=−3°C D=72°C·h w=0.25 | 0% | 0% | **0%**, first deaths day **28** |
+| MO Tomato A=0°C D=18°C·h w=0.25 | 0% | 0% | **0%**, first deaths day **25** |
+| MO Pumpkin A=0°C D=20°C·h w=0.25 | 0% | 0% | **0%**, first deaths day **25** |
+
+**Do not misread a 60-day annual crop
+overwinter failure as a farming balance
+FAIL:** the trial assumes every annual
+plant remains planted through winter
+and no harvesting, resowing, greenhouses,
+solar cooling, roof or warm rooms.
+On the crop tile, **all four candidates
+survive 100% of the first 20 calendar
+days**, and all survive first 25
+days from this particular start date.
+However **this alone does not prove
+the crop matures/harvests** in that
+window; `minGrowthTemperature`,
+sunlight, fertility, sowing calendar,
+harvest maturity and weather incidents
+were not evaluated. When exposure
+starts around day 20 with the rapid
+fall toward winter, all four
+candidate cohorts die by day 30.
+Thus seasonal growing-window/frost
+risk is plausible but not a
+numeric crop approval.
+
+For the actual forest calendar, the
+new Pine/fir candidate has much
+more headroom than inferred from
+the earlier invented **60 days of
+constant −35°C nights**: because
+real cold-tile temperatures only
+cross −31°C for 92 hours, median
+annual peak injury is **≈0.0576**
+and it fully recovers after spring
+thaw. On the median naturally
+pine-bearing tile, peak injury is
+only **≈0.0016**. Both yield 100%
+cohort survival. These are
+**one sampled world and one year
+without weather incidents**, not
+proof that **D=3600** is calibrated
+or optimal for wild forests:
+the data show a lower-risk thermal
+path, but cannot distinguish
+3600 from many substantially
+smaller lethal doses that would
+also keep pines alive there.
+
+**Single cold-snap-like diagnostic,
+not a triggered vanilla incident:**
+as an additional *hypothetical
+robustness stress*, imposing
+an abrupt −20°C for **84h**
+starting on calendar day 38
+of the cold forest tile gives
+**100% survival**, median peak
+injury ≈**0.4263** (unshifted
+peak ≈0.0576). Unlike the real
+ColdSnap game condition, this
+artificial step has **no
+12,000-tick onset ramp or
+actual event eligibility**.
+It is **not an observed incident**
+and is not included in the
+original hourly data CSV.
+
+**Current appraisal:** actual
+vanilla BorealForest viability
+at one cold and one median tile
+is now source-evidenced; the
+V2 Pine coefficient is *not*
+demonstrated necessary, nor
+have 1.7/full-MO/AMJE
+cold-biome ranges, map weather
+incident frequency or
+crop maturity been checked.
+All seven candidates stay
+**UNAPPROVED FOR PRODUCTION XML**.
+No source table value should be
+changed merely because the two
+sampled Vanilla forests survived:
+first compare multiple actual
+world seeds and any **materially
+different forest ecology or
+modded biome** only if it changes
+the proposed release decision.
+A 60-day weatherless calendar
+sample is not sufficient evidence
+for a real cold-region mortality
+coefficient.
+
 ## V2 acceptance verdict and next decisions
 
 - **Numerical progression:** 4 unapproved annual candidates (tomato, cabbage, onion, pumpkin) meet their respective predeclared *gameplay* scenario preferences under ideal continuous air-temperature sampling. Wheat and Pine/Great Fir retain **3 conditionally computed but unapproved** candidate rows. The C# thaw threshold blocker for the latter two is corrected, but source/ecological and native-test acceptance remain open. The other **41 death profiles** (including rice, maize, strawberry and potato) have no V2 coefficients. The 30 dormancy definitions stay intact.
