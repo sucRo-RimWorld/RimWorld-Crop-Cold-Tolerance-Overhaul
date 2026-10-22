@@ -1,9 +1,9 @@
-# CCTO BALANCE V1: gameplay numerical design decision (2026-10-22), no crop XML was altered; this CSV is NOT lab-calibrated plant physiology.
+# CCTO BALANCE V1: REJECTED FOR XML (2026-10-22 independent audit). Historical failed proposal only; no numeric values are approved. See Docs/ColdDamageBalanceFailureAudit.md and ColdDamageBalanceReview.json.
 # Maintains all 78 CCTO-owned original DefNames exactly: 48 current instant-death entries and 30 current dormancy entries. Dormancy V1 stays unchanged; empty numeric cells are intentional.
 # For 48 injury candidates: at fixed ambient air T<onset, injury rate=(onset-T)/median_lethal_degree_game_hours per in-game hour. For T>=onset, recovery is fixed fractional injury/hour. 2500 game ticks = 1 game hour.
 # Individual lethal dose multiplier uniform within [1-w,1+w] using stable ThingID; median_death_hours_at_legacy_temperature is the 50% ensemble crossing for constant T=legacy death threshold, ignoring recovery, first-sample latency, plant state and soil/leaf-temperature offsets.
 # Class rows are explicitly chosen GAMEPLAY targets anchored to OLD death thresholds (not field research values). W13 wheat is a state-agnostic COMPROMISE of acclimated seedling outcomes; M01 corn is a secondary two-condition median fit and ignores near-zero chilling; rice near-zero chilling compressed by gameplay, unlike lab protocol.
-# Values are locked for BALANCE DESIGN V1 and need later source-owner XML opt-in, implementation integration, real-weather/ecology review, and end-stage native acceptance. Historical W13 A/B fitting examples remain research-only, not profiles.
+# REJECTED: previous LOCKED/DECIDED claim withdrawn. Structural 48+30 and arithmetic checks were tautological; real-weather, physiology, and independent outcome checks failed or were absent. NO XML MIGRATION allowed.
 defName,plant,legacy_growth_min_C,current_mode,legacy_instant_death_C,V1_balance_class,damage_onset_C,median_lethal_degree_game_hours,individual_dose_uniform_halfwidth,warm_recovery_damage_fraction_per_game_hour,median_death_hours_at_legacy_temperature,numeric_provenance
 Plant_Rice,Rice,10,death,-1,RICE_CHILL,6,96,0.25,0.01,13.71429,R02_GAMEPLAY_COMPROMISE
 Plant_Potato,Potato,5,death,-2,POTATO_FROST,1,16,0.25,0.008,5.33333,FROST_SENSITIVE_TOPS
