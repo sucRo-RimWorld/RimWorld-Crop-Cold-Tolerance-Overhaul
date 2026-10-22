@@ -90,6 +90,10 @@
     "original_death_profiles_without_v2_values": 43,
     "xml_activation_authorized": false,
     "xml_migration_performed": false,
-    "reference_status": "V1 rejection retains effect; numeric candidates in V2 are not release coefficients"
+    "reference_status": "V1 rejection retains effect; numeric candidates in V2 are not release coefficients",
+    "recovery_engine": "implemented_on_draft_uncompiled_unverified",
+    "recovery_gate": "ambient_C >= max(onset_C, 0C)",
+    "acclimation": "not_implemented; not inferred from dormancy, ThingID, season or plant age; optional observed-history state only after justified rates",
+    "evergreen_status": "thaw-code-blocker-remediated; ecology/biological/numeric acceptance remains open"
   }
 }
