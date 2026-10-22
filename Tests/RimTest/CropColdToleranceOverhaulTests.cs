@@ -215,21 +215,16 @@ namespace CropColdToleranceOverhaul.Tests
     public static class ColdDamageProgressTests
     {
         [Test]
-        public static void DamageAccumulatesWithDegreeHoursAndRecoversOnWarmth()
+        public static void ColdExposureConsumesHpAndWarmWeatherDoesNotHeal()
         {
             Type type = typeof(ColdToleranceExtension).Assembly.GetType(
                 "CropColdToleranceOverhaul.ColdDamageProgress", true);
-            MethodInfo advance = type.GetMethod(
-                "Advance", BindingFlags.Static | BindingFlags.NonPublic);
-            float half = (float)advance.Invoke(null,
-                new object[] { 0f, -10f, -5f, 10f, 0.1f, 2500 });
-            float recovered = (float)advance.Invoke(null,
-                new object[] { half, 5f, -5f, 10f, 0.1f, 2500 });
-            float dead = (float)advance.Invoke(null,
-                new object[] { half, -10f, -5f, 10f, 0.1f, 2500 });
-            Assert.That(half).Is.EqualTo(0.5f);
-            Assert.That(recovered).Is.BetweenInclusive(0.39f, 0.41f);
-            Assert.That(dead).Is.EqualTo(1f);
+            MethodInfo loss = type.GetMethod(
+                "HitPointLoss", BindingFlags.Static | BindingFlags.NonPublic);
+            Assert.That((float)loss.Invoke(null,
+                new object[] { -10f, -5f, 10f, 2500, 20 })).Is.EqualTo(10f);
+            Assert.That((float)loss.Invoke(null,
+                new object[] { 5f, -5f, 10f, 2500, 20 })).Is.EqualTo(0f);
         }
     }
 
@@ -257,12 +252,12 @@ namespace CropColdToleranceOverhaul.Tests
             Assert.That(anotherPlant).Is.BetweenInclusive(0.75f, 1.25f);
             Assert.That(a == anotherPlant).Is.False();
 
-            MethodInfo advance = type.GetMethod(
-                "Advance", BindingFlags.Static | BindingFlags.NonPublic);
-            float damageA = (float)advance.Invoke(null,
-                new object[] { 0f, -10f, -5f, 10f * a, 0f, 2500 });
-            float damageB = (float)advance.Invoke(null,
-                new object[] { 0f, -10f, -5f, 10f * anotherPlant, 0f, 2500 });
+            MethodInfo loss = type.GetMethod(
+                "HitPointLoss", BindingFlags.Static | BindingFlags.NonPublic);
+            float damageA = (float)loss.Invoke(null,
+                new object[] { -10f, -5f, 10f * a, 2500, 20 });
+            float damageB = (float)loss.Invoke(null,
+                new object[] { -10f, -5f, 10f * anotherPlant, 2500, 20 });
             Assert.That(damageA > damageB).Is.True();
         }
     }
@@ -296,7 +291,7 @@ namespace CropColdToleranceOverhaul.Tests
             Dictionary<Plant, ColdDamageRecord> states =
                 (Dictionary<Plant, ColdDamageRecord>)field.GetValue(component);
             Assert.That(states.ContainsKey(plant)).Is.True();
-            Assert.That(states[plant].damage).Is.EqualTo(0f);
+            Assert.That(states[plant].pendingHitPointDamage).Is.EqualTo(0f);
             Assert.That(states[plant].lastTick).Is.EqualTo(readingTick);
         }
     }
