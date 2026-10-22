@@ -1,6 +1,7 @@
 # W13 primary source: Deryabin et al. (2024), Metabolites 14(4):199, DOI 10.3390/metabo14040199, original paper Table 2.
 # https://www.mdpi.com/2218-1989/14/4/199
 # Triticum aestivum two named genotypes: freezing-tolerant Moskovskaya 39 (M39) and cold-sustainable Zlata (Zl).
+# Original §2.7: after 24h at freezer target, seedlings remained 1 day at 4C in darkness, then 72h at 22C in daylight; survival was counted as undamaged seedlings / total frozen seedlings. Freezing ramps and plant denominator still unavailable in the paper's table.
 # Prior conditioning: 22C control (duration of control treatment not independently transcribed) or 4C for 7 days; then freeze target 0/-3/-5/-7C for 24h; survival endpoints as reported in Table 2.
 # Published percentages and plus/minus values are Table 2 data, NOT fitted model outputs; 0 / 100% are observed outcomes, not exact population probabilities.
 # Different pre-conditioning states are separate experimental cohorts, NOT within-genotype random spread. Only one freeze HOLD DURATION (24h): no time severity curve or lethal degree-hour formula identifiable.
