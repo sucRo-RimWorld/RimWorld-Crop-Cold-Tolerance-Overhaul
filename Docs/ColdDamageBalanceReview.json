@@ -107,6 +107,17 @@
       "Plant_Strawberry crown vs flower and ambient",
       "Plant_Potato live tuber vs tops"
     ],
-    "csv_structural_audit": "78 rows 13 columns; three previous unquoted scenario list fields fixed to semicolon delimiters"
+    "csv_structural_audit": "78 rows 13 columns; three previous unquoted scenario list fields fixed to semicolon delimiters",
+    "post_selection_sensitivity": {
+      "status": "OPEN_FOR_AUTHOR_GAMEPLAY_REVIEW",
+      "disclaimer": "Exploratory post-selection analysis, not predeclared acceptance or measured field temperature response",
+      "scenarios": "Docs/ColdDamageBalanceV2Assessment.md#post-selection-temperature-sensitivity-check--not-a-predeclared-acceptance-pass",
+      "key_results": [
+        "MO Onion: -4.0 vs -4.2 C nights x3 survival 72.5% -> 37.1%",
+        "MO Pumpkin: -1.0 vs -1.2 C nights x3 survival 58.9% -> 20.7%",
+        "Pine/Great Fir: -35.0 vs -35.2 C nights x60 survival 100% -> 90%"
+      ],
+      "correction": "Do not claim robust plant/climate balance from exact chosen target examples alone"
+    }
   }
 }
