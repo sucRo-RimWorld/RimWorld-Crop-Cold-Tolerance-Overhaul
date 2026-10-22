@@ -817,11 +817,11 @@ is **an algebraic sensitivity analysis, not new
 observed death data**. Do not assign its fitted
 onsets/lethal doses to production Corn XML.
 
-**Engineering constraint from current draft source:** its
-`ColdDamageProgress.Advance` is fixed
-linear degree-hours and clamps at 1.0, while
-`ColdDamageMapComponent` stores sparse injury and
-runs from `Plant.CheckMakeLeafless`. This is
+**Historical V2 engineering constraint, superseded by HP draft:** its
+`ColdDamageProgress.Advance` historically used linear degree-hours and
+clamped hidden injury at 1.0. This is no longer the active draft code:
+`ColdDamageProgress.HitPointLoss` now removes ordinary HP and the map
+component saves only observation time and fractional HP remainder. This is
 a minimal opt-in proof of concept, **not** a
 validated biological injury profile or active
 individual-variation implementation. Any future
@@ -1709,8 +1709,8 @@ numbers for wheat and cold-evergreen trees,
 plus the fundamental near-onset maize and
 conditioning gaps for rice/wheat, remain
 **explicitly not ready for XML**. The current
-CCTO `ColdDamageProgress.Advance` recovers
-at any ambient T≥onset, including −30°C pine;
+CCTO `ColdDamageProgress.Advance` historically recovered
+at ambient T≥onset, including −30°C pine; the present HP draft does not heal HP;
 none of the numerical retries may be approved
 by pretending this already represents thaw-only
 repair. A minimal potential no-extra-state
