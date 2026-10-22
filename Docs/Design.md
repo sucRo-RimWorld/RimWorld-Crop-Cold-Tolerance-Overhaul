@@ -330,11 +330,11 @@ crop balances into CCTO.
 
 A new `ColdToleranceExtension` model uses
 `coldDamageStartTemperature` and `coldDamageDegreeHoursToDie` together.
-When ambient temperature is below onset, damage accumulates in proportion to
-the degrees below onset times the elapsed in-game hours. At unit damage the
-plant dies. Optional `coldDamageRecoveryPerHour` reduces prior cold damage
-while temperature is above onset. This is a provisional game abstraction, not
-an empirically calibrated agronomic threshold.
+When ambient temperature is below onset, accumulated degree-hours remove ordinary
+Plant HP in proportion to maximum HP. There is no cold-specific recovery and
+no separate hidden cold-injury gauge. At zero HP the plant dies. This is a
+provisional game abstraction, not an empirically calibrated agronomic threshold.
+Earlier 2026-10-21 hidden-injury/repair drafts in this document are historical.
 
 The Info Card for a damage-model plant displays **損傷開始温度** /
 **Cold damage starts**, instead of the legacy death-temperature stat. The
@@ -484,10 +484,10 @@ variation is *not* a justified interpretation of the whole spread.
 Do not add fixed per-plant mortality randomness to plants that are
 **dormancy-only**, and do not introduce a new instant-death route. Native
 legacy death-temperature users remain unchanged until explicitly migrated.
-For new damage-model users, the existing draft hardcoded lethal
-`damage >= 1` and clamping in `ColdDamageProgress.Advance` must be
-reconciled with the chosen distribution at the numerical-model integration
-step; no working per-plant variation is claimed yet.
+For HP-model plants the current draft uses `ColdDamageProgress.HitPointLoss`;
+variation scales the whole-HP degree-hour dose per plant. The former hidden
+`damage >= 1` model and `Advance` function no longer apply. Variation and
+numerical balance remain experimental.
 
 **Presentation:** the plant Info Card retains the **species-level**
 `損傷開始温度` and existing `休眠温度`; do not display a false
