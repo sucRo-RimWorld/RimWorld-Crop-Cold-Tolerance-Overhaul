@@ -662,6 +662,13 @@ namespace CropColdToleranceOverhaul.E2E
             observedColdHp = plant.HitPoints;
         }
 
+        [When("I retain a fractional CCTO cold HP remainder")]
+        public void RetainFractionalColdHpRemainder(PickleContext ctx)
+        {
+            ColdDamageRecord record = RequireDamageRecord(ctx);
+            record.pendingHitPointDamage = 0.5f;
+        }
+
         [Then("the CCTO plant HP did not recover")]
         public void AssertNoColdHpRecovery(PickleContext ctx)
         {
