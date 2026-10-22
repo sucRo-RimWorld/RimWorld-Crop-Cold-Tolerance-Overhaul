@@ -273,22 +273,24 @@ production Def has opted into accumulated
 injury; default gameplay remains legacy.
 
 
-### V1 gameplay numbers decided, but XML remains legacy (2026-10-22)
+### V1 candidate withdrawn after independent audit (2026-10-22)
 
-The **exact selected V1 gameplay balance** for CCTO's
-existing 48 fixed-death plant Defs is now published in
+The **rejected V1 gameplay candidate** for CCTO's
+existing 48 fixed-death plant Defs is archived in
 [ColdDamageBalanceV1.csv](ColdDamageBalanceV1.csv).
 See [the owning design and explicit tradeoffs](ColdDamageBalanceV1.md).
 The other 30 Defs retain existing nonlethal dormancy.
-This supersedes earlier suggestions that no **gameplay
-numeric settings** had been decided, but **does not**
-promote those figures to independently measured
-biology. They are new game-balancing decisions.
+The prior **V1 values DECIDED/LOCKED** designation is withdrawn:
+formula-valid reference-hour arithmetic did not independently
+verify crop physiology, variable weather or warm recovery.
+[Failure audit](ColdDamageBalanceFailureAudit.md) and
+[review state](ColdDamageBalanceReview.json) prohibit XML activation.
+These parameters are not approved gameplay settings or
+independently measured biological coefficients.
 
 **API consumers:** the earlier illustrative XML
 snippet in this document is still **not a
-production value**. CCTO-owned V1 values are
-future XML targets, not live settings. Do not
+production value**. CCTO-owned V1 values are **failed proposal rows**, neither future-approved XML targets nor live settings. Do not
 copy the CSV to custom crops outside CCTO
 (AMJC/AMJE/VPE retain value ownership), and
 do not assume the current Steam DLL has
