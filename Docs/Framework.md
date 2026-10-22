@@ -271,3 +271,28 @@ real 1.7, preexisting player saves or normal
 tick scheduling. No released Vanilla/MO
 production Def has opted into accumulated
 injury; default gameplay remains legacy.
+
+
+### V1 gameplay numbers decided, but XML remains legacy (2026-10-22)
+
+The **exact selected V1 gameplay balance** for CCTO's
+existing 48 fixed-death plant Defs is now published in
+[ColdDamageBalanceV1.csv](ColdDamageBalanceV1.csv).
+See [the owning design and explicit tradeoffs](ColdDamageBalanceV1.md).
+The other 30 Defs retain existing nonlethal dormancy.
+This supersedes earlier suggestions that no **gameplay
+numeric settings** had been decided, but **does not**
+promote those figures to independently measured
+biology. They are new game-balancing decisions.
+
+**API consumers:** the earlier illustrative XML
+snippet in this document is still **not a
+production value**. CCTO-owned V1 values are
+future XML targets, not live settings. Do not
+copy the CSV to custom crops outside CCTO
+(AMJC/AMJE/VPE retain value ownership), and
+do not assume the current Steam DLL has
+enabled any cumulative injury profile.
+The engine remains opt-in pending integration,
+compatibility review and the final scoped
+real-map ecology acceptance.
