@@ -1,0 +1,12 @@
+# DERIVED mathematical interpolation, not original measured LT50 and NOT a confidence interval.
+# Source original Deryabin et al. Metabolites (2024) 14:199 DOI:10.3390/metabo14040199, Table 2. https://pmc.ncbi.nlm.nih.gov/articles/PMC11052526/
+# Source 16 unmodified survival values live in Docs/Research/WinterWheatW13Deryabin24hSurvival.csv, 24h freezer targets only.
+# Median is straight LINEAR INTERPOLATION in reported whole-seedling survival FRACTION between adjacent measured temperatures bracketing 50%, NOT fitted biological lethal onset or dose.
+# Sensitivity min/max calculated by setting BOTH endpoint reported plusminus values to plus / minus extremes. Not 95% confidence intervals; published plusminus interpretation and sample sizes not derived here. Reported 100% endpoints held fixed.
+# CONDITIONAL w_times_D applies only where BOTH bracket endpoints are interior (0<survival<100%) AND existing CCTO uniform lethal-dose model with constant-target 24 lab hours, zero recovery, same prior physiological state. w = coldDamageLethalDoseVariation; D = baseline degree-hours; product alone does NOT specify w or D.
+# Winter-wheat cultivars are not identifiable as Medieval Overhaul generic Wheat: no source-calibrated crop XML or season/acclimation policy follows from the interpolations.
+source_id,cultivar,prior_condition_C,prior_duration_days,warmer_target_C,warmer_survival_pct,colder_target_C,colder_survival_pct,conditional_LT50_24h_linear_interpolation_C,LT50_sensitivity_min_C,LT50_sensitivity_max_C,conditional_uniform_w_times_D_C_h,median_status,model_status
+W13,Moskovskaya 39,22,not_transcribed,0,100,-3,35,-2.307692,-2.380952,-2.238806,,INTERPOLATED_NOT_MEASURED,CENSORED_BRACKET_NO_UNIFORM_SLOPE
+W13,Moskovskaya 39,4,7,-5,65,-7,15,-5.600000,-5.730769,-5.458333,48.000000,INTERPOLATED_NOT_MEASURED,CONDITIONAL_24H_SLOPE_ONLY
+W13,Zlata,22,not_transcribed,0,100,-3,15,-1.764706,-1.807229,-1.724138,,INTERPOLATED_NOT_MEASURED,CENSORED_BRACKET_NO_UNIFORM_SLOPE
+W13,Zlata,4,7,-3,60,-5,7,-3.377358,-3.481481,-3.269231,45.283019,INTERPOLATED_NOT_MEASURED,CONDITIONAL_24H_SLOPE_ONLY
