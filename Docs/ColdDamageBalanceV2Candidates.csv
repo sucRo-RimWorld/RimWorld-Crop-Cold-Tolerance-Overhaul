@@ -1,8 +1,8 @@
 # V2: independent-target-first numeric candidates, NOT final XML-ready balance, author acceptance still needed. See ColdDamageBalanceV2Targets.md, ColdDamageBalanceV2Assessment.md.
-# All 78 original exact CCTO-owned Defs included, but 43 remaining death profiles intentionally have NO invented coefficients. 30 dormancy profiles never gain an injury model.
-# Wheat non-acclimated proxy does NOT represent W13 acclimated seedlings. Evergreen recovery at >=0C is a proposed NEW semantics, not present in current C#.
+# All 78 original exact CCTO-owned Defs included. 41 death profiles intentionally have NO proposed coefficients; 4 annual candidates and 3 conditional/blocked profiles have numeric fields. 30 dormancy profiles stay without injury.
+# Wheat non-acclimated proxy does NOT represent W13 acclimated seedlings. Draft C# now recovers only for T>=max(onset,0C); long-term ecological effects still unverified.
 # Draft C# recovery now requires ambient T>=max(onset,0C), but no real-game test of revised code or plant-specific ecological approval; candidate rows remain XML-UNAPPROVED.
-# Original V1 rows are REJECTED. The five V2 numeric examples are independently checked against predeclared S01-S18 outcomes, and NOT inferred from old instant death thresholds.
+# Original V1 rows are REJECTED. The seven V2 numeric candidates use predeclared S01-S18 and new S19-S31 conditions, with limitations and explicit statuses. None are approved for XML.
 defName,plant,current_mode,legacy_death_C,growth_min_C,proposal_status,candidate_injury_onset_C,candidate_median_lethal_degree_game_hours,candidate_variation_halfwidth,candidate_recovery_fraction_per_hour,requires_recovery_at_or_above_C,predeclared_cases,provenance
 Plant_Rice,Rice,death,-1,10,V2_CONDITIONING_STATE_BLOCKED,,,,,,,UNRESOLVED
 Plant_Potato,Potato,death,-2,5,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
@@ -26,7 +26,7 @@ Plant_TreeDrago,Drago tree,death,0,8,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,
 Plant_TreeMaple,Maple,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 Plant_TreeOak,Oak,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 Plant_TreePalm,Palm,death,0,10,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
-Plant_TreePine,Pine,death,-35,0,V2_THAW_PROXY_SOURCE_UNVERIFIED,-31,3300,0.2,0.004,0,S13,S14,S15,WILD_ECOLOGY_GAMEPLAY_AND_THAW_MODEL
+Plant_TreePine,Pine,death,-35,0,V2_THAW_PROXY_SOURCE_UNVERIFIED,-31,3600,0.2,0.004,0,S13;S14;S15;S28;S29,WILD_ECOLOGY_60_DAY_SURVIVAL_TARGET_NO_SPECIES_LETHAL_LAB_FIT
 Plant_TreePoplar,Poplar,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 Plant_Rose,Rose,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 Plant_SaguaroCactus,Saguaro cactus,death,-6,8,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
@@ -53,7 +53,7 @@ Plant_Moss,Moss,dormancy,,0,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 Plant_PincushionCactus,Pincushion cactus,death,-8,5,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
 Plant_TallGrass,Tall grass,dormancy,,0,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 Plant_HealrootWild,Wild healroot,death,-9,0,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
-DankPyon_Plant_Onions,Onion,death,-3,5,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
+DankPyon_Plant_Onions,Onion,death,-3,5,V2_NUMERIC_CANDIDATE_UNAPPROVED,-3,21,0.25,0.009,,S19;S20;S21,SHORT_FROST_ONION_SEEDLING_SECONDARY_AND_INDEPENDENT_GAMEPLAY
 DankPyon_Plant_Lentils,Lentil,death,-4,5,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
 DankPyon_Plant_Cabbages,Cabbage,death,-6,0,V2_NUMERIC_CANDIDATE_UNAPPROVED,-3,72,0.25,0.007,,S03,S04,S05,PREDECLARED_GAMEPLAY_OUTCOME
 DankPyon_Plant_Garlic,Garlic,dormancy,,0,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
@@ -65,7 +65,7 @@ DankPyon_Plant_Carrots,Carrot,death,-4,0,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES
 DankPyon_Plant_Herb,Herb,death,-3,5,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
 DankPyon_Plant_Tomatoes,Tomato,death,-1,10,V2_NUMERIC_CANDIDATE_UNAPPROVED,0,18,0.25,0.01,,S01,S02,S16,PREDECLARED_GAMEPLAY_OUTCOME
 DankPyon_Plant_Grape,Grape,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
-DankPyon_Plant_Pumpkins,Pumpkin,death,-1,10,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
+DankPyon_Plant_Pumpkins,Pumpkin,death,-1,10,V2_NUMERIC_CANDIDATE_UNAPPROVED,0,20,0.25,0.008,,S22;S23;S24,PREDECLARED_TENDER_ANNUAL_GAMEPLAY_NO_PLANT_MORTALITY_DATA
 DankPyon_Tree_Apple,Apple,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 DankPyon_Tree_Lemon,Lemon,death,-4,10,PENDING_SOURCE_AND_INDEPENDENT_OUTCOMES,,,,,,,UNRESOLVED
 DankPyon_Tree_Mulberry,Mulberry,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
@@ -80,5 +80,5 @@ DankPyon_Plant_FleawortWild,Wild fleawort,death,-6,3,PENDING_SOURCE_AND_INDEPEND
 DankPyon_Plant_FlyAgaricWild,Wild fly agaric,dormancy,,0,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 DankPyon_GreatOak,Great oak,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
 DankPyon_GreatIter,Great Iter,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
-DankPyon_GreatFir,Great fir,death,-35,0,V2_THAW_PROXY_SOURCE_UNVERIFIED,-31,3300,0.2,0.004,0,S13,S14,S15,WILD_ECOLOGY_GAMEPLAY_AND_THAW_MODEL
+DankPyon_GreatFir,Great fir,death,-35,0,V2_THAW_PROXY_SOURCE_UNVERIFIED,-31,3600,0.2,0.004,0,S13;S14;S15;S28;S29,WILD_ECOLOGY_60_DAY_SURVIVAL_TARGET_NO_SPECIES_LETHAL_LAB_FIT
 DankPyon_GreatWillow,Great willow,dormancy,,5,KEEP_EXISTING_DORMANCY,,,,,,,UNRESOLVED
