@@ -603,6 +603,23 @@ namespace CropColdToleranceOverhaul.E2E
         }
 
 
+        [When("I advance {int} complete RimWorld game ticks")]
+        public void AdvanceCompleteGameTicks(PickleContext ctx, int ticks)
+        {
+            ctx.Require(ticks > 0 && ticks <= 5000,
+                "The full game-tick integration check must remain bounded.");
+            ctx.Require(Find.TickManager != null && !DebugSettings.fastEcology,
+                "Ordinary RimWorld tick scheduling is required.");
+            int start = Find.TickManager.TicksGame;
+            // Unlike SimulateDamageObservation, this advances the real
+            // game's map TickLists, including each Plant.TickLong hook.
+            // No CCTO record clock is manually altered.
+            for (int i = 0; i < ticks; i++)
+                Find.TickManager.DoSingleTick();
+            ctx.Assert(Find.TickManager.TicksGame - start == ticks,
+                "Full game-tick advancement did not complete.");
+        }
+
         [When("I simulate {int} ticks between CCTO damage observations")]
         public void SimulateDamageObservation(PickleContext ctx, int elapsedTicks)
         {
