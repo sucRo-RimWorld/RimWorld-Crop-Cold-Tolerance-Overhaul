@@ -76,7 +76,7 @@ Feature: CCTO cold tolerance runtime behavior
     When I set the CCTO test outdoor temperature to -10
     And I force the CCTO plant cold check
     Then the CCTO test plant is dormant
-    And the CCTO damage record is zero at first observation
+    And the CCTO plant HP is recorded at first observation
     When I simulate 2000 ticks between CCTO damage observations
     Then the CCTO plant HP decreased from last observation
     And the CCTO test plant is dormant
