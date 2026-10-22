@@ -21,6 +21,7 @@ namespace CropColdToleranceOverhaul.E2E
         private readonly List<Thing> testRoomWalls = new List<Thing>();
         private CellRect? testRoomRect;
         private int? rememberedDormancyTick;
+        private int? observedColdHp;
 
         private static readonly FieldInfo MadeLeaflessTickField =
             typeof(Plant).GetField(
@@ -625,21 +626,33 @@ namespace CropColdToleranceOverhaul.E2E
             ForcePlantColdCheck(ctx);
         }
 
-        [Then("the CCTO damage record is zero at first observation")]
-        public void AssertInitialDamageZero(PickleContext ctx)
+        [Then("the CCTO plant HP is recorded at first observation")]
+        public void RememberColdHp(PickleContext ctx)
         {
             ColdDamageRecord record = RequireDamageRecord(ctx);
-            ctx.Assert(Math.Abs(record.damage) < 0.0001f,
-                "First cold observation must not retrospectively charge exposure.");
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Assert(record.pendingHitPointDamage == 0f,
+                "First observation must not apply unobserved cold injury.");
+            observedColdHp = plant.HitPoints;
         }
 
-        [Then("the CCTO damage fraction is between {float} and {float}")]
-        public void AssertColdDamageRange(PickleContext ctx, float minimum, float maximum)
+        [Then("the CCTO plant HP decreased from last observation")]
+        public void AssertColdHpDecreased(PickleContext ctx)
         {
-            ColdDamageRecord record = RequireDamageRecord(ctx);
-            ctx.Assert(record.damage >= minimum && record.damage <= maximum,
-                "Cold damage must be between " + minimum + " and " + maximum
-                + ", actual=" + record.damage + ".");
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Require(observedColdHp.HasValue, "No previous HP observation.");
+            ctx.Assert(plant.HitPoints < observedColdHp.Value,
+                "Expected cold injury to decrease ordinary visible plant HP.");
+            observedColdHp = plant.HitPoints;
+        }
+
+        [Then("the CCTO plant HP did not recover")]
+        public void AssertNoColdHpRecovery(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Require(observedColdHp.HasValue, "No previous HP observation.");
+            ctx.Assert(plant.HitPoints == observedColdHp.Value,
+                "Warming must not restore HP lost to frost.");
         }
 
         [Then("the CCTO test plant is alive")]
