@@ -1801,3 +1801,77 @@ V1 is still rejected and no production XML
 changed. This policy resolves only the
 code-level recovery flaw and the allowable
 scope of later conditioning work.
+
+
+### V2 numeric candidate extension using predeclared S19–S31 (2026-10-22)
+
+**Candidate expansion; NOT author-approved values or
+production XML migration.** The independent
+[S19–S31 source/stage/weather targets](ColdDamageBalanceV2Targets.md)
+were committed as `15d4d3acda732e42d13466649beca047b9cfd83d`
+**before** any new rows. Their original literature
+identity/organ limits are in
+[the evidence ledger](ColdDamageEvidenceLedger.md).
+The exact [V2 candidate data](ColdDamageBalanceV2Candidates.csv)
+and [independent outcome comparison](ColdDamageBalanceV2Assessment.md)
+now have **7 numeric candidate Defs** in total:
+**4 annual gameplay candidates** (tomato, cabbage,
+onion, pumpkin) and **3 still unapproved
+biological/ecological conditional profiles**
+(wheat, Pine and MO Great Fir).
+Another **41** original death Defs have
+**no V2 coefficients**, including rice,
+maize, strawberry and potato; **30**
+dormancy Defs remain unchanged.
+
+New conditional candidates, for the sole purpose
+of evaluating independently stated outcomes:
+
+| Def | Onset A | Median fatal dose D | Uniform halfwidth w | Recovery/h | Status |
+|---|---:|---:|---:|---:|---|
+| MO Onion | −3°C | 21°C·h | 0.25 | 0.009 | Gameplay candidate only |
+| MO Pumpkin | 0°C | 20°C·h | 0.25 | 0.008 | Gameplay candidate only |
+| Vanilla Pine / MO Great Fir | −31°C | **3600**°C·h (was 3300 in earlier V2) | 0.20 | 0.004 | Long-winter safety trial, biological calibration lacking |
+
+The two annual candidates fit predeclared
+short severe/multi-night survival targets,
+but no cited experiment directly measures
+their full fatal-dose, repair-rate or
+within-cultivar spread. The evergreen
+candidate now predicts **100% survival
+after 60 synthetic days** with -35°C
+nights/-30°C days versus **81.8%** with
+the old 3300 dose. At constant -40°C
+for 15 days it predicts **75%** survival
+versus previous **54.5%**. Both outcomes
+are compared openly; actual weather
+frequency, crown temperatures and
+multi-year population ecology remain
+unverified. This is **NOT** a
+species-specific physiological fit.
+
+**Important type-of-death boundary:**
+secondary onion seedling survival after
+short frost does not imply bulb scale
+LT50, strawberry crown/living perennial
+survival is not a flower-bud injury
+measure, and frost-damaged potato
+tops need not mean death of the whole
+tuber-bearing plant. Consequently
+**strawberry and potato retain no
+V2 whole-plant fatal-dose settings**
+rather than inheriting a superficially
+plausible group coefficient.
+The old fixed thresholds continue
+in runtime until an explicitly
+accepted migration is implemented.
+
+**Review gate remains closed:** V1
+`rejected_for_xml` still applies;
+no V2 table checksum or scenario
+evidence is author-accepted,
+no runtime games were launched for
+these candidate numbers. The
+new rows are suitable for further
+review, **not for a blanket 48-Def
+migration or release**.
