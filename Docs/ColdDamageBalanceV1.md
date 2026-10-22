@@ -1,18 +1,18 @@
-# CCTO — cumulative cold injury numerical balance V1
+# CCTO — REJECTED cold injury balance candidate V1 (archived)
 
-**Design decision: 2026-10-22. Gameplay values DECIDED; production XML NOT yet migrated, PR #24 remains Draft.**  
+**CORRECTIVE STATUS 2026-10-22: REJECTED FOR XML. Earlier 'DECIDED / LOCKED' claims have been withdrawn. All figures below are an archived failed proposal, not approved gameplay or measured biology. See [independent failure audit](ColdDamageBalanceFailureAudit.md) and [review state](ColdDamageBalanceReview.json). Production XML remains untouched; PR #24 stays Draft.**  
 **Canonical exact 78-Def values:** [ColdDamageBalanceV1.csv](ColdDamageBalanceV1.csv).  
 **Biological evidence and limits:** [ColdDamageCalibration.md](ColdDamageCalibration.md), [ColdDamageEvidenceLedger.md](ColdDamageEvidenceLedger.md).
 **Existing live values:** [ImplementationTable.md](ImplementationTable.md).
 
-This V1 is a **deliberately selected game-balance approximation**, not a
+This REJECTED V1 was a **proposed game-balance approximation**, not a
 claim that every coefficient was measured in botanical experiments.
 All 48 existing finite fixed-death CCTO-owned Defs receive a numerically
 specified *design target* for cumulative injury. **All 30 existing
 dormancy-only Defs keep dormancy and receive no cumulative injury values.**
 No AMJ Culture/Environment, VPE, or other consumer-owned Def is included.
 
-## Numerical rule that fixes the design
+## Mathematical rule used to generate the rejected candidate
 
 The already implemented optional engine uses the **current plant ambient
 temperature** `T`, species injury start `A` and median lethal dose
@@ -49,7 +49,7 @@ is enabled. Five plants have source/ecology-informed **explicit
 exceptions** below. The 60-day in-game year is not an extra
 multiplier on individual freeze hours.
 
-## Decided class-level numbers
+## Previously proposed class-level numbers — rejected
 
 | Class | Count | New injury starts above legacy death | Median cold at legacy death | Dose D (°C·game-hour) | Individual half-width w | Warm recovery per game-hour |
 |---|---:|---:|---:|---:|---:|---:|
@@ -71,7 +71,7 @@ A 0.012/h recovery clears one unit of injury in ~83.3
 uninterrupted warm hours; 0.003/h clears it in ~333.3 hours,
 assuming no further cold.
 
-### Special values fixed before implementation
+### Previously proposed exceptions — rejected
 
 | Owned Def | Existing fixed death | V1 onset A | Dose D | w | Warm recovery/h | Median cold exposure at reference |
 |---|---:|---:|---:|---:|---:|---:|
@@ -146,7 +146,7 @@ assuming no further cold.
   avoids gratuitous winter tree/grass deaths and
   a premature perennial root/crown simulation.
 
-## Player-facing representative cold events — design calculations
+## Illustrative outcomes exposing problems — NOT acceptance evidence
 
 All values below are **ideal median** time in constant
 air temperature (zero initial injury, no above-onset
@@ -172,41 +172,25 @@ class-specific recovery rate. Repeated overnight frosts
 therefore have different outcomes from one uninterrupted
 freezing event, as intended.
 
-## Explicit acceptance boundary / implementation order
+## Independent failure audit overrides former acceptance
 
-1. **Numeric game-balance choice is now made** for every
-   CCTO-owned live profile. Treat CSV fields as the
-   V1 **design target**, not as research examples to be
-   endlessly recalibrated. Changing a locked field needs
-   a concrete failed ecology/gameplay case, genuinely
-   relevant new biological evidence or a direct
-   author decision; record cross-feature consequences.
-2. **Do not equate "design locked" with "implemented":**
-   current production XML still uses the fixed-death
-   temperatures and the 30 original dormancy entries.
-   C# opt-in remains Draft PR #24, and no production
-   plant has been migrated.
-3. **Implement** precisely the 48 V1 rows via
-   owner-managed production Vanilla/MO XML only
-   after the numerical review; keep 30 dormancy rows
-   without injury coefficients. Ensure other consumer
-   repositories are not accidentally modified and
-   source-balance cross-Mod parity remains explicit.
-4. **Check real-player consequences at the end**:
-   a short versus multi-night frost, a prolonged
-   winter in a pine biome, a warm recovery period,
-   save/load, and relevant Vanilla/MO loading.
-   Existing engine-only 1.6 16/16 and Scribe
-   PASS do **not** prove the 48 new values.
-   Do not run new native tests merely for a
-   documentation-only numerical decision.
-5. Retain **損傷開始温度**, **休眠温度** and
-   the unchanged growth-minimum field. A startup
-   conversion of old positive cold injury records
-   or old already planted fields is not assumed
-   safe without an explicit compatibility review.
-   Steam/2game release, merge and 1.7 validation
-   are separate steps.
+**This entire 48-tuple candidate is REJECTED for production XML.**
+Its individual values were created using circular reference-hour
+targets and were **not** checked against independently chosen
+player/ecology acceptance before being called "locked".
+The prior implementation-order list and approval statement
+are withdrawn. The only source of current readiness status
+is [ColdDamageBalanceReview.json](ColdDamageBalanceReview.json)
+supported by [ColdDamageBalanceFailureAudit.md](ColdDamageBalanceFailureAudit.md).
+
+Keep the old table solely to reproduce how the mistaken conclusion
+was reached. Do not use it to write Vanilla/MO XML, C# defaults,
+Workshop claims or downstream consumer data. The 30 legacy
+dormancy entries remain unchanged. New numbers require separate
+evidence evaluation, independent typical-weather/long-winter
+scenarios, accepted recovery semantics and actual review *before*
+any "numeric values decided" report. A schema/math validator
+returning success is NOT a balance audit PASS.
 
 **Source status:** ON03 onion, W13 wheat, M01 corn,
 M03 maize chilling, R02 rice chilling and other
