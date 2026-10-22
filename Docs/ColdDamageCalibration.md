@@ -1,6 +1,8 @@
 # CCTO — empirical calibration of cumulative cold damage
 
-**Reviewed 2026-10-21. Status: empirical-source verification in progress. No numeric parameters are approved for the new injury model; no Vanilla/MO, AMJ or VPE plant XML is migrated.**
+**Latest balance-design ruling, 2026-10-22:** [V1 numerical table](ColdDamageBalanceV1.csv) and [design criteria](ColdDamageBalanceV1.md) now fix 48 **gameplay-selected** cumulative profiles and retain 30 dormant profiles. These are not empirically fitted scientific coefficients; original plant XML is not yet migrated. Earlier "not approved" notices below refer to **empirical source calibration** or historical unselected example candidates, not a veto on the separately approved V1 game-balance design.
+
+**Reviewed 2026-10-21. Status: empirical-source verification in progress. No numerical tuples have been empirically validated as laboratory-calibrated; no Vanilla/MO, AMJ or VPE plant XML is migrated.**
 
 CCTO is a generic realism-oriented plant tolerance framework, not a patch for
 a Japanese double-cropping exception. Its numerical values must be traceable
