@@ -191,6 +191,133 @@ The right next decision is first to determine
 how much uncertainty and long-season crop loss
 is an acceptable player-facing outcome.
 
+
+### Seasonal-temperature example and climate-envelope risk (2026-10-22)
+
+**Scope/evidence:** RimWorld generated climate is location-dependent
+(latitude, biome/world tile, season, daily and diurnal shifts, weather
+and game conditions). The earlier constant −35°C night/−30°C
+day **60-day** stress experiment is *not* a verified real
+60-day forest temperature distribution.
+
+A [publicly posted RimWorld/HugsLib game log
+(2026-02-17)](https://gist.github.com/HugsLibRecordKeeper/ba53570c4204c9ed922f863a5a37c4b1)
+contains a **60-day generated daily low/high forecast**
+for **one** heavily modded game tile, latitude
+**22.2169°**, reported mean annual tile temperature
+**16.1°C**, annual seasonal shift **11.41637°C**.
+Its [original Lo/Hi numerical extract with full
+provenance and exclusions](Research/RimWorldPublicOneTile60DayLoHi2026.csv)
+has winter-period minimum **−1.09°C** and
+highest daily high **36.02°C**. It is **a
+game-produced diagnostic for one tile**,
+*not* a record of 60 actually played days,
+not a vanilla-only reproducibility run,
+not weather-event history, not AMJ Environment
+or WorldMap regional data, and not
+a forest-biome population sample*.
+
+**How the following sensitivity exercise was computed:**
+reconstruct 24 synthetic hourly temperatures
+for each logged daily Lo/Hi, by scaling
+the **single-day** hourly `SunEffect` shape
+in that same log (minimum at its hourly
+sample 9, maximum at sample 20) to each
+recorded daily pair. This reuses one
+hourly shape for all days; **hourly time
+series, intervening game weather and daily
+sun geometry were not observed**.
+Apply the current Draft linear injury,
+uniform individual susceptibility and
+`T≥max(A,0°C)` thaw-only recovery rule,
+1h per segment, initial zero injury.
+Numbers below therefore are **synthetic
+model predictions informed by a game
+generated single-tile annual Lo/Hi trace**,
+not measured field or CCTO gameplay results.
+No first-sample/update-tick latency,
+sunlit tissue buffering or seasonal hardening
+is simulated.
+
+| Profile and scenario | Simulated survival | Interpretation |
+|---|---:|---|
+| MO Onion V2 (A=−3°C, D=21°C·h), 60 days of **original** one-tile climate | **100%** | One source tile rarely reaches onion onset; does NOT mean onion is safe on other maps |
+| MO Onion: **days 42–44** forecast + imposed uniform **−5°C** three-day anomaly | **≈67%** | Artificial anomaly, no proof such an event occurred |
+| Same original days + **−5.2°C** anomaly | **≈48%** | 0.2°C difference still causes substantial survival swing |
+| Pine/Great Fir V2 (A=−31°C, D=3600°C·h), 60 days of **original** one-tile climate | **100%** | Irrelevant as a meaningful wild pine hardiness test on a mild tile |
+| Pine/Great Fir: 60 days with **all original temperature points shifted by −40°C** | **100%** | An illustrative **hypothetical** colder site; no evidence that a natural forest tile has the same annual amplitude |
+| Same synthetic climate shifted by **−43°C** | **≈93%** | Seasonal range/spread creates a very different outcome |
+| Same synthetic climate shifted by **−44°C** | **≈55%** | 1°C change sustained for the whole year shifts survival strongly |
+| Same synthetic climate shifted by **−45°C** | **≈15%** | Extremely cold hypothetical mean ~−28.9°C; no proven pine/fir wild-spawn habitat here |
+
+**Important:** applying a uniform offset to a
+latitude-22° game's 60-day curve **does not
+generate a valid colder world tile**. In
+RimWorld the annual mean, seasonal swing,
+latitude, biome, random daily variation
+and cold snap eligibility can change
+together. The offsets here isolate
+coefficient response only. The source
+winter minima do **not** establish that
+cold woodland regularly sees −35°C or
+for how many nights. If the actual
+forest-world climate distribution is
+substantially milder, fitting 60-day
+constant −35°C stress would make
+pines unrealistically invulnerable;
+if markedly colder, it might still
+extirpate trees. **No pine numeric
+acceptance follows from these samples.**
+
+**Independent RimWorld game-condition
+check:** the [wiki cold snap
+mechanics](https://rimworldwiki.com/wiki/Events)
+describe an approximately **−20°C outdoor
+offset**, ramped over **12,000 game ticks
+(4.8 in-game hours)**, for **1.5–3.5
+game days**, with occurrence limited
+to maps meeting its temperature
+eligibility and a refire cooldown.
+This is **not** equivalent to permanent
+−5°C nightly cooling or to a cold tile's
+normal seasonal annual mean. The source
+log's reported summer twelfths around
+**23–27°C** do **not** establish
+eligibility for the ordinary random
+cold-snap condition, and a forced
+condition behaves differently from
+normal daily variability. Future
+player-facing crop risk comparisons
+must separate (a) seasonal nights,
+(b) cold-snap temporary incident
+and ramp, (c) hard long-winter
+climates, and (d) protected/roofed
+fields and plant/root temperatures.
+
+**Audited decision:** the **seven existing
+V2 numerical trial values remain
+UNAPPROVED**, and none should be
+retuned based on a one-site forecast
+or invented forest climate offset.
+The next meaningful missing *input* is
+a small representative **actual generated
+forest-eligible cold tile daily Lo/Hi
+and season profile** (plus the relevant
+world-gen temperature/biome/site
+settings); ideally compare one
+short-growing-season agricultural tile.
+Collecting and verifying that input
+does **not** itself require 78
+independent native crop runs or any
+change to the existing C# API.
+Once available, compare the already
+frozen V2 candidate outputs before
+considering a modification. Do not
+call a log of forecast extrema an
+actual hourly trace, and do not call
+a synthetic cold-offset result a
+verified real forest distribution.
+
 ## V2 acceptance verdict and next decisions
 
 - **Numerical progression:** 4 unapproved annual candidates (tomato, cabbage, onion, pumpkin) meet their respective predeclared *gameplay* scenario preferences under ideal continuous air-temperature sampling. Wheat and Pine/Great Fir retain **3 conditionally computed but unapproved** candidate rows. The C# thaw threshold blocker for the latter two is corrected, but source/ecological and native-test acceptance remain open. The other **41 death profiles** (including rice, maize, strawberry and potato) have no V2 coefficients. The 30 dormancy definitions stay intact.
