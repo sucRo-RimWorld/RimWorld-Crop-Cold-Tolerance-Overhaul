@@ -2,6 +2,7 @@
 # Two plant-specific parameters: injury_onset_C, full_hp_degree_game_hours. Variation 0.20 is a shared uncalibrated hypothesis.
 # Temperature and fatal-dose values are first-pass GAMEPLAY PROPOSALS informed by habitat / frost-sensitivity ordering, not measured whole-plant thresholds.
 # 30 preexisting dormancy defs remain unchanged. Do not treat the 48 proposed tuples as independently accepted balance or copy to production.
+# FAILED_PREDECLARED_FROST_GOALS marks 4 unchanged-number trials that violate prior S02/S04/S20/S23/S24 cold-frost gameplay targets; see ColdDamageHpV3Assessment.md. Do not copy their values.
 defName,plant,mode,legacy_death_C,hp_injury_onset_C,full_hp_degree_game_hours,lethal_dose_variation,review_status
 Plant_Rice,Rice,hp_damage,-1,3,60,0.20,UNAPPROVED_HP_TRIAL
 Plant_Potato,Potato,hp_damage,-2,-3,100,0.20,UNAPPROVED_HP_TRIAL
@@ -52,9 +53,9 @@ Plant_Moss,Moss,dormancy,,,,,KEEP_EXISTING_DORMANCY
 Plant_PincushionCactus,Pincushion cactus,hp_damage,-8,-10,750,0.20,UNAPPROVED_HP_TRIAL
 Plant_TallGrass,Tall grass,dormancy,,,,,KEEP_EXISTING_DORMANCY
 Plant_HealrootWild,Wild healroot,hp_damage,-9,-10,200,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Onions,Onion,hp_damage,-3,-3.5,120,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Onions,Onion,hp_damage,-3,-3.5,120,0.20,FAILED_PREDECLARED_FROST_GOALS
 DankPyon_Plant_Lentils,Lentil,hp_damage,-4,-5,120,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Cabbages,Cabbage,hp_damage,-6,-3.5,240,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Cabbages,Cabbage,hp_damage,-6,-3.5,240,0.20,FAILED_PREDECLARED_FROST_GOALS
 DankPyon_Plant_Garlic,Garlic,dormancy,,,,,KEEP_EXISTING_DORMANCY
 DankPyon_Plant_Mushrooms,Mushroom,hp_damage,-1,0,90,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Wheat,Wheat,hp_damage,-6,-7,200,0.20,UNAPPROVED_HP_TRIAL
@@ -62,9 +63,9 @@ DankPyon_Plant_Flax,Flax,hp_damage,-5,-5,140,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Sugarcane,Sugarcane,hp_damage,-5,2,90,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Carrots,Carrot,hp_damage,-4,-5,170,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Herb,Herb,hp_damage,-3,-4,110,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Tomatoes,Tomato,hp_damage,-1,0,60,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Tomatoes,Tomato,hp_damage,-1,0,60,0.20,FAILED_PREDECLARED_FROST_GOALS
 DankPyon_Plant_Grape,Grape,dormancy,,,,,KEEP_EXISTING_DORMANCY
-DankPyon_Plant_Pumpkins,Pumpkin,hp_damage,-1,0,68,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Pumpkins,Pumpkin,hp_damage,-1,0,68,0.20,FAILED_PREDECLARED_FROST_GOALS
 DankPyon_Tree_Apple,Apple,dormancy,,,,,KEEP_EXISTING_DORMANCY
 DankPyon_Tree_Lemon,Lemon,hp_damage,-4,-5,650,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Tree_Mulberry,Mulberry,dormancy,,,,,KEEP_EXISTING_DORMANCY
