@@ -1,5 +1,13 @@
 # CCTO Coordination
 
+### CCTO-COLD-BALANCE-V2-20261022 — independent targets, partial candidate review
+**Owner:** CCTO Balance/XML, Draft [PR #24](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/24). **Status: V2 IN PROGRESS (not accepted for XML); former V1 REJECTED; current fixed-death 48 + dormancy 30 live XML unchanged.**
+
+User requested renewed numerical balancing after the V1 circular self-acceptance failure. V2 established [independent source/gameplay climate and recovery acceptance scenarios](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/feat/opt-in-cold-damage-20261021/Docs/ColdDamageBalanceV2Targets.md) **before** any new coefficients, then a 78-Def [per-plant status/numeric candidate table](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/feat/opt-in-cold-damage-20261021/Docs/ColdDamageBalanceV2Candidates.csv) and an [independent side-by-side assessment](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/feat/opt-in-cold-damage-20261021/Docs/ColdDamageBalanceV2Assessment.md). The formal owner `Docs/Design.md` and `Docs/ColdDamageBalanceReview.json` distinguish candidate from approved. Result: **2 gameplay scenario-conforming but unapproved annual crop candidates** (MO tomato/cabbage), **3 conditional numeric blocked profiles** (MO wheat and Pine/Great Fir), **43 death profiles including rice/maize without V2 coefficients**, **30 unchanged dormancy**. W13 cereal acclimation, R02 rice conditioning, M01 near-onset maize and below-freezing pine healing are explicit outstanding model/biology decisions; do not copy any V2 row into production.
+
+**Implementation handoff:** original V1 status `rejected_for_xml` and XML gate remain active. Code/framework should review only the minimal proposed recovery-on-thaw threshold, not launch recurring game tests or force all crops into one incorrect state-independent physiological curve. Balance/XML continues group/species research and weather scenarios before numerics are adopted. Existing 1.6 engine native/Scribe PASS belongs only to technical API, not crop coefficients. No C# changes, production XML, merge of Draft #24, or Workshop action has been made for V2. All exact numbers/rationale belong exclusively to the Draft owner docs, not this main-only coordination summary.
+
+
 ### CCTO-COLD-BALANCE-V1-20261022 — V1 false balance approval RETRACTED
 
 **Owner:** CCTO Balance/XML and Code/framework. **Status: V1 REJECTED FOR XML; 48 candidate numerical tuples NOT APPROVED; 30 legacy dormancy profiles unchanged. NO GAMEPLAY OR PRODUCTION XML MIGRATION.**
