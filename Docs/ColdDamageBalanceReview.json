@@ -120,18 +120,56 @@
       "correction": "Do not claim robust plant/climate balance from exact chosen target examples alone"
     },
     "seasonal_climate_audit": {
-      "status": "INCOMPLETE: one public modded tile diagnostic, zero native forest-eligible temperature traces",
-      "source_csv": "Docs/Research/RimWorldPublicOneTile60DayLoHi2026.csv",
-      "analysis": "Docs/ColdDamageBalanceV2Assessment.md#seasonal-temperature-example-and-climate-envelope-risk-2026-10-22",
-      "external_source": "https://gist.github.com/HugsLibRecordKeeper/ba53570c4204c9ed922f863a5a37c4b1",
-      "evidence_boundary": "Daily Lo/Hi externally logged as annual diagnostic from one heavily modded 16.1C/22.2169 latitude tile; reconstructed hourly shape and translated cold sites are mathematical stress cases only",
-      "missing_inputs": [
-        "real_generated_tree_bearing_cold_tile_with_world_settings",
-        "real_generated_short_growth_season_crop_tile_with_world_settings",
-        "actual_temperature_incident_frequency_or_sample_not_only_constant_nights"
+      "status": "NATIVE_VANILLA_WORLD_TILE_CALENDAR_SAMPLED; V2 coefficients still unapproved",
+      "native_run_url": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000",
+      "original_version": "RimWorld Linux 1.6.4871 rev598",
+      "original_owner_commit": "23f3d9ac07a336c36fba3e32382612bec52e6d8f",
+      "native_artifact_id": 12424418617,
+      "source_csv_sha256": "6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5",
+      "observed_values_count": 4320,
+      "calendar_hours_per_tile": 1440,
+      "tiles": [
+        {
+          "id": 44000,
+          "biome": "BorealForest",
+          "latitude": 53.1905,
+          "annual_C": -5.536,
+          "minimum_C": -37.8349,
+          "pine_eligible": true,
+          "actual_map_loaded": false
+        },
+        {
+          "id": 40777,
+          "biome": "BorealForest",
+          "latitude": 49.2266,
+          "annual_C": -1.37,
+          "minimum_C": -32.6471,
+          "generated_pines": 483,
+          "actual_map_loaded": true
+        },
+        {
+          "id": 2851,
+          "biome": "TemperateForest",
+          "latitude": 45.0841,
+          "annual_C": 5.672,
+          "minimum_C": -23.7091,
+          "potential_crop_site": true,
+          "actual_map_loaded": false
+        }
       ],
-      "coefficient_decision": "retain 7 V2 unapproved trial rows; no change to dose/onset/recovery",
-      "native_game_launched": false
+      "source_daily": "Docs/Research/CCTOVanilla16ActualWorldClimateDailyLoHi.csv",
+      "source_assessment": "Docs/ColdDamageBalanceV2Assessment.md#original-rimworld-16-cold-forest-and-farming-tile-generated-calendar-2026-10-22",
+      "pine_v2_survival_on_two_original_world_temperature_calendars": 1,
+      "blocked": [
+        "yearly game weather and events were not tick-simulated",
+        "one original generated world/one seed not population",
+        "no MO Great Fir real wild biome loaded",
+        "no CCTO numeric production XML enabled",
+        "plant tissue and sun/soil buffering unknown",
+        "annual crop harvest maturity and optimal sowing season unknown"
+      ],
+      "coefficient_decision": "7 numeric V2 candidates unchanged and unapproved; V1 rejected gate remains",
+      "native_game_launched": true
     }
   }
 }
