@@ -1,5 +1,7 @@
 # CCTO cold injury V2 — independently specified outcomes BEFORE selecting coefficients
 
+**Subsequent 2026-10-23 author A/D candidate selection:** MO Tomato **A0°C/D21.5°C·h** and MO Pumpkin **A0°C/D22°C·h** are now selected as V3 *candidate numerical fields* alongside earlier MO Cabbage A−3.5/D240 and MO Onion A−5/D120. S02/S23's severe-frost danger remains the active gameplay intent; S16/S24 correspond to the same 24°C·h at A=0 under no cold-specific HP recovery, and do not independently calibrate them. Critically, the hypothesized ±20% individual lethal-dose variation that creates mixed survival is **still unapproved**; model-calculated target fit does not establish an in-game mortality PASS. No XML, runtime activation or new surviving-population target has been authorized.
+
 **Current V3 direction update (author-approved 2026-10-23):** For MO cabbage (S04) and MO onion (S20), **survival with ordinary-HP harvest reduction takes priority over the historical hard-frost ≥70% mortality preference**. The original 2026-10-22 table below is preserved verbatim as a predeclared *historical* test, not the active gate. See the [current V3 replacement criteria](#v3-s04s20-supersession--author-approved-direction-2026-10-23). This paragraph records the earlier direction-only authorization; the **later 2026-10-23 author approval selected Cabbage A−3.5/D240 and Onion A−5/D120 as numeric V3 candidates** (not XML or variation), documented at the end.
 
 **2026-10-22; calibration input, NOT numerical coefficient acceptance.**
