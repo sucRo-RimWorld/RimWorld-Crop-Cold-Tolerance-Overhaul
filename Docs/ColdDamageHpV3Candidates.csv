@@ -3,7 +3,7 @@
 # Temperature and fatal-dose values are first-pass GAMEPLAY PROPOSALS informed by habitat / frost-sensitivity ordering, not measured whole-plant thresholds.
 # 30 preexisting dormancy defs remain unchanged. Do not treat the 48 proposed tuples as independently accepted balance or copy to production.
 # FAILED_PREDECLARED_FROST_GOALS applies only to tomato and pumpkin against still-current S02/S23 hard-frost gameplay targets; no approved replacement values. Do not copy these values.
-# 2026-10-23: The author superseded the old hard-frost high-mortality S04/S20 targets for cabbage/onion with a survival-and-yield-loss direction. Their original D240/D120 remain UNAPPROVED_HP_TRIAL, not a numerical PASS or accepted D160/D120 replacement; see ColdDamageBalanceV2Targets.md current V3 section.
+# 2026-10-23: Author approved Cabbage A=-3.5 / D=240 and Onion A=-5 / D=120 as V3 NUMERICAL CANDIDATES only (APPROVED_A_D_CANDIDATE_VARIATION_PENDING). A/D selection is decided; actual-game acceptance and XML activation are NOT approved. The lethal_dose_variation 0.20 in these two rows remains an explicitly unapproved hypothesis, NOT part of the authorization (framework default is 0). See Design.md and ColdDamageBalanceV2Targets.md.
 defName,plant,mode,legacy_death_C,hp_injury_onset_C,full_hp_degree_game_hours,lethal_dose_variation,review_status
 Plant_Rice,Rice,hp_damage,-1,3,60,0.20,UNAPPROVED_HP_TRIAL
 Plant_Potato,Potato,hp_damage,-2,-3,100,0.20,UNAPPROVED_HP_TRIAL
@@ -54,9 +54,9 @@ Plant_Moss,Moss,dormancy,,,,,KEEP_EXISTING_DORMANCY
 Plant_PincushionCactus,Pincushion cactus,hp_damage,-8,-10,750,0.20,UNAPPROVED_HP_TRIAL
 Plant_TallGrass,Tall grass,dormancy,,,,,KEEP_EXISTING_DORMANCY
 Plant_HealrootWild,Wild healroot,hp_damage,-9,-10,200,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Onions,Onion,hp_damage,-3,-3.5,120,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Onions,Onion,hp_damage,-3,-5,120,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Lentils,Lentil,hp_damage,-4,-5,120,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Cabbages,Cabbage,hp_damage,-6,-3.5,240,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Cabbages,Cabbage,hp_damage,-6,-3.5,240,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Garlic,Garlic,dormancy,,,,,KEEP_EXISTING_DORMANCY
 DankPyon_Plant_Mushrooms,Mushroom,hp_damage,-1,0,90,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Wheat,Wheat,hp_damage,-6,-7,200,0.20,UNAPPROVED_HP_TRIAL
