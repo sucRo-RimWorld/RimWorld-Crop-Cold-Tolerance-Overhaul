@@ -1,6 +1,6 @@
 # CCTO HP-only V3 candidate assessment — 2026-10-22
 
-**Status: TRIAL / NOT ACCEPTED FOR XML OR PUBLICATION.** See [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv). The table covers exactly 48 formerly fixed-death plants, with 30 existing dormancy definitions retained. These are user-directed **HP direct damage with no cold-specific recovery** parameters. Each species has just two trial inputs: onset temperature `A` and full-HP degree-hours `D`; uniform deterministic variation half-width 0.20 is provisional. No added acclimation, tissue-organ model, history interpolation or periodic scan.
+**Status: TRIAL / NOT ACCEPTED FOR XML OR PUBLICATION.** See [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv). **Latest four-crop survival and whole-field harvest-yield screening:** [ColdDamageHpV3YieldReview.md](ColdDamageHpV3YieldReview.md) (comparison shortlist only, no accepted values). The table covers exactly 48 formerly fixed-death plants, with 30 existing dormancy definitions retained. These are user-directed **HP direct damage with no cold-specific recovery** parameters. Each species has just two trial inputs: onset temperature `A` and full-HP degree-hours `D`; uniform deterministic variation half-width 0.20 is provisional. No added acclimation, tissue-organ model, history interpolation or periodic scan.
 
 ## Formula and irreversible HP implications
 
