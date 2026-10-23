@@ -1,5 +1,12 @@
 # CCTO Coordination
 
+### CCTO-V3-EMPIRICAL-FIRST-FIVE-20261024 — five source/endpoint holds, no A-D change
+
+**Owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), official `Docs/Design.md`, `Docs/Research/ColdDamageV3SourceFirstAudit.md` and `Docs/ColdDamageHpV3Candidates.csv`. User approved a new **source-first calibration sequence**, not invented coefficients. Original rice 4°C×10d non-acclimated versus acclimated seedlings (0% versus 88–100% survival), W13 wheat −3/−5°C×24h highly state-dependent whole-seedling survival, maize Buican two very different ~50%-mortality time/temp treatments, strawberry dormant crown versus flower injury, and potato top versus tuber effects demonstrate **mismatches with a single whole-Plant static HP curve**. Current trials rice A+3/D60, wheat A−7/D200, corn A0/D64, strawberry A−12/D500, potato A−3/D100 do **not** reproduce the specific stated endpoints. Source fields/values for these five remain unchanged **but their candidate status is now HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED**, blocking XML adoption. All sources and original unit/stage/observation distinctions preserved in formal research audit.
+
+**Current 78-row balance:** 4 author-selected A/D candidates (MO Tomato A0/D21.5, Pumpkin A0/D22, Cabbage A−3.5/D240, Onion A−5/D120; per-plant w=.20 still unapproved), 5 source/stage/endpoint HOLD, **39 remaining unapproved HP profiles**, and 30 unchanged dormancy. This supersedes older “44 generally unapproved” count but does not approve a fifth crop. **No C#, compiled DLL, XML or original-game native test in this batch.** Next numerical selection must declare a representative biological/gameplay state and avoid fitting leaf/frozen-tuber damage as whole-plant death or laboratory hours directly as game-hours. Do not introduce acclimation mechanics without author approval. Independent unaffected crop groups can continue review.
+
+
 ### CCTO-V3-TENDER-AD-CANDIDATES-APPROVED-20261023 — 4 selected A/D candidates; variation still pending
 
 **Source owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31); canonical `Docs/ColdDamageHpV3Candidates.csv`, `Docs/Design.md`, `Docs/ColdDamageBalanceV2Targets.md`, `Docs/ColdDamageHpV3Assessment.md`, and `Docs/ColdDamageHpV3YieldReview.md`.
