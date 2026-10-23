@@ -1,6 +1,6 @@
 # CCTO V3 — four-crop survival **and harvest-yield** screening (2026-10-23)
 
-**Status: INDEPENDENT COMPARATIVE REVIEW, NOT NUMERICAL ACCEPTANCE.** **LATEST AUTHOR NUMERICAL-CANDIDATE DECISION (2026-10-23):** Cabbage **A−3.5°C/D240°C·h** and Onion **A−5°C/D120°C·h** are **selected V3 A/D candidates**. These are not native-game validated coefficients or authorization to convert the XML; 0.20 variation is still unapproved. Earlier comparison sections are preserved as dated history, and the newest decision supersedes their candidate-only language.  **Author direction approved 2026-10-23:** cabbage and onion prioritize survival with HP-driven yield loss instead of old S04/S20 70%-death goals. All crop A/D numbers, the proposed ±20% spread and production XML remain **unapproved**. See [revised V3 criteria](ColdDamageBalanceV2Targets.md#v3-s04s20-supersession--author-approved-direction-2026-10-23). This is a deliberately compact follow-up to [ColdDamageHpV3Assessment.md](ColdDamageHpV3Assessment.md) and [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv). No changes to original candidate tuples, production XML or dormancy definitions. The last section records a **shortlist for comparison only**, not decisions or approved defaults.
+**Status: INDEPENDENT COMPARATIVE REVIEW, NOT NUMERICAL ACCEPTANCE.** **LATEST AUTHOR NUMERICAL-CANDIDATE DECISION (2026-10-23):** Cabbage **A−3.5°C/D240°C·h** and Onion **A−5°C/D120°C·h** are **selected V3 A/D candidates**. These are not native-game validated coefficients or authorization to convert the XML; 0.20 variation is still unapproved. Earlier comparison sections are preserved as dated history, and the newest decision supersedes their candidate-only language.  **Author direction approved 2026-10-23:** cabbage and onion prioritize survival with HP-driven yield loss instead of old S04/S20 70%-death goals. The other 46 HP A/D candidates, proposed ±20% variation and production XML remain **unapproved**; cabbage/onion A/D have separate candidate authorization. See [revised V3 criteria](ColdDamageBalanceV2Targets.md#v3-s04s20-supersession--author-approved-direction-2026-10-23). This is a deliberately compact follow-up to [ColdDamageHpV3Assessment.md](ColdDamageHpV3Assessment.md) and [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv). No changes to original candidate tuples, production XML or dormancy definitions. The last section records a **shortlist for comparison only**, not decisions or approved defaults.
 
 ## What the existing HP implementation actually implies
 
@@ -146,3 +146,44 @@ The author approved the specific **V3 candidate numbers** after comparing two ha
 **Selection status:** author-selected **A/D candidate**; these two fields are now the intended numeric baseline for subsequent V3 acceptance. The recommendation rests on independent gameplay comparisons with known caveats, not on a claimed laboratory LT50 or actual in-game yield test. The previously approved intent—prefer **crop survival and yield loss** over instant mass mortality—remains unchanged.
 
 **Still excluded from this approval:** `lethal_dose_variation` half-width of 0.20 (unverified; current code defaults to zero), every other HP profile, production XML conversion, release, native tick/HP and actual .rws save acceptance. The CSV uses `APPROVED_A_D_CANDIDATE_VARIATION_PENDING` only on the two authorized rows and retains the unapproved 0.20 field as a proposal. Nothing about the authored selection validates its actual numerical impact at real map ambient temperatures or applies the selected values to the game before XML activation. Do not count previously proposed D160 for cabbage or old A−3.5 for onion as current choices.
+
+## Independent spread-width comparison for V3 — 2026-10-23
+
+**Approval status: NO WIDTH SELECTED.** This section addresses the author's follow-up request to compare **w=0, ±10%, ±20%** before finalizing per-plant variation. The approved A/D **candidate-only** tuples are MO Cabbage A−3.5/D240 and MO Onion A−5/D120. Tomato A0/D21.5 and Pumpkin A0/D22 here are **unapproved sensitivity trials**, not newly chosen A/D. The published XML remains fixed-death and uses none of these HP inputs. The C# implementation's default variation is w=0.
+
+### Mechanics (existing implementation, no new code needed)
+
+`ColdDamageProgress.LethalDoseMultiplier` maps each persistent Plant Thing ID deterministically to a stable percentile, then scales **lethal dose D only** by a uniform multiplier in [1−w,1+w]. It does *not* change onset A, simulate genetics, acclimation, plant age or microclimate, or reroll every session. One species can choose a different width from another through the already existing per-Def extension; **a common nonzero width for all 48 is not required**.
+
+The analytic comparisons below assume original MO XML full HP (Cabbage 85, Onion 100, Tomato 85, Pumpkin 100), full starting HP, no injury healing, ideal constant ambient air temperature, integer HP loss, a continuous-uniform population of multipliers, and the Vanilla `Plant.YieldNow()` current HP factor (dead crop yield zero). Actual sparse <=2000-tick last-observation integration, first-cold/warm boundaries, room/microclimate and growing-stage scheduling may materially change real plants; none of these are native-game results.
+
+| Exposure and A/D trial | w=0 alive / field harvest | w=.10 alive / field harvest | w=.20 alive / field harvest |
+|---|---:|---:|---:|
+| Cabbage A−3.5/D240, −4°C×8h for 5 nights | 100% / 95.9% | 100% / 96.1% | 100% / 96.1% |
+| Cabbage A−3.5/D240, −8°C×24h | 100% / 77.6% | 100% / 77.7% | 100% / 77.5% |
+| Cabbage A−3.5/D240, −8°C×48h | **100% / 55.3%** | **100% / 55.1%** | **75% / 42.9%** |
+| Onion A−5/D120, −4°C×8h for 15 nights | 100% / 100% | 100% / 100% | 100% / 100% |
+| Onion A−5/D120, −6°C×24h | 100% / 90.0% | 100% / 90.2% | 100% / 90.1% |
+| Onion A−5/D120, −10°C×24h | **0% / 0%** | **50% / 26.3%** | **50% / 27.3%** |
+| Tomato A0/D21.5, −3°C×8h | **0% / 0%** | **0% / 0%** | **20.9% / 10.9%** |
+| Pumpkin A0/D22, −3°C×8h | **0% / 0%** | **4.5% / 2.3%** | **27.3% / 14.3%** |
+
+**Full-HP death transition timing** under precisely constant target ambient temperature (earliest susceptible, median, latest resistant among full-HP plants; rounded game-hours):
+
+| Plant and frost | w=0 | w=.10 | w=.20 |
+|---|---|---|---|
+| Cabbage D240, −8°C | 53.33h | 48.0–58.67h | 42.67–64.0h |
+| Onion D120, −10°C | 24h | 21.6–26.4h | 19.2–28.8h |
+| Tomato D21.5, −3°C | 7.17h | 6.45–7.88h | 5.73–8.60h |
+| Pumpkin D22, −3°C | 7.33h | 6.60–8.07h | 5.87–8.80h |
+
+These intervals are **calculated from D(1±w)/(A−T)**, not an independent freezing experiment. A constant-width distribution makes the survival curve piecewise linear as a function of accumulated dose near D; physiological freezing response curves commonly use sigmoidal/logistic temperature fits instead. [Whole-plant frost-tolerance study, J-STAGE (2000)](https://www.jstage.jst.go.jp/article/jjshs1925/69/3/69_3_332/_article/-char/en) shows the distinction between leaf-electrolyte injury and whole-plant recovery; [iForest adult/seedling frost study (2014)](https://iforest.sisef.org/contents/?id=ifor1076-007) uses a logistic whole-seedling survival response; [UC IPM frost guidance](https://ipm.ucanr.edu/home-and-landscape/freezing-and-frost/) summarizes age, acclimation and exposure conditions. **None calibrates the V3 width to 10% or 20%.**
+
+### Interpretation and bounded next decision
+
+- **w=0** is a reproducible, scientifically *uncalibrated* no-extra-variation baseline. Equal A/D and identical cold histories give equal fractional cold injury, but real plants already differ in HP, shelter, temperature and event timing. Do not claim w=0 guarantees simultaneous die-off in real RimWorld.
+- **w=.10** is a useful **narrow-spread comparison** for hardy crops: at the selected cabbage D240 and severe −8°C×48h stress, it avoids the 25% casualty rate projected by w=.20 while retaining a small individual death-time spread. It does not rescue Tomato D21.5 from −3°C×8h, so cannot fulfill the older gameplay S16 preference for a mixed surviving/dying cohort at exactly that event.
+- **w=.20** creates more spread, including some tomato survivors after strong frost, but also **earlier deaths among weaker hardy crops** (Cabbage −8°C×48h: 25% die). It should **not be copied universally from the existing draft CSV**. Whether tender annuals should retain w=.20 as a gameplay compromise is independent of the confirmed hardy crop A/D candidate decision.
+- At exactly E=D and any symmetric nonzero width, around 50% survival is *automatic from the chosen distribution*, not empirical support for either width. Combined cohort **survival and harvest**, rather than mortality alone, is the meaningful player-facing test.
+
+**Provisional review policy (NOT author acceptance):** Retain **w=0 in production/framework defaults**; use **w=.10 as the first optional comparison for hardy crops** and **w=.20 only as a targeted tender annual comparison** if a mixed survival outcome is explicitly desired. No species' w has been approved, and no candidate CSV coefficient, C# engine, Def XML or release has been changed by this review. If actual map temperature/microclimate naturally staggers death enough, adding any artificial within-species lethal-dose spread may provide insufficient gameplay value to justify using it.
