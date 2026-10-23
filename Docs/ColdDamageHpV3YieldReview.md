@@ -1,6 +1,6 @@
 # CCTO V3 — four-crop survival **and harvest-yield** screening (2026-10-23)
 
-**Status: INDEPENDENT COMPARATIVE REVIEW, NOT NUMERICAL ACCEPTANCE.** **Author direction approved 2026-10-23:** cabbage and onion prioritize survival with HP-driven yield loss instead of old S04/S20 70%-death goals. All crop A/D numbers, the proposed ±20% spread and production XML remain **unapproved**. See [revised V3 criteria](ColdDamageBalanceV2Targets.md#v3-s04s20-supersession--author-approved-direction-2026-10-23). This is a deliberately compact follow-up to [ColdDamageHpV3Assessment.md](ColdDamageHpV3Assessment.md) and [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv). No changes to original candidate tuples, production XML or dormancy definitions. The last section records a **shortlist for comparison only**, not decisions or approved defaults.
+**Status: INDEPENDENT COMPARATIVE REVIEW, NOT NUMERICAL ACCEPTANCE.** **LATEST AUTHOR NUMERICAL-CANDIDATE DECISION (2026-10-23):** Cabbage **A−3.5°C/D240°C·h** and Onion **A−5°C/D120°C·h** are **selected V3 A/D candidates**. These are not native-game validated coefficients or authorization to convert the XML; 0.20 variation is still unapproved. Earlier comparison sections are preserved as dated history, and the newest decision supersedes their candidate-only language.  **Author direction approved 2026-10-23:** cabbage and onion prioritize survival with HP-driven yield loss instead of old S04/S20 70%-death goals. All crop A/D numbers, the proposed ±20% spread and production XML remain **unapproved**. See [revised V3 criteria](ColdDamageBalanceV2Targets.md#v3-s04s20-supersession--author-approved-direction-2026-10-23). This is a deliberately compact follow-up to [ColdDamageHpV3Assessment.md](ColdDamageHpV3Assessment.md) and [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv). No changes to original candidate tuples, production XML or dormancy definitions. The last section records a **shortlist for comparison only**, not decisions or approved defaults.
 
 ## What the existing HP implementation actually implies
 
@@ -133,3 +133,16 @@ Relevant independent context: [Croatian winter cabbage field study](https://acs.
 **Variation ±20% not independently justified:** it provides staggered population death but also changes expected field yield near lethal doses. Under cabbage A−3.5/D240 at −8°C×48h, w=0 and w=.10 both predict 100% survival, whereas w=.20 predicts 75%. At a symmetric exact full-dose threshold, both w=.10 and w=.20 yield roughly 50% survival; that case cannot select the width. Keep implementation default **w=0**, and w=.20 as an explicitly **unapproved gameplay hypothesis** (not a scientific LT50 distribution). Do not enable a universal variation width or copy any HP tuple into production XML on this analysis alone.
 
 **Unchanged:** all 48 V3 candidate tuples and their status, 30 dormancy defs and production 48 legacy fixed-death entries. Original game temperature sampling, seasonal sow/harvest, integer rounding interactions and save/HP behavior still require consolidated later acceptance, not an extra native run for each balance guess.
+
+## Author-selected A/D candidates — approval boundary (2026-10-23)
+
+The author approved the specific **V3 candidate numbers** after comparing two hardy crops under normal, strong and repeated cold. The numeric decision is narrower than enabling the whole opt-in HP model:
+
+| Crop | Selected injury onset A | Selected full-HP cumulative lethal dose D | Historical option not selected |
+|---|---:|---:|---|
+| MO Cabbage | **−3.5°C** | **240°C·h** | D160 was more vulnerable to repeated strong cold |
+| MO Onion | **−5°C** | **120°C·h** | A−3.5 produced excessive irreversible damage across ordinary −4°C nights |
+
+**Selection status:** author-selected **A/D candidate**; these two fields are now the intended numeric baseline for subsequent V3 acceptance. The recommendation rests on independent gameplay comparisons with known caveats, not on a claimed laboratory LT50 or actual in-game yield test. The previously approved intent—prefer **crop survival and yield loss** over instant mass mortality—remains unchanged.
+
+**Still excluded from this approval:** `lethal_dose_variation` half-width of 0.20 (unverified; current code defaults to zero), every other HP profile, production XML conversion, release, native tick/HP and actual .rws save acceptance. The CSV uses `APPROVED_A_D_CANDIDATE_VARIATION_PENDING` only on the two authorized rows and retains the unapproved 0.20 field as a proposal. Nothing about the authored selection validates its actual numerical impact at real map ambient temperatures or applies the selected values to the game before XML activation. Do not count previously proposed D160 for cabbage or old A−3.5 for onion as current choices.
