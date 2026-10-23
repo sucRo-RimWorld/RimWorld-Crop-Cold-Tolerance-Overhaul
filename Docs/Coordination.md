@@ -1,5 +1,16 @@
 # CCTO Coordination
 
+### CCTO-V3-TENDER-FROST-CHOICE-20261023 — tomato/pumpkin A-D-width decision pending
+
+**Owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), authoritative `Docs/Design.md` V3 tomato/pumpkin selection boundary, `Docs/ColdDamageHpV3YieldReview.md` tender-annual section, `Docs/ColdDamageHpV3Assessment.md`. **No new A/D/w author approval yet** beyond previously selected Cabbage A−3.5/D240 and Onion A−5/D120 candidate fields.
+
+**Bounded reviewer first choices for explicit decision:** Tomato `DankPyon_Plant_Tomatoes` A0/D21.5 and Pumpkin `DankPyon_Plant_Pumpkins` A0/D22, each with a separately **UNAPPROVED** hypothetical individual dose width w=.20 for mixed survival. Alternative weaker marginal-frost response: Tomato A−0.5/D18, Pumpkin A−0.5/D18.5, also w=.20 hypothetical. At idealized −3°C×8h, the first choices with w=.20 yield roughly **20.9% Tomato and 27.3% Pumpkin survival** (whole-field remaining harvest ~10.9%/~14.3%). At −1°C×8h, first-choice harvest ~81%, lower-onset alternative ~89%; the old severe S02/S16 and S23/S24 have **identical 24°C·h** without cold-specific healing and cannot be treated as independent corroborating experiments. Model predicts w=.10 cannot preserve any tomato plants at the specified severe frost event, while w=.20 can; this is **gameplay fitting, not measured biological variance**.
+
+**Original world data context:** original licensed RimWorld 1.6 hourly world-tile artifact Actions #39776410000 SHA256 `6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5` (not actual map ambient or real grown crops) shows first A0 freezing hours on day24; if hypothetical harvest-ready crops remain unharvested, first-choice tomato/pumpkin **field yield falls to ~46/~50% by end day25**, alternative ~61/~62%, before both hypothetical cohorts die by day26. The actual game 2000-tick sampler, sow/harvest, temperature and real save/load acceptance remain unverified.
+
+**STOP:** No replacement of current CSV Tomato A0/D60 and Pumpkin A0/D68 `FAILED_PREDECLARED_FROST_GOALS` until an author choice; no plant variation selection, no XML, no C# or new native tests. Preserve already selected hardy A/D numbers unchanged, variation pending and 30 dormancy entries. Reviewer favors first-choice A0 because light frost can kill **living pumpkin vines** (not necessarily mature harvested fruit), but −0.5 alternative is offered if author prioritizes weak-frost harvest retention.
+
+
 ### CCTO-V3-INDIVIDUAL-VARIATION-REVIEW-20261023 — 0 / ±10 / ±20% compared, width still unapproved
 
 **Owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), formal `Docs/Design.md` (per-plant width gate) and `Docs/ColdDamageHpV3YieldReview.md` (0/10/20% constant-temperature survival and cohort-harvest matrix). Author-selected A/D candidates remain **Cabbage A−3.5°C/D240°C·h, Onion A−5°C/D120°C·h only**. Existing source maps stable Thing ID to a uniform **dose-only** width; no additional C# code is needed for optional per-species widths. The **default w=0** remains the baseline; the CSV's w=.20 for all 48 HP trials (including two A/D-approved rows) remains **UNAPPROVED**, not authorized for production copying.
