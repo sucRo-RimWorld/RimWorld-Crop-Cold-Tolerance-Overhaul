@@ -60,11 +60,11 @@ Do not compare all arbitrary D values or further tune a nominal 20% mortality ra
 | Cabbage | **D96 versus D160** (A−3.5) | Sustained −8°C for a full day is devastating **versus** winter crop survives with considerable yield penalty |
 | Onion | **D60 versus D120** (A−3.5), **set D18 aside** | Both survive these particular illustrative frosts; differ in repeated mild-night harvest impact (≈10% vs ≈5% yield lost) |
 
-These numbers **cannot be adopted until the corresponding player-facing tradeoff is chosen** and onset uncertainty (±0.5°C), ordinary seasonal exposure, real sampling gaps and actual plant HP/harvest timing are assessed. The onion hard-frost *mortality target* S20 remains an unverified preference and must not force D18. Values may be revised outside this list if independent evidence appears; there is no false claim that these are tight physiological bounds.
+The **hardy-crop survival/yield direction was approved on 2026-10-23**, but **these numerical choices cannot be adopted** until onset uncertainty (±0.5°C), ordinary seasonal exposure, real sampling gaps and actual plant HP/harvest timing are assessed. The onion hard-frost *mortality target* S20 remains an unverified preference and must not force D18. Values may be revised outside this list if independent evidence appears; there is no false claim that these are tight physiological bounds.
 
 ### End-of-stage status
 
-- 48 V3 tuples and common half-width 0.20 remain **unapproved**; CSV status unchanged (4 failed, 44 otherwise unapproved).
+- 48 V3 tuples and common half-width 0.20 remain **unapproved**; CSV remains 2 active hard-frost failures (tomato/pumpkin), 46 otherwise unapproved after cabbage/onion's old S04/S20 criteria were superseded.
 - 30 dormancy existing values and 48 fixed-death production XML remain unchanged.
 - No new runtime C#, growing-stage simulation or cold recovery added.
 - No game launch now. The compiled draft's technical PASS does not establish frost/yield balance; acceptance should be consolidated **after** gameplay tradeoffs and remaining species are selected.
