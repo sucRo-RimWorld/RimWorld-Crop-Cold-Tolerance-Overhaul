@@ -1,5 +1,7 @@
 # CCTO cold injury V2 — independently specified outcomes BEFORE selecting coefficients
 
+**Current V3 direction update (author-approved 2026-10-23):** For MO cabbage (S04) and MO onion (S20), **survival with ordinary-HP harvest reduction takes priority over the historical hard-frost ≥70% mortality preference**. The original 2026-10-22 table below is preserved verbatim as a predeclared *historical* test, not the active gate. See the [current V3 replacement criteria](#v3-s04s20-supersession--author-approved-direction-2026-10-23). No new survival percentage, HP damage rate, onset or lethal degree-hour value has been approved.
+
 **2026-10-22; calibration input, NOT numerical coefficient acceptance.**
 The following checks are defined **before producing any V2 plant dose/onset/recovery/individual-width table**. Values described as *gameplay preference* are **not laboratory measurements or author-approved release criteria**. The point is to falsify candidate parameters, not force a PASS by choosing self-referential target values.
 
@@ -83,3 +85,16 @@ W13 Deryabin et al. 2024 *Metabolites* 14(4):199, primary Table 2: https://pmc.n
 R02 Sagehashi et al. 2023 *Plant Production Science* 26:287–296: https://doi.org/10.1080/1343943X.2023.2236344
 
 M01 in Lindsey et al. 2024 *Crop Science* 64: review of Buican (1969), DOI https://doi.org/10.1002/csc2.21212
+
+## V3 S04/S20 supersession — author-approved direction, 2026-10-23
+
+The author approved changing **only** the cabbage/onion balance priority from "strong frost should kill at least 70% of plants" to **"survival first, frost HP loss and reduced harvest yield"**. This supersedes the former game-only S04 `S≤0.30` and S20 `S≤0.30` mortality thresholds as **current V3 acceptance requirements**. Preserve the original dated rows above for audit; do not misrepresent those numerical death preferences as controlled agronomic mortality findings.
+
+| Current V3 ID | Representative exposure retained from historical scenario | Active qualitative review criterion | Distinct failure mode / non-criterion |
+|---|---|---|---|
+| S04-V3 (MO Cabbage) | −8°C for 24 game-hours, from previously undamaged growing plants | Prefer plants **to survive** the episode and suffer **meaningful ordinary-HP / harvest-yield reduction**; prolonged or repeated deeper frost can still eventually kill | Avoid treating winter-useful cabbage as universally fragile; **do not require** 70% immediate crop death. No numerical minimum survival rate or yield reduction percent is approved |
+| S20-V3 (MO Onion) | −6°C for 8 game-hours, from previously undamaged growing plants | Prefer plants **to survive** the episode with some ordinary-HP injury and harvest-yield penalty; recurring marginal frost (S19/S21 context) should not cause disproportionate loss | Do not force D18 merely to cause 70% immediate death. **Do not require** 70% mortality. No numerical minimum survival rate or yield reduction percent is approved |
+
+The tomato/pumpkin severe-frost roles S02/S23 are **not changed by this decision**; neither their temperature/duration nor any published plant values are amended. S03/S05 and S19/S21 provide separate mild/repeated-cold context but legacy wording that requires CCTO-specific HP healing is already superseded by the approved **no cold-only recovery** architecture. Vanilla `Plant.YieldNow()` uses ordinary HP; damaged survivors lose yield without adding a second crop-yield system.
+
+**Numerical gate remains open:** `Docs/ColdDamageHpV3YieldReview.md` proposes Cabbage A−3.5 / D160 and Onion A−3.5 / D120 as **unapproved comparative values**. Approval of the **direction** is not approval of those numbers, the common individual spread ±20%, or converting either plant to production XML. Do not run an S04/S20 ≥70% death gate as a present-day V3 rejection test after this supersession.
