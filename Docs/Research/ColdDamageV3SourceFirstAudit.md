@@ -29,3 +29,17 @@
 ## Source/authorization boundary
 
 The original [CCTO V3 candidate table](../ColdDamageHpV3Candidates.csv) retains its A/D/w values for these five as *unapproved* trial history. None of the five has an independently calibrated single A/D pair or whole-crop gameplay PASS. The four author-selected Tomato/Pumpkin/Cabbage/Onion A/D numbers remain **untouched**; 30 existing dormancy Defs remain unchanged. This research does not authorize enabling the 48 V3 HP tuples in XML or native original-game runtime testing.
+
+## Cross-check against archived original RimWorld 1.6 world climate (2026-10-24)
+
+Recovered previously archived `ccto-climate-hourly-evidence.zip` (original [Project Actions #39776410000](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000), artifact 12424418617) and **verified the original 386,621-byte hourly CSV SHA256** `6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5` **before analysis**. Used all **1,440 hourly original world-tile temperature points** from Vanilla TemperateForest tile 2851, a subset of the original 4,320 observations. It is a `TileTemperaturesComp` fast-travel/calendar sample on Vanilla 1.6.4871 rev598, **not native map ambient temperature, normal weather/incident timing, growing-season sow/maturity or 1,440 real in-map plant ticks**.
+
+| Crop and its unchanged UNAPPROVED A/D | First original world hourly sample colder than A | First day-hour model total degree-hours reaches D | Calculated dose across calendar days 0–19 |
+|---|---|---|---|
+| Rice A+3/D60 | Day 22 hour 23, +2.48°C | Day 25 hour 21 | 0 |
+| MO Wheat A−7/D200 | Day 28 hour 0, −7.21°C | Day 32 hour 2 | 0 |
+| Corn A0/D64 | Day 24 hour 21, −0.12°C | Day 27 hour 21 | 0 |
+| Strawberry A−12/D500 | Day 28 hour 23, −12.16°C | Day 40 hour 19 | 0 |
+| Potato A−3/D100 | Day 26 hour 0, −3.26°C | Day 29 hour 3 | 0 |
+
+Day/hour refers to **an artificial plant hypothetically kept alive outdoors across these times**, fully undamaged initially, continuous hourly integration at the historical unapproved A/D and **w=0**. The D-crossing estimate is only the first possible full HP-dose time if the hypothetical plant *could* have remained alive and not been harvested, assuming no capped-sampler under/overbilling or other damage. **All five show zero theoretical low-temperature HP injury during calendar days 0–19 on this particular source world-tile series**, but this is *not* a general statement about viable growing seasons, other biome/latitude, post-harvest survival or all new maps. More importantly, **none of these time crossings resolve the strong empirical *temperature/end-point mismatch* in the source table above**. They are independent world-context checks, not excuses to fit the wrong biological cohort or to treat legacy A/D as numerically accepted.
