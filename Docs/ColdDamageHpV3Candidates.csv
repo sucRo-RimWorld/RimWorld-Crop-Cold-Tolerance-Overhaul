@@ -2,7 +2,7 @@
 # Two plant-specific parameters: injury_onset_C, full_hp_degree_game_hours. Variation 0.20 is a shared uncalibrated hypothesis.
 # Temperature and fatal-dose values are first-pass GAMEPLAY PROPOSALS informed by habitat / frost-sensitivity ordering, not measured whole-plant thresholds.
 # 30 preexisting dormancy defs remain unchanged. Do not treat the 48 proposed tuples as independently accepted balance or copy to production.
-# FAILED_PREDECLARED_FROST_GOALS applies only to tomato and pumpkin against still-current S02/S23 hard-frost gameplay targets; no approved replacement values. Do not copy these values.
+# 2026-10-23: Author additionally selected Tomato A=0/D=21.5 and Pumpkin A=0/D=22 as A/D candidate values, resolving the previous S02/S23 preliminary failure flags for those old D60/D68 trials; S16/S24 repeats are not independent dose experiments. All 4 selected A/D rows retain unapproved variation 0.20. No release, native game PASS, or production XML approval.
 # 2026-10-23: Author approved Cabbage A=-3.5 / D=240 and Onion A=-5 / D=120 as V3 NUMERICAL CANDIDATES only (APPROVED_A_D_CANDIDATE_VARIATION_PENDING). A/D selection is decided; actual-game acceptance and XML activation are NOT approved. The lethal_dose_variation 0.20 in these two rows remains an explicitly unapproved hypothesis, NOT part of the authorization (framework default is 0). See Design.md and ColdDamageBalanceV2Targets.md.
 defName,plant,mode,legacy_death_C,hp_injury_onset_C,full_hp_degree_game_hours,lethal_dose_variation,review_status
 Plant_Rice,Rice,hp_damage,-1,3,60,0.20,UNAPPROVED_HP_TRIAL
@@ -64,9 +64,9 @@ DankPyon_Plant_Flax,Flax,hp_damage,-5,-5,140,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Sugarcane,Sugarcane,hp_damage,-5,2,90,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Carrots,Carrot,hp_damage,-4,-5,170,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Herb,Herb,hp_damage,-3,-4,110,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Tomatoes,Tomato,hp_damage,-1,0,60,0.20,FAILED_PREDECLARED_FROST_GOALS
+DankPyon_Plant_Tomatoes,Tomato,hp_damage,-1,0,21.5,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Grape,Grape,dormancy,,,,,KEEP_EXISTING_DORMANCY
-DankPyon_Plant_Pumpkins,Pumpkin,hp_damage,-1,0,68,0.20,FAILED_PREDECLARED_FROST_GOALS
+DankPyon_Plant_Pumpkins,Pumpkin,hp_damage,-1,0,22,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Tree_Apple,Apple,dormancy,,,,,KEEP_EXISTING_DORMANCY
 DankPyon_Tree_Lemon,Lemon,hp_damage,-4,-5,650,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Tree_Mulberry,Mulberry,dormancy,,,,,KEEP_EXISTING_DORMANCY
