@@ -1,5 +1,14 @@
 # CCTO Coordination
 
+### CCTO-V3-INDIVIDUAL-VARIATION-REVIEW-20261023 — 0 / ±10 / ±20% compared, width still unapproved
+
+**Owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), formal `Docs/Design.md` (per-plant width gate) and `Docs/ColdDamageHpV3YieldReview.md` (0/10/20% constant-temperature survival and cohort-harvest matrix). Author-selected A/D candidates remain **Cabbage A−3.5°C/D240°C·h, Onion A−5°C/D120°C·h only**. Existing source maps stable Thing ID to a uniform **dose-only** width; no additional C# code is needed for optional per-species widths. The **default w=0** remains the baseline; the CSV's w=.20 for all 48 HP trials (including two A/D-approved rows) remains **UNAPPROVED**, not authorized for production copying.
+
+**Independent numeric discrimination:** At constant −8°C×48h, Cabbage D240 survives 100% (w=0), 100% (w=.10), 75% (w=.20) of the hypothetical field; at constant −10°C×24h, Onion D120 survives 0% (w=0), 50% (w=.10), 50% (w=.20). Under unapproved Tomato A0/D21.5 / Pumpkin A0/D22 at −3°C×8h, w=.10 gives 0% / ~4.5% survival, versus w=.20 ~20.9% / ~27.3%. **These are idealized uniform-dose population predictions, NOT original-game observations, validated agronomic population spread, or a selected width.** Research supports plant freezing tolerance variability, not a universal ±10/±20% fatal-degree-hour coefficient.
+
+**Handoff choice:** Preserve per-plant width optionality and w=0 framework default. **Prefer comparing w=.10 for hardy groups and w=.20 only for tender annuals** if actual game conditions require artificial partial survival; no global w=.20 rollout, numerical approval or XML changes. Other 44 A/D remain unapproved, tomato/pumpkin 2 failed under current target, 30 dormancy kept. Native normal-tick/ambient HP/harvest and save/load acceptance still pending consolidated late-stage test. Do not treat a source-build PASS or these calculations as game balance PASS.
+
+
 ### CCTO-V3-HARDY-AD-CANDIDATES-20261023 — author selected numeric candidate A/D; variation and XML excluded
 
 **Source owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31); authoritative `Docs/Design.md`, `Docs/ColdDamageBalanceV2Targets.md`, `Docs/ColdDamageHpV3Candidates.csv`, `Docs/ColdDamageHpV3Assessment.md`, `Docs/ColdDamageHpV3YieldReview.md`.
