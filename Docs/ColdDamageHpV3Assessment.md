@@ -130,3 +130,14 @@ For additional game-world context, the original real 1.6 TemperateForest tile 28
 5. **Finally: remaining entries and 30 dormant** — check identity, same-taxon parity and role-based plausibility, not 48 invented calibration fits. Do not convert all 48 to XML, approve w=0.20, or repeat whole-game runs for numeric candidates yet.
 
 **Current gate:** No new plant HP coefficient has been adopted here; no executable code or production XML changes. Previous predeclared S targets are useful *falsification prompts*, but none becomes an immutable botanical truth merely because it predates a candidate. A single later consolidated 1.6 native acceptance is warranted **after** a defensible candidate matrix and source-level sampler behavior are stable, with 1.7/MO scoped explicitly.
+
+## Correction: duplicated V2 benchmark doses under V3 no-recovery HP model (2026-10-23)
+
+**The old benchmark scenarios are not all independent under V3.** At A=0°C and with no recovery, tomato S02 (−3°C ×8h) and S16 (−1°C ×8h on 3 nights with warm intervals) each deliver **24°C·h**, so their ideal end-of-exposure Plant HP survival is **identical by construction** at every fixed D and per-plant lethal-dose multiplier, regardless of time segmentation. The same is true for pumpkin S23 versus S24 (also 24°C·h each). An implementation's 2000-tick capped last-sample approximation may break exact equality, but that would not provide independent biological evidence. Do **not** count passing both as two independent corroborations, and do **not** add a complex recovery/history system simply to make them differ.
+
+If the provisional uniform individual lethal-dose half-width w=0.20 is retained purely for sensitivity analysis, the combination of the formerly predeclared preferences **algebraically forces fitted doses into narrow windows**:
+
+- Tomato S02 (survival ≤30%) plus S16 (some but not all die), assuming exact continuous exposure: approximately **20.0 < D ≤ 22.22°C·h**, because both deliver 24°C·h.
+- Pumpkin S23 (survival ≤30%) plus S24 (survival 5–90%): approximately **20.34 ≤ D ≤ 22.22°C·h**, again for identical 24°C·h.
+
+Thus the prior D21.5/D22 options sit inside model-driven intervals by design, not because two separate climate/field observations converged. A narrow fitted interval near the chosen population lethality boundary predictably creates the ±0.5°C sensitivity documented above. This is a **validation-design flaw**, not a proof that these crops truly die at those D values. Retire the illusion of independent S02/S16 or S23/S24 acceptance; substitute evidence from genuinely different exposure shapes, realistic growing-season temperature windows, and harvest-yield consequences before recommending values. This is analysis only; the original predeclared targets remain preserved as historical context and no production value is changed.
