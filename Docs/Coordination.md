@@ -1,5 +1,10 @@
 # CCTO Coordination
 
+### CCTO-V3-HARDY-NUMERICAL-SHORTLIST-20261023 — cabbage D240 preferred over D160; onion onset unresolved
+
+**Owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), formal `Docs/ColdDamageHpV3YieldReview.md` (latest numerical review `de7409053fcf4095d5b8d20215d5c67ae5a11fe1`, current `Docs/ColdDamageHpV3Assessment.md` cross-link). **Numerical values NOT approved.** Author-approved design direction remains hardy MO Cabbage/Onion survival and HP-based reduced harvest (not high immediate S04/S20 death). Source-level comparison using MO Cabbage 85 MaxHP and Onion 100 MaxHP + Vanilla `Plant.YieldNow()` rule favors keeping *unapproved* Cabbage **A−3.5/D240**, not earlier weaker D160 (at continuous −8°C×48h: D160 0% survivors; D240 100% for w=0, 75% if optional w=.20). Onion `A−3.5/D120` currently costs 50% HP after fifteen −4°C×8h nights due to **no cold HP regeneration**; propose comparing alternative **A−5/D120** as an onset trial, **not** as accepted XML. Optional dose spread w=.20 has no independently measured physiological width; w=.10 vs .20 changes partial deaths, w=0 is code default. Keep 48 HP candidate tuples/CSV unchanged (46 unapproved, 2 failed hard-frost trials, 30 dormant), production fixed-death XML unchanged. No new gameplay run; exact-source prior 1.6 compile PASS is not numerical approval. The earlier D160 proposal in lower notes is superseded by this bounded owner comparison only.
+
+
 ### CCTO-V3-HARDY-CROP-DIRECTION-20261023 — author-approved survival/yield priority; numeric values UNAPPROVED
 
 **Owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), canonical `Docs/Design.md`, `Docs/ColdDamageBalanceV2Targets.md` V3 supersession, `Docs/ColdDamageHpV3Assessment.md`, `Docs/ColdDamageHpV3YieldReview.md` and unchanged-value `Docs/ColdDamageHpV3Candidates.csv`.
