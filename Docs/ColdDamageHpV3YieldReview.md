@@ -68,3 +68,43 @@ These numbers **cannot be adopted until the corresponding player-facing tradeoff
 - 30 dormancy existing values and 48 fixed-death production XML remain unchanged.
 - No new runtime C#, growing-stage simulation or cold recovery added.
 - No game launch now. The compiled draft's technical PASS does not establish frost/yield balance; acceptance should be consolidated **after** gameplay tradeoffs and remaining species are selected.
+
+## Provisional direction after comparative review — 2026-10-23 (not an XML authorization)
+
+**Propose one baseline to scrutinize next, rather than creating another parallel list of arbitrary doses:**
+
+| Crop | Directionally preferred working profile A / D (°C, °C·h) | Explicit game-facing purpose | Previous comparison ruled out for this purpose |
+|---|---|---|---|
+| MO Tomato | **0 / 21.5** | Brief marginal frost leaves most plants standing; a sustained hard frost destroys most warm-season crop and expected field harvest | D40 treats −3°C×8h as universally survivable (~70% field yield), inconsistent with intended high vulnerability |
+| MO Pumpkin | **0 / 22** | Treat tender *living vine* destruction during strong frost as the injury target, while recognizing existing detached fruit can survive | D40 likewise gives guaranteed vine survival at −3°C×8h, understating warm-season vine sensitivity |
+| MO Cabbage | **−3.5 / 160** | Keep a hardy cool-season crop alive even through a prolonged hard freeze, but penalize its harvest heavily as ordinary HP declines | D96 kills ~81% of plants and reduces field yield to ~10% at −8°C×24h under assumed variation; that would make this winter-usable crop almost as fragile as tender species |
+| MO Onion | **−3.5 / 120** | Favor survival and modest yield loss across repeated marginal frost; permit larger injury only under more severe/prolonged freezes | D60 doubles damage from ordinary repeated cool nights; D18 from prior mortality-only fitting would cause ~34% field yield loss despite all plants surviving |
+
+**Not a claim of accepted numbers:** These are *reviewer-selected working hypotheses* for a **concrete gameplay direction**—tender annuals: strong frost primarily kills, hardy vegetables: first hurt yield and survive. Their onset A, lethal doses D, uniform individual spread w=0.20, sample timing, growth-stage applicability and field difficulty are still unapproved. Critically, the cabbage recommendation no longer meets earlier gameplay preference S04 (≤30% surviving −8°C×24h), and the onion recommendation does not meet S20 (≤30% surviving −6°C×8h). Those *gameplay preferences are NOT lab mortality observations* and **require explicit owner/author review before they can be retired or superseded**. Do not edit \`Docs/ColdDamageHpV3Candidates.csv\` or XML as if the older criteria had already been withdrawn.
+
+### Source-verified MO HP magnitudes, avoiding ungrounded generic plant assumptions
+
+Inspected the original Medieval Overhaul **1.6.2.2** user-provided source archive \`3219596926.zip\`, \`About/About.xml\`, \`1.6/Defs/ThingDefs_Plants/Plants_Cultivated_Farm.xml\` directly. The four \`<statBases><MaxHitPoints>\` declarations are **Tomato 85, Pumpkin 100, Cabbage 85, Onion 100**. Their declared \`plant/harvestYield\` base amounts are **8, 20, 10, 13** respectively. These are exact source XML values *before* any conditional compatibility patch, stat adjustment or active-game factor; never report them as experimentally loaded final HP.
+
+\`Plant.YieldNow()\` in the publicly readable decompiled plant implementation applies \`Mathf.Lerp(0.5f, 1f, HitPoints/MaxHitPoints)\` *after* the crop growth multiplier and before harvest rounding. Using these source HP maxima, truncating integer damage in the same way as the CCTO direct-HP draft (full-HP death if HP reaches 0), integrating hypothetical uniform m∈[0.8,1.2] and assigning **zero yield to destroyed plants**, produces the following **expected fractions of initially undamaged, harvest-ready cohort yield**. They intentionally omit the original game sampler's warm/cold boundaries, other damage, live growth/harvest scheduling and subclass overrides:
+
+| Working crop D | Frost sequence | At **w=0**: survival / whole-field harvest | At **w=0.20**: survival / whole-field harvest |
+|---|---|---|---|
+| Tomato D21.5 | −1°C×2h | 100% / 95.9% | 100% / 95.6% |
+| Tomato D21.5 | −1°C×8h | 100% / 81.8% | 100% / 81.4% |
+| Tomato D21.5 | −3°C×8h | **0% / 0%** | **20.9% / 10.9%** |
+| Pumpkin D22 | −1°C×2h | 100% / 95.5% | 100% / 95.6% |
+| Pumpkin D22 | −1°C×8h | 100% / 82.0% | 100% / 81.8% |
+| Pumpkin D22 | −3°C×8h | **0% / 0%** | **27.3% / 14.3%** |
+| Cabbage D160 | −4°C×8h, 5 nights | 100% / 94.1% | 100% / 94.0% |
+| Cabbage D160 | −8°C×24h | 100% / 66.5% | 100% / 66.1% |
+| Onion D120 | −4°C×8h, 3 nights | 100% / 95.0% | 100% / 95.2% |
+| Onion D120 | −6°C×8h | 100% / 92.0% | 100% / 91.8% |
+
+When **w=0** (the code's default), no field-level individual variability exists, so four similar plants with identical HP/experience may die simultaneously at a severe threshold. The hypothetical **w=0.20** is useful to compare a less abrupt field outcome, but the 20% value has no species-specific empirical calibration. A decision to use variation is distinct from choosing A/D, and remains pending.
+
+**External interpretation anchors:** [UMN Extension crop frost categories](https://extension.umn.edu/vegetable-growing-guides-farmers/crop-and-field-planning-tools-vegetable-farmers) and [UMN season/frost calendar](https://extension.umn.edu/garden-and-home/yard-and-garden/gardening-in-minnesota/planting-vegetables-in-midsummer-for-fall-harvest) classify tomato/winter squash as frost-sensitive and cabbage as hardy. [UMD Extension pumpkin harvest guidance](https://extension.umd.edu/resource/growing-pumpkins-home-garden) separates vine death from fruit injury. [UGA Extension onion production](https://extension.uga.edu/publications/detail.html?number=B1198&title=onion-production-guide) reports light-to-heavy frost tolerance in one growing system but damage from hard freezes. These **do not** provide a universal lethal-dose in game-degree-hours, nor resolve variety, planting stage or a seasonal temperature series.
+
+### Narrow remaining choice and stop
+
+The four-crop *direction* is reasonably distinguishable without any new gameplay subsystem. **Do not expand to 48 independent fitted species coefficients, write production XML, or trigger game CI before an actual user decision on the hard-freeze balance tradeoff and individual-dose variation**. Preserve the previous independent target table as evidence of earlier requested gameplay direction. After the user selects the tradeoff, reconcile that choice with S04/S20 in formal \`Docs/ColdDamageBalanceV2Targets.md\` and its current V3 assessment, then adjust the single formal candidate CSV and proceed with the remaining plant groups. This addendum records a recommended *review direction only*.
