@@ -69,7 +69,7 @@ The **hardy-crop survival/yield direction was approved on 2026-10-23**, but **th
 - No new runtime C#, growing-stage simulation or cold recovery added.
 - No game launch now. The compiled draft's technical PASS does not establish frost/yield balance; acceptance should be consolidated **after** gameplay tradeoffs and remaining species are selected.
 
-## Provisional direction after comparative review — 2026-10-23 (not an XML authorization)
+## Earlier provisional direction — 2026-10-23 (superseded below; not an XML authorization)
 
 **Propose one baseline to scrutinize next, rather than creating another parallel list of arbitrary doses:**
 
@@ -108,3 +108,28 @@ When **w=0** (the code's default), no field-level individual variability exists,
 ### Narrow remaining choice and stop
 
 The author has resolved cabbage/onion's **gameplay direction**: hardy crops should generally survive representative hard frost while losing HP and yield. The formal V3 S04/S20 goals and candidate CSV have been reconciled. The illustrative D160/D120 and their onset temperatures remain unapproved; optional individual-dose variation and natural-season consequences require review. Preserve historical comparisons, proceed to other crop groups, and avoid copying any unapproved V3 trial into production XML or launching game CI merely because the direction is approved.
+
+## Updated hardy-crop numeric comparison (2026-10-23)
+
+**REVIEW ONLY — numerical approval still open.** Author approved hardy cabbage/onion survival and HP-related reduced harvest, NOT their temperature onset, lethal dose or dose spread. The earlier recommendation of cabbage D160 is superseded here. Each figure assumes ideal constant plant ambient temperature (2500 ticks/hour), undamaged mature harvestable plants, MO 1.6.2.2 MaxHP cabbage 85/onion 100, integer HP loss, no other damage or healing; living harvest uses the normal Plant.YieldNow() HP multiplier, dead yield zero. This is not a live weather/plant test.
+
+| Trial crop / event | w=0: survival / field yield | w=.20: survival / field yield |
+|---|---|---|
+| Cabbage A−3.5/D160, −8°C ×24h | 100% / 66.5% | 100% / 66.1% |
+| Cabbage A−3.5/D240, −8°C ×24h | 100% / 77.6% | 100% / 77.5% |
+| Cabbage A−3.5/D160, −8°C ×48h | **0% / 0%** | **0% / 0%** |
+| Cabbage A−3.5/D240, −8°C ×48h | 100% / 55.3% | 75% / 42.9% |
+| Cabbage A−3.5/D240, −10°C ×24h | 100% / 67.6% | 100% / 67.3% |
+| Onion original A−3.5/D120, −4°C ×8h, 15 nights | 100% / 75% | ≈100% / 75% |
+| Onion alternative A−5/D120, same nights | 100% / 100% | 100% / 100% |
+| Onion original A−3.5/D120, −6°C ×24h | 100% / 75% | ≈100% / 75% |
+| Onion alternative A−5/D120, −6°C ×24h | 100% / 90% | 100% / 90.1% |
+| Onion alternative A−5/D120, −10°C ×24h | **0% / 0%** | 50% / 27.3% |
+
+**Narrowed comparison preference, NOT approval:** retain the currently unapproved **cabbage A−3.5/D240**, rather than replacing D240 with D160. D240 already causes meaningful −8°C×24h damage while resisting immediate wholesale wipeout over 48h. Inspect **onion A−5/D120** as a new option against the unchanged unapproved A−3.5/D120; original onset charges −4°C×8h for 30 nights as 120°C·h, meaning median **complete Plant HP loss** despite supposed overwinter resilience.
+
+Relevant independent context: [Croatian winter cabbage field study](https://acs.agr.hr/en/issues/article/36) documents seasonal field persistence and greater damage near −10°C, and [Japanese winter cabbage leaf LT50 study](https://www.jstage.jst.go.jp/article/agrmet1943/49/2/49_2_91/_article/-char/ja/) finds acclimation-sensitive tissue tolerance, **not whole-plant mortality**. [Virginia Tech onion guidance](https://welbaum.spes.vt.edu/seedproduction/onion.html) differentiates frost tolerance from prolonged deep freezing, and [UGA guidance](https://extension.uga.edu/publications/detail.html?number=B1198&title=onion-production-guide) cautions about hard-freeze bulb/growth damage. These do not provide valid measured game-degree-hour A or D values.
+
+**Variation ±20% not independently justified:** it provides staggered population death but also changes expected field yield near lethal doses. Under cabbage A−3.5/D240 at −8°C×48h, w=0 and w=.10 both predict 100% survival, whereas w=.20 predicts 75%. At a symmetric exact full-dose threshold, both w=.10 and w=.20 yield roughly 50% survival; that case cannot select the width. Keep implementation default **w=0**, and w=.20 as an explicitly **unapproved gameplay hypothesis** (not a scientific LT50 distribution). Do not enable a universal variation width or copy any HP tuple into production XML on this analysis alone.
+
+**Unchanged:** all 48 V3 candidate tuples and their status, 30 dormancy defs and production 48 legacy fixed-death entries. Original game temperature sampling, seasonal sow/harvest, integer rounding interactions and save/HP behavior still require consolidated later acceptance, not an extra native run for each balance guess.
