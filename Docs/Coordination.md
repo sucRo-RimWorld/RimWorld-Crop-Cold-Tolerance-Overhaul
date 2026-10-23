@@ -1,5 +1,16 @@
 # CCTO Coordination
 
+### CCTO-V3-TENDER-AD-CANDIDATES-APPROVED-20261023 — 4 selected A/D candidates; variation still pending
+
+**Source owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31); canonical `Docs/ColdDamageHpV3Candidates.csv`, `Docs/Design.md`, `Docs/ColdDamageBalanceV2Targets.md`, `Docs/ColdDamageHpV3Assessment.md`, and `Docs/ColdDamageHpV3YieldReview.md`.
+
+**New author choice (2026-10-23):** Approve **numeric A/D candidate fields ONLY** for MO Tomato `DankPyon_Plant_Tomatoes`: **A=0°C / D=21.5°C·h**, and MO Pumpkin `DankPyon_Plant_Pumpkins`: **A=0°C / D=22°C·h**. This chooses the former reviewer first-choice combinations, not −0.5°C mild-frost alternatives. They replace original trial D60/D68 that failed the predeclared severe-frost gameplay comparisons; that *historical* failure must not remain an active status for the new values. Approved numeric candidate fields now total **4 HP species**: Tomato A0/D21.5, Pumpkin A0/D22, MO Cabbage A−3.5/D240 and MO Onion A−5/D120. Remaining **44** HP A/D are `UNAPPROVED_HP_TRIAL`; 30 dormancy remain `KEEP_EXISTING_DORMANCY`. No current CSV `FAILED_PREDECLARED_FROST_GOALS` rows (historical failure records remain in older analysis sections).
+
+**Not authorized:** All four CSV rows still contain **unapproved lethal_dose_variation=0.20**; this field is a trial comparison and NOT part of the author's A/D approval. Framework default w=0; no individual width is author-selected, nor universal .20 rollout. Strong-frost median survival calculations of ~20.9% tomato and ~27.3% pumpkin assume unapproved w=.20; with w=0 ideal severe −3°C×8h is 0% survival for both. S02/S16 and S23/S24 repeat the same integrated 24°C·h and are **not independent mortality evidence**. No production XML/opt-in, C# edit, release or native original-game PASS. Preserve Draft PR #31 and consolidate native 1.6 HP/harvest/tick/Scribe acceptance only near actual release.
+
+**Older handoffs below are superseded insofar as they say tomato/pumpkin choices are pending or only two A/D candidates had been selected.**
+
+
 ### CCTO-V3-TENDER-FROST-CHOICE-20261023 — tomato/pumpkin A-D-width decision pending
 
 **Owner:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), authoritative `Docs/Design.md` V3 tomato/pumpkin selection boundary, `Docs/ColdDamageHpV3YieldReview.md` tender-annual section, `Docs/ColdDamageHpV3Assessment.md`. **No new A/D/w author approval yet** beyond previously selected Cabbage A−3.5/D240 and Onion A−5/D120 candidate fields.
