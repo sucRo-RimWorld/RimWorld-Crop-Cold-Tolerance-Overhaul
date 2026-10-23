@@ -141,3 +141,16 @@ If the provisional uniform individual lethal-dose half-width w=0.20 is retained 
 - Pumpkin S23 (survival ≤30%) plus S24 (survival 5–90%): approximately **20.34 ≤ D ≤ 22.22°C·h**, again for identical 24°C·h.
 
 Thus the prior D21.5/D22 options sit inside model-driven intervals by design, not because two separate climate/field observations converged. A narrow fitted interval near the chosen population lethality boundary predictably creates the ±0.5°C sensitivity documented above. This is a **validation-design flaw**, not a proof that these crops truly die at those D values. Retire the illusion of independent S02/S16 or S23/S24 acceptance; substitute evidence from genuinely different exposure shapes, realistic growing-season temperature windows, and harvest-yield consequences before recommending values. This is analysis only; the original predeclared targets remain preserved as historical context and no production value is changed.
+
+## Reference comparison with existing instant-death XML (2026-10-23)
+
+The same original **1.6 TemperateForest tile 2851 hourly world/calendar** shows how idealized V3 affects time to **whole-plant death versus existing published fixed-death thresholds**. These are not loaded plant death observations, actual map weather/plant ambient temperatures, or assumed viable sow/harvest windows. The time-of-day interpolation/2000-tick sampler and individual HP/other damage can shift results.
+
+| Plant | Current production fixed-death T, first crossing day | Existing V3 trial D, 100% median integrated HP-loss day | Smaller-D *unapproved* example, 100% median integrated HP-loss day |
+|---|---|---|---|
+| Tomato | −1°C, day 24 | D60, day 27 | D21.5, day 26 |
+| Pumpkin | −1°C, day 24 | D68, day 27 | D22, day 26 |
+| Cabbage | −6°C, day 27 | D240, day 31 | D96, day 29 |
+| Onion | −3°C, day 26 | D120, day 29 | D18, day 28 |
+
+This means those illustrative smaller-D cases still provide a delay in **fatal** cold injury compared with existing instant-death XML at this single world-calendar site, **but they cause irreversible HP damage and reduced harvest yield before dying**, so they are not necessarily easier or harder overall. This single 60-day calendar cannot rank comparative in-game difficulty without sow date, crop growth, season length, shelter, actual weather and ordinary health/yield effects. Do not promote the example Ds on this basis.
