@@ -5,7 +5,7 @@ using Verse;
 
 namespace CropColdToleranceOverhaul
 {
-    // Only timing and sub-HP rounding remainder are stored.
+    // Store observation timing, cold/warm boundary state and sub-HP remainder.
     // Actual cold injury is ordinary visible Plant HitPoints damage.
     public sealed class ColdDamageMapComponent : MapComponent
     {
