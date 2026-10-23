@@ -154,3 +154,17 @@ The same original **1.6 TemperateForest tile 2851 hourly world/calendar** shows 
 | Onion | −3°C, day 26 | D120, day 29 | D18, day 28 |
 
 This means those illustrative smaller-D cases still provide a delay in **fatal** cold injury compared with existing instant-death XML at this single world-calendar site, **but they cause irreversible HP damage and reduced harvest yield before dying**, so they are not necessarily easier or harder overall. This single 60-day calendar cannot rank comparative in-game difficulty without sow date, crop growth, season length, shelter, actual weather and ordinary health/yield effects. Do not promote the example Ds on this basis.
+
+## Additional high-priority experimental cohort mismatches (2026-10-23)
+
+Before reviewing the other 44 unapproved profiles, prioritize these **three distinct evidence/model mismatch risks**. They do not establish acceptable replacements and they cannot be fixed by inventing hidden conditioning coefficients.
+
+| Profile (original V3 A,D) | Independent prior evidence | Unmodified V3 ideal model prediction | Limit |
+|---|---|---|---|
+| MO Corn A=0°C, D=64°C·h, w=0.20 | Buican (1969) mortality results summarized in Lindsey et al. (2024): ~50% death at −2°C ×48h, and ~50% at −6°C ×2h | First exposure E=96°C·h, **all individuals die**; second E=12°C·h, **all survive** (dose range 51.2–76.8°C·h) | Fails both paired approximate mortality endpoints; the study spans maize plant stage/tissue contexts not represented by CCTO. Do not fit a near-knife-edge onset to enforce them. |
+| Vanilla Rice A=+3°C, D=60°C·h | Sagehashi et al. (2023): 4°C ×10d seedlings, conditioned vs unconditioned survival differs sharply | At +4°C (>A), **zero CCTO cold HP loss regardless of duration** | Cannot reproduce unacclimated seedling long-chill mortality; also cannot reproduce acclimated and unacclimated outcomes simultaneously with fixed parameters |
+| MO Wheat A=−7°C, D=200°C·h | W13 non-acclimated whole-seedling −3°C/−5°C ×24h results in prior Targets; acclimated cohorts survive differently | At −3°C and −5°C (both >A), **zero CCTO cold HP loss** | Does not reproduce unacclimated study; generic wheat intentionally lacks conditioning/cultivar-stage state, so a single laboratory curve is not an appropriate numeric lock |
+
+Evidence references: [Lindsey et al., Crop Science 2024, doi:10.1002/csc2.21212](https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.21212); [Sagehashi et al., 2023, doi:10.1080/1343943X.2023.2236344](https://www.tandfonline.com/doi/full/10.1080/1343943X.2023.2236344). Wheat source provenance and cohort separation are preserved in \`Docs/ColdDamageBalanceV2Targets.md\` and existing \`Docs/Research/WinterWheatW13*.csv\`.
+
+**Disposition:** retain these values only as *unapproved gameplay placeholders* and mark the experiments as evidence of lossiness. Do not present coverage, compiler PASS or approximation as biological calibration. A simpler static two-value model is still preferred to stage acclimation simulation; the explicit design choice is which ordinary gameplay outcome it represents, not exact fidelity to mutually incompatible cohorts. No actual XML numeric change has been approved.
