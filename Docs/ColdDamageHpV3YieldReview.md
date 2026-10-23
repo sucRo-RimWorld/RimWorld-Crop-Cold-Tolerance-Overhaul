@@ -187,3 +187,48 @@ These intervals are **calculated from D(1±w)/(A−T)**, not an independent free
 - At exactly E=D and any symmetric nonzero width, around 50% survival is *automatic from the chosen distribution*, not empirical support for either width. Combined cohort **survival and harvest**, rather than mortality alone, is the meaningful player-facing test.
 
 **Provisional review policy (NOT author acceptance):** Retain **w=0 in production/framework defaults**; use **w=.10 as the first optional comparison for hardy crops** and **w=.20 only as a targeted tender annual comparison** if a mixed survival outcome is explicitly desired. No species' w has been approved, and no candidate CSV coefficient, C# engine, Def XML or release has been changed by this review. If actual map temperature/microclimate naturally staggers death enough, adding any artificial within-species lethal-dose spread may provide insufficient gameplay value to justify using it.
+
+## Tender-annual A/D/variation combination review (2026-10-23)
+
+**CURRENT DECISION: comparative shortlist only; Tomato/Pumpkin A/D and w remain unapproved.** The author authorized continuing balancing, **not selecting a numerical profile**. Historical V2 severe-frost preferences S02/S23 and the partial-survival S16/S24 remain game-design prompts; since CCTO has **no special HP recovery**, S02 vs S16 and S23 vs S24 are **not independent mortality evidence**: each pair has equal 24°C·h when A=0°C. Do not call two passed cases two independent confirmations of accuracy.
+
+### Plausible tender-annual combinations and player-visible tradeoff
+
+Use the original MO 1.6.2.2 MaxHP 85 Tomato / 100 Pumpkin, normal Plant.YieldNow() HP reduction, integer injury, uniform deterministic per-plant dose multiplier for w=.20 and an ideal constant-temperature reading. Full-field yield includes zero harvest for plants dead before harvest. This is **model math**, not a measured LT50, game load or a proof of an actually frost-exposed mature plant.
+
+| Crop, **all unapproved** | A (°C) / D (°C·h) / w | −0.25°C ×8h alive / yield | −1°C ×2h alive / yield | −1°C ×8h alive / yield | −3°C ×8h alive / yield |
+|---|---|---|---|---|---|
+| Tomato first-choice reviewer profile | **0 / 21.5 / .20** | 100% / 95.6% | 100% / 95.6% | 100% / 81.4% | **20.9% / 10.9%** |
+| Tomato lower-onset counterfactual | **−0.5 / 18 / .20** | 100% / 100% | 100% / 97.5% | 100% / 89.0% | 22.2% / 11.6% |
+| Pumpkin first-choice reviewer profile | **0 / 22 / .20** | 100% / 95.6% | 100% / 95.6% | 100% / 81.8% | **27.3% / 14.3%** |
+| Pumpkin lower-onset counterfactual | **−0.5 / 18.5 / .20** | 100% / 100% | 100% / 97.5% | 100% / 89.3% | 29.7% / 15.7% |
+
+The existing first-choice A=0 option explicitly interprets **frost-temperature air exposure** as accumulating damage in a living plant. The alternative A=−0.5 option avoids harm under weak −0.25°C frost and cuts the −1°C×8h yield loss nearly in half while retaining similar severe −3°C×8h mortality. That distinction is an important **player-facing mild-frost priority**, not something the old hard-frost 70%-mortality target can settle.
+
+### Width requirement for a mixed field at the old hard-frost test
+
+At **A=0°C** and −3°C×8h, every plant accrues 24°C·h. With D21.5 Tomato, a theoretical field can retain *any* full-HP survivor at that event **only if w > 24/21.5−1 ≈ 0.1163**. With D22 Pumpkin, the corresponding threshold is **w > 24/22−1 ≈ 0.0909**. Therefore w=.10 predicts **0%** survivors in Tomato and only **about 4.5%** in Pumpkin, while w=.20 predicts the 20.9% / 27.3% above. These are mathematical dependencies of the selected A/D versus a *gameplay-selected* event, **not measured individual-level cold-tolerance dispersion**.
+
+Other possible w/D combinations can of course yield partial mortality; w=.20 is not uniquely implied by independent evidence. The fixed deterministic Thing-ID rank avoids extra RNG and is already implemented. The biological distributions may be nonlinear or asymmetric and depend on developmental stage, cultivar and duration, so do not claim that the uniform ±20% is a scientifically calibrated universal coefficient.
+
+### Check against original RimWorld 1.6 world climate, not just a laboratory-shaped single night
+
+Reused the *original licensed 1.6* world/tile climate artifact (Project [Actions #39776410000](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000), downloadable original CSV artifact 12424418617, source data SHA256 `6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5`). Specifically, TemperateForest tile 2851's **60-day hourly world temperature calendar**, *not* live map ambient/weather and *not* a 60-day TickList/crop-growth simulation. At 2500 game ticks per hour and no cold recovery, the first hours under A=0 arrive on **day 24**. Hypothetically keeping full-HP mature plants outside and not harvesting them gives:
+
+| End of calendar day | Tomato A0/D21.5/w=.20 | Tomato A−0.5/D18/w=.20 | Pumpkin A0/D22/w=.20 | Pumpkin A−0.5/D18.5/w=.20 |
+|---|---|---|---|---|
+| Day 24 | 100% survive / 91.1% yield | 100% / 92.5% | 100% / 91.3% | 100% / 92.7% |
+| Day 25 | **80.3% / 46.3%** | **100% / 60.5%** | **85.3% / 49.6%** | **100% / 61.5%** |
+| Day 26 | 0% / 0% | 0% / 0% | 0% / 0% | 0% / 0% |
+
+**Interpretation:** A0 starts destroying exposed field harvest rapidly around the first severe autumn frost; shifting onset to −0.5 softens marginal-frost loss without allowing unharvested summer plants to survive winter in this single sampled climate. Neither output measures actual crop season or author-approved target. Seasonal timing may vary radically with longitude/latitude, Vanilla weather, indoor crops, MO season limits and sow date. **The sparse 2000-tick current-temperature sampler may disagree with any of these continuous-temperature estimates**, so no w/A/D combination may be declared native-valid from this calendar.
+
+### Agronomic endpoints and bounded recommendation
+
+- [Ontario Ministry of Agriculture, tomato temperature effects](https://www.ontario.ca/page/extreme-temperature-effects-tomato-and-pepper-crops): tomato frost causes wilt/necrosis; actual freezing depends on plant condition, thaw, wind, cover and duration; frost at 0°C air does not *always* damage crops. Chilling (0–5°C) also has different nonlethal effects. These do not establish a hard universal A0 or LT100 dose.
+- [Field tomato winter survival study (2021)](https://pmc.ncbi.nlm.nih.gov/articles/PMC8761588/): Japanese outdoor tomato comparison observed frost-associated dieback across days with freezing lows down to −5.3°C, but not single-night −3°C×8h mortality. Do not mislabel this as calibrated dose-rate evidence.
+- [University of Maryland Extension, growing pumpkins](https://extension.umd.edu/resource/growing-pumpkins-home-garden): light frost **can kill growing vines while mature fruits remain usable**; an already harvested fruit is not a CCTO living Plant. [Iowa State Extension (2024)](https://yardandgarden.extension.iastate.edu/faq/when-should-i-harvest-my-pumpkins) likewise distinguishes first vine-killing light frost from detached mature fruit. Thus choosing weaker onset to protect pumpkin vines from −0.25°C may conflict with vine fragility even if it improves late autumn harvest in game.
+
+**Reviewer shortlist, NOT approved by author:** Retain **Tomato A0/D21.5** and **Pumpkin A0/D22** as the *first* A/D numeric candidates for explicit author decision. If **the actual user goal is to protect crops from the mildest frost** rather than reflect vine damage, the lower-onset **A−0.5/D18** and **A−0.5/D18.5** remain defensible *alternatives* for game balance. For either first choice, **w=.20 is a separately unapproved tentative gameplay width** to avoid all-plant simultaneous deaths at the artificial strong-frost target; w=.10 has no tomato survivors in that target. Avoid pretending any tuple is empirically precise. Prefer one focused real-game frost/yield confirmation during consolidated V3 testing **after author numerical selections**, not new tests now.
+
+**No adoption has occurred:** keep the official CSV's Tomato A0/D60 and Pumpkin A0/D68 with `FAILED_PREDECLARED_FROST_GOALS`, the two previously author-selected hardy A/D profiles, current unapproved spread values, 30 dormancy definitions, C# and production XML exactly as before.
