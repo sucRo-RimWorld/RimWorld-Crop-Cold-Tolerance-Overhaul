@@ -137,3 +137,40 @@ At w=0 (C# framework default), initial full HP, ideal constant ambient air tempe
 - **Important caveat about Sugarcane:** LSU observations report multi-night **field** freezing at diverse minimum temperatures, not eight uniform hours at one temperature. Proposed D24's exact fatal point at −6°C×8h is an author-review gameplay endpoint, **not source-measured eight-hour LT100**. A sharper/softer D would require author review against season duration and actual field exposure. The current D90 is not source-derived either.
 - **Separate variation decision:** w=.20 remains unapproved in every candidate CSV row; these percentages use w=0. No new crop physiological state machines, air-to-soil conversion, forced HP regeneration, production XML, source code or native gameplay tests.
 - **Status:** All four rows **remain \`HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED\` in the official candidate CSV** despite a reviewer selecting a *representative static-Plant endpoint*; material source-to-game simplifications and the proposed values have not yet been author-approved. The 4 selected A/D / 9 HOLD / 35 other unapproved / 30 dormancy totals are unchanged. These alternatives are **not silently copied into CSV**. If the author later accepts the representative endpoints and numerical compromise, update each canonical CSV row and current criterion status before any implementation or test.
+
+## Latest 2026-10-24 A/D authority and lentil/sugarcane residual uncertainty
+
+**Later author decision supersedes the "four rows remain HOLD" disposition above for two plants ONLY.** MO Carrot `DankPyon_Plant_Carrots` **A−7°C / D170°C·h** and Vanilla Cotton `Plant_Cotton` **A0°C / D48°C·h** were selected by the author as **numeric V3 A/D candidates**, based on the source-conscious *edible root* and *productive crop with freeze injury, not nonfreezing chilling* gameplay proxies. Their old onset temperatures A−5 and A+2 are superseded; D and trial w=.20 are unchanged. This numeric selection is NOT a plant-scale laboratory lethal-dose finding, authorization to apply production XML, actual loaded-game yield/HP acceptance or w=.20 approval. Formal status in [V3 candidate CSV](../ColdDamageHpV3Candidates.csv) is `APPROVED_A_D_CANDIDATE_VARIATION_PENDING` for these two.
+
+**The other two were not approved:** MO Lentil stays **A−5/D120** and MO Sugarcane stays **A+2/D90**, each `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED`. A−4/D120 and A−3/D24 below remain only numerical thought experiments; neither should be exported as a patch.
+
+### Lentil: avoid confusing green-stage basal-node regrowth with permanent frost injury
+
+[**Saskatchewan Pulse Growers' crop-specific lentil guidance**](https://saskpulse.com/resources/seeding-tips-for-pulse-crops/) states **lentil seedlings have survived frost at −4 to −6°C**, and a killed main shoot can regrow from **belowground scale nodes**. [Saskatchewan Government red lentil crop guide](https://www.saskatchewan.ca/business/agriculture-natural-resources-and-industry/agribusiness-farmers-and-ranchers/crops-and-irrigation/field-crops/pulse-crop-bean-chickpea-faba-bean-lentils/red-lentils) likewise describes low scale-node regrowth and emphasizes **cool-season** field use. These are **seedling frost minima with post-frost regrowth**, not measured whole-lentil survival under an 8h constant −6°C game-ambient, and not yield percentages.
+
+| Lens / exposure (ideal constant air; w=0) | Current HOLD A−5/D120: HP loss / hypothetical surviving harvest | Earlier comparison A−4/D120 | Interpretation |
+|---|---|---|---|
+| −4°C×8h | 0% / 100% | 0% / 100% | Both spare ordinary weak frost |
+| −5°C×8h | 0% / 100% | 6.7% / 96.7% | No actual plant-death percent documented |
+| −6°C×8h | 6.7% / 96.7% | 13.3% / 93.3% | Lower onset creates greater permanent damage during a frost many seedlings survive |
+| −8°C×8h, 3 nights | 60% / 70% | 80% / 60% | Repeated permanent injury likely over-penalizes real regrowth; no special HP healing in V3 |
+
+**Bounded reviewer direction, not a numeric acceptance:** For an ordinary field-green annual, **retaining A−5/D120 for further comparison may be safer than A−4/D120**, precisely because V3 has no cold-only healing. The earlier reviewer A−4 first-choice is now **withdrawn as preferred** (retained for contrast). D120 still lacks measured whole-crop evidence; after a prolonged severe frost both proposed models may kill a crop from HP exhaustion and the game cannot separately regrow a lost main shoot. Neither seed LT50 nor conditioned hardiest cultivar proves a generic A/D. Lentil remains unsowable under **AMJ Agriculture's separate Japanese mainland crop exclusion**, but CCTO must keep its original MO lentil definition supported for generic MO games.
+
+### Sugarcane: tested stalk-damage evidence narrows the tradeoff, NOT a universal death dose
+
+**More discriminating than the earlier broad bands:** [LSU AgCenter's stalk freeze table (2015)](https://www.lsuagcenter.com/MCMS/RelatedFiles/%7BBB9E504C-EEAD-4D0C-8249-C67F42F775AA%7D/2015.pdf) explicitly assumes **8–12h of freezing**: above −2.2°C only tender leaves/terminal buds slightly hurt; around −2.8 to −3.9°C the top portion of stalk/growing points and buds are affected; around −4.4 to −5.6°C most stalk tissue can be killed; **below −5.6°C all stalk tissue dies**. This document is an agricultural **stalk injury/decomposition guide**, not an experimental controlled whole-ratoon survival rate curve. Supporting [LSU 2001 on-farm crop-year report](https://www.lsuagcenter.com/portals/communications/publications/agmag/archive/2001/fall/resistance-of-louisiana-sugarcane-to-deterioration-from-freezing-temperatures) reports **several actual 8–15h freezes**, including minimum −4.4°C in the later event, with deterioration over following weeks and differences among 6 commercial varieties.
+
+**Three hypothetical A−3°C dose variants to decide against player severity, none selected:**
+
+| Sugarcane constant-air event, w=0 | Current HOLD A+2/D90: HP loss / alive-harvest | A−3/D24 (earlier reviewer) | A−3/D36 (gentler sensitivity) |
+|---|---|---|---|
+| 0°C×8h | 17.8% / 91.1% | 0% / 100% | 0% / 100% |
+| −4°C×8h | 53.3% / 73.3% | 33.3% / 83.3% | 22.2% / 88.9% |
+| −4°C×8h, 3 nights | 100% / 0% | 100% / 0% | 66.7% / 66.7% |
+| −5°C×8h | 62.2% / 68.9% | 66.7% / 66.7% | 44.4% / 77.8% |
+| −6°C×8h | 71.1% / 64.4% | 100% / 0% | 66.7% / 66.7% |
+
+**Assessment:** An injury onset near **A−3** better matches productive-cane *stalk* damage than original A+2; strong loss of aboveground stalk near −6°C may justify D24 *as gameplay*, but **D36** gives a much less unforgiving three-frost sequence and still significant strong-freeze losses. The **published 8–12h frost assumption is not proof of eight uniform hours at the daily minimum**, and source dead aboveground stalks are not dead perennial underground ratoon/whole Plant. A−3/D24 *and* D36 are **HOLD comparisons**. Neither is a user-approved numeric A/D tuple; do not pick a D by forcing an invented 100% mortality endpoint to pass. A modest per-plant variation w is a separate decision and **w=.20 cannot be used to rationalize unsupported A/D**.
+
+**Current 78-row status after author selection:** 6 `APPROVED_A_D_CANDIDATE_VARIATION_PENDING` (previous Tomato/Pumpkin/Cabbage/Onion plus Carrot/Cotton), **7 HOLD** (Rice/Potato/Corn/Strawberry/Wheat/Lentil/Sugarcane), **35 `UNAPPROVED_HP_TRIAL`**, 30 unchanged dormancy. Only Carrot and Cotton changed their actual CSV **candidate onset** fields. No C#, published XML, old-save conversion, native RimWorld session or variation activation. The laboratory and field sources are context for the *direction*, not a claim that game-hour lethality coefficients have been measured.
