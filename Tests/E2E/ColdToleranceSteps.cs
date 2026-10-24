@@ -27,6 +27,11 @@ namespace CropColdToleranceOverhaul.E2E
                 "madeLeaflessTick",
                 BindingFlags.Instance | BindingFlags.NonPublic);
 
+        private static readonly FieldInfo ColdDamageStatesField =
+            typeof(ColdDamageMapComponent).GetField(
+                "states",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+
         [Then("loaded Core living plant Defs match the CCTO balance table")]
         public void AssertLoadedVanillaBalanceDefs(PickleContext ctx)
         {
@@ -333,6 +338,22 @@ namespace CropColdToleranceOverhaul.E2E
             ctx.Assert(
                 infinite.ConfigErrors().Count() == 1,
                 "An infinite death temperature should report one configuration error.");
+
+            ColdToleranceExtension recovery = new ColdToleranceExtension();
+            recovery.coldDeathTemperature = -15f; // Legacy fallback remains legal.
+            recovery.coldDamageStartTemperature = -5f;
+            recovery.coldDamageDegreeHoursToDie = 10f;
+            foreach (float invalid in new[] { -0.1f, float.NaN, float.PositiveInfinity, float.NegativeInfinity })
+            {
+                recovery.coldDamageRecoveryPerHour = invalid;
+                ctx.Assert(
+                    !recovery.HasColdDamageModel && recovery.ConfigErrors().Count() == 1,
+                    "Invalid cold injury recovery must not activate the opt-in model.");
+            }
+            recovery.coldDamageRecoveryPerHour = 0f;
+            ctx.Assert(
+                recovery.HasColdDamageModel && !recovery.ConfigErrors().Any(),
+                "Zero recovery must retain a valid cumulative cold injury model.");
         }
 
         [Then("CCTO Info Card stat construction matches fixed-death and dormancy configuration")]
@@ -411,6 +432,41 @@ namespace CropColdToleranceOverhaul.E2E
                 ctx,
                 minimumGrowthTemperature,
                 extension);
+        }
+
+
+        // Test-only approximation: never patch real balance Defs in the release.
+        [Given("a cumulative CCTO test plant with minimum growth {float} onset {float} dose {float} recovery {float}")]
+        public void SpawnCumulativeColdPlant(
+            PickleContext ctx,
+            float minimumGrowthTemperature,
+            float onset,
+            float lethalDegreeHours,
+            float recoveryPerHour)
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDamageStartTemperature = onset;
+            extension.coldDamageDegreeHoursToDie = lethalDegreeHours;
+            extension.coldDamageRecoveryPerHour = recoveryPerHour;
+            ctx.Require(extension.HasColdDamageModel,
+                "Test cumulative model configuration must be valid.");
+            ConfigureAndSpawn(ctx, minimumGrowthTemperature, extension);
+        }
+
+        [Given("a dormant cumulative CCTO test plant with minimum growth {float} onset {float} dose {float}")]
+        public void SpawnDormantCumulativeColdPlant(
+            PickleContext ctx,
+            float minimumGrowthTemperature,
+            float onset,
+            float lethalDegreeHours)
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDormancy = true;
+            extension.coldDamageStartTemperature = onset;
+            extension.coldDamageDegreeHoursToDie = lethalDegreeHours;
+            ctx.Require(extension.HasColdDamageModel,
+                "Test combined dormancy + cumulative model must be valid.");
+            ConfigureAndSpawn(ctx, minimumGrowthTemperature, extension);
         }
 
         [When("I set the CCTO test outdoor temperature to {float}")]
@@ -553,6 +609,37 @@ namespace CropColdToleranceOverhaul.E2E
                 "Plant.CheckMakeLeafless was not found.");
 
             check.Invoke(plant, null);
+        }
+
+
+        [When("I simulate {int} ticks between CCTO damage observations")]
+        public void SimulateDamageObservation(PickleContext ctx, int elapsedTicks)
+        {
+            ctx.Require(elapsedTicks > 0 && elapsedTicks <= 2000,
+                "Only one already-supported bounded observation interval is allowed.");
+            ColdDamageRecord record = RequireDamageRecord(ctx);
+            // Only the clock stamp is adjusted; the loaded plant, room
+            // temperature, Harmony postfix and map component are real.
+            // This is not proof of actual timed game-loop delivery.
+            record.lastTick = Find.TickManager.TicksGame - elapsedTicks;
+            ForcePlantColdCheck(ctx);
+        }
+
+        [Then("the CCTO damage record is zero at first observation")]
+        public void AssertInitialDamageZero(PickleContext ctx)
+        {
+            ColdDamageRecord record = RequireDamageRecord(ctx);
+            ctx.Assert(Math.Abs(record.damage) < 0.0001f,
+                "First cold observation must not retrospectively charge exposure.");
+        }
+
+        [Then("the CCTO damage fraction is between {float} and {float}")]
+        public void AssertColdDamageRange(PickleContext ctx, float minimum, float maximum)
+        {
+            ColdDamageRecord record = RequireDamageRecord(ctx);
+            ctx.Assert(record.damage >= minimum && record.damage <= maximum,
+                "Cold damage must be between " + minimum + " and " + maximum
+                + ", actual=" + record.damage + ".");
         }
 
         [Then("the CCTO test plant is alive")]
@@ -1126,6 +1213,22 @@ namespace CropColdToleranceOverhaul.E2E
                 map != null,
                 "CCTO E2E scenario requires a live current map.");
             return map;
+        }
+
+
+        private ColdDamageRecord RequireDamageRecord(PickleContext ctx)
+        {
+            ctx.Require(ColdDamageStatesField != null,
+                "CCTO damage state reflection field was not found.");
+            Plant plant = RequireTestPlant(ctx);
+            Map map = RequireCurrentMap(ctx);
+            var component = map.GetComponent<ColdDamageMapComponent>();
+            ctx.Require(component != null, "CCTO cold damage map component missing.");
+            var states = ColdDamageStatesField.GetValue(component)
+                as Dictionary<Plant, ColdDamageRecord>;
+            ctx.Require(states != null && states.ContainsKey(plant),
+                "No saved CCTO damage record for the test plant.");
+            return states[plant];
         }
 
         private Plant RequireTestPlant(PickleContext ctx)

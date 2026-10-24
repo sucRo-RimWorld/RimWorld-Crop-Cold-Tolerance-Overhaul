@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "feature": "Cumulative cold-injury framework",
+  "owner": "sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul",
+  "scope": "Opt-in temperature-degree-hour injury model for all RimWorld plant providers; no automatic plant-value migration.",
+  "status": "ready",
+  "search": {
+    "date": "2026-10-21",
+    "queries": [
+      "RimWorld frost damage exposure duration",
+      "RimWorld 低温損傷 作物",
+      "Vanilla Plants Expanded winter beet",
+      "Night Crops cold resistance mod",
+      "Farming Expansion plants cold"
+    ],
+    "ecosystems": [
+      "vanilla_mo",
+      "amj",
+      "ve",
+      "non_ve"
+    ],
+    "limitations": "Search covers public evidence and available CCTO sources, not unpublished third-party DLLs; VPE native coexistence remains untested."
+  },
+  "evidence": [
+    {
+      "id": "audit",
+      "path": "Docs/Research/ColdDamagePriorArt.md",
+      "sha256": "03864de7c426980e25aed43dbc8d255d941530db279e985f3ded65977dfc7e59"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "RimWorld Vanilla and Medieval Overhaul cold threshold",
+      "ecosystem": "vanilla_mo",
+      "version": "RimWorld 1.6/1.7; MO 1.6.2.2",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Vanilla cold death/leafless threshold; MO supported through existing CCTO XML.",
+        "historical_fit": "Generic crop and wild plant behavior; not Japanese-only content.",
+        "dependencies": "Must not add a required external content Mod.",
+        "retention": "Preserves existing plants and legacy cold threshold semantics.",
+        "progression_balance": "No changes to harvest, recipes, or research.",
+        "reuse": "Existing implementation does not expose duration-integrated injury.",
+        "maintenance_license": "Avoid importing third-party code; maintain an independent CCTO API."
+      },
+      "outcome": "prior_art_only"
+    },
+    {
+      "name": "AMJ Grains and Environment temperature balance",
+      "ecosystem": "amj",
+      "version": "AMJ 2026-10-21",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "AMJ owns plant values and climates, not a generic injury engine.",
+        "historical_fit": "Generic crop and wild plant behavior; not Japanese-only content.",
+        "dependencies": "Must not add a required external content Mod.",
+        "retention": "Preserves existing plants and legacy cold threshold semantics.",
+        "progression_balance": "No changes to harvest, recipes, or research.",
+        "reuse": "Existing implementation does not expose duration-integrated injury.",
+        "maintenance_license": "Avoid importing third-party code; maintain an independent CCTO API."
+      },
+      "outcome": "prior_art_only"
+    },
+    {
+      "name": "Vanilla Plants Expanded winter beet",
+      "ecosystem": "ve",
+      "version": "VPE 1.6",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Special winter plant behavior, not a portable cold degree-hour API.",
+        "historical_fit": "Generic crop and wild plant behavior; not Japanese-only content.",
+        "dependencies": "Must not add a required external content Mod.",
+        "retention": "Preserves existing plants and legacy cold threshold semantics.",
+        "progression_balance": "No changes to harvest, recipes, or research.",
+        "reuse": "Existing implementation does not expose duration-integrated injury.",
+        "maintenance_license": "Avoid importing third-party code; maintain an independent CCTO API."
+      },
+      "outcome": "prior_art_only"
+    },
+    {
+      "name": "Night Crops and Farming Expansion",
+      "ecosystem": "non_ve",
+      "version": "Night Crops 1.0.3 (2026-02-14); Farming Expansion 2026",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Configurable fixed extreme death/dormancy; pests/weeds; neither advertises accumulated cold injury.",
+        "historical_fit": "Generic crop and wild plant behavior; not Japanese-only content.",
+        "dependencies": "Must not add a required external content Mod.",
+        "retention": "Preserves existing plants and legacy cold threshold semantics.",
+        "progression_balance": "No changes to harvest, recipes, or research.",
+        "reuse": "Existing implementation does not expose duration-integrated injury.",
+        "maintenance_license": "Avoid importing third-party code; maintain an independent CCTO API."
+      },
+      "outcome": "independent"
+    }
+  ],
+  "decision": {
+    "kind": "independent",
+    "rationale": "CCTO already owns the plant cold response API; alternatives provide static thresholds, winter exceptions or unrelated features; none establishes a reusable duration-integrated injury rule.",
+    "specification": "Docs/Design.md",
+    "independent_gap": "A short cold excursion and a sustained lethal freeze have different outcomes at the same minimum sampled temperature."
+  },
+  "unresolved": []
+}

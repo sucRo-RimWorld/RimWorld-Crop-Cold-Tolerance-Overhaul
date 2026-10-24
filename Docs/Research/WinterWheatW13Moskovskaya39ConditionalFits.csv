@@ -1,0 +1,42 @@
+# Hypothetical numerical identifiability audit ONLY for W13 Moskovskaya 39, 4C x 7d preconditioned, original data DOI:10.3390/metabo14040199.
+# IMPORTANT: not source-estimated coldDamageStartTemperature/coldDamageDegreeHoursToDie/coldDamageLethalDoseVariation, NOT approved XML or saved-game profile.
+# Model S(T,h)=clamp((1+w-h*max(0,onset-T)/baseDose)/(2*w), 0, 1), for w in (0,1), zero recovery, constant experimental target temperature throughout exposure.
+# Source has exactly 24h freeze target observations: survival at 0/-3/-5/-7C = 100/97/65/15 percent. Predictions for h=6/12/48 are entirely unobserved, NOT validated.
+# For 24h -5C S=0.65 and -7C S=0.15, continuum of exact fits: w*baseDose =48 C*h and onset=2/w-5.6 C, conditional on both inside uniform ramp.
+# Examples w=0.5 and 0.8 both predict 100/100/65/15 percent for 24h 0/-3/-5/-7C, RMSE 1.50 percentage points vs observed 100/97/65/15.
+# The published 97 +/- 3 percent is not a validated confidence interval or evidence that exact survival is 100 percent; model misses the central -3C estimate by +3 percentage points.
+# If lab hours are not mapped one-to-one to game hours, baseDose in this CSV cannot be copied into game XML. The prerequisite 4C acclimation is not tracked by current CCTO runtime.
+# Differences at 48h -5C or 6h -7C demonstrate nonidentifiability and are NOT new biological measurements.
+source_id,cultivar,prior_condition,example_id,assumed_onset_C,assumed_lethal_degree_hours_lab_clock,assumed_uniform_halfwidth,freeze_temperature_C,exposure_h,reported_survival_fraction_if_measured,predicted_survival_fraction,has_measured_endpoint
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,0,6,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-3,6,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-5,6,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-7,6,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,0,12,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-3,12,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-5,12,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-7,12,,0.825000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,0,24,1.000,1.000000,true
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-3,24,0.970,1.000000,true
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-5,24,0.650,0.650000,true
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-7,24,0.150,0.150000,true
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,0,48,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-3,48,,0.800000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-5,48,,0.000000,false
+W13,Moskovskaya 39,4C for 7d,A,-1.600000,96.000,0.500,-7,48,,0.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,0,6,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-3,6,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-5,6,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-7,6,,0.881250,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,0,12,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-3,12,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-5,12,,0.887500,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-7,12,,0.637500,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,0,24,1.000,1.000000,true
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-3,24,0.970,1.000000,true
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-5,24,0.650,0.650000,true
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-7,24,0.150,0.150000,true
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,0,48,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-3,48,,1.000000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-5,48,,0.175000,false
+W13,Moskovskaya 39,4C for 7d,B,-3.100000,60.000,0.800,-7,48,,0.000000,false

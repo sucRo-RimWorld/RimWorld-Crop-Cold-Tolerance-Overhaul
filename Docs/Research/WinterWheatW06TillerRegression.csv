@@ -1,0 +1,11 @@
+# 2024 Wu et al. Frontiers Plant Science 15 doi:10.3389/fpls.2024.1419381 - original full text and Table 4 https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1419381/full
+# ENDPOINT IS TILLER MORTALITY - NOT whole-plant mortality or measured plant death LT50.
+# TSEh and TSEd are accumulated below a cultivar-specific crown/soil freezing threshold, from soil at 2.5cm depth. Not outdoor air temperature.
+# Original equations: tiller_mortality = slope*TSEh + intercept, or slope*TSEd + intercept. Fits represent a restricted observed dose range, NOT a globally valid monotone CDF with universal positive intercept.
+# Original paper Table 3 Yanzhan4110 2-day air-temperature logistic intercept 17.18 does NOT match published LT50 -12.7C; this table is NOT imported here.
+# Numeric columns labelled source_ are Table 4 original published fits; recomputed_ is calculated here from rounded source fit.
+# TSEh dosing is not transferable to whole plant survival without a distinct endpoint calibration. Does not alter production XML.
+cultivar,crown_temp_threshold_C,source_hourly_dose_slope,source_hourly_dose_intercept,source_hourly_dose_R_squared,source_TSEh10_C_hours,source_TSEh30_C_hours,source_TSEh50_C_hours,source_daily_dose_slope,source_daily_dose_intercept,source_daily_dose_R_squared,source_TSEd10_C_days,source_TSEd30_C_days,source_TSEd50_C_days,recomputed_TSEh50_from_rounded_regression,endpoint,source_id
+Nongda211,-8,0.004,0.0725,0.83,6.9,56.9,106.9,0.02,0.062,0.84,1.9,11.9,21.9,106.875,tiller_mortality,W06
+Zhengmai366,-6,0.0051,0.059,0.93,8,47.3,86.5,0.038,0.033,0.91,1.8,7,12.3,86.471,tiller_mortality,W06
+Yanzhan4110,-3,0.0055,0.034,0.86,12,48.4,84.7,0.042,0.015,0.78,2,6.8,11.5,84.727,tiller_mortality,W06

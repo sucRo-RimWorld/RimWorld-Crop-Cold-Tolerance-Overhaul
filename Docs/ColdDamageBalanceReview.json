@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "balance_table": "Docs/ColdDamageBalanceV1.csv",
+  "status": "rejected_for_xml",
+  "decision_date": "2026-10-22",
+  "decision": "Retract previous LOCKED/APPROVED claims for all 48 candidate injury tuples. Preserve them as evidence of the failed proposal only; the currently deployed 48 fixed-death and 30 dormancy XML entries remain untouched.",
+  "reasons": [
+    {
+      "id": "R1",
+      "kind": "construction_bias",
+      "state": "open",
+      "evidence": "Seven classes chose arbitrary exposure duration and relative onset, then used D=delta*hours. Checking D/(A-T)==chosen hours is circular."
+    },
+    {
+      "id": "R2",
+      "kind": "missing_independent_gameplay_check",
+      "state": "open",
+      "evidence": "No day/night weather + recovery + per-species ecological exercise was performed before locking 48 values."
+    },
+    {
+      "id": "R3",
+      "kind": "primary_survival_conflict",
+      "state": "open",
+      "evidence": "V1 wheat at -3C 24h predicts 97.62% survival while W13 22C untreated Moskovskaya39 observed 35±2% and Zlata 15±2%. Physiological acclimation absent."
+    },
+    {
+      "id": "R4",
+      "kind": "primary_survival_conflict",
+      "state": "open",
+      "evidence": "V1 rice at +4C 240h predicts zero survival, unlike conditioned rice cohorts R02 at 88-100% survival; conditioning state absent. Laboratory-to-game time mapping remains uncertain."
+    },
+    {
+      "id": "R5",
+      "kind": "endpoint_overfit",
+      "state": "open",
+      "evidence": "Conditional maize M01 two-point fit yields onset -1.826C, making median lethal time at -1.9C 112.81h and at -2.0C 47.98h; two approximate 50% endpoints are insufficient to approve the temperature response."
+    },
+    {
+      "id": "R6",
+      "kind": "recovery_semantics",
+      "state": "open",
+      "evidence": "Evergreen pine recuperates 0.003 injury per hour whenever ambient temperature >= -31C, even at -30C. The 'warmer than onset' rule was incorrectly accepted as demonstrated physiological repair."
+    },
+    {
+      "id": "R7",
+      "kind": "authority_overreach",
+      "state": "open",
+      "evidence": "Author request to determine numerical balance first did not validate assistant-generated species/group coefficients. Calling all 78 PASS conflated schema consistency with user-accepted biology/gameplay."
+    }
+  ],
+  "approval_requirements": [
+    "Replace V1 guesses with source-or-gameplay-justified independently evaluated crop/climate scenarios, including variable temperature and warm spells; document source endpoint and physiological stage.",
+    "Reconcile non-acclimated versus acclimated wheat/rice and soil-versus-air differences without treating individual randomness as physiological memory; explicitly flag unmodeled biology.",
+    "Compare each 48 candidate profiles against independent winter climate/biome safety and user-visible consequences, using a bounded representative matrix by climate/biology, not made-up assertions.",
+    "Explicitly review steep near-onset response and nonfreezing recovery semantics; document baseline old-death migration implications.",
+    "Publish a new reviewed numerical table, not relabel failed V1 as source-calibrated; retain a clear author-level decision before production XML or release.",
+    "Use the existing native runtime acceptance only after integrated code/XML changes; engine-only 1.6 Pickle/Scribe PASS cannot certify new numerical values."
+  ],
+  "scope": {
+    "production_xml_changed": false,
+    "gameplay_runtime_changed": false,
+    "old_fixed_death_def_count": 48,
+    "old_dormancy_def_count": 30
+  },
+  "reviewed_source_commit": "b4c9d9aa7f4ce93fbe9fe56fcf04722c5399c06c",
+  "acceptance": {
+    "author_decision": "not_recorded",
+    "decision_reference": null,
+    "accepted_table_sha256": null,
+    "independent_scenarios": [],
+    "required_scenarios": [
+      "short_frost",
+      "repeated_nights",
+      "prolonged_freeze",
+      "warm_recovery",
+      "wild_biome",
+      "source_state_contrast"
+    ]
+  },
+  "current_recalibration": {
+    "name": "V2 target-first",
+    "stage": "under_review_partial_only",
+    "predeclared_targets": "Docs/ColdDamageBalanceV2Targets.md",
+    "proposed_data": "Docs/ColdDamageBalanceV2Candidates.csv",
+    "independent_scenario_review": "Docs/ColdDamageBalanceV2Assessment.md",
+    "supported_count": 78,
+    "original_dormancy_unchanged": 30,
+    "numeric_candidate_unapproved_annuals": 4,
+    "numeric_candidate_biological_model_blocked": 3,
+    "original_death_profiles_without_v2_values": 41,
+    "xml_activation_authorized": false,
+    "xml_migration_performed": false,
+    "reference_status": "V1 rejection retains effect; numeric candidates in V2 are not release coefficients",
+    "recovery_engine": "implemented_on_draft_uncompiled_unverified",
+    "recovery_gate": "ambient_C >= max(onset_C, 0C)",
+    "acclimation": "not_implemented; not inferred from dormancy, ThingID, season or plant age; optional observed-history state only after justified rates",
+    "evergreen_status": "thaw-code-blocker-remediated; ecology/biological/numeric acceptance remains open",
+    "additional_independent_targets": "Docs/ColdDamageBalanceV2Targets.md#extended-targets-recorded-before-new-coefficients-2026-10-22",
+    "annual_targets_verified_analytically": [
+      "MO Tomatoes S01/S02/S16",
+      "MO Cabbages S03/S04/S05",
+      "MO Onions S19/S20/S21",
+      "MO Pumpkins S22/S23/S24"
+    ],
+    "long_winter_numeric_trial": "Pine/GreatFir dose 3600 C*h, 60 day cold cycles S28/S29; no physiological/biome calibration",
+    "perennial_organ_endpoint_blocks": [
+      "Plant_Strawberry crown vs flower and ambient",
+      "Plant_Potato live tuber vs tops"
+    ],
+    "csv_structural_audit": "78 rows 13 columns; three previous unquoted scenario list fields fixed to semicolon delimiters",
+    "post_selection_sensitivity": {
+      "status": "OPEN_FOR_AUTHOR_GAMEPLAY_REVIEW",
+      "disclaimer": "Exploratory post-selection analysis, not predeclared acceptance or measured field temperature response",
+      "scenarios": "Docs/ColdDamageBalanceV2Assessment.md#post-selection-temperature-sensitivity-check--not-a-predeclared-acceptance-pass",
+      "key_results": [
+        "MO Onion: -4.0 vs -4.2 C nights x3 survival 72.5% -> 37.1%",
+        "MO Pumpkin: -1.0 vs -1.2 C nights x3 survival 58.9% -> 20.7%",
+        "Pine/Great Fir: -35.0 vs -35.2 C nights x60 survival 100% -> 90%"
+      ],
+      "correction": "Do not claim robust plant/climate balance from exact chosen target examples alone"
+    },
+    "seasonal_climate_audit": {
+      "status": "NATIVE_VANILLA_WORLD_TILE_CALENDAR_SAMPLED; V2 coefficients still unapproved",
+      "native_run_url": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000",
+      "original_version": "RimWorld Linux 1.6.4871 rev598",
+      "original_owner_commit": "23f3d9ac07a336c36fba3e32382612bec52e6d8f",
+      "native_artifact_id": 12424418617,
+      "source_csv_sha256": "6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5",
+      "observed_values_count": 4320,
+      "calendar_hours_per_tile": 1440,
+      "tiles": [
+        {
+          "id": 44000,
+          "biome": "BorealForest",
+          "latitude": 53.1905,
+          "annual_C": -5.536,
+          "minimum_C": -37.8349,
+          "pine_eligible": true,
+          "actual_map_loaded": false
+        },
+        {
+          "id": 40777,
+          "biome": "BorealForest",
+          "latitude": 49.2266,
+          "annual_C": -1.37,
+          "minimum_C": -32.6471,
+          "generated_pines": 483,
+          "actual_map_loaded": true
+        },
+        {
+          "id": 2851,
+          "biome": "TemperateForest",
+          "latitude": 45.0841,
+          "annual_C": 5.672,
+          "minimum_C": -23.7091,
+          "potential_crop_site": true,
+          "actual_map_loaded": false
+        }
+      ],
+      "source_daily": "Docs/Research/CCTOVanilla16ActualWorldClimateDailyLoHi.csv",
+      "source_assessment": "Docs/ColdDamageBalanceV2Assessment.md#original-rimworld-16-cold-forest-and-farming-tile-generated-calendar-2026-10-22",
+      "pine_v2_survival_on_two_original_world_temperature_calendars": 1,
+      "blocked": [
+        "yearly game weather and events were not tick-simulated",
+        "one original generated world/one seed not population",
+        "no MO Great Fir real wild biome loaded",
+        "no CCTO numeric production XML enabled",
+        "plant tissue and sun/soil buffering unknown",
+        "annual crop harvest maturity and optimal sowing season unknown"
+      ],
+      "coefficient_decision": "7 numeric V2 candidates unchanged and unapproved; V1 rejected gate remains",
+      "native_game_launched": true
+    }
+  }
+}
