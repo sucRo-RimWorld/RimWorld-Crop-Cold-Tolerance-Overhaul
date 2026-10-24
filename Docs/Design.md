@@ -2262,3 +2262,22 @@ At proposed **A−3**, a single **−6°C constant for 8h** still leaves **10HP 
 - **Cultivated Strawberry**: A−2/D120 is **not yet numerically safe to adopt** merely from its single-night frost behavior. In the coldest sampled BorealForest 44000, one day-14 planted crop at near maturity dies in **60/80 theoretical observation phases**, while A−2/D240 matures and remains harvestable under **80/80** phases at an estimated **58–77%** full-health harvest factor. A−3/D240 is another previously compared gentler onset. Higher D also protects against extended severe freeze, so it is **not** a source-measured LD100 or automatic preferable number. Capturing flowers/berry yield loss and keeping a crown alive cannot be both faithfully modeled using one ordinary HP number; the sowable Vanilla crop is removed when harvested.
 
 **Current authority unchanged:** CSV `Plant_Potato` A−3/D100 and `Plant_Strawberry` A−12/D500 remain `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED`. Reviewer choices A−2/D100 (potato), A−2/D120 versus A−2/D240 (strawberry) are **not approved numbers**. The other 7 selected A/D rows, four remaining source HOLD rows, 35 unapproved HP trials, 30 retained dormancy, optional but unapproved individual variation and C# default w=0 remain. No existing production XML, C#, save behavior, main merge, runtime PASS, UI or Steam publication change.
+
+## V3 potato author A/D selection and strawberry stronger-frost gate (2026-10-24)
+
+**Current selection:** `Plant_Potato` **A−2°C/D100°C·game-hour**, selected *A/D candidate only*, supersedes its earlier held A−3/D100. Ordinary visible HP is a tuber-bearing crop viability/harvest proxy, not independent exposed-leaf and buried-tuber injury. In reviewed 2,000-tick w=0 scenarios on 85HP, three −4°C×8h nights leave **49HP and 78.8% conditional yield**, versus 67HP/89.4% under A−3. Original 1.6 world-tile climate approximation still permits early sowing (day10) and harvest in all three reviewed regions, with late day14 Boreal crop death under **both** onset options. D100 is an accepted gameplay candidate, not a laboratory LD100.
+
+**Strawberry remains unselected:** The sowable one-harvest `Plant_Strawberry` is destroyed after harvest; spring flower/berry frost sensitivity cannot be replaced by indefinitely dormant perennial-crown survival. Compare reviewer-only **A−2/D120 vs A−2/D240**, with exact 2,000-tick sampling (constant hypothetical air, first cold sample not charged, default w=0, 85HP):
+
+| Frost | D120: HP / relative harvest if living | D240: HP / relative harvest if living |
+|---|---|---|
+| −3°C×8h | 80 / 97.1% | 83 / 98.8% |
+| −5°C×8h | 70 / 91.2% | 78 / 95.9% |
+| −5°C×8h for three warm-separated nights | 40 / 73.5% | 63 / 87.1% |
+| −10°C×12h | 22 / 62.9% | 54 / 81.8% |
+| −10°C×24h | dead / 0% | 20 / 61.8% |
+| −12°C×24h | dead / 0% | 3 / 51.8% |
+
+D240 is the **less punitive comparison**, preserving maturity in 80/80 synthetic sampling phases for the marginal Boreal #44000 day14 sowing where D120 fails before maturity in 60/80. But D240 may **understate flowering frost loss**, and plant HP harvest scaling cannot separately kill blossoms; neither dose is calibrated or approved. The original `Plant_Strawberry` A−12/D500 remains HOLD until a distinct numerical choice. Day14 source data are *world-tile daily extrema with assumed sinusoidal daily profile*, not a real planted map, growing-season sow permission, or native runtime acceptance.
+
+**Current 78 species:** 8 A/D candidates selected (previous seven plus Potato), 5 source/stage HOLD (Rice/Corn/Strawberry/Wheat/Lentil), 35 unapproved HP trial, 30 preexisting dormancy. All w=.20 CSV entries unapproved; C# default w=0. No new C#/XML opt-in, test job, main merge or publication. Historical older counts above are dated, not competing authority.
