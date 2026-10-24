@@ -502,3 +502,7 @@ coefficient.
 - **Not approved:** 7 proposed numeric rows **are not author-approved**. Their consistency with scenarios is narrow and must not be promoted to 48 "BALANCE PASS" claims. The rejected V1 review state remains `rejected_for_xml`, and all production XML opt-in stays blocked.
 - **Material next step:** select a minimal, explicitly optional **physiological-state policy** for wheat/rice without confusing cold acclimation and injury recovery; revisit long-season wild flora outcomes and extend independently chosen weather/ecology targets to the remaining supported groups. Do not blindly inherit tomato/cabbage values across unrelated species.
 - **Testing discipline:** these are offline analytic scenarios, no new game launch. Prior 1.6 native Pickle + actual .rws verify engine mechanics only, not V2 numerical/ecological gameplay.
+
+## HP-only model transition — 2026-10-22
+
+The experimental engine now applies cold exposure as ordinary Plant HP damage; it does not maintain a separate injury pool or restore HP on warming. All prior survival percentages in this report relied on reversible, normalized hidden injury. They cannot be reused as acceptance for the HP model. The candidate coefficients remain unapproved. The conversion from a full-HP lethal dose to HP damage is documented in Docs/Framework.md. No production XML or native game test has yet accepted these HP changes.

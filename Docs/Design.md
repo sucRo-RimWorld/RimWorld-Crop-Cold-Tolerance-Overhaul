@@ -330,11 +330,11 @@ crop balances into CCTO.
 
 A new `ColdToleranceExtension` model uses
 `coldDamageStartTemperature` and `coldDamageDegreeHoursToDie` together.
-When ambient temperature is below onset, damage accumulates in proportion to
-the degrees below onset times the elapsed in-game hours. At unit damage the
-plant dies. Optional `coldDamageRecoveryPerHour` reduces prior cold damage
-while temperature is above onset. This is a provisional game abstraction, not
-an empirically calibrated agronomic threshold.
+When ambient temperature is below onset, accumulated degree-hours remove ordinary
+Plant HP in proportion to maximum HP. There is no cold-specific recovery and
+no separate hidden cold-injury gauge. At zero HP the plant dies. This is a
+provisional game abstraction, not an empirically calibrated agronomic threshold.
+Earlier 2026-10-21 hidden-injury/repair drafts in this document are historical.
 
 The Info Card for a damage-model plant displays **損傷開始温度** /
 **Cold damage starts**, instead of the legacy death-temperature stat. The
@@ -484,10 +484,10 @@ variation is *not* a justified interpretation of the whole spread.
 Do not add fixed per-plant mortality randomness to plants that are
 **dormancy-only**, and do not introduce a new instant-death route. Native
 legacy death-temperature users remain unchanged until explicitly migrated.
-For new damage-model users, the existing draft hardcoded lethal
-`damage >= 1` and clamping in `ColdDamageProgress.Advance` must be
-reconciled with the chosen distribution at the numerical-model integration
-step; no working per-plant variation is claimed yet.
+For HP-model plants the current draft uses `ColdDamageProgress.HitPointLoss`;
+variation scales the whole-HP degree-hour dose per plant. The former hidden
+`damage >= 1` model and `Advance` function no longer apply. Variation and
+numerical balance remain experimental.
 
 **Presentation:** the plant Info Card retains the **species-level**
 `損傷開始温度` and existing `休眠温度`; do not display a false
@@ -817,11 +817,11 @@ is **an algebraic sensitivity analysis, not new
 observed death data**. Do not assign its fitted
 onsets/lethal doses to production Corn XML.
 
-**Engineering constraint from current draft source:** its
-`ColdDamageProgress.Advance` is fixed
-linear degree-hours and clamps at 1.0, while
-`ColdDamageMapComponent` stores sparse injury and
-runs from `Plant.CheckMakeLeafless`. This is
+**Historical V2 engineering constraint, superseded by HP draft:** its
+`ColdDamageProgress.Advance` historically used linear degree-hours and
+clamped hidden injury at 1.0. This is no longer the active draft code:
+`ColdDamageProgress.HitPointLoss` now removes ordinary HP and the map
+component saves only observation time and fractional HP remainder. This is
 a minimal opt-in proof of concept, **not** a
 validated biological injury profile or active
 individual-variation implementation. Any future
@@ -1709,8 +1709,8 @@ numbers for wheat and cold-evergreen trees,
 plus the fundamental near-onset maize and
 conditioning gaps for rice/wheat, remain
 **explicitly not ready for XML**. The current
-CCTO `ColdDamageProgress.Advance` recovers
-at any ambient T≥onset, including −30°C pine;
+CCTO `ColdDamageProgress.Advance` historically recovered
+at ambient T≥onset, including −30°C pine; the present HP draft does not heal HP;
 none of the numerical retries may be approved
 by pretending this already represents thaw-only
 repair. A minimal potential no-extra-state
@@ -2073,3 +2073,232 @@ Actual incident weather,
 existing planted/preserved crops,
 sunlight, growth maturity and
 1.7 remain unknown.
+
+
+## V2 design direction — HP damage, no cold-only recovery (2026-10-22; experimental)
+
+The previously drafted independent `damage=0..1` pool and warm-weather healing are superseded for V2 by proportional damage to the plant's existing HP. One degree-hour dose can lower HP without killing; unrelated damage shares the same HP and can hasten death. Temperature above the injury onset stops additional cold HP damage, **not** restores it. Round-off below one HP is retained until subsequent observed frost. Individual lethal-dose variation remains experimental. Do not add acclimation, organ-specific simulation, extra per-tick sampling, or special cold healing. Legacy 48 fixed-death and 30 dormancy profiles are unchanged. Prior numeric V2 survival percentages/calibration targets need reassessment under the HP model, not relabeling as approved XML. Detailed schema contract is in `Docs/Framework.md`.
+
+### HP-only V3 numerical trial ownership (2026-10-22)
+
+The complete 48 ordinary/30 dormant Def coverage and provisional two-parameter-onset/dose model is maintained in [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv), with outcome and risk review in [ColdDamageHpV3Assessment.md](ColdDamageHpV3Assessment.md). These experimental values supersede the older reversible-injury **proposals for evaluation only**. They do not supersede approved production fixed-death XML or constitute author-approved per-plant settings. Wild winter survival requires multi-year safety under irreversible HP losses; no published plant data justify automatic promotion. The separate recovery rate is absent from V3 numeric candidates. See [Framework](Framework.md) for current experimental HP behavior.
+
+## CCTO V3 HP implementation-method re-audit (2026-10-23)
+
+**Scope:** source-level review of `ColdDamageMapComponent`, `ColdDamageProgress`, Harmony plant hooks, sparse Scribe record and existing draft Quickstart/Pickle tests; **not** new real-game proof. Original RimWorld 1.6 C# build previously passed (Project Actions #39806727803) but runtime HP/Scribe/patch execution has not been accepted. Numeric V3 candidate approvals are separate and remain withheld.
+
+### Method retained
+
+- Use **ordinary Plant HP**, not an auxiliary normalized injury gauge; no special cold HP healing. Existing `DamageDefOf.Rotting` is also used by CCTO's already-existing fixed-death path and by older Vanilla plant deterioration implementations. Merely seeing this DamageDef does **not** prove a bug; confirm actual 1.6 death/damage behavior only in the consolidated native check.
+- Keep the opt-in pair `coldDamageStartTemperature` and `coldDamageDegreeHoursToDie`, deterministic optional dose variation (default disabled), `Plant.CheckMakeLeafless` patch and sparse MapComponent with last observation tick and sub-HP remainder. No new per-tick scanning, specialized acclimation/organ system or cold-specific regeneration.
+- Temperature is sourced from the **plant ambient** (including indoor room), not the global outdoor tile weather. Existing fixed cold-death and 30 dormancy XML definitions are unaffected.
+
+### Findings and acceptance relevance
+
+1. **Observation approximation, material for short frost:** the first below-onset sample records only the clock, charging zero prior dose; later samples assign the **current sampled temperature to up to 2000 previous ticks**. If temperature changes between samples, a short frost can be missed, or a just-arrived frost can be charged to earlier warm time. Gaps longer than 2000 ticks are truncated. This is a conscious simplicity/performance tradeoff, **not** a measured continuous dose. Must be shown acceptable for ordinary frost events before numeric V3 acceptance; do not pretend constant-hour offline CSV integration is identical to the live sampler. Avoid adding a new temperature-history subsystem unless an actual gameplay discrepancy demands it.
+   **2026-10-23 implementation correction:** Sparse HP records additionally persist `lastObservationWasCold`. After a warm observation retained only for sub-HP remainder, the first subsequent cold observation restarts cold timing without charging the preceding warm interval. A following cold observation resumes bounded exposure. This fixes warm-to-cold overbilling without a temperature-history system; boundary timing remains approximate and native confirmation is pending.
+2. **Fatal cold-death UX notification — source fix applied (2026-10-23):** `ApplyHitPointLoss` now captures relevant crop identity/label/map only for a potentially fatal hit and calls the existing shared `MessagePlantDiedOfCold` notification **after `TakeDamage` confirms plant destruction**. Partial cold HP damage sends no death message; fixed-temperature CCTO death uses the same shared notification helper without changing its prior pre-kill signaling. The actual 1.6 game notification has **not yet been runtime accepted**.
+3. **Native plant HP has an existing yield consequence:** RimWorld's plant harvest yield uses the plant's `HitPoints / MaxHitPoints` factor. A crop at half HP yields approximately 75% of the same crop at full HP before other harvest multipliers, not the same yield. Thus V3 already produces a partial-frost yield penalty **without a new production bonus/debuff subsystem**. Treat this as intended/observed design consequence for balancing; verify against 1.6 loaded behavior if needed rather than adding a duplicate yield penalty.
+4. **Save state and rounding:** fraction <1 HP is preserved across warm observations and Scribe; post-load reconciliation drops stale/destroyed records. This is reasonable for fractional accumulating HP damage, but both first sample and actual .rws identity/HP restoration are **not proven by compile or forced-hook tests alone**. The existing test quickstart directly invokes `CheckMakeLeafless` and manipulates `lastTick`, so it cannot establish that ordinary in-game scheduling covers all temperatures.
+5. **Limits, not release blockers by themselves:** the regular sample cap and lack of age/cultivar acclimation are intentional simplifications; deterministic variation width 0.20 and all 48 dose pairs remain unapproved. Real gameplay may diverge from idealized exposure predictions due to sparse sampling, integer HP, other HP injuries and plant growth/harvest timing.
+
+**Disposition:** retain the simple HP architecture; do **not** add healing or biological simulation. The fatal cold-death notification has since been fixed in the V3 Draft; the exact V3 source built against 1.6 managed assemblies, but normal-tick exposure, notification and saved-fraction continuation remain pending consolidated original-game acceptance before production XML conversion. Numerical owner should calibrate against what the sampler actually does, not only continuous-temperature arithmetic.
+
+## V3 accepted frost-role direction for MO cabbage and onion (2026-10-23)
+
+**Author-approved design priority (not numeric approval):** For MO cabbage and MO onion, prefer **survival through representative hard frost with ordinary plant HP injury and reduced harvest yield**, rather than forcing ≥70% plant deaths in one cold episode. This explicitly supersedes the former gameplay-only S04 and S20 high-mortality gates. The original dated trial rows remain retained as historical evidence in [ColdDamageBalanceV2Targets.md](ColdDamageBalanceV2Targets.md); the **active V3 test descriptions** and limits are in its V3 supersession section. Both hardy crops may die from sufficient **longer/deeper/repeated** exposure because CCTO still uses ordinary HP with **no special cold recovery**.
+
+**Scope/compatibility:** The direction uses current opt-in V3 HP damage and the existing `Plant.YieldNow()` HP factor. No additional crop-yield penalty, temperature model, growth-stage simulator, recovery mechanic, modification to legacy fixed-death XML, or change to the 30 dormancy plants is approved. Tomato/pumpkin strong-frost fatality goals are unchanged. **2026-10-23 later author numerical-candidate decision supersedes the prior illustrative values:** Cabbage **A−3.5°C / D240°C·h**, Onion **A−5°C / D120°C·h** are author-selected **V3 A/D candidates**. This does **not** authorize their 0.20 individual spread, their production XML opt-in, a release, or an in-game PASS. [V3 candidates](ColdDamageHpV3Candidates.csv) now explicitly distinguish **2 APPROVED_A_D_CANDIDATE_VARIATION_PENDING + 44 UNAPPROVED_HP_TRIAL + 2 FAILED_PREDECLARED_FROST_GOALS + 30 KEEP_EXISTING_DORMANCY**. The old D160 and Onion A−3.5 appear only in historical comparisons, not current selected values. [Harvest-yield comparison](ColdDamageHpV3YieldReview.md) is supporting analysis, not evidence of a native-game crop outcome.
+
+### Approved V3 numeric *candidates* — not deployment authority (2026-10-23)
+
+| Owned plant | DefName | Cold HP injury starts (A) | Full-HP cumulative lethal dose (D) | Numerical candidate status |
+|---|---|---:|---:|---|
+| MO Cabbage | `DankPyon_Plant_Cabbages` | **−3.5°C** | **240°C·h** | **A and D selected for candidate review** |
+| MO Onion | `DankPyon_Plant_Onions` | **−5°C** | **120°C·h** | **A and D selected for candidate review** |
+
+Both values embody the author's hardy-crop priority: short and moderate cold can reduce visible HP and harvest output without immediate mass death; extended/deeper cold can still kill. The values were selected using model-based exposure and expected harvest comparisons, **not** validated as experimentally measured physiological tolerances or observed in RimWorld 1.6. Both rows retain `lethal_dose_variation=0.20` only as a clearly **unapproved proposal**, not an active setting; the C# framework default remains zero variation. **Do not copy an entire CSV row into executable XML as an "approved profile."** Actual native ambient/tick/HP/save checks and the decision on variation remain pending; production retains the 48 old fixed-death profiles and 30 dormancy profiles. This decision changes no other plant A/D, Vanilla/MO balance, growth or recovery mechanics.
+
+## V3 per-plant lethal-dose variability gate (2026-10-23)
+
+**Approved numerical A/D candidate boundary is unchanged:** MO Cabbage A−3.5°C / D240°C·h and MO Onion A−5°C / D120°C·h remain author-selected *candidate numbers only*. **No individual variation width has yet been accepted** for these plants or any other HP profile; active production XML remains legacy fixed-death/dormancy. See [quantitative four-crop 0/10/20% comparison](ColdDamageHpV3YieldReview.md#independent-spread-width-comparison-for-v3--2026-10-23).
+
+**Existing minimal mechanism:** A per-plant `ColdToleranceExtension.coldDamageLethalDoseVariation` (half-width `w`) modifies **D only**, not onset or damage calculation structure; it is deterministic per saved Thing ID and requires no added state or per-tick global plant scan. Current default **w=0**. Candidate CSV values **w=0.20** are *unapproved comparative placeholders* even in the two rows with accepted candidate A/D. Do not infer approval by reading/copying the entire row.
+
+**Independent player-facing tradeoff:** For ideal constant exposure, cabbage A−3.5/D240 at −8°C×48h has field survival **100% at w=0 or .10, 75% at w=.20**. Onion A−5/D120 at −10°C×24h has **0% at w=0, about 50% at either .10 or .20**. Under not-yet-approved tender trials Tomato A0/D21.5 and Pumpkin A0/D22 at −3°C×8h, w=.10 leaves about **0% and 4.5%** alive, versus w=.20 about **20.9% and 27.3%**; this demonstrates that a universal width changes gameplay categories differently. These are hypothetical population expectations with constant plant ambient temperature and zero preexisting damage, **not native-game acceptance or physiological calibration**.
+
+**Design recommendation, awaiting author decision:** Preserve w=0 default; keep per-Def variation opt-in rather than applying the unverified ±20% to all 48; compare a narrow w=.10 for hardy crops and wider w=.20 only for tender annuals if actual player-facing mixed survival warrants it. A fixed uniform dose multiplier is a gameplay approximation, not an experimentally fitted LT50/survival distribution. No extra age/acclimation or recovery system. **Do not change executable XML or mark a new width selected without express authorization.** A later consolidated live acceptance should evaluate actual ambient variations before concluding uniform plant populations need artificial variation.
+
+## V3 tomato/pumpkin frost model selection boundary (2026-10-23)
+
+**2026-10-23 author decision: A/D candidate values SELECTED.** Alongside previously selected hardy MO cabbage/onion, **MO Tomato A0/D21.5 and MO Pumpkin A0/D22** are now author-approved A/D *candidate* tuples. These replace the old D60/D68 preliminary failures without asserting actual gameplay PASS. Detailed independent numerical comparisons, nonzero population variation dependency, and verified original 1.6 world-tile hourly calendar are in [ColdDamageHpV3YieldReview.md](ColdDamageHpV3YieldReview.md#tender-annual-advariation-combination-review-2026-10-23).
+
+**Selected A/D candidates (numeric scope only):** MO Tomato `DankPyon_Plant_Tomatoes` **A=0°C, D=21.5°C·h** and MO Pumpkin `DankPyon_Plant_Pumpkins` **A=0°C, D=22°C·h**. Historical −0.5°C onset alternatives (Tomato D18, Pumpkin D18.5) were reviewed but **not selected**. The original published XML/runtime remain unchanged. These candidates are gameplay compromises, not empirically calibrated whole-plant LT50/D results.
+
+**Individual variation must be decided separately:** With A=0 and a controlled −3°C×8h trial (24°C·h), Tomato D21.5 gets any uninjured survivors only when uniform half-width w is over ≈0.1163, and Pumpkin D22 when w exceeds ≈0.0909. Therefore a purely model-fitted ±20% width would produce mixed populations (20.9% tomato and 27.3% pumpkin survivors), but ±10% leaves 0%/4.5%; **this is an algebraic constraint, not empirical evidence for w=.20**. Identically imposed S02/S16 and S23/S24 have equal cumulative lethal exposure because cold-specific HP recovery was intentionally eliminated, so do not double-count their pass status as independent validation.
+
+**Actual player outcome:** Under idealized unmodified source world-hourly TemperateForest tile 2851 temperatures, A=0 trial profiles have only ~46% Tomato and ~50% Pumpkin **whole-field remaining harvest** by end of calendar day 25 if unharvested, with some crop deaths; under the alternate A−0.5 profiles neither crop has died at that point and harvest is ~61% of undamaged. These are not real growing map ambient temperatures, actual sow/harvest timing, Pickle or 2000-tick-sampler evidence. Source evidence remains Project original-game native Actions #39776410000 (original 4320-value SHA256 `6eac0d50124fbd622d37737abd1a86223b3649b27133e3e9349a43797e37b8c5`). Any final parameter selection must acknowledge the weak-frost survival vs severe-frost danger tradeoff; native acceptance is consolidated later, not launched for each value.
+
+**Authorization boundary as of 2026-10-23:** The author has selected **4 A/D candidates** (Tomato A0/D21.5, Pumpkin A0/D22, Cabbage A−3.5/D240, Onion A−5/D120). Their individual `coldDamageLethalDoseVariation` w=.20 in the candidate CSV is **NOT authorized**; it remains provisional, with runtime extension default w=0. The remaining **44 HP A/D trials remain unapproved**, all 30 dormancy entries remain unchanged, and **no active failure flag remains for the four newly selected candidate A/D values**. S02/S23 severe-frost fit is still *model arithmetic* and requires actual-game confirmation. No conversion into production XML, release, extra recovery or growth-stage simulation is authorized.
+
+## V3 empirical-first selection gate for remaining crop species (2026-10-24)
+
+**Approved selection method:** Source measurements and **their actual species, biological stage, conditioning, measured tissue/whole-organ endpoint, exposure units, survival observation time and source uncertainty** must precede changes to the 44 remaining speculative HP A/D tuples. The author previously selected only MO Tomato A0/D21.5, Pumpkin A0/D22, Cabbage A−3.5/D240, Onion A−5/D120 as **numerical candidates**, not a runtime-ready HP profile or variation setting.
+
+**First five source-first reviews:** See canonical [research audit](Research/ColdDamageV3SourceFirstAudit.md) and the original source CSVs in `Docs/Research`. Source studies identify material failure modes for:
+- **Rice**: actual 10-day-old seedlings at **+4°C ×10 lab-days** after 12°C×5d conditioning show **88–100%** recovery/growth survival vs **0%** for unconditioned cohorts; current trial A=+3°C produces **zero** injury at +4°C no matter D or w.
+- **Wheat**: original W13 −3/−5°C×24 lab-hours post-treatment whole-seedling death changes sharply after 4°C×7d conditioning; current A=−7°C yields **zero** cold HP injury at either treatment. Separate real prolonged −5°C acclimated-wheat survival studies also conflict with a *universal* zero-loss model; laboratory hours/crown temperatures cannot be equated silently to actual RimWorld crop ambient.
+- **Maize**: two source secondary rounded ~50% seedling-death endpoints (−2°C×48h, −6°C×2h) are predicted by A0/D64 w=.20 as **all dead and all alive** respectively. Exact simple-degree-hour two-point median fit A≈−1.826°C, D≈8.348°C·h is **not adopted** because it badly amplifies 0.1°C onset sensitivity (S12).
+- **Strawberry**: −5°C short freeze survivability applies to hardened dormant crowns, whereas −5°C can injure flowering/fruiting tissue. Current A−12°C ignores **all** −5/−10°C exposure, so an explicit crown-versus-fruiting gameplay endpoint decision is required.
+- **Potato**: source −1 to −2°C frost *tops/foliage* damage can reduce tuber yield while preserving underground tubers; current A−3°C has **no effect** at −2°C. A whole-plant HP lethal dose cannot be derived from a frozen top or individual tuber measurement.
+
+**Status separation (2026-10-24):** `Docs/ColdDamageHpV3Candidates.csv` retains all 78 rows and **no numeric A/D/w alteration** from before this audit. It now marks **4 `APPROVED_A_D_CANDIDATE_VARIATION_PENDING`**, **5 `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED`**, **39 `UNAPPROVED_HP_TRIAL`**, **30 `KEEP_EXISTING_DORMANCY`**. HOLD is a subset of the previously 44 unapproved species, **not author approval, evidence-based calibration or a new runtime model**. Never interpret it as five scientifically validated plants. Keeping the exact values visible is historical comparison only; they are blocked for executable XML adoption. Do not introduce a new cold-acclimation/state machine or organ-damage system before a separate author-approved scope/design change.
+
+**Minimal next decision path:** For rice/wheat, select a representative cold-state / generic-crop purpose before comparing A and D to source survival; for maize, keep the independent short-versus-long severity and `S12` robustness constraint and seek additional same-cohort data; for potato/strawberry define whether Plant HP reflects alive crown/root, visible leaves, or harvest penalty. Then set a bounded A range from matching injury/death temperatures, D from multiple **matching** exposure durations where measured, otherwise explicitly label it a gameplay compromise; review normal climate and first/second frost cycles. Do **not** equate °C×lab-hours to °C×game-hours as if an observed physiological conversion had been established. No new native test or production XML conversion has been authorized.
+
+### Second source-first set: MO lentil, MO carrot, Vanilla cotton, MO sugarcane (2026-10-24)
+
+**Explicitly blocked from numeric adoption:** After checking actual original MO 1.6.2.2 Def identities/plant MaxHP and independent agricultural studies, add **MO Lentil `DankPyon_Plant_Lentils`, MO Carrot `DankPyon_Plant_Carrots`, Vanilla Cotton `Plant_Cotton`, MO Sugarcane `DankPyon_Plant_Sugarcane`** to `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED`. Original candidate A/D/w figures remain `Lentil −5/120/.20`, `Carrot −5/170/.20`, `Cotton +2/48/.20`, `Sugarcane +2/90/.20` **only as unapproved trials**.
+
+**Why the direct plant-HP abstraction needs an explicit representative endpoint before numerical review:**
+- **Lentil**: 1999 cold-screening study used 6–8-week **vegetative cold-acclimation**, −15°C×3h and found substantial genotype differentiation; a separate 2026 −4.8 to −2.2°C seed LT50 study measures **imbibed seed viability**, not grown-plant killing. Do not silently choose the hardiest conditioned genotype or seed LT50 as generic MO plant mortality.
+- **Carrot**: freezing foliage can perish while **protected harvested taproots remain edible**; current A−5 yields zero field HP loss for −4°C×8h, but raising A to model top freeze can wrongly destroy the harvestable taproot through generic whole-Plant HP. Need a root-first gameplay objective without a new tissue model.
+- **Cotton**: early seedlings suffer chilling/growth delays at temperatures far warmer than +2°C, but these are **not measured lethal whole-crop HP damage**; raising HP onset to 10–11°C to emulate slowed growth would instead accumulate permanent HP/yield loss without evidence. Current +4°C gives no injury for any duration.
+- **Sugarcane**: LSU agricultural source separates freezing injury to **leaves/buds (0 to −3.9°C)**, **stalk tissue (~−3.9 to −5.6°C)** and **aboveground commercial plant tissues (colder)**, not the protected underground stubble. Current A+2/D90 deals ~53% MaxHP injury at −4°C×8h in the simple fixed-temperature model, a gameplay output **not supported as 53% whole-crop mortality or stalk necrosis by the source**. CCTO generic MO support retains this crop despite separate AMJ mainland cultivation exclusions.
+
+Canonical evidence, source URLs, explicit temperature×duration HP/yield arithmetic and exact upstream MO Def harvest stats are in [ColdDamageV3SourceFirstAudit.md](Research/ColdDamageV3SourceFirstAudit.md#2026-10-24-second-source-first-cohort-lentil-carrot-cotton-sugarcane).
+
+**Status after this four-crop cohort**: 78 coverage records = **4 selected A/D candidates** (individual width still pending), **9 source-/stage-/endpoint-HOLD**, **35 further unapproved HP candidates**, and **30 unchanged dormancy**. This supersedes the previous interim 4/5/39/30 count, not the old approved author A/D values. **No numerical A/D/w modification, newly enabled patch, C# implementation, age/acclimation system, or live-game test**. Next numerical step is to choose **one representative gameplay endpoint per plant** (green non-acclimated lentil; edible carrot root with protected underground part; cotton freezing mortality rather than warm chilling-growth stress; sugarcane productive stalk/aboveground fate rather than permanent stubble death), compare independent seasonal mild/severe cumulative exposures, and then calculate bounded source-informed candidate A/D **as gameplay approximations**, not numerical lab fit.
+
+## V3 representative crop-role options and numeric shortlist (2026-10-24)
+
+This entry clarifies the *minimal static HP/harvest interpretation* used when comparing the second source-first group; **it is a reviewer proposal, not author selection of A/D or biology**. Full source, growth-stage, organ, experimental endpoint and stress/yield matrix: [Research/ColdDamageV3SourceFirstAudit.md](Research/ColdDamageV3SourceFirstAudit.md#2026-10-24-four-crop-representative-endpoints-and-bounded-numeric-alternatives).
+
+| Crop (current status HOLD) | Intended representative HP/harvest role | Existing A/D, unapproved | First alternative to scrutinize, UNAPPROVED |
+|---|---|---|---|
+| MO Lentil `DankPyon_Plant_Lentils` | Established green annual's living crown/basal meristem and ability to reach seed harvest; no flower-specific HP | **−5°C / 120°C·h** | **−4°C / 120°C·h** |
+| MO Carrot `DankPyon_Plant_Carrots` | Storage-root survival and availability for harvest, not instantaneous leaf injury | **−5°C / 170°C·h** | **−7°C / 170°C·h** |
+| Vanilla Cotton `Plant_Cotton` | Productive green aboveground stand/bolls; fatal frost injury not 0–11°C slowed growth | **+2°C / 48°C·h** | **0°C / 48°C·h** |
+| MO Sugarcane `DankPyon_Plant_Sugarcane` | Productive cane stalk as the harvestable living Plant; no protected stubble/ratoon reproduction | **+2°C / 90°C·h** | **−3°C / 24°C·h** |
+
+**Reasoning constraints:** Pulse seedlings can regrow from basal nodes after losing frost-injured tops (Saskatchewan Pulse Growers); protected carrot roots remain harvestable into winter (RHS/UMD); cotton chilling-growth injury is not a whole-plant frost fatality (Cotton Incorporated/University of Georgia); LSU AgCenter source differentiates sugarcane light-frost leaf/bud injury from stalk injury and loss of aboveground cane below ~−5.6°C. The CCTO `Plant.YieldNow()` ordinary-HP reduction approximates lost productive output only; neither yield factor nor D is a laboratory-measured mortality/rate for these specific crops.
+
+**Concrete gameplay tradeoffs with proposed alternatives, w=0 and ideal constant map ambient temperature:** five −8°C×8h nights in Carrot move permanent HP attrition **70.6%→23.5%**; three +1°C×8h nights in Cotton move **50%→0%**; −6°C×8h Sugarcane move **71.1% injury with crop alive→full harvestable stalk death**; three −8°C×8h nights in Lentil move **60%→80%** damage and can be excessively punitive for regenerating younger plants. All predictions ignore actual source MaxHP integer quantization, intermittent game ticks, cultivar/stage and seed/fruit/root temperature gaps. This last Lentil effect is an explicit **counterargument** to choosing A−4 without further validation.
+
+**Historical 2026-10-24 comparison boundary, superseded for two crops by the later author decision below:** The four alternatives were a narrowed **comparison set**, not scientific calibrations; the original status at the time was 4 A/D selected / 9 HOLD / 35 otherwise unapproved / 30 dormancy. Experimental survival endpoints cannot determine both A and D; prior author approval covers only Tomato, Pumpkin, Cabbage, Onion A/D. w=.20 is still an unapproved independent hypothesis. Retain generic MO Sugarcane support: AMJ Agriculture's regional sugarcane cultivation suppression does not amend the CCTO generic supported plant list. No production XML, C#, growth-state subsystem, cold-specific HP healing, release or native game job is approved. Choose numeric A/D only after considering root/meristem/stalk intent and bounded mild/frost-repetition consequences.
+
+## V3 carrot/cotton A-D candidate selection and remaining two-crop hold (2026-10-24)
+
+**Latest author approval superseding the four-way review-only table:** Approve only the **candidate numerical A/D** fields for **MO Carrot `DankPyon_Plant_Carrots`: A−7°C / D170°C·h**, and **Vanilla Cotton `Plant_Cotton`: A0°C / D48°C·h**. These are informed static-gameplay proxies, not measured tissue LT50/LD100 parameters or actual-game balance PASS. Carrot represents an edible root remaining harvestable despite top injury; cotton ordinary HP represents a productive growing stand under freezing stress, not all nonfreezing seedling chilling/growth slowdown.
+
+This author selection changes the previous unapproved **onset A only** (Carrot −5→−7°C; Cotton +2→0°C); D=170/48 remains the same uncalibrated previous proposed dose. For Carrot, five ideal −8°C×8h nights now project about **23.5% MaxHP loss and 88.2% standing-harvest fraction** rather than 70.6% and 64.7%; for Cotton three +1°C×8h nights give **0% cold HP loss** rather than 50%, while −2°C×8h still predicts about 33.3% HP loss. This is the accepted *simplified role and A/D numerical-candidate compromise*, not a statement that leaf/root soil temperature was measured or that cotton at +1°C suffers no slow growth. Numeric variation w=.20 on both rows remains **UNAPPROVED**; C# default is w=0.
+
+**Still held, no numerical decision:** MO Lentil `DankPyon_Plant_Lentils` retains original **A−5/D120**, comparison **A−4/D120** remains **not adopted**; practical pulse seedling frost survival/regrowth [Saskatchewan Pulse Growers](https://saskpulse.com/resources/seeding-tips-for-pulse-crops/) includes −4 to −6°C even when the main shoot dies, so A−4 can over-penalize ordinary frost in a permanent-HP, no-special-recovery system. MO Sugarcane `DankPyon_Plant_Sugarcane` retains original **A+2/D90**, comparison **A−3/D24** remains **not adopted**; [LSU AgCenter](https://www.lsuagcenter.com/portals/communications/publications/agmag/archive/2001/fall/resistance-of-louisiana-sugarcane-to-deterioration-from-freezing-temperatures) distinguishes terminal-leaf/bud brown-out, stalk injury and total aboveground commercial cane failure over multiple actual freeze events. See [source-first numeric review](Research/ColdDamageV3SourceFirstAudit.md#latest-2026-10-24-a-d-authority-and-lentilsugarcane-residual-uncertainty) for additional field-tradeoff comparisons. CCTO retains generic MO sugarcane support even though AMJ Agriculture separately excludes normal Japanese mainland cultivation; do not conflate Mod owner scopes.
+
+**Updated 78-row candidate status:** **6 `APPROVED_A_D_CANDIDATE_VARIATION_PENDING`, 7 `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED` (including Lentil/Sugarcane), 35 `UNAPPROVED_HP_TRIAL`, 30 `KEEP_EXISTING_DORMANCY`**. These are status changes and two candidate onset values only; candidate D and individual w unchanged, C# implementation and production XML untouched. No native-game HP/tick/harvest/save-load verification or release authorization.
+
+## V3 pumpkin D21.5 sampler correction — latest author-selected A/D candidate (2026-10-24)
+
+**Supersedes the 2026-10-23 Pumpkin A0/D22 numerical candidate, not the framework, and not any production XML.** The author selected MO Pumpkin `DankPyon_Plant_Pumpkins` injury onset **A=0°C** and cumulative full-HP lethal dose **D=21.5°C·game-hour** as the current V3 **candidate numeric fields only**. The previous D22 references in dated experiments are historical comparisons; `Docs/ColdDamageHpV3Candidates.csv` is the current numeric authority. The other five author-selected crop candidate tuples stay Tomato A0/D21.5, Cabbage A−3.5/D240, Onion A−5/D120, Carrot A−7/D170, and Cotton A0/D48.
+
+**Separate quantitative reason:** Under an ideal steady −3°C for eight game-hours, the current provisional `Plant.CheckMakeLeafless` cold sampler (every 2,000 ticks, first cold sample starts observation without back-charging) charges **7.2 game-hours**, i.e. **21.6°C·h** instead of the continuous ideal **24°C·h**. Against original MO 1.6.2.2 100-MaxHP Pumpkin, at the actual framework default `w=0` and under these theoretical nominal callbacks, **D22 leaves 2HP alive** (conditional remaining harvest multiplier ≈51% of otherwise ready crop) while **D21.5 depletes HP and kills**. A milder −1°C×8h case changes end HP from 68 to 67; repeated 2h nights may still be missed or vary by callback phase. This is a bounded gameplay/engineering choice, **not** a lab-derived species-wide mortality dose or guarantee of behavior on actual ambient-temperature curves. Do not fit any other species merely to this sampler artifact.
+
+**Authorization and implementation boundary:** Six selected A/D candidates remain six; seven source/stage/endpoint HOLD, 35 unapproved HP trials and 30 current dormancy unchanged. The draft CSV's per-plant `lethal_dose_variation=0.20` remains **unapproved**, C# default **w=0**. No HP opt-in Vanilla/MO production XML, HP runtime C# behavior, old save handling, 1.6/1.7 game acceptance or publication is approved by this selection. Keep existing 2,000-tick sampling as the provisional simple model and compare actual normal-tick map frost, HP, harvest and save/load together only at consolidated acceptance. Current comparative evidence: [ColdDamageHpV3Assessment](ColdDamageHpV3Assessment.md#six-selected-a-d-candidates-discrete-sampler-viability-review-2026-10-24).
+
+## V3 six-species lethal-dose variation comparison boundary (2026-10-24)
+
+**Review classification only; no individual width is author-selected.** The experimental `lethal_dose_variation=0.20` fields in `Docs/ColdDamageHpV3Candidates.csv` remain **unapproved** for all 48 prospective HP species; the functional C# default remains `w=0`. Stable per-plant Thing-ID variation changes **D only**, not temperature onset A, stage or acclimation, and is not quantitatively derived from published genotype-level LT50 data. An already-changing map ambient temperature, protective building and ordinary plant HP can cause different outcomes even at w=0.
+
+Following the 2026-10-24 author-selected **Pumpkin A0/D21.5** candidate correction, [the six-species discrete-sampler width audit](ColdDamageHpV3Assessment.md#six-species-individual-lethal-dose-variation-role-by-role-review-2026-10-24) narrows **comparisons, not selections**:
+
+| Author-selected V3 A/D candidate | Restricted width sensitivity to compare | Present review outcome |
+|---|---|---|
+| MO Tomato 0 / 21.5 | w=0 baseline; nonzero width deferred | Nominal −3°C×8h: w=.05 alone creates ≈45% survivors, conflicting with older ≤30% severe-frost preference |
+| MO Pumpkin 0 / 21.5 | w=0 baseline; nonzero width deferred | Same sampled near-lethal boundary; D21.5 was selected for w=0 and not jointly calibrated with w>0 |
+| MO Cabbage −3.5 / 240 | w=0 versus **w=.10** for sensitivity only | −8°C×48h: both all survive; w=.20 kills ≈21% of hypothetical plants, contrary to survival-first priority |
+| MO Onion −5 / 120 | w=0 versus **w=.05** for sensitivity only | −10°C×24h: w0 survives at 4HP, w=.05 kills ≈17% |
+| MO Carrot −7 / 170 | w=0 pending meaningful individual endpoint | −12°C×24h: all modeled comparison widths still survive, so no convincing gameplay gain |
+| Vanilla Cotton 0 / 48 | w=0 versus **w=.05** for sensitivity only | −2°C×24h: w0 survives, w=.05 kills ≈17%; original loaded Cotton HP remains unverified |
+
+**Practical numerical gate:** The accepted six A/D candidate tuples can all be kept unchanged under the existing **w=0** code default. Optional w is already implemented, so no new C# mechanism is necessary to preserve future same-species variability. In the representative −3°C×8h sampled event, Tomato/Pumpkin A0/D21.5 give 0% projected survivors at w0 but ≈26.7% at w=.01 and ≈45.3% at w=.05; the seemingly conservative ±1% is smaller than the dose bias from omitting the first 0.8 game-hour. A wider spread **cannot be added as a transparent improvement while also treating previously selected A/D outcomes as unchanged**. Retuning D for each width from that single event would be overfitting, not laboratory calibration. Therefore **do not block current A/D review or build a new system to fit artificial cohort survival**: use w=0 as the V3 provisional review/implementation baseline, and leave nonzero species widths open until a player-visible benefit and independently checked short/multi-night/severe outcomes warrant an explicit author decision. This preserves the historical interest in within-species differences without fabricating a measured spread.
+
+**Hold the scope:** No w values are selected for these six or the other 42 candidate HP species; none is ready for release XML from this comparison. Thirty dormancy species retain their existing model. No engine, XML, save format, optional addon parity, native test or publication change follows from this design review. Width may only be proposed after showing a distinct player-visible benefit without violating the selected frost survival/harvest intent; do not fit width to a single nominal temperature event and call that an empirical coefficient.
+
+## V3 seven HOLD crops: precise sampler-review boundary (2026-10-24)
+
+**Not an A/D or species-role selection.** The seven `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED` rows (Rice, Wheat, Corn, Potato, Strawberry, Lentil, Sugarcane) remain held. The original `A/D/w` CSV values are unchanged and **must not be copied into HP opt-in XML**. [The source-first audit](Research/ColdDamageV3SourceFirstAudit.md#seven-hold-species-exact-sparse-sampler-falsification-before-ad-selection-2026-10-24) now checks the unchanged 2,000-tick `CheckMakeLeafless` model against short/multi-night/extended frost; ideal 8h duration usually results in only **7.2h charged** due to first-cold observation. Most important: the unapproved MO Sugarcane candidate A−3/D24 is *not* fatal at −6°C×8h under nominal sampling (**90% HP loss**, not historical ideal **100% fatal**), while A−3/D36 predicts 60%. Do not select a new D (e.g. 21.5) merely to force the discrete fatality cutoff. Sugarcane A+2/D90 also wrongly injures productive stalk at 0°C under current representative-stalk interpretation. Existing sugarcane XML and AMJ Agriculture's separate crop exclusion are unaffected.
+
+**Interpretation preference for further author evaluation, not adoption:** Rice = established field stand (not unconditioned laboratory seedling), Wheat = ordinary partially winter-hardy field crop (not permanently full-acclimated genotype), Corn = standing reproductive crop (not one emerged-seedling assay), Potato = tuber harvesting and viability (not frost-killed tops), Strawberry = perennial crown survival (not flower-set injury), Lentil = regrowing lower-node crop (not imbibed seed LT50), Sugarcane = productive harvestable stalk (not underground ratoon). Preserve stage/organ uncertainty, w=0 as framework comparison baseline and current A/D HOLD status until bounded numerical choices are authorized. No extra organ/stage/healing subsystem is justified by this comparison alone.
+
+## V3 sugarcane daily frost minimum versus harvest semantics (2026-10-24)
+
+**Review finding, not adoption:** MO Sugarcane `DankPyon_Plant_Sugarcane` represents **harvestable aboveground stalk**, not underground ratoon survival; original MO 1.6 source explicitly declares **100 MaxHP / 11 harvestYield / 5.8 growDays**. LSU's 2015 minimum-temperature damage bands assume an **8–12-hour freezing episode**, *not eight hours continuously at its absolute minimum*. Current 2,000-tick HP model has marked variability between constant minima and gradual overnight cooling; [bounded calculations and source limitations](Research/ColdDamageV3SourceFirstAudit.md#sugarcane-a3--d24-vs-d36-minimum-temperature-duration-and-harvest-semantics-2026-10-24) are authoritative for this comparison.
+
+At proposed **A−3**, a single **−6°C constant for 8h** still leaves **10HP with D24** and **40HP with D36**, while three hypothetical gradual 0→−6→0°C frost nights leave **28–40HP with D24** and **52–60HP with D36**. Three nights each including **two hours sustained at −6°C** kill the D24 crop but leave **14–24HP** with D36. Compromised stalk tissues may still be harvested soon after freezing, before delayed biological quality decline; visible ordinary HP plus existing partial harvest better represents this than requiring every single −6°C minimum to instantly destroy all harvest.
+
+**Reviewer preference: retain A−3/D24 as the *stronger next author-choice comparison***, D36 as a softer comparison/fallback, **NOT a selected A/D candidate**. Do not lower D just to reproduce one LSU categorical minimum temperature as a literal whole-Plant death. The authoritative candidate CSV still holds **A+2/D90, HOLD**; its w=.20 is unapproved, framework default w=0. Six previously author-selected A/D tuples, other six HOLD profiles, 35 unapproved HP trials and 30 dormancy rows unchanged. No C#/XML/CI/runtime/main adoption is authorized here.
+
+## V3 MO sugarcane A/D candidate selection — latest 2026-10-24 authority
+
+**LATEST USER A/D CANDIDATE SELECTION (supersedes the earlier source-stage HOLD, A+2/D90 trial, D24/D36 review-only text above):** For generic MO `DankPyon_Plant_Sugarcane` select low-temperature HP onset **A−3°C** and full-MaxHP cold dose **D24°C·game-hour**. In the candidate CSV its status is now `APPROVED_A_D_CANDIDATE_VARIATION_PENDING`; this author decision resolves the representative-endpoint review *for choosing A/D only*. The chosen single ordinary `Plant.HitPoints` represents the continued harvestability of its **aboveground commercial cane stalk**, *not* underground ratoon survival, leaf/bud discoloration alone, actual extracted sugar quality, bacterial decomposition or the post-frost storage/harvesting deadline. This is a bounded gameplay proxy, **not a laboratory-calibrated living whole-stalk LD100 coefficient**.
+
+**Numerical reasons and known accepted approximation:** 2,000-tick cold samples do **not** charge the first observed 0.8 game-hour of an episode; at continuous −6°C for eight game-hours, current hypothetical sampled C# with w=0 gives **90% HP loss, 10HP alive** with A−3/D24 versus **60% loss, 40HP alive** for unselected D36. Three gradual overnight 0→−6→0°C cycles give ~**28–40HP alive** for selected D24 vs **52–60HP** under D36. Three nightly 0→−6°C (two-hour plateau)→0°C events kill D24 stalks while leaving D36 stalks at ~14–24HP. **Single minimum temperature is NOT identical to eight continuous hours at that minimum**; LSU source documents tissue injury and subsequent quality loss, not a universal in-game fatal dose. The selected D24 intentionally does **not** force every single night reaching −6°C to destroy all immediately harvestable stalks. Earlier ideal continuous-time `−6°C×8h = 24°C·h` crop-death wording is superseded by this actual sampled calculation. See [source-first detailed comparison](Research/ColdDamageV3SourceFirstAudit.md#sugarcane-a3--d24-vs-d36-minimum-temperature-duration-and-harvest-semantics-2026-10-24).
+
+**Limits/status after this author choice:** There are now **7 selected A/D candidate rows**, **6 HOLD** (Rice, Potato, Corn, Strawberry, Wheat, Lentil), **35 unapproved HP trials** and **30 existing dormancy** out of 78. Other selected A/D tuples (Tomato A0/D21.5, Pumpkin A0/D21.5, Cabbage A−3.5/D240, Onion A−5/D120, Carrot A−7/D170, Cotton A0/D48) stay unchanged. The CSV `lethal_dose_variation=0.20` for sugarcane and all other species is **still unapproved**, C# defaults to w=0. No consent for C#/XML production activation, a per-plant width, additional temperature physiology, broad crop rebalancing, native game PASS or Steam release. CCTO continues supporting generic MO sugarcane; AMJ Agriculture's separate Japanese-mainland exclusion does not change this base CCTO authority.
+
+## V3 potato / cultivated strawberry actual harvest-lifecycle correction (2026-10-24)
+
+**Important mechanical correction:** Vanilla **`Plant_Strawberry` is a sowable *one-harvest crop*, destroyed on harvesting and resown** ([RimWorld Wiki strawberry plant](https://rimworldwiki.com/wiki/Strawberry_plant)). Earlier 2026-10-24 reviewer wording treating this specific crop as an in-game perpetually fruiting **overwintering perennial crown** must not be followed as a required V3 gameplay outcome. Real strawberry crowns *can* survive winter, but that is separate physiology; neither a new repeat-harvest system nor a flower-health subsystem is approved. In a simple ordinary-HP V3, assess strawberry **the living productive crop and reduced final berry yield under frost**, not a destroyed-upon-harvest crown. The existing **A−12/D500** HOLD trial ignores all fruit/flower frost at −2 to −10°C and is **not** numerically validated simply because hardier dormant biological crowns exist.
+
+[The relevant comparison](Research/ColdDamageV3SourceFirstAudit.md#potato-and-vanilla-strawberry-tuberone-harvest-crop-endpoint-2026-10-24) shows at w=0 and nominal 2,000-tick sampling: Potato A−3/D100 retains 67/85HP and ~89.4% conditional harvest after three warm-separated −4°C×8h nights; Potato A−2/D100 instead retains 49/85HP and ~78.8%, a genuine tuber-yield-versus-top-injury tradeoff. Strawberry A−12/D500 suffers no loss even after −5°C×8h for three nights; hypothetical A−3/D240 instead retains 70/85HP (~91.2% harvest), and A−2/D120 retains 40/85HP (~73.5% harvest). In an entire −10°C×24h event, A−3/D240 survives 28/85HP while A−2/D120 kills the crop: the latter may over-penalize genuine sheltered crown viability, but it is *one-harvest sowable Plant* behavior, not an independently measured crown-death prediction.
+
+**No coefficient selection:** Leave both CSV rows `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED`: Potato A−3/D100, Strawberry A−12/D500; variation 0.20 in CSV remains UNAPPROVED; C# default w=0. **Reviewer comparison options only:** Potato A−2/D100 vs old A−3/D100 (A−1/D100 a stronger leaf-sensitive bound); Strawberry A−3/D240 vs A−2/D120 (A−1/D120 a more frost-sensitive bound). Neither means lab-calibrated fatality or actual in-game harvest output; rely on loaded original 1.6/1.7 evidence at the final consolidated stage. Preserve all previously author-selected seven A/D species, other four HOLD, 35 unapproved trials and 30 dormancy Defs; no new C#/XML behavior, biological organ subsystem or Steam release.
+
+## V3 potato and strawberry growing-window acceptance screen (2026-10-24)
+
+**Latest review (not author A/D selection):** The existing original-game 1.6 **world-tile daily low/high** archive is reused in a transparent *hypothetical* 06:00–19:00 outdoor crop-growth plus exact 2,000-tick HP-sampler model; not a weather-event, real sowing window, incident, or loaded map-native gameplay verification. Original Plant `growDays` 5.8 potato/4.6 cultivated strawberry is **~10.71/8.49 actual days on ordinary soil in ideal temperatures**, not 5.8/4.6 calendar days. Details, provenance and assumptions: [source-first seasonal window gate](Research/ColdDamageV3SourceFirstAudit.md#potato-and-strawberry-actual-climate-window-review-before-author-ad-selection-2026-10-24).
+
+- **Potato**: A−2/D100 remains a **recommended comparison for author numerical selection**, not automatically approved; all tested early-season (day 10) grow windows in sampled temperate/boreal weather permit harvest. In colder BorealForest 44000, a day-10 sowing is estimated to yield ~83–94% if harvested promptly. Very late day-14 Boreal 40777/44000 potato crop failure occurs with **both** original A−3/D100 and comparative A−2/D100, so do not attribute it uniquely to the revised onset. Top injury and protected tuber survival remain biologically different endpoints.
+- **Cultivated Strawberry**: A−2/D120 is **not yet numerically safe to adopt** merely from its single-night frost behavior. In the coldest sampled BorealForest 44000, one day-14 planted crop at near maturity dies in **60/80 theoretical observation phases**, while A−2/D240 matures and remains harvestable under **80/80** phases at an estimated **58–77%** full-health harvest factor. A−3/D240 is another previously compared gentler onset. Higher D also protects against extended severe freeze, so it is **not** a source-measured LD100 or automatic preferable number. Capturing flowers/berry yield loss and keeping a crown alive cannot be both faithfully modeled using one ordinary HP number; the sowable Vanilla crop is removed when harvested.
+
+**Current authority unchanged:** CSV `Plant_Potato` A−3/D100 and `Plant_Strawberry` A−12/D500 remain `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED`. Reviewer choices A−2/D100 (potato), A−2/D120 versus A−2/D240 (strawberry) are **not approved numbers**. The other 7 selected A/D rows, four remaining source HOLD rows, 35 unapproved HP trials, 30 retained dormancy, optional but unapproved individual variation and C# default w=0 remain. No existing production XML, C#, save behavior, main merge, runtime PASS, UI or Steam publication change.
+
+## V3 potato author A/D selection and strawberry stronger-frost gate (2026-10-24)
+
+**Current selection:** `Plant_Potato` **A−2°C/D100°C·game-hour**, selected *A/D candidate only*, supersedes its earlier held A−3/D100. Ordinary visible HP is a tuber-bearing crop viability/harvest proxy, not independent exposed-leaf and buried-tuber injury. In reviewed 2,000-tick w=0 scenarios on 85HP, three −4°C×8h nights leave **49HP and 78.8% conditional yield**, versus 67HP/89.4% under A−3. Original 1.6 world-tile climate approximation still permits early sowing (day10) and harvest in all three reviewed regions, with late day14 Boreal crop death under **both** onset options. D100 is an accepted gameplay candidate, not a laboratory LD100.
+
+**Strawberry remains unselected:** The sowable one-harvest `Plant_Strawberry` is destroyed after harvest; spring flower/berry frost sensitivity cannot be replaced by indefinitely dormant perennial-crown survival. Compare reviewer-only **A−2/D120 vs A−2/D240**, with exact 2,000-tick sampling (constant hypothetical air, first cold sample not charged, default w=0, 85HP):
+
+| Frost | D120: HP / relative harvest if living | D240: HP / relative harvest if living |
+|---|---|---|
+| −3°C×8h | 80 / 97.1% | 83 / 98.8% |
+| −5°C×8h | 70 / 91.2% | 78 / 95.9% |
+| −5°C×8h for three warm-separated nights | 40 / 73.5% | 63 / 87.1% |
+| −10°C×12h | 22 / 62.9% | 54 / 81.8% |
+| −10°C×24h | dead / 0% | 20 / 61.8% |
+| −12°C×24h | dead / 0% | 3 / 51.8% |
+
+D240 is the **less punitive comparison**, preserving maturity in 80/80 synthetic sampling phases for the marginal Boreal #44000 day14 sowing where D120 fails before maturity in 60/80. But D240 may **understate flowering frost loss**, and plant HP harvest scaling cannot separately kill blossoms; neither dose is calibrated or approved. The original `Plant_Strawberry` A−12/D500 remains HOLD until a distinct numerical choice. Day14 source data are *world-tile daily extrema with assumed sinusoidal daily profile*, not a real planted map, growing-season sow permission, or native runtime acceptance.
+
+**Current 78 species:** 8 A/D candidates selected (previous seven plus Potato), 5 source/stage HOLD (Rice/Corn/Strawberry/Wheat/Lentil), 35 unapproved HP trial, 30 preexisting dormancy. All w=.20 CSV entries unapproved; C# default w=0. No new C#/XML opt-in, test job, main merge or publication. Historical older counts above are dated, not competing authority.
+
+## V3 cultivated strawberry D240 overprotection: reproductive frost versus crop survival (2026-10-24)
+
+**Review and outstanding numeric decision, NOT author A/D selection.** The most recent direct follow-up specifically re-audits proposed `Plant_Strawberry` **A−2°C/D240°C·game-hour** against severe freeze, same-onset D120, and a *new reviewer-only* intermediate **D180**. The CSV is still `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED` at its historical trial A−12/D500; **no strawberry A/D, w or production XML** is authorized by this review.
+
+**Two independent source endpoints must not be conflated.** The [Manitoba government strawberry frost guidance](https://gov.mb.ca/agriculture/crops/crop-management/spring-frost-damage-bulletin.html) documents flower/fruit vulnerability near −1°C and **20–80% frost-associated crop losses** varying with flower stage, cultivar, duration, etc.; its individual tight-bud/full-bloom 30-minute threshold describes **flower death**, not whole `Plant.HitPoints` or a universal 30-minute whole-field yield reduction. [UC ANR](https://ucanr.edu/site/strawberry-disorders-identification-management/low-temperature-and-frost-injury-dano-causado) distinguishes −5°C damage of flowering crops from surviving dormant crowns near −7°C. In gameplay, the [Vanilla sowable strawberry crop](https://rimworldwiki.com/wiki/Strawberry_plant) is **destroyed at harvest**, 85 MaxHP and 8 base berries/harvest, so long-lived postharvest crown survival is not a mandatory playable outcome. Any static A/D HP-only model fundamentally cannot separate 90% of exposed *flowers* freezing from still-alive crown, varied flowering stage, short sub-2,000-tick frost missed by `CheckMakeLeafless`, or greater-than-50% yield loss while a plant remains alive. At **A−2**, an −1°C event gives **zero HP damage for any D**.
+
+**Bounded cold stress, w=0, 85 MaxHP, explicit initial-cold missed interval, constant-air hypothetical frost:**
+
+| Frost case | A−2/D120 | A−2/D180 (**comparison only**) | A−2/D240 |
+|---|---|---|---|
+| −5°C×8h, one episode | 70HP / 91.2% harvest factor | ~75HP / 94.1% | 78HP / 95.9% |
+| −5°C×8h, 3 warm-separated nights | 40HP / 73.5% | ~55HP / 82.4% | 63HP / 87.1% |
+| −10°C×24h, one episode | dead | dead | 20HP / 61.8% |
+| −12°C×24h, one episode | dead | dead | 3HP / 51.8% |
+
+The field percentages cited by agricultural sources are **not** an exact calibration target for the whole-plant model; nominal `harvestYield=8` means the above health multipliers correspond roughly to 7.7 berries for D240 after −5°C×8h and ~7.0 after three nights, **before harvesting-pawn multipliers and actual integer/rounding rules**, which have not been natively verified. This reveals the player-facing weak penalty of D240 despite plausible living-stalk/crown survival. D180 makes extreme −10°C×24h fatal while weakening frost tolerance and still gives only modest one-night yield loss.
+
+**Original-game world-tiling sensitivity, NOT field testing:** In the previously documented artificially sown coldest BorealForest world tile #44000 **calendar day14**, a sinusoidal reconstruction from daily minima/maxima, assumed 06–19 outdoor growth light and 80 different fixed callback phases predicts harvest for **20/80** nominal phases at D180, **80/80** at D210, **80/80** at D240. These are **sampling-offset counts, not probabilistic plant survival**, and that particular late-day planting may not be sowable in ordinary RimWorld. As such, **do not tune to a D≈210 cutoff** simply to make all artificially planted day14 crops survive; that would be one-weather-sequence overfitting, not independent crop physiology.
+
+**Decision:** Previous D240-as-priority comparison survives as the **survival-first** option, but cannot be asserted realistic for flowering harvest: under a constant −10°C×24h cold wave it still leaves ~62% harvest in a living crop. For stronger severe-frost crop-loss realism, **D180 is now the more discriminating reviewer comparison**, but a one-harvest plant lacking separate flowers will *always* miss short mild reproductive frost. Do not propose a new flower module or special damage recovery to force exact biological equivalence. The author must resolve the **survival-first vs stronger deep-freeze crop-failure** preference before any strawberry candidate selection; no new numerical adoption or live-game change follows. Current counts remain 8 selected A/D, 5 HOLD, 35 other HP trials and 30 dormancy.

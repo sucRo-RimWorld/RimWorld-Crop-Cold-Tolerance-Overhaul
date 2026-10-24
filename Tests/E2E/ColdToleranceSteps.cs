@@ -21,6 +21,7 @@ namespace CropColdToleranceOverhaul.E2E
         private readonly List<Thing> testRoomWalls = new List<Thing>();
         private CellRect? testRoomRect;
         private int? rememberedDormancyTick;
+        private int? observedColdHp;
 
         private static readonly FieldInfo MadeLeaflessTickField =
             typeof(Plant).GetField(
@@ -343,17 +344,9 @@ namespace CropColdToleranceOverhaul.E2E
             recovery.coldDeathTemperature = -15f; // Legacy fallback remains legal.
             recovery.coldDamageStartTemperature = -5f;
             recovery.coldDamageDegreeHoursToDie = 10f;
-            foreach (float invalid in new[] { -0.1f, float.NaN, float.PositiveInfinity, float.NegativeInfinity })
-            {
-                recovery.coldDamageRecoveryPerHour = invalid;
-                ctx.Assert(
-                    !recovery.HasColdDamageModel && recovery.ConfigErrors().Count() == 1,
-                    "Invalid cold injury recovery must not activate the opt-in model.");
-            }
-            recovery.coldDamageRecoveryPerHour = 0f;
             ctx.Assert(
                 recovery.HasColdDamageModel && !recovery.ConfigErrors().Any(),
-                "Zero recovery must retain a valid cumulative cold injury model.");
+                "An HP cold injury configuration must validate.");
         }
 
         [Then("CCTO Info Card stat construction matches fixed-death and dormancy configuration")]
@@ -436,18 +429,16 @@ namespace CropColdToleranceOverhaul.E2E
 
 
         // Test-only approximation: never patch real balance Defs in the release.
-        [Given("a cumulative CCTO test plant with minimum growth {float} onset {float} dose {float} recovery {float}")]
+        [Given("a cumulative CCTO test plant with minimum growth {float} onset {float} dose {float}")]
         public void SpawnCumulativeColdPlant(
             PickleContext ctx,
             float minimumGrowthTemperature,
             float onset,
-            float lethalDegreeHours,
-            float recoveryPerHour)
+            float lethalDegreeHours)
         {
             ColdToleranceExtension extension = new ColdToleranceExtension();
             extension.coldDamageStartTemperature = onset;
             extension.coldDamageDegreeHoursToDie = lethalDegreeHours;
-            extension.coldDamageRecoveryPerHour = recoveryPerHour;
             ctx.Require(extension.HasColdDamageModel,
                 "Test cumulative model configuration must be valid.");
             ConfigureAndSpawn(ctx, minimumGrowthTemperature, extension);
@@ -612,6 +603,32 @@ namespace CropColdToleranceOverhaul.E2E
         }
 
 
+        [When("I advance {int} complete RimWorld game ticks")]
+        public void AdvanceCompleteGameTicks(PickleContext ctx, int ticks)
+        {
+            ctx.Require(ticks > 0 && ticks <= 5000,
+                "The full game-tick integration check must remain bounded.");
+            ctx.Require(Find.TickManager != null,
+                "Ordinary RimWorld TickManager is required.");
+            int start = Find.TickManager.TicksGame;
+            bool previousFastEcology = DebugSettings.fastEcology;
+            try
+            {
+                // Quickstart/Pickle may enable 2000-tick fast ecology mode.
+                // Each iteration here must instead advance one real game tick
+                // through the map TickLists including Plant.TickLong.
+                DebugSettings.fastEcology = false;
+                for (int i = 0; i < ticks; i++)
+                    Find.TickManager.DoSingleTick();
+            }
+            finally
+            {
+                DebugSettings.fastEcology = previousFastEcology;
+            }
+            ctx.Assert(Find.TickManager.TicksGame - start == ticks,
+                "Full game-tick advancement did not complete.");
+        }
+
         [When("I simulate {int} ticks between CCTO damage observations")]
         public void SimulateDamageObservation(PickleContext ctx, int elapsedTicks)
         {
@@ -625,21 +642,40 @@ namespace CropColdToleranceOverhaul.E2E
             ForcePlantColdCheck(ctx);
         }
 
-        [Then("the CCTO damage record is zero at first observation")]
-        public void AssertInitialDamageZero(PickleContext ctx)
+        [Then("the CCTO plant HP is recorded at first observation")]
+        public void RememberColdHp(PickleContext ctx)
         {
             ColdDamageRecord record = RequireDamageRecord(ctx);
-            ctx.Assert(Math.Abs(record.damage) < 0.0001f,
-                "First cold observation must not retrospectively charge exposure.");
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Assert(record.pendingHitPointDamage == 0f,
+                "First observation must not apply unobserved cold injury.");
+            observedColdHp = plant.HitPoints;
         }
 
-        [Then("the CCTO damage fraction is between {float} and {float}")]
-        public void AssertColdDamageRange(PickleContext ctx, float minimum, float maximum)
+        [Then("the CCTO plant HP decreased from last observation")]
+        public void AssertColdHpDecreased(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Require(observedColdHp.HasValue, "No previous HP observation.");
+            ctx.Assert(plant.HitPoints < observedColdHp.Value,
+                "Expected cold injury to decrease ordinary visible plant HP.");
+            observedColdHp = plant.HitPoints;
+        }
+
+        [When("I retain a fractional CCTO cold HP remainder")]
+        public void RetainFractionalColdHpRemainder(PickleContext ctx)
         {
             ColdDamageRecord record = RequireDamageRecord(ctx);
-            ctx.Assert(record.damage >= minimum && record.damage <= maximum,
-                "Cold damage must be between " + minimum + " and " + maximum
-                + ", actual=" + record.damage + ".");
+            record.pendingHitPointDamage = 0.5f;
+        }
+
+        [Then("the CCTO plant HP did not recover")]
+        public void AssertNoColdHpRecovery(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Require(observedColdHp.HasValue, "No previous HP observation.");
+            ctx.Assert(plant.HitPoints == observedColdHp.Value,
+                "Warming must not restore HP lost to frost.");
         }
 
         [Then("the CCTO test plant is alive")]
