@@ -5,13 +5,14 @@
 # 2026-10-23: Author additionally selected Tomato A=0/D=21.5 and Pumpkin A=0/D=22 as A/D candidate values, resolving the previous S02/S23 preliminary failure flags for those old D60/D68 trials; S16/S24 repeats are not independent dose experiments. All 4 selected A/D rows retain unapproved variation 0.20. No release, native game PASS, or production XML approval.
 # 2026-10-23: Author approved Cabbage A=-3.5 / D=240 and Onion A=-5 / D=120 as V3 NUMERICAL CANDIDATES only (APPROVED_A_D_CANDIDATE_VARIATION_PENDING). A/D selection is decided; actual-game acceptance and XML activation are NOT approved. The lethal_dose_variation 0.20 in these two rows remains an explicitly unapproved hypothesis, NOT part of the authorization (framework default is 0). See Design.md and ColdDamageBalanceV2Targets.md.
 # 2026-10-24 source-first audit: Rice, Wheat, Corn, Strawberry, Potato are HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED. Their old A/D/w figures are unchanged unapproved trials; do not interpret HOLD as source-calibrated, or migrate these five to HP XML. Formal evidence and mismatch reasoning: Docs/Research/ColdDamageV3SourceFirstAudit.md.
+# 2026-10-24 follow-on source-first review: 4 more (Lentil, Carrot, Cotton, Sugarcane) are HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED due to cultivar/acclimation, edible root-vs-top, chilling-growth-vs-death, or leaves/stalk/ratoon endpoint mismatch. Numerical A/D/w UNCHANGED. Docs/Research/ColdDamageV3SourceFirstAudit.md.
 defName,plant,mode,legacy_death_C,hp_injury_onset_C,full_hp_degree_game_hours,lethal_dose_variation,review_status
 Plant_Rice,Rice,hp_damage,-1,3,60,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 Plant_Potato,Potato,hp_damage,-2,-3,100,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 Plant_Corn,Corn,hp_damage,-2,0,64,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 Plant_Strawberry,Strawberry,hp_damage,-9,-12,500,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 Plant_Haygrass,Haygrass,hp_damage,-9,-12,220,0.20,UNAPPROVED_HP_TRIAL
-Plant_Cotton,Cotton,hp_damage,-1,2,48,0.20,UNAPPROVED_HP_TRIAL
+Plant_Cotton,Cotton,hp_damage,-1,2,48,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 Plant_Devilstrand,Devilstrand,hp_damage,-1,2,70,0.20,UNAPPROVED_HP_TRIAL
 Plant_Healroot,Healroot,hp_damage,-9,-10,200,0.20,UNAPPROVED_HP_TRIAL
 Plant_Hops,Hops,dormancy,,,,,KEEP_EXISTING_DORMANCY
@@ -56,14 +57,14 @@ Plant_PincushionCactus,Pincushion cactus,hp_damage,-8,-10,750,0.20,UNAPPROVED_HP
 Plant_TallGrass,Tall grass,dormancy,,,,,KEEP_EXISTING_DORMANCY
 Plant_HealrootWild,Wild healroot,hp_damage,-9,-10,200,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Onions,Onion,hp_damage,-3,-5,120,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
-DankPyon_Plant_Lentils,Lentil,hp_damage,-4,-5,120,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Lentils,Lentil,hp_damage,-4,-5,120,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 DankPyon_Plant_Cabbages,Cabbage,hp_damage,-6,-3.5,240,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Garlic,Garlic,dormancy,,,,,KEEP_EXISTING_DORMANCY
 DankPyon_Plant_Mushrooms,Mushroom,hp_damage,-1,0,90,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Wheat,Wheat,hp_damage,-6,-7,200,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 DankPyon_Plant_Flax,Flax,hp_damage,-5,-5,140,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Sugarcane,Sugarcane,hp_damage,-5,2,90,0.20,UNAPPROVED_HP_TRIAL
-DankPyon_Plant_Carrots,Carrot,hp_damage,-4,-5,170,0.20,UNAPPROVED_HP_TRIAL
+DankPyon_Plant_Sugarcane,Sugarcane,hp_damage,-5,2,90,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
+DankPyon_Plant_Carrots,Carrot,hp_damage,-4,-5,170,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 DankPyon_Plant_Herb,Herb,hp_damage,-3,-4,110,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Tomatoes,Tomato,hp_damage,-1,0,21.5,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Grape,Grape,dormancy,,,,,KEEP_EXISTING_DORMANCY
