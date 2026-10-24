@@ -7,6 +7,7 @@
 # 2026-10-24 source-first audit: Rice, Wheat, Corn, Strawberry, Potato are HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED. Their old A/D/w figures are unchanged unapproved trials; do not interpret HOLD as source-calibrated, or migrate these five to HP XML. Formal evidence and mismatch reasoning: Docs/Research/ColdDamageV3SourceFirstAudit.md.
 # 2026-10-24 follow-on source-first review: 4 more (Lentil, Carrot, Cotton, Sugarcane) are HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED due to cultivar/acclimation, edible root-vs-top, chilling-growth-vs-death, or leaves/stalk/ratoon endpoint mismatch. Numerical A/D/w UNCHANGED. Docs/Research/ColdDamageV3SourceFirstAudit.md.
 # 2026-10-24 author selected candidate A/D fields ONLY: Carrot A=-7 / D=170 (edible-root preservation) and Cotton A=0 / D=48 (productive stand, no nonfreezing permanent HP damage). Their 0.20 variation remains UNAPPROVED. Previous source-stage mismatch is a deliberate simplified gameplay interpretation, NOT empirical whole-plant fatality calibration. Lentil A=-5 / D=120 and Sugarcane A=+2 / D=90 stay HOLD; no native test, XML or C# approval.
+# 2026-10-24 LATEST author selection: MO Pumpkin A=0 / D=21.5 replaces its 2026-10-23 selected D=22 (candidate field only). Nominal w=0 2000-tick sampler: -3C x8 game-h after first cold reading charges 21.6 C*h, kills original prepatch 100-HP pumpkin with D21.5, but prior D22 leaves 2 HP and a conditional ~51% harvest factor. This is an engineering/gameplay compromise, NOT experimentally measured LD100 or native-game PASS. CSV w=0.20 is STILL unapproved, framework default w=0; all other A/D and status rows unchanged. No production XML/C# activation or Steam release. See Design.md and ColdDamageHpV3Assessment.md.
 defName,plant,mode,legacy_death_C,hp_injury_onset_C,full_hp_degree_game_hours,lethal_dose_variation,review_status
 Plant_Rice,Rice,hp_damage,-1,3,60,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
 Plant_Potato,Potato,hp_damage,-2,-3,100,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
@@ -69,7 +70,7 @@ DankPyon_Plant_Carrots,Carrot,hp_damage,-4,-7,170,0.20,APPROVED_A_D_CANDIDATE_VA
 DankPyon_Plant_Herb,Herb,hp_damage,-3,-4,110,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Tomatoes,Tomato,hp_damage,-1,0,21.5,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Grape,Grape,dormancy,,,,,KEEP_EXISTING_DORMANCY
-DankPyon_Plant_Pumpkins,Pumpkin,hp_damage,-1,0,22,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
+DankPyon_Plant_Pumpkins,Pumpkin,hp_damage,-1,0,21.5,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Tree_Apple,Apple,dormancy,,,,,KEEP_EXISTING_DORMANCY
 DankPyon_Tree_Lemon,Lemon,hp_damage,-4,-5,650,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Tree_Mulberry,Mulberry,dormancy,,,,,KEEP_EXISTING_DORMANCY
