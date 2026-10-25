@@ -1,15 +1,15 @@
 # CCTO Beta Release Checklist
 
-## Next public release: 0.2 — not yet published
+## Current fixed-threshold tuning only — 2026-10-26
 
-**Author-selected next public version: 0.2**, following 0.1.3 Beta. This is a significant cold-model feature upgrade (fixed cold-death threshold → accumulated frost injury applied to visible Plant HP, plus revised dormancy/temperature presentation), not a 0.1.4 patch. Historical "V2"/"V3" labels refer to internal design rounds; the integrated V3 Draft [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) targets the **0.2 release**, not a public "V3".
+**Author-selected scope:** do not activate or release the cumulative Plant-HP injury model for now. Keep the 0.1.3 fixed-death framework and dormancy; change only an existing `coldDeathTemperature` when a source-backed, independently reviewed discrepancy warrants it. The existing 48 fixed-death + 30 dormancy species remain the baseline. There are **no newly authorized fixed numeric replacements** merely from this scope decision.
 
-- [ ] Complete the 0.2 code/XML and biological realism review, including unresolved MO 1.6 Cabbage optimal-growth-temperature correction; preserve the CCTO standalone Vanilla and optional MO acceptance profiles. Agriculture crop economics and former seven farming-role comparisons are **not** release gates.
-- [ ] Finish only remaining necessary targeted technical acceptance (including advertised RimWorld versions and realistic climate/ecology), exact production DLL and package compatibility checks; reuse unchanged prior test evidence.
-- [ ] In **one release-preparation change set**, align `About/About.xml`, `About/Manifest.xml`, README/current-versus-planned description, bilingual Workshop and 2game copy, changelog, release notes/tag and package. Review README against shipped contents per Project SharedRules.
-- [ ] Obtain author publication authorization and verify the actual installed/Steam package. Version 0.2 is **planned**, not released.
+- [ ] Review concrete candidate species against real-world source endpoints, life stage/acclimation, fixed-model simplifications and normal/worst-case biome impacts; reject unsupported substitutions. Do not repurpose the deferred V3 `A` or `D`.
+- [ ] Implement only accepted Core / MO fixed threshold XML value changes. Preserve the minimum growth fields, optimal growth fields, dormancy, C# engine and API, crop yield/growDays/fertility, and third-party addon ownership.
+- [ ] Perform targeted XML/static checks for changed definitions and one bounded, consolidated runtime validation *if* XML changes were made. Reuse existing 0.1.3 behavior evidence for unchanged functionality; no automatic RimWorld launches.
+- [ ] When a genuine release is ready, assign its version based on the actual fixed-threshold-only diff. Reconcile About/Manifest, README, changelog, release notes, bilingual Workshop/2game descriptions and payload together, then obtain separate publication approval.
 
-**0.1.3 remains the repository's current advertised version.** This decision alone does not alter metadata, existing binaries, publication or Steam Workshop. The older checklist below records 0.1.x Beta evidence only.
+**Public/version boundary:** Current `About.xml` / `Manifest.xml` and public-facing installed contents remain **0.1.3 Beta**. Previous **0.2** target assumed the major HP-model switch, now **deferred**; a fixed-threshold adjustment is not by itself an automatic 0.2 release. [Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) retains experimental HP-model work but is no longer on the active integration path. Do not merge or publish it under the fixed-only scope.
 
 This is the release-preparation checklist for the first public Beta.
 
