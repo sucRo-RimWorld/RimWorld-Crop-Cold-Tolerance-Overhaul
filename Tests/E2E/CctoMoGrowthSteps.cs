@@ -33,14 +33,18 @@ namespace CropColdToleranceOverhaul.E2E
                 for (int condition = 0; condition < Temperatures.Length; condition++)
                 {
                     int selected = condition;
-                    await OnMain(() => fixture.Begin(Temperatures[selected]));
-                    for (int first = 1; first <= Samples; first += 40)
+                    for (int cropIndex = 0; cropIndex < Names.Length; cropIndex++)
                     {
-                        int begin = first;
-                        await OnMain(() => fixture.Advance(begin, Math.Min(Samples + 1, begin + 40)));
-                        await Task.Delay(1);
+                        int chosenCrop = cropIndex;
+                        await OnMain(() => fixture.Begin(Temperatures[selected], chosenCrop));
+                        for (int first = 1; first <= Samples; first += 40)
+                        {
+                            int begin = first;
+                            await OnMain(() => fixture.Advance(begin, Math.Min(Samples + 1, begin + 40)));
+                            await Task.Delay(1);
+                        }
+                        await OnMain(() => fixture.Record(chosenCrop));
                     }
-                    await OnMain(() => fixture.Record());
                 }
                 await OnMain(() => fixture.Complete());
             }
@@ -87,6 +91,7 @@ namespace CropColdToleranceOverhaul.E2E
             private readonly float[] day20 = new float[4];
             private readonly float[] day50 = new float[4];
             private int simulatedStart;
+            private int currentCrop;
             private float temperature;
             private int completed;
             private bool disposed;
@@ -120,50 +125,44 @@ namespace CropColdToleranceOverhaul.E2E
                         "MO+Agriculture growth values not loaded " + name);
                     defs.Add(def);
                 }
-                Room sharedRoom = null;
                 foreach (IntVec3 c in CellRect.CenteredOn(map.Center, 12).Cells)
                 {
-                    if (cells.Count >= Names.Length) break;
+                    if (cells.Count >= 1) break;
                     if (!c.InBounds(map) || c.Roofed(map) || !c.Standable(map)) continue;
                     if (c.GetThingList(map).Any(t => t is Plant || t is Pawn ||
                         t.def.category == ThingCategory.Building)) continue;
                     Room r = c.GetRoom(map);
                     if (r == null || !r.UsesOutdoorTemperature) continue;
-                    if (sharedRoom != null && !object.ReferenceEquals(r, sharedRoom))
-                        continue; // prevent disjoint outdoor temperature trackers
-                    if (sharedRoom == null) sharedRoom = r;
                     cells.Add(c);
                     terrains.Add(map.terrainGrid.TerrainAt(c));
                     snow.Add(map.snowGrid.GetDepth(c));
                     map.terrainGrid.SetTerrain(c, TerrainDefOf.Soil);
                     map.snowGrid.SetDepth(c, 0f);
                 }
-                ctx.Require(cells.Count == Names.Length, "Four native outdoor Soil test cells unavailable");
+                ctx.Require(cells.Count == 1, "Single native outdoor Soil test cell unavailable");
                 for (int i = 0; i < cells.Count; i++)
                     ctx.Require(Math.Abs(map.fertilityGrid.FertilityAt(cells[i]) - 1f) < .01f,
                         "Native soil fertility not 100 percent");
             }
 
-            public void Begin(float temp)
+            public void Begin(float temp, int index)
             {
                 temperature = temp;
-                for (int i = 0; i < plants.Count; i++)
-                    if (!plants[i].Destroyed) plants[i].Destroy(DestroyMode.Vanish);
+                currentCrop = index;
+                foreach (Plant old in plants)
+                    if (old != null && !old.Destroyed) old.Destroy(DestroyMode.Vanish);
                 plants.Clear();
-                for (int i = 0; i < Names.Length; i++)
-                {
-                    Plant plant = ThingMaker.MakeThing(defs[i]) as Plant;
-                    ctx.Require(plant != null, "Failed to instantiate real MO Plant");
-                    GenSpawn.Spawn(plant, cells[i], map, WipeMode.Vanish);
-                    plant.Growth = 0f;
-                    plant.HitPoints = plant.MaxHitPoints;
-                    plants.Add(plant);
-                    firstHarvest[i] = -1;
-                    firstMature[i] = -1;
-                    day10[i] = 0f;
-                    day20[i] = 0f;
-                    day50[i] = 0f;
-                }
+                Plant plant = ThingMaker.MakeThing(defs[index]) as Plant;
+                ctx.Require(plant != null, "Unable to create actual original MO Plant");
+                GenSpawn.Spawn(plant, cells[0], map, WipeMode.Vanish);
+                plant.Growth = 0f;
+                plant.HitPoints = plant.MaxHitPoints;
+                plants.Add(plant);
+                firstHarvest[index] = -1;
+                firstMature[index] = -1;
+                day10[index] = 0f;
+                day20[index] = 0f;
+                day50[index] = 0f;
                 int noon = (12 - GenLocalDate.HourOfDay(map) + 24) % 24;
                 simulatedStart = originalTick + noon * GenDate.TicksPerHour;
                 Find.TickManager.DebugSetTicksGame(simulatedStart);
@@ -174,21 +173,20 @@ namespace CropColdToleranceOverhaul.E2E
             {
                 map.Biome.constantOutdoorTemperature = temperature;
                 foreach (Room room in map.regionGrid.AllRooms)
-                    if (room.UsesOutdoorTemperature) room.TempTracker.EqualizeTemperature();
-                foreach (Plant plant in plants)
-                {
-                    Room r = plant.GetRoom();
-                    ctx.Require(r != null && r.UsesOutdoorTemperature,
-                        "Original native MO plant was no longer in its outdoor room");
-                    r.Temperature = temperature;
-                    float observed = plant.AmbientTemperature;
-                    ctx.Require(Math.Abs(observed - temperature) < .4f,
-                        "Controlled ambient drift for " + plant.def.defName
-                        + " expected=" + F(temperature)
-                        + " observed=" + F(observed)
-                        + " roomC=" + F(r.Temperature)
-                        + " gameTick=" + Find.TickManager.TicksGame);
-                }
+                    if (room.UsesOutdoorTemperature)
+                        room.TempTracker.EqualizeTemperature();
+                // Match the previously accepted real MO harvest fixture:
+                // set the outdoor cell's room, not Thing.GetRoom().
+                Room cellRoom = cells[0].GetRoom(map);
+                if (cellRoom != null) cellRoom.Temperature = temperature;
+                float actual = plants[0].AmbientTemperature;
+                ctx.Require(Math.Abs(actual - temperature) < .4f,
+                    "Single-cell temperature drift for " + plants[0].def.defName
+                    + " target=" + F(temperature)
+                    + " plantC=" + F(actual)
+                    + " cellC=" + F(cells[0].GetTemperature(map))
+                    + " roomC=" + (cellRoom == null ? "null" : F(cellRoom.Temperature))
+                    + " gameTick=" + Find.TickManager.TicksGame);
             }
 
             public void Advance(int begin, int stop)
@@ -200,49 +198,46 @@ namespace CropColdToleranceOverhaul.E2E
                     Find.TickManager.DebugSetTicksGame(simulatedStart + observation * 2000);
                     map.skyManager.ForceSetCurSkyGlow(GenCelestial.CurCelestialSunGlow(map));
                     SetOutdoor();
-                    for (int i = 0; i < plants.Count; i++)
-                    {
-                        Plant p = plants[i];
-                        ctx.Require(p.Spawned && !p.Destroyed,
-                            "Native MO plant died in nonfreezing growth exposure " + defs[i].defName);
-                        p.TickLong();
-                        if (firstHarvest[i] < 0 && p.HarvestableNow)
-                            firstHarvest[i] = observation * 2000;
-                        if (firstMature[i] < 0 && p.Growth >= .999f)
-                            firstMature[i] = observation * 2000;
-                        if (observation == 300) day10[i] = p.Growth;
-                        if (observation == 600) day20[i] = p.Growth;
-                        if (observation == Samples) day50[i] = p.Growth;
-                    }
+                    int i = currentCrop;
+                    Plant p = plants[0];
+                    ctx.Require(p.Spawned && !p.Destroyed,
+                        "Native MO crop destroyed in nonfreezing exposure: " + defs[i].defName);
+                    p.TickLong();
+                    if (firstHarvest[i] < 0 && p.HarvestableNow)
+                        firstHarvest[i] = observation * 2000;
+                    if (firstMature[i] < 0 && p.Growth >= .999f)
+                        firstMature[i] = observation * 2000;
+                    if (observation == 300) day10[i] = p.Growth;
+                    if (observation == 600) day20[i] = p.Growth;
+                    if (observation == Samples) day50[i] = p.Growth;
                 }
             }
 
-            public void Record()
+            public void Record(int i)
             {
-                for (int i = 0; i < plants.Count; i++)
-                {
-                    Plant p = plants[i];
-                    ctx.Require(p.HitPoints == p.MaxHitPoints,
-                        "Unexpected HP injury without below-onset frost " + p.def.defName);
-                    Log.Message("CCTO_MO_GROWTH_ROW def=" + defs[i].defName
-                        + " tempC=" + F(temperature) + " minGrowthC=" + F(defs[i].plant.minGrowthTemperature)
-                        + " growDays=" + F(defs[i].plant.growDays)
-                        + " fertility=" + F(map.fertilityGrid.FertilityAt(cells[i]))
-                        + " firstHarvestTicks=" + firstHarvest[i]
-                        + " firstMatureTicks=" + firstMature[i]
-                        + " growth10=" + F(day10[i]) + " growth20=" + F(day20[i])
-                        + " growth50=" + F(day50[i])
-                        + " hp=" + p.HitPoints
-                        + " lightClockOnly=true normalWholeMapTicks=false"
-                        + " plantTickLongInvoked=true nativeGrowerJobs=false");
-                }
+                Plant p = plants[0];
+                ctx.Require(p.HitPoints == p.MaxHitPoints,
+                    "Unexpected HP loss under growth-only conditions");
+                Log.Message("CCTO_MO_GROWTH_ROW def=" + defs[i].defName
+                    + " tempC=" + F(temperature)
+                    + " minGrowthC=" + F(defs[i].plant.minGrowthTemperature)
+                    + " growDays=" + F(defs[i].plant.growDays)
+                    + " fertility=" + F(map.fertilityGrid.FertilityAt(cells[0]))
+                    + " firstHarvestTicks=" + firstHarvest[i]
+                    + " firstMatureTicks=" + firstMature[i]
+                    + " growth10=" + F(day10[i])
+                    + " growth20=" + F(day20[i])
+                    + " growth50=" + F(day50[i])
+                    + " hp=" + p.HitPoints
+                    + " lightClockOnly=true normalWholeMapTicks=false"
+                    + " plantTickLongInvoked=true nativeGrowerJobs=false");
                 completed++;
             }
 
             public void Complete()
             {
-                ctx.Assert(completed == Temperatures.Length,
-                    "Expected three independently controlled game temperature profiles");
+                ctx.Assert(completed == Temperatures.Length * Names.Length,
+                    "Expected twelve individually observed MO crop-temperature conditions");
                 Log.Message("CCTO_MO_GROWTH_COMPLETE rows=12 simulatedDays=50"
                     + " realMo=true agriculture=true nativePlantTickLong=true"
                     + " normalMapCalendar=false");
