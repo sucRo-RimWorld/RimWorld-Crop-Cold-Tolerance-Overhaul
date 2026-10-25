@@ -91,20 +91,31 @@ namespace CropColdToleranceOverhaul.E2E
                     room.Temperature = target;
                     ctx.Require(Math.Abs(plant.AmbientTemperature - target) < 0.25f,
                         "Actual plant temperature differs from controlled frost");
-                    ColdCheck.Invoke(plant, null);
-                    var states = States(map);
-                    ColdDamageRecord state = null;
-                    ctx.Require(states != null && states.TryGetValue(plant, out state),
-                        "First cold sample did not initialize map component");
-                    for (int i = 0; i < samples && !plant.Destroyed; ++i)
+                    if (target >= cold.coldDamageStartTemperature)
                     {
-                        state.lastTick = Find.TickManager.TicksGame - 2000;
+                        // Onset is a strict below-threshold boundary.
+                        // At / above it no state is required and HP stays whole.
                         ColdCheck.Invoke(plant, null);
-                        if (!plant.Destroyed)
+                        ctx.Assert(plant.HitPoints == plant.MaxHitPoints,
+                            "Native onset boundary incorrectly damaged plant: " + def.defName);
+                    }
+                    else
+                    {
+                        ColdCheck.Invoke(plant, null);
+                        var states = States(map);
+                        ColdDamageRecord state = null;
+                        ctx.Require(states != null && states.TryGetValue(plant, out state),
+                            "First below-onset observation did not initialize map state");
+                        for (int i = 0; i < samples && !plant.Destroyed; ++i)
                         {
-                            states = States(map);
-                            ctx.Require(states != null && states.TryGetValue(plant, out state),
-                                "Live frost sample lost map record");
+                            state.lastTick = Find.TickManager.TicksGame - 2000;
+                            ColdCheck.Invoke(plant, null);
+                            if (!plant.Destroyed)
+                            {
+                                states = States(map);
+                                ctx.Require(states != null && states.TryGetValue(plant, out state),
+                                    "Live frost sample lost map record");
+                            }
                         }
                     }
                 }
