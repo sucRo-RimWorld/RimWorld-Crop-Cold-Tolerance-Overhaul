@@ -33,7 +33,7 @@ Cold dormancy starts below the plant's existing `minGrowthTemperature`.
 </li>
 ```
 
-A dormant plant stops being harvestable while dormant and resumes normal behavior when temperature recovers.
+Dormancy refreshes the plant's native leafless-state timestamp below the growth minimum. It does not add a harvest prohibition: the inspected CCTO source and RimWorld 1.6.4871 rev590 HarvestableNow / CanYieldNow paths do not reject a plant solely because it is leafless. Other normal harvest conditions and mod overrides still apply. The native leafless state persists for 60,000 ticks after its last refresh, rather than clearing immediately on warming.
 
 A dormant plant may also define `coldDeathTemperature`. In that case, ordinary cold causes dormancy while more extreme cold below the fixed death threshold kills the plant.
 
