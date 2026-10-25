@@ -1,8 +1,18 @@
 # RimWorld Crop Cold Tolerance Overhaul — Design
 
+## Current development decision — fixed cold-death temperature values only (2026-10-26)
+
+**Latest author decision:** Retain the shipped fixed low-temperature-death **mechanism** for now. Re-evaluate and, only if independently justified, change the existing plant-specific `coldDeathTemperature` **numbers** in the current Core / optional Medieval Overhaul XML. This is an intentionally narrow, backwards-compatible value-tuning pass for the current 0.1.3-series behavior, not activation of the cumulative visible-HP model.
+
+**Change boundaries:** Keep C# hooks, fixed death semantics, `minGrowthTemperature`, optimum-growth temperature fields, dormancy assignments and behavior, supported 49 Core + 29 MO plant identities, integration/API, crop yield, growDays, and fertility unchanged. Do not copy V3 HP onset `A` or lethal degree-hours `D` into `coldDeathTemperature`; they are incompatible physiological/model endpoints. The V3 HP design table, code and existing Draft PR #60 are retained as **deferred historical/development work**, not the active cutover or an automatic future publication.
+
+**Calibration gate:** Start from all existing fixed thresholds, with **no change by default**. For each proposed edit identify a concrete biological/source or ordinary-biome contradiction, its stage/acclimation/exposure assumptions, the old and proposed fixed threshold, expected impact in normal and extreme climates, and known simplification limits. Do not change a value merely to maintain crop profitability, to imitate an HP-model coefficient or to increase difficulty. Prior engine/source PASS only validates its actual technical contract. Independent acceptance is required for any new threshold; absent that, retain the old value and mark it unselected. Avoid per-plant native tests and large matrices; validate a bounded representative change set after implementation.
+
+**Public version:** Current distribution/metadata stays **0.1.3 Beta**. The previously selected **0.2** numbering assumed the substantial HP-based model conversion. As that conversion is on hold, **0.2 is deferred rather than automatically assigned to a fixed-threshold-only change**; decide any public version number at release preparation based on the actual change. Do not publish or update Steam from this design decision. Canonical release status: [ReleaseChecklist](ReleaseChecklist.md#current-fixed-threshold-tuning-only--2026-10-26).
+
 ## Next public release identity — 0.2 (planned 2026-10-26)
 
-**Author decision:** the next publicly released CCTO version after the 0.1.3 Beta series is **0.2**, because replacing fixed low-temperature death with cumulative visible Plant HP injury is a substantial gameplay/model change. "V1", "V2" and "V3" identify historical internal design iterations only; they are **not public release version numbers**. The V3-design/source Draft PR #60 is the work currently intended for public **0.2**, not a published V3 or an intervening public V2.
+**Historical 2026-10-26 decision, now deferred by the fixed-only direction above:** the 0.2 version was reserved for a substantial switch from fixed death to cumulative visible Plant HP injury. That feature switch is currently on hold; 0.2 is not the assigned version for the next fixed-number-only adjustment. "V1", "V2" and "V3" identify historical internal design iterations only; they are **not public release version numbers**. The V3-design/source Draft PR #60 is the work currently intended for public **0.2**, not a published V3 or an intervening public V2.
 
 **Current shipped/source release metadata remains 0.1.3.** Do not bump `About/About.xml`, `About/Manifest.xml`, the release notes/tag, README current-version header, or Steam/2game public copy to 0.2 until the implementation and release-payload gates are satisfied in one final release change set. Tag spelling and any Beta designation are release-time metadata decisions, not evidence that 0.2 is already published. Canonical release gate: [ReleaseChecklist](ReleaseChecklist.md#next-public-release-02-not-yet-published).
 
@@ -24,6 +34,8 @@ Priority:
 **Cabbage:** the MO 1.6 duplicate optimal-temperature tag is an upstream XML error, but merely correcting it to full-speed 0–25°C is not biologically accepted. A 15–20°C optimum is a research-backed *candidate*, not an approved/implemented value. Decide by plant biology and temperature response, not economic competition. The finalized V3 46 HP + 32 dormancy, `w=0` design values remain unchanged pending contrary relevant evidence.
 
 ## Current V3 numerical specification — finalized 2026-10-25
+
+**DEFERRED by the 2026-10-26 fixed-threshold-only decision above.** This section is preserved as the approved *internal HP-model design record*, not the presently selected production model or the active fixed-temperature numeric authority. Existing fixed thresholds in `Patches/Vanilla_ColdTolerance.xml` and `Patches/MedievalOverhaul_ColdTolerance.xml` remain authoritative until evidence-backed changes are accepted.
 
 The author delegated the remaining numerical decisions with “監査→修正→監査を行い、値を確定させて”. The resulting **game-design values are final**, not individually author-measured biological coefficients: [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv) is the single current value table. It contains **46 HP profiles with w=0 and 32 dormancy profiles, zero pending values**. `FINALIZED_DESIGN_VALUES` denotes delegated final HP selection; `FINALIZED_DESIGN_DORMANCY` denotes the two newly selected dormant Healroots; `KEEP_EXISTING_DORMANCY` retains the original 30.
 

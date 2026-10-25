@@ -1,5 +1,12 @@
 # CCTO Coordination
 
+## CCTO fixed-death-only numeric review replaces HP cutover — 2026-10-26
+
+**Owner:** [Design](Design.md#current-development-decision--fixed-cold-death-temperature-values-only-2026-10-26), [ReleaseChecklist](ReleaseChecklist.md#current-fixed-threshold-tuning-only--2026-10-26), Core/MO `Patches/*_ColdTolerance.xml` own actual fixed values. **Current instruction:** preserve 0.1.3 fixed cold-death mechanism, 48 fixed-death + 30 dormancy baseline; restrict next tuning to independently supported `coldDeathTemperature` *numbers* only. Do not change C#, HP model, growth minima/optimum, dormancy assignments, agriculture economics or plant identities.
+- No fixed-temperature numeric edit is yet selected solely by this decision; previous thresholds remain until specific evidence-backed replacements pass independent physiological and typical/extreme/ecological review. Do not copy V3 injury onset A or cumulative fatal dose D as a fixed mortality temperature.
+- Earlier next-public-version **0.2** plan depended on the HP switch, now **on hold**. Public metadata stays 0.1.3; version for any eventual fixed-only update is not yet chosen. HP Draft [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) retained for possible later work, **do not merge/publish under current scope**. Historical HP evidence and decisions remain accessible, not live current requirements.
+
+
 ## CCTO next public version 0.2 — 2026-10-26
 
 **Owner:** [Design](Design.md#next-public-release-identity--02-planned-2026-10-26) and [ReleaseChecklist](ReleaseChecklist.md#next-public-release-02-not-yet-published). **Status:** author chooses **0.2** as the next public release after 0.1.3 Beta for the cumulative visible-HP cold-injury overhaul. Existing "V2"/"V3" names are internal design iterations; Draft [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) prepares 0.2, not a public V3.
