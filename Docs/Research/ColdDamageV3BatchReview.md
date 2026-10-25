@@ -110,7 +110,7 @@ A：HP傷害開始気温°C。D：満HP相当の累積°C・ゲーム時。す�
 
 ## 再現用ファイル
 
-[計算スクリプト](../../Scripts/Review-ColdDamageHpV3Batch.py) と [比較CSV](ColdDamageV3BatchExposure.csv)。入力表SHA256は2bfaafb68fac1d4396c8283c7cbe3136707031ece4805b2e013b52bf0795c34b。正規化比の表は整数HPに丸めた実行結果とは区別する。
+[計算スクリプト](../../Scripts/Review-ColdDamageHpV3Batch.py) と [比較CSV](ColdDamageV3BatchExposure.csv)。入力表SHA256（UTF-8・LF改行に正規化）は2bfaafb68fac1d4396c8283c7cbe3136707031ece4805b2e013b52bf0795c34b。正規化比の表は整数HPに丸めた実行結果とは区別する。
 
 今回の整合基準はGitHub main 895a7506c6719919387e3e253d7ef03887dbaf6e、owner draft 980ea658985815afdc76326e5e0c1f9a6ae889b9。mainへの反映はcodex/ccto-v3-final-values-main-20261025からのPRで行う。元のローカル作業履歴はcodex/ccto-v3-batch-review-20261025に保持する。
 

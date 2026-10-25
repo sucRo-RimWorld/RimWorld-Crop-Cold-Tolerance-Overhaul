@@ -52,6 +52,7 @@ with out.open('w', encoding='utf-8', newline='') as stream:
                     hours, count, round(billed, 4), 0, round(fraction, 6),
                     round(conditional, 6) if alive else '',
                     round(conditional, 6) if alive else 0))))
-print('Source SHA256:', hashlib.sha256(source.read_bytes()).hexdigest())
+# Normalize checkout line endings so Windows CRLF and repository LF agree.
+print('Source SHA256 (UTF-8/LF):', hashlib.sha256(source.read_text(encoding='utf-8').encode('utf-8')).hexdigest())
 print('Classification:', dict(Counter(r['review_status'] for r in rows)))
 print('Wrote', len(hp) * 30, 'idealized rows:', out)
