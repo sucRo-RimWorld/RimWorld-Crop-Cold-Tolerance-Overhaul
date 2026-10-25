@@ -1,5 +1,11 @@
 # CCTO cold injury V2 — independently specified outcomes BEFORE selecting coefficients
 
+**2026-10-24 latest candidate supersession:** MO Pumpkin **A0/D21.5°C·h** replaces the former selected **A0/D22** for V3 candidate review only, following the existing 2,000-tick sparse-sampler severe-frost comparison (D22 leaves 2HP at nominal −3°C×8h whereas D21.5 kills the original 100HP plant). The prior 2026-10-23 selection paragraph below records its dated historical state; this paragraph and the formal `ColdDamageHpV3Candidates.csv`/Design supersede its D22 as a **current** candidate. Predeclared frost scenarios S22–S24 themselves are **not rewritten**. No per-plant variation, XML, runtime, tests or release approved.
+
+**Subsequent 2026-10-23 author A/D candidate selection:** MO Tomato **A0°C/D21.5°C·h** and MO Pumpkin **A0°C/D22°C·h** are now selected as V3 *candidate numerical fields* alongside earlier MO Cabbage A−3.5/D240 and MO Onion A−5/D120. S02/S23's severe-frost danger remains the active gameplay intent; S16/S24 correspond to the same 24°C·h at A=0 under no cold-specific HP recovery, and do not independently calibrate them. Critically, the hypothesized ±20% individual lethal-dose variation that creates mixed survival is **still unapproved**; model-calculated target fit does not establish an in-game mortality PASS. No XML, runtime activation or new surviving-population target has been authorized.
+
+**Current V3 direction update (author-approved 2026-10-23):** For MO cabbage (S04) and MO onion (S20), **survival with ordinary-HP harvest reduction takes priority over the historical hard-frost ≥70% mortality preference**. The original 2026-10-22 table below is preserved verbatim as a predeclared *historical* test, not the active gate. See the [current V3 replacement criteria](#v3-s04s20-supersession--author-approved-direction-2026-10-23). This paragraph records the earlier direction-only authorization; the **later 2026-10-23 author approval selected Cabbage A−3.5/D240 and Onion A−5/D120 as numeric V3 candidates** (not XML or variation), documented at the end.
+
 **2026-10-22; calibration input, NOT numerical coefficient acceptance.**
 The following checks are defined **before producing any V2 plant dose/onset/recovery/individual-width table**. Values described as *gameplay preference* are **not laboratory measurements or author-approved release criteria**. The point is to falsify candidate parameters, not force a PASS by choosing self-referential target values.
 
@@ -83,3 +89,24 @@ W13 Deryabin et al. 2024 *Metabolites* 14(4):199, primary Table 2: https://pmc.n
 R02 Sagehashi et al. 2023 *Plant Production Science* 26:287–296: https://doi.org/10.1080/1343943X.2023.2236344
 
 M01 in Lindsey et al. 2024 *Crop Science* 64: review of Buican (1969), DOI https://doi.org/10.1002/csc2.21212
+
+## V3 S04/S20 supersession — author-approved direction, 2026-10-23
+
+The author approved changing **only** the cabbage/onion balance priority from "strong frost should kill at least 70% of plants" to **"survival first, frost HP loss and reduced harvest yield"**. This supersedes the former game-only S04 `S≤0.30` and S20 `S≤0.30` mortality thresholds as **current V3 acceptance requirements**. Preserve the original dated rows above for audit; do not misrepresent those numerical death preferences as controlled agronomic mortality findings.
+
+| Current V3 ID | Representative exposure retained from historical scenario | Active qualitative review criterion | Distinct failure mode / non-criterion |
+|---|---|---|---|
+| S04-V3 (MO Cabbage) | −8°C for 24 game-hours, from previously undamaged growing plants | Prefer plants **to survive** the episode and suffer **meaningful ordinary-HP / harvest-yield reduction**; prolonged or repeated deeper frost can still eventually kill | Avoid treating winter-useful cabbage as universally fragile; **do not require** 70% immediate crop death. No numerical minimum survival rate or yield reduction percent is approved |
+| S20-V3 (MO Onion) | −6°C for 8 game-hours, from previously undamaged growing plants | Prefer plants **to survive** the episode with some ordinary-HP injury and harvest-yield penalty; recurring marginal frost (S19/S21 context) should not cause disproportionate loss | Do not force D18 merely to cause 70% immediate death. **Do not require** 70% mortality. No numerical minimum survival rate or yield reduction percent is approved |
+
+The tomato/pumpkin severe-frost roles S02/S23 are **not changed by this decision**; neither their temperature/duration nor any published plant values are amended. S03/S05 and S19/S21 provide separate mild/repeated-cold context but legacy wording that requires CCTO-specific HP healing is already superseded by the approved **no cold-only recovery** architecture. Vanilla `Plant.YieldNow()` uses ordinary HP; damaged survivors lose yield without adding a second crop-yield system.
+
+**2026-10-23 subsequent author A/D-candidate decision:** Following independent comparisons in `Docs/ColdDamageHpV3YieldReview.md`, **Cabbage A−3.5°C/D240°C·h** and **Onion A−5°C/D120°C·h** were expressly **selected as V3 numerical candidates**, superseding the historical D160 cabbage and A−3.5°C onion proposals. This is **not** an approval of their `lethal_dose_variation=0.20`, empirical LT50 precision, native game acceptance or production XML activation. S04-V3 and S20-V3 are still *qualitative* survival/yield criteria. Do not use the superseded historical ≥70% death gate for these two crops.
+
+### Potato S27 numeric candidate after author choice (2026-10-24)
+
+User-selected `Plant_Potato` **A−2°C/D100°C·game-hour** supersedes the old instruction above to HOLD every potato numerical choice. The **S27 research observation stays unchanged**: roughly −1 to −2°C crop-tissue/foliage damage is not an actual measured whole-potato Plant death or total tuber yield percentage. In this simplified V3 model exactly −2°C produces **no HP loss** (only T<−2°C contributes); damage accrues in prolonged slightly colder frost and surviving Plant HP approximates reduced harvest. This approximation is accepted at A/D *candidate* stage only. Strawberry S25/S26 describe biological dormant crown observations, not required full survival of RimWorld's sowable one-harvest Strawberry. Strawberry remains numeric HOLD; no release XML, C# or native game acceptance authorized.
+
+### Strawberry latest crop A/D selection versus S25/S26 biological crown endpoints (2026-10-25)
+
+**Latest author candidate selection:** Vanilla `Plant_Strawberry` **A−2°C/D180°C·game-hour**, numeric *A/D only*, supersedes the previous held A−12/D500. The historical S25 (dormant cold-hardened crown survival near −5°C) and S26 (established crown survival at −10°C) refer to **real perennial crown tissue**, while the **sowable in-game Vanilla strawberry is a one-harvest plant**. These S25/S26 research observations are **not current hard mortality requirements** for freezing *flowers/berries*, nor laboratory calibration of an in-game 85HP whole-Plant lethal dose. At A−2 the selected framework necessarily misses −1°C flower injury; at the selected D180 w0, sustained −10°C×24 game-hours kills a productive crop. The author has accepted this discrepancy for a simple candidate without a flower/crown subsystem. No w/actual XML activation or native real map acceptance authorized.

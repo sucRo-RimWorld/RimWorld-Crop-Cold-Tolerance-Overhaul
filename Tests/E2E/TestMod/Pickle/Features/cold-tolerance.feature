@@ -59,16 +59,22 @@ Feature: CCTO cold tolerance runtime behavior
     Then the CCTO test plant is dead
 
 
-  Scenario: Cumulative frost records its first sample then accumulates and recovers
-    Given a cumulative CCTO test plant with minimum growth 0 onset -5 dose 20 recovery 0.1
+  Scenario: Cumulative frost lowers visible HP but warming does not heal it
+    Given a cumulative CCTO test plant with minimum growth 0 onset -5 dose 20
     When I set the CCTO test outdoor temperature to -10
     And I force the CCTO plant cold check
-    Then the CCTO damage record is zero at first observation
-    When I simulate 2000 ticks between CCTO damage observations
-    Then the CCTO damage fraction is between 0.19 and 0.21
-    When I set the CCTO test outdoor temperature to 10
-    And I simulate 2000 ticks between CCTO damage observations
-    Then the CCTO damage fraction is between 0.11 and 0.13
+    Then the CCTO plant HP is recorded at first observation
+    When I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP decreased from last observation
+    When I retain a fractional CCTO cold HP remainder
+    And I set the CCTO test outdoor temperature to 10
+    And I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP did not recover
+    When I set the CCTO test outdoor temperature to -10
+    And I simulate 1000 ticks between CCTO damage observations
+    Then the CCTO plant HP did not recover
+    When I simulate 1000 ticks between CCTO damage observations
+    Then the CCTO plant HP decreased from last observation
     And the CCTO test plant is alive
 
   Scenario: Cumulative frost and dormancy coexist until fatal accumulated exposure
@@ -76,9 +82,9 @@ Feature: CCTO cold tolerance runtime behavior
     When I set the CCTO test outdoor temperature to -10
     And I force the CCTO plant cold check
     Then the CCTO test plant is dormant
-    And the CCTO damage record is zero at first observation
+    And the CCTO plant HP is recorded at first observation
     When I simulate 2000 ticks between CCTO damage observations
-    Then the CCTO damage fraction is between 0.79 and 0.81
+    Then the CCTO plant HP decreased from last observation
     And the CCTO test plant is dormant
     When I simulate 1000 ticks between CCTO damage observations
     Then the CCTO test plant is dead

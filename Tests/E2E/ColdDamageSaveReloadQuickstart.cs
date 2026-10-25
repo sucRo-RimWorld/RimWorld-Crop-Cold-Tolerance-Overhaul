@@ -60,7 +60,7 @@ namespace CropColdToleranceOverhaul.E2E
             {
                 coldDamageStartTemperature = Onset,
                 coldDamageDegreeHoursToDie = FatalDegreeHours,
-                coldDamageRecoveryPerHour = 0.1f
+                coldDamageLethalDoseVariation = 0f
             };
             Require(damage.HasColdDamageModel, "Test-only cold damage Def invalid");
             extensions.Add(damage);
@@ -85,9 +85,14 @@ namespace CropColdToleranceOverhaul.E2E
             ColdCheck.Invoke(plant, null);
         }
 
-        private static void AssertDamage(float actual, float expected, string phase)
+        internal static float DamageFraction(Plant plant)
         {
-            Require(Math.Abs(actual - expected) < 0.002f,
+            return 1f - (float)plant.HitPoints / plant.MaxHitPoints;
+        }
+
+        private static void AssertDamage(float actual, float expected, string phase, Plant plant)
+        {
+            Require(Math.Abs(actual - expected) <= 1f / plant.MaxHitPoints + 0.001f,
                 phase + ": expected damage " + expected + ", got " + actual);
         }
 
@@ -119,11 +124,11 @@ namespace CropColdToleranceOverhaul.E2E
             var states = States(map);
             Require(states.ContainsKey(plant), "First observed cold state was not created");
             ColdDamageRecord record = states[plant];
-            AssertDamage(record.damage, 0f, "initial");
+            AssertDamage(DamageFraction(plant), 0f, "initial", plant);
             record.lastTick = Find.TickManager.TicksGame - Elapsed;
             Observe(plant);
             record = States(map)[plant];
-            AssertDamage(record.damage, ExpectedDamage, "pre-save");
+            AssertDamage(DamageFraction(plant), ExpectedDamage, "pre-save", plant);
             Require(!plant.Destroyed && record.lastTick == Find.TickManager.TicksGame,
                 "Plant died or recorded observation time was not updated");
 
@@ -144,7 +149,7 @@ namespace CropColdToleranceOverhaul.E2E
             Log.Message("CCTO_COLD_SAVE_CREATED saved=true"
                 + " plantId=" + thingId
                 + " plantNumber=" + thingIDNumber
-                + " damage=" + record.damage.ToString("R", System.Globalization.CultureInfo.InvariantCulture)
+                + " damage=" + DamageFraction(plant).ToString("R", System.Globalization.CultureInfo.InvariantCulture)
                 + " lastTick=" + lastTick);
         }
 
@@ -184,18 +189,18 @@ namespace CropColdToleranceOverhaul.E2E
                 "Cross-reference is not the actual reloaded plant instance");
             // The loaded game may run several hundred real ticks while
             // the Root_Play verification hook waits. Compare the exact
-            // Scribe-phase snapshot to source, not later recovered damage.
+            // Scribe-phase snapshot to source, not later HP damage.
             Require(ColdDamageScribeSnapshot.Restored
                 && ColdDamageScribeSnapshot.PlantId == expectedId
                 && ColdDamageScribeSnapshot.PlantNumber == number,
                 "Scribe PostLoadInit did not restore this precise Plant record");
             AssertDamage(ColdDamageScribeSnapshot.Damage, ExpectedDamage,
-                "at immediate Scribe PostLoadInit");
+                "at immediate Scribe PostLoadInit", plant);
             Require(ColdDamageScribeSnapshot.LastTick == tick,
                 "Original observation tick not restored at Scribe PostLoadInit");
-            Require(record.lastTick >= tick && record.damage >= 0f
-                && record.damage <= 1f,
-                "Live loaded game produced invalid accumulated injury state");
+            Require(record.lastTick >= tick && DamageFraction(plant) >= 0f
+                && DamageFraction(plant) <= 1f,
+                "Live loaded game produced invalid plant HP state");
             Require(plant.def.GetModExtension<ColdToleranceExtension>()?.HasColdDamageModel == true,
                 "Loaded crop lost its opt-in cold damage extension");
 
@@ -206,22 +211,22 @@ namespace CropColdToleranceOverhaul.E2E
             room.Temperature = Freezing;
             Require(Math.Abs(plant.AmbientTemperature - Freezing) < 0.25f,
                 "Reload continuation did not set the actual plant ambient temperature");
-            float before = record.damage;
+            float before = DamageFraction(plant);
             record.lastTick = Find.TickManager.TicksGame - Elapsed;
             Observe(plant);
             Require(!plant.Destroyed, "Restored plant died before expected dose");
             Require(States(map).TryGetValue(plant, out ColdDamageRecord updated),
                 "Continued cold observation dropped the saved record");
-            AssertDamage(updated.damage, before + ExpectedDamage, "after continuing frost");
+            AssertDamage(DamageFraction(plant), before + ExpectedDamage, "after continuing frost", plant);
             Log.Message("CCTO_COLD_RELOAD_RESULT passed=True"
                 + " actualScribeGameReload=true plantReferenceRestored=true"
                 + " tickRestored=true damageRestored=true"
-                + " continuedDamage=" + updated.damage.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+                + " continuedDamage=" + DamageFraction(plant).ToString("R", System.Globalization.CultureInfo.InvariantCulture));
         }
     }
 
     // Take the exact Scribe PostLoadInit snapshot *before* the reloaded
-    // game ticks, so ambient warm recovery cannot contaminate persistence.
+    // game ticks, before game ticks can apply additional damage.
     [HarmonyPatch(typeof(ColdDamageMapComponent), "ExposeData")]
     public static class ColdDamageScribeSnapshot
     {
@@ -251,7 +256,7 @@ namespace CropColdToleranceOverhaul.E2E
                 if (record == null || !object.ReferenceEquals(record.plant, pair.Key))
                     continue;
                 Restored = true;
-                Damage = record.damage;
+                Damage = ColdDamageSaveProbe.DamageFraction(pair.Key);
                 LastTick = record.lastTick;
                 PlantId = pair.Key.ThingID;
                 PlantNumber = pair.Key.thingIDNumber;
