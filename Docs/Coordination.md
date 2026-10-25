@@ -1,5 +1,15 @@
 # CCTO Coordination
 
+## V3 actual MO + Agriculture crop telemetry — 2026-10-25
+
+**Owner:** [V3 implementation Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60), formal loaded role/harvest summary at its `Docs/CropGameplayRoles-ja.md`. **Status:** actual original 1.6 provider mature-yield observations PASS (10 crops × three controlled conditions); seven gameplay economy roles remain INCOMPLETE. No V3 numerical change, production merge, or publication.
+
+- Original licensed Linux RimWorld 1.6.4871 with **actual Medieval Overhaul, Agriculture and CCTO V3** (not 29-Def MOFixture) [manual Project Actions #40188270406](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/40188270406): source CCTO `9f69168f207c456f004cbc8ee805da7d65edca9c`, Agriculture `c2bd11656aabc150841a1d5e13fd6b32f306be2d`; 30 unique plant/condition rows, 1/1 Pickle passed, 0 Unity ERROR, exit 0. Original MO/VEF/SYR providers loaded, temporary copy-only sound conversion. Project manual single-run source runner main [PR #1038](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/1038), merge `082bb38b5c5487cb1df7709cc9ef68cac12b8fcf`.
+- Effective loaded `growDays`: Rice5, Potato6, Corn13, MO Onion8, Carrot6, Cabbage8, Lentil8, Wheat12, Tomato7, Pumpkin8. Lentil sow Plants2. Mature `YieldNow` in warm / −5°C×8h-equivalent / −10°C×4h-equivalent frost: Onion15/15/14, Carrot7/7/7, Cabbage12/11/11, Lentil12/12/11, Wheat33/33/33, Tomato9/0/0 and Pumpkin24/0/0. These are true loaded-game YieldNow/HP measurements, **not** an actual pawn harvest or crop-growth calendar. Frost hours were simulated via 2000-tick cold-observation offsets rather than normal TickManager elapsed time. Check source-produced `balance-rows.csv` artifact (run #40188270406).
+- **Material role warnings:** Onion is not the originally assumed fast 4-day crop and Lentil is not 3-day/Plants8 in MO+Agriculture. Onion beats Cabbage at same source 8 growDays in three bounded exposures, but Cabbage's lower minimum growth temperature may matter for the untested shoulder season. Tomato/Pumpkin survive no full -5°C×8h or -10°C×4h exposures; no claim of typical-climate frequent death. No food/labor/processing cost measurements, real season, 1.7, or 7/7 role PASS.
+- Keep the finalized V3 46 HP/32 dormancy w0 canonical values and released old fixed-death package unchanged. No follow-on native matrix without a concrete gap and author approval.
+
+
 ## V3 original 1.6 native technical acceptance — 2026-10-25
 
 **Owner:** [V3 production Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60). **Status:** 1.6 SOURCE BUILD + BOUNDED NORMAL TICK + REAL TWO-PROCESS .RWS ACCEPTED; source not merged / 1.7 and crop production balance open / Steam unchanged.
