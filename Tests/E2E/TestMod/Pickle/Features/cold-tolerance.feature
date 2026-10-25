@@ -88,3 +88,33 @@ Feature: CCTO cold tolerance runtime behavior
     And the CCTO test plant is dormant
     When I simulate 1000 ticks between CCTO damage observations
     Then the CCTO test plant is dead
+
+  # Small, ordinary-Tick native V3 acceptance checks. Do not substitute
+  # these for seasonal production-economy or world-climate balance judgments.
+  Scenario: Finalized production potato loses visible HP under frost and never cold-heals
+    Given an unmodified V3 production potato plant
+    When I set the CCTO test outdoor temperature to -10
+    And I force the CCTO plant cold check
+    Then the production CCTO plant HP is recorded
+    When I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP decreased from last observation
+    When I set the CCTO test outdoor temperature to 10
+    And I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP did not recover
+    And the CCTO test plant is alive
+
+  Scenario: Finalized production healroot goes dormant rather than dying
+    Given an unmodified V3 production healroot plant
+    When I set the CCTO test outdoor temperature to -10
+    And I run one CCTO plant long tick
+    Then the CCTO test plant is dormant
+    And the CCTO test plant is alive
+
+  Scenario: Finalized production pine survives an ordinary cold winter observation
+    Given an unmodified V3 production pine plant
+    When I set the CCTO test outdoor temperature to -35
+    And I force the CCTO plant cold check
+    Then the production CCTO plant HP is recorded
+    When I advance 4000 complete RimWorld game ticks
+    Then the production CCTO plant HP is unchanged
+    And the CCTO test plant is alive

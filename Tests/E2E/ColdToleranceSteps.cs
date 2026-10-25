@@ -428,6 +428,53 @@ namespace CropColdToleranceOverhaul.E2E
         }
 
 
+        // These checks use the actual post-patch production Def values.
+        [Given("an unmodified V3 production potato plant")]
+        public void SpawnProductionPotato(PickleContext ctx)
+        {
+            SpawnProductionPlant(ctx, "Plant_Potato", false);
+        }
+
+        [Given("an unmodified V3 production healroot plant")]
+        public void SpawnProductionHealroot(PickleContext ctx)
+        {
+            SpawnProductionPlant(ctx, "Plant_Healroot", true);
+        }
+
+        [Given("an unmodified V3 production pine plant")]
+        public void SpawnProductionPine(PickleContext ctx)
+        {
+            SpawnProductionPlant(ctx, "Plant_TreePine", false);
+        }
+
+        private void SpawnProductionPlant(PickleContext ctx, string defName, bool dormancy)
+        {
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+            ctx.Require(def != null && def.plant != null,
+                "Missing production plant Def: " + defName);
+            ColdToleranceExtension extension = def.GetModExtension<ColdToleranceExtension>();
+            ctx.Require(extension != null && extension.coldDormancy == dormancy
+                && (dormancy ? !extension.HasColdDamageModel : extension.HasColdDamageModel)
+                && !extension.HasColdDeathTemperature,
+                "Production plant must use finalized V3 mode: " + defName);
+            ConfigureAndSpawn(ctx, def.plant.minGrowthTemperature, extension,
+                true, defName);
+        }
+
+        [Then("the production CCTO plant HP is recorded")]
+        public void RememberProductionHp(PickleContext ctx)
+        {
+            observedColdHp = RequireTestPlant(ctx).HitPoints;
+        }
+
+        [Then("the production CCTO plant HP is unchanged")]
+        public void AssertProductionHpUnchanged(PickleContext ctx)
+        {
+            ctx.Require(observedColdHp.HasValue, "No production plant HP baseline.");
+            ctx.Assert(RequireTestPlant(ctx).HitPoints == observedColdHp.Value,
+                "Uninjured production plant lost HP in safe cold conditions.");
+        }
+
         // Test-only approximation: never patch real balance Defs in the release.
         [Given("a cumulative CCTO test plant with minimum growth {float} onset {float} dose {float}")]
         public void SpawnCumulativeColdPlant(
@@ -827,7 +874,9 @@ namespace CropColdToleranceOverhaul.E2E
         private void ConfigureAndSpawn(
             PickleContext ctx,
             float minimumGrowthTemperature,
-            ColdToleranceExtension extension)
+            ColdToleranceExtension extension,
+            bool useLoadedDefinition = false,
+            string plantDefName = TestPlantDefName)
         {
             ctx.Require(
                 testPlant == null,
@@ -835,18 +884,18 @@ namespace CropColdToleranceOverhaul.E2E
 
             Map map = RequireCurrentMap(ctx);
             ThingDef def =
-                DefDatabase<ThingDef>.GetNamedSilentFail(TestPlantDefName);
+                DefDatabase<ThingDef>.GetNamedSilentFail(plantDefName);
 
             ctx.Require(
                 def != null,
-                "Required vanilla test plant def '" + TestPlantDefName
+                "Required vanilla test plant def '" + plantDefName
                 + "' was not found.");
             ctx.Require(
                 def.plant != null,
-                "Test def '" + TestPlantDefName + "' is not a plant.");
+                "Test def '" + plantDefName + "' is not a plant.");
             ctx.Require(
                 typeof(Plant).IsAssignableFrom(def.thingClass),
-                "Test def '" + TestPlantDefName
+                "Test def '" + plantDefName
                 + "' does not use Plant or a Plant subclass.");
 
             testPlantDef = def;
@@ -854,17 +903,21 @@ namespace CropColdToleranceOverhaul.E2E
             originalMinimumGrowthTemperature =
                 def.plant.minGrowthTemperature;
 
-            List<DefModExtension> extensions =
-                originalModExtensions == null
-                    ? new List<DefModExtension>()
-                    : originalModExtensions
-                        .Where(x => !(x is ColdToleranceExtension))
-                        .ToList();
+            if (!useLoadedDefinition)
+            {
+                List<DefModExtension> extensions =
+                    originalModExtensions == null
+                        ? new List<DefModExtension>()
+                        : originalModExtensions
+                            .Where(x => !(x is ColdToleranceExtension))
+                            .ToList();
 
-            extensions.Add(extension);
-            def.modExtensions = extensions;
-            def.plant.minGrowthTemperature =
-                minimumGrowthTemperature;
+                extensions.Add(extension);
+                def.modExtensions = extensions;
+                def.plant.minGrowthTemperature =
+                    minimumGrowthTemperature;
+
+            }
 
             float safeTemperature =
                 Math.Max(
@@ -891,7 +944,7 @@ namespace CropColdToleranceOverhaul.E2E
             ctx.Require(
                 plant != null,
                 "ThingMaker did not create a Plant for '"
-                + TestPlantDefName + "'.");
+                + plantDefName + "'.");
 
             GenSpawn.Spawn(
                 plant,
