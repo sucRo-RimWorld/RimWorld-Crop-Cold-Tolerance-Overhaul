@@ -360,3 +360,28 @@ For mature Corn, killing the aboveground stalk does not guarantee loss of all ha
 **Current fixed-sampler comparisons with w=0 (not native crop PASS):** Three +2°C×8h nights with warm intervals: selected A+2/D60 leaves 85/85HP (100% conditional harvest); old A+3/D60 leaves 55/85HP (~82.4%). Three 0°C×8h warm-separated nights: selected leaves 24/85HP (~64.1%), old A+3 kills the plant. Three −2°C×8h nights are fatal in both variants. Actual game weather, sowing rules, plant growth, storyteller harvest factor and integer delivered items have not been verified at these values. The accepted tradeoff is **preserve ordinary field survival across several marginal frosty nights** while allowing sustained frost to kill; no distinct chilling sterility, seedling acclimation, simulated hidden tissues, or frost recovery feature is authorized.
 
 **Latest statuses:** 13 selected A/D, zero remaining source-stage HOLD, **35 separate unapproved HP trial rows** plus 30 original dormancy out of 78. There is **no blanket approval** of the unreviewed HP rows or `lethal_dose_variation=0.20` (framework w=0), no migration to production XML, no newly demonstrated 1.6/1.7 full farm acceptance and no release. All older numerical status counts in this dated audit are kept as historical premises, not current candidate authority.
+
+## MO flax: fiber-stem frost injury reviewer-only comparison (2026-10-25)
+
+**No A/D selected and no CSV change.** Vanilla-independent MO 1.6 `DankPyon_Plant_Flax` currently has unapproved **A−5°C / D140°C·game-hour** HP trial; `lethal_dose_variation=.20` remains unapproved, actual framework default w=0. The supplied Medieval Overhaul 1.6 `Plants_Cultivated_Farm.xml` defines the plant as **85HP, growDays7 (~12.92 ideal calendar days), 18 raw flax**; it is cultivated for flax fiber/stems, not harvest of immature flaxseed. Its `dieIfLeafless=true` still makes an independent cold-dormancy change unsuitable without explicit design.
+
+**External evidence, different biological endpoints (no experimental HP-degree-hour LD100):**
+- [Saskatchewan Oilseeds: Flax Seeding](https://saskoilseeds.com/resource/flax-seeding/) says just-emerged flax seedlings can withstand about −3°C; hardened plants beyond two leaves can withstand **brief −8°C without significant damage**. Young growing points are exposed rather than protected below ground.
+- [Saskatchewan Oilseeds: Flax Harvest](https://saskoilseeds.com/resource/flax-harvest/) reports severe injury to **leaves around −4 to −5°C**, **stems around −6 to −7°C**, and **immature seeds around −3 to −5°C**. This fiber-harvestable-stem endpoint is relevant, but temperature statements do not specify a universal 8-game-hour or fatal whole-crop dose.
+- [Manitoba Agriculture: Spring Frost Damage](https://www.gov.mb.ca/agriculture/crops/crop-management/spring-frost-damage-bulletin.html) separately notes stage, hardening and environmental conditions, possible survival near −8°C, and girdling `frost canker`. It does not claim unconditional survival of long repeated frosts.
+- [Saskatchewan Agriculture: Fall Frost on Crops (Sep 2026)](https://www.saskatchewan.ca/business/agriculture-natural-resources-and-industry/agribusiness-farmers-and-ranchers/sask-ag-now/crops/fall-frost-on-crops) distinguishes immature flax seed/boll damage from whole-plant death. Do not calibrate fiber stem HP directly to immature-boll loss.
+
+**Predeclared gameplay acceptance question:** MO flax is a one-cut annual fiber harvest; normal light frost should not erase it, brief cold hardening must not be confused with injury-free prolonged cold, successive frosts should reduce productive fiber-yield via ordinary HP and deep freezing may terminate the remaining fiber stand. No new plant stage, hardening modifier or cold-only HP healing. Compare three A/D profiles using w=0, 85 initial HP, three separate constant-temperature 8-game-hour nights with warm readings between, 2,000-tick callback, no retroactive first 0.8h charge and fractional HP carryover:
+
+| Ambient (three separate 8h nights) | Existing trial A−5 / D140 | Reviewer A−6 / D140 | Reviewer A−7 / D120 |
+|---|---:|---:|---:|
+| −4°C | 85HP | 85HP | 85HP |
+| −6°C | 72HP | 85HP | 85HP |
+| −8°C | 46HP | 59HP | 70HP |
+| −10°C | 20HP | 33HP | 40HP |
+| −12°C | dead | 7HP | 9HP |
+| −15°C | dead | dead | dead |
+
+For one short −8°C×8h frost under identical sampling, existing A−5/D140 gives **72HP**, A−6/D140 gives **77HP**, A−7/D120 gives **80HP**. CCTO has no cold-specific recovery; actual post-frost survivor effects and live-map harvest not tested.
+
+**Reviewer preference only — A−6/D140.** Mild frost causes less irreversible HP loss than original A−5, consistent with brief hardened-stem survival, while repeated −8°C/−10°C still degrades the standing fiber crop and three deep −12°C nights nearly destroy it. A−7/D120 protects ordinary cold further without a strong fiber-stem reason, and its D120 is also a new unmeasured coefficient; neither option is author-approved. No empirical flax LD100 is claimed. **All owner counts unchanged after selected Haygrass: 17 approved A/D, 29 unapproved HP including flax, 2 Healroot mode candidates, 30 original dormant.** No XML/C#, tests, V3 main merge or release approved.
