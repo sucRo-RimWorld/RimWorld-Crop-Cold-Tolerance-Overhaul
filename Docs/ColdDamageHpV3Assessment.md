@@ -1,5 +1,8 @@
 # CCTO HP-only V3 candidate assessment — 2026-10-22
 
+**LATEST 2026-10-25 HEALROOT PAIR DORMANCY DECISION:** Author chose the **existing CCTO dormancy behavior**, below the two Vanilla Healroot Defs' existing 0°C minimum growth temperature, in place of unapproved A−10/D200 HP trials for `Plant_Healroot` and `Plant_HealrootWild`. CSV now has `APPROVED_DORMANCY_CANDIDATE_PENDING_XML` with blank unused HP/variation fields for these two rows. **78 total: 16 A/D selected, 30 other HP trials unapproved, 2 new dormant candidates pending XML, 30 already dormant Defs unchanged.** Existing production XML still has −9°C fixed-death extensions for both; no V3 gameplay activation/C# change, native acceptance or release. All remaining HP w=.20 values unapproved. Earlier 16/32 counts and unselected Healroot notes below are historical.
+
+
 **LATEST 2026-10-25 SMOKELEAF NUMERIC SELECTION:** Author selected Vanilla `Plant_Smokeleaf` **A−4°C/D100°C·game-hour** as the 16th numerical A/D candidate without changing the prior A/D values. Its hemp-like fictional leaf-crop frost scenario at 85HP, w=0, 2,000-tick sampling leaves 79HP after −5°C×8h and 67HP after three warm-separated −5°C×8h nights; −10°C×24h kills. These are calibrated gameplay choices, not a measured fictional-organism LD100 or actual native-game PASS. **78 total: 16 selected A/D, 32 other unapproved HP, 30 original dormancy, 0 source HOLD.** All per-row w=.20 unapproved, actual code w=0. No runtime/production XML adoption, real native game acceptance, Draft feature main merge or release. Earlier 15/33 records below are historical.
 
 
