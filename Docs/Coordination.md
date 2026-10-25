@@ -1,5 +1,12 @@
 # CCTO Coordination
 
+### CCTO-V3-MO-WHEAT-AD-SELECTED-20261025 — eleven selected two HOLD
+
+**Author numeric candidate selection, current owner authority:** [Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), `Docs/ColdDamageHpV3Candidates.csv` and `Docs/Design.md`. MO `DankPyon_Plant_Wheat` **A−7°C/D200°C·game-hour** is now the **eleventh author-selected A/D numerical candidate**, promoted from HOLD at the original trial values. Representative gameplay plant is an established moderately hardy field wheat. Its single fixed onset does not represent laboratory unacclimated seedling mortality at −3/−5°C, distinct genotype acclimation, or −5°C indefinite hardening injury; this limitation is accepted for a simple HP crop proxy only. It does **not** authorize `lethal_dose_variation=0.20` (unapproved for every Def, code default w=0), production XML, C# revision, main integration of Draft #31, native 1.6/1.7 acceptance or Steam release.
+
+**Current authoritative counts (78 Defs):** 11 `APPROVED_A_D_CANDIDATE_VARIATION_PENDING`, **2 `HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED` (Vanilla Rice A+3/D60 and Vanilla Corn A0/D64)**, 35 `UNAPPROVED_HP_TRIAL`, 30 `KEEP_EXISTING_DORMANCY`. The preceding ten-selected/three-held summary and all earlier wheat-HOLD accounts below are historical and superseded. Both remaining rice and maize profiles require their own biological-stage vs ordinary-crop-player-risk compromise; no new plant-state/acclimation subsystem, individual spread or premature native-game matrix.
+
+
 ### CCTO-V3-MO-LENTIL-AD-SELECTED-20261025 — ten candidates and three holds
 
 **New author decision / feature authority:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), current candidate CSV `Docs/ColdDamageHpV3Candidates.csv` and local `Docs/Design.md`. MO `DankPyon_Plant_Lentils` has been author-selected **A−5°C/D120°C·game-hour** as **A/D numerical candidate only**, retaining the previously held trial numbers. It represents an established green seed-producing lentil with frost-injured productivity and basal-node recovery *approximated* through ordinary visible Plant HP; no explicit cold-only healing, cold hardening, seed LT50 calibration or claim of empirically measured whole-plant lethality. Earlier A−4/D120 reviewer alternative is not selected. The author-selected 10 crop A/D values remain separate from all CSV w=.20 fields (unapproved, actual C# default w=0).
