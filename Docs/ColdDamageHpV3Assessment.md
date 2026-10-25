@@ -1,5 +1,8 @@
 # CCTO HP-only V3 candidate assessment — 2026-10-22
 
+**LATEST 2026-10-25 RICE AUTHOR NUMERIC DECISION:** Vanilla `Plant_Rice` **A+2°C/D60°C·game-hour** is the thirteenth A/D-only author-selected candidate, replacing previously held A+3/D60. In nominal 85HP, w=0 discrete sampling, three 0°C×8h separated nights leave ~24HP instead of death, while three +2°C×8h nights cause no damage; −2°C repeated hard frosts can still kill. This is an **ordinary productive rice field HP/harvest** proxy, not calibrated seedling cold-acclimation death at +4°C or flowering sterility at 15–17°C. **Current 78-row scope: 13 selected A/D, 0 source HOLD, 35 separate `UNAPPROVED_HP_TRIAL`, 30 existing dormancy**. Zero HOLD does not approve the other 35; CSV individual variation w=.20 remains unapproved, actual framework default w=0. No production XML, native full balance PASS, main feature merge or release. Earlier twelve-selected and Rice HOLD summaries below are historical.
+
+
 **LATEST 2026-10-25 CORN A/D AUTHOR-SELECTION:** Vanilla `Plant_Corn` A0°C/D64°C·game-hour, unchanged from its trial, is now the **twelfth author-selected numerical A/D candidate**; ordinary visible Plant HP serves productive harvestable maize/grain rather than literal stalk freezing or seedling survival. Nominal constant −1°C×8h and −2°C×8h give ≈5.6% and ≈11.3% conditional HP-yield-factor reductions (w=0), in the late-grain-fill literature's magnitude but NOT independently calibrated lethal dose. Current 78 rows: 12 selected A/D; **only Rice A+3/D60 HOLD** (A+2/D60 reviewer-only), 35 other HP unapproved, 30 dormancy. CSV per-species w=.20 unapproved; framework default w=0; no production XML, real-game acceptance or release. Historical lower Corn HOLD and eleven-selected counts superseded.
 
 
