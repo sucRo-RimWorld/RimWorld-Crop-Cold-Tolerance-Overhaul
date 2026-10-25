@@ -1,16 +1,16 @@
 # CCTO Beta Release Checklist
 
-## V3 development acceptance — not published (2026-10-25)
+## 0.2 development acceptance (internal V3 design) — not published (2026-10-26)
 
-The older 0.1.3 Beta checklist remains historical. The authoritative [78-Def V3 design](ColdDamageHpV3Candidates.csv) uses 46 HP profiles and 32 dormant profiles, individual variation zero. Implementation resides in [Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60). No new public version has been chosen.
+The older 0.1.3 Beta checklist remains historical. The authoritative [78-Def V3 design](ColdDamageHpV3Candidates.csv) uses 46 HP profiles and 32 dormant profiles, individual variation zero. Implementation resides in [Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60). The author selected **0.2** as the next public version; V3 is only an internal design-generation label. The new package is not published, so About/Manifest and Workshop remain on 0.1.3 until final release preparation.
 
 - [x] Source/XML implemented on Draft and 78 final loaded Def values checked in original 1.6 ([19/19 native PASS](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/40177263201), Unity ERROR0, exit0).
 - [x] Controlled frost through normal game Tick reduces actual Potato HP without cold healing; Healroot dormant; ordinary winter Pine alive. This is not full calendar/weather/economy acceptance.
 - [x] Genuine separate-process 1.6 Scribe save/load of production Potato at 20% injury with restored plant identity, HP and observation clock, then continuing cold injury ([native PASS](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/40177836437), both Unity ERROR0).
 - [ ] 1.7 source build and native acceptance with exact V3 production code, not prior fixed-DLL evidence.
-- [ ] Representative real Medieval Overhaul (not 29-Def lightweight fixture) sowing, harvest, actual yield and labor telemetry; seasons, normal and extreme cold, biome plant survival, full-cycle TPS.
+- [ ] Relevant original Medieval Overhaul (not 29-Def fixture) low-temperature response; normal and extreme cold, repeated exposures, biome plant survival and bounded TPS. Crop economy/yield/labor parity is not a CCTO release gate.
 - [ ] Confirm harvest penalty after partial HP injury and fatal crop notices in true native play.
-- [ ] Produce and stage the distributable production DLL; align About/Manifest, version, README, English/Japanese Workshop and 2game copy and changelog at the chosen release version.
+- [ ] Produce and stage the distributable production DLL; align About/Manifest to public version **0.2**, README, bilingual Workshop and 2game copy, changelog and release notes/tag in one final release-preparation change set.
 - [ ] End-stage release acceptance and author Steam publication approval (not granted).
 
 
