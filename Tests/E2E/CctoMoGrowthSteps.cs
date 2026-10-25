@@ -217,13 +217,24 @@ namespace CropColdToleranceOverhaul.E2E
                     SetOutdoor();
                     int i = currentCrop;
                     Plant p = plants[0];
-                    ctx.Require(p.Spawned && !p.Destroyed,
-                        "Native MO crop destroyed in nonfreezing exposure: " + defs[i].defName);
-                    p.TickLong();
-                    if (firstHarvest[i] < 0 && p.HarvestableNow)
-                        firstHarvest[i] = observation * 2000;
-                    if (firstMature[i] < 0 && p.Growth >= .999f)
-                        firstMature[i] = observation * 2000;
+                    // A mature crop would ordinarily be harvested, not
+                    // left uncollected for another 30+ accelerated days.
+                    // Stop invoking Plant.TickLong after first maturity to
+                    // isolate sow-to-maturity growth from post-maturity
+                    // lifespan/rot; snapshots after maturity carry forward 1.
+                    if (firstMature[i] < 0)
+                    {
+                        ctx.Require(p.Spawned && !p.Destroyed,
+                            "Native MO crop lost before first maturity: " + defs[i].defName
+                            + " nominalC=" + F(temperature)
+                            + " actualC=" + F(p.AmbientTemperature)
+                            + " sample=" + observation + " growth=" + F(p.Growth));
+                        p.TickLong();
+                        if (firstHarvest[i] < 0 && p.HarvestableNow)
+                            firstHarvest[i] = observation * 2000;
+                        if (p.Growth >= .999f)
+                            firstMature[i] = observation * 2000;
+                    }
                     if (observation == 300)
                     {
                         day10[i] = p.Growth;
@@ -250,6 +261,7 @@ namespace CropColdToleranceOverhaul.E2E
                     + " observedMinC=" + F(minimumActual)
                     + " observedMaxC=" + F(maximumActual)
                     + " startGrowth=" + F(StartGrowth)
+                    + " stopAfterFirstMaturity=true"
                     + " minGrowthC=" + F(defs[i].plant.minGrowthTemperature)
                     + " growDays=" + F(defs[i].plant.growDays)
                     + " fertility=" + F(map.fertilityGrid.FertilityAt(cells[0]))
