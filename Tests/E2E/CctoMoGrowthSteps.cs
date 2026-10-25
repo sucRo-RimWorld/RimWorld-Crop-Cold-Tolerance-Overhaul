@@ -120,6 +120,7 @@ namespace CropColdToleranceOverhaul.E2E
                         "MO+Agriculture growth values not loaded " + name);
                     defs.Add(def);
                 }
+                Room sharedRoom = null;
                 foreach (IntVec3 c in CellRect.CenteredOn(map.Center, 12).Cells)
                 {
                     if (cells.Count >= Names.Length) break;
@@ -128,6 +129,9 @@ namespace CropColdToleranceOverhaul.E2E
                         t.def.category == ThingCategory.Building)) continue;
                     Room r = c.GetRoom(map);
                     if (r == null || !r.UsesOutdoorTemperature) continue;
+                    if (sharedRoom != null && !object.ReferenceEquals(r, sharedRoom))
+                        continue; // prevent disjoint outdoor temperature trackers
+                    if (sharedRoom == null) sharedRoom = r;
                     cells.Add(c);
                     terrains.Add(map.terrainGrid.TerrainAt(c));
                     snow.Add(map.snowGrid.GetDepth(c));
@@ -174,9 +178,16 @@ namespace CropColdToleranceOverhaul.E2E
                 foreach (Plant plant in plants)
                 {
                     Room r = plant.GetRoom();
-                    if (r != null) r.Temperature = temperature;
-                    ctx.Require(Math.Abs(plant.AmbientTemperature - temperature) < .4f,
-                        "Controlled ambient temperature drifted on real native plant " + plant.def.defName);
+                    ctx.Require(r != null && r.UsesOutdoorTemperature,
+                        "Original native MO plant was no longer in its outdoor room");
+                    r.Temperature = temperature;
+                    float observed = plant.AmbientTemperature;
+                    ctx.Require(Math.Abs(observed - temperature) < .4f,
+                        "Controlled ambient drift for " + plant.def.defName
+                        + " expected=" + F(temperature)
+                        + " observed=" + F(observed)
+                        + " roomC=" + F(r.Temperature)
+                        + " gameTick=" + Find.TickManager.TicksGame);
                 }
             }
 
