@@ -1,5 +1,8 @@
 # CCTO HP-only V3 candidate assessment — 2026-10-22
 
+**LATEST 2026-10-25 CORN A/D AUTHOR-SELECTION:** Vanilla `Plant_Corn` A0°C/D64°C·game-hour, unchanged from its trial, is now the **twelfth author-selected numerical A/D candidate**; ordinary visible Plant HP serves productive harvestable maize/grain rather than literal stalk freezing or seedling survival. Nominal constant −1°C×8h and −2°C×8h give ≈5.6% and ≈11.3% conditional HP-yield-factor reductions (w=0), in the late-grain-fill literature's magnitude but NOT independently calibrated lethal dose. Current 78 rows: 12 selected A/D; **only Rice A+3/D60 HOLD** (A+2/D60 reviewer-only), 35 other HP unapproved, 30 dormancy. CSV per-species w=.20 unapproved; framework default w=0; no production XML, real-game acceptance or release. Historical lower Corn HOLD and eleven-selected counts superseded.
+
+
 **CURRENT 2026-10-25 WHEAT A/D APPROVAL:** MO `DankPyon_Plant_Wheat` **A−7°C/D200°C·game-hour** is the eleventh *A/D candidate*, selected without changing the old held tuple for normal moderately hardy wheat. The absence of HP injury at −5°C (even sustained) is an accepted game-phenotype vs unacclimated seedling laboratory mismatch, NOT source-calibrated whole-Plant tolerance or native runtime PASS. **Current status: 11 selected A/D, 2 HOLD Rice/Corn, 35 unapproved HP, 30 dormancy.** Per-crop CSV variation w=.20 remains unapproved; runtime default w=0; production XML, C#, native gameplay and release remain untouched. Supersedes earlier Wheat-HOLD and ten-selected dated text.
 
 
