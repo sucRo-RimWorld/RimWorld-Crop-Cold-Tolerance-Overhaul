@@ -1,5 +1,8 @@
 # CCTO HP-only V3 candidate assessment — 2026-10-22
 
+**LATEST 2026-10-25 PSYCHOID NUMERIC DECISION:** Author selected Vanilla `Plant_Psychoid` A0°C/D50°C·game-hour as the 15th numerical A/D candidate, replacing A+2/D50. In the 85HP no-recovery w=0 2,000-tick modeled case, three 0°C×8h nights leave full HP rather than 12HP, while three −1°C nights leave 49HP rather than kill. Fictional-crop gameplay estimate only. Current 78 rows: 15 A/D selected, 33 other HP unapproved, 30 dormancy, 0 source HOLD. All CSV w=.20 unapproved, framework defaults to w=0, no active XML/C# or native game/release approval. Earlier 14/34 figures below are dated history.
+
+
 **LATEST 2026-10-25 DEVILSTRAND NUMERICAL SELECTION:** Vanilla `Plant_Devilstrand` **A0°C/D70°C·game-hour**, replacing old unapproved A+2/D70, is the 14th author-selected A/D candidate only. The 85HP fictional engineered crop takes ~41.5 ideal calendar days on normal soil; reviewer w=0, 2,000-tick sampling yields 85/85HP (versus old 59/85) after three separated +1°C×8h nights, and 59/85HP (versus old 7/85) after three −1°C×8h nights. Continuous −10°C×8h kills either profile. Game/ecology tradeoff, NOT a measured fungal lethal threshold or real-map season PASS. **Current: 14 selected A/D, 34 other HP trials unapproved, zero source HOLD and 30 original dormancy = 78.** CSV w=.20 unapproved for all, runtime default w=0, no XML/C# implementation, native game PASS, main integration or release. Older 13/35 figures below are superseded.
 
 
