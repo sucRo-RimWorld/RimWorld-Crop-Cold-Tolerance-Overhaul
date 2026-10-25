@@ -2,6 +2,10 @@
 
 **RimWorld 1.6 / 1.7 (unstable) — 0.1.3 Beta**
 
+**Source-development note (V3 unreleased):** The 0.1.3 Beta fixed-death tables below describe the *currently published* release, not V3 development XML. The [final V3 design](Docs/Design.md#current-v3-numerical-specification--finalized-2026-10-25) and [78-Def numeric authority](Docs/ColdDamageHpV3Candidates.csv) define **46 cumulative visible-HP injury profiles + 32 cold-dormancy profiles (w=0)**. Source-controlled RimWorld 1.6 native technical checks (19/19 fixed-temperature scenarios and a genuine two-process .rws save/load) have passed, but 1.7, actual MO crop-season economics, distributable DLL staging and publication are still pending. Do not treat this source draft as a released V3 package.
+
+
+
 **A realism-focused cold-tolerance rebalance and lightweight XML framework for RimWorld plants.**
 
 Crop Cold Tolerance Overhaul (CCTO) is built around real-world differences in plant cold tolerance. It uses documented frost injury, chilling sensitivity, overwintering behavior, and lethal-temperature information where available as reference points, then translates them into clear RimWorld thresholds rather than applying Vanilla's mostly generic cold response.

@@ -33,7 +33,7 @@ Cold dormancy starts below the plant's existing `minGrowthTemperature`.
 </li>
 ```
 
-Dormancy refreshes the plant's native leafless-state timestamp below the growth minimum. It does not add a harvest prohibition: the inspected CCTO source and RimWorld 1.6.4871 rev590 HarvestableNow / CanYieldNow paths do not reject a plant solely because it is leafless. Other normal harvest conditions and mod overrides still apply. The native leafless state persists for 60,000 ticks after its last refresh, rather than clearing immediately on warming.
+Dormancy refreshes the plant's cold leafless state below its minimum growth temperature. It does **not itself prohibit harvesting**; normal growth can resume after warming and RimWorld's ordinary leafless recovery.
 
 A dormant plant may also define `coldDeathTemperature`. In that case, ordinary cold causes dormancy while more extreme cold below the fixed death threshold kills the plant.
 
@@ -73,3 +73,22 @@ CCTO does not introduce a second growth-minimum field.
 A mod consuming the framework owns its plants' temperature values, design/balance tables, Def mapping, compatibility XML, and validation. AMJC and AMJE use this pattern; their custom plant data is not shipped or maintained in CCTO.
 
 For an optional CCTO dependency, add the extension only while CCTO is active (for example, through a `PatchOperationFindMod` guard). Keep the native minimum growth temperature in the owning PlantDef so that the plant remains usable without CCTO. CCTO-owned Vanilla/MO data remains in CCTO; consuming the framework does not transfer ownership of those existing sets.
+
+
+## HP-only cold-damage API (V3 production source)
+
+The existing fixed `coldDeathTemperature` and `coldDormancy` remain unchanged. For plants explicitly opted into the V3 model, the API is:
+
+```xml
+<li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+  <coldDamageStartTemperature>-5</coldDamageStartTemperature>
+  <coldDamageDegreeHoursToDie>48</coldDamageDegreeHoursToDie>
+</li>
+```
+
+These are **syntax examples, not approved plant values**. Below onset, exposure degree-hours subtract a fraction of the plant's **maximum HP**, through the ordinary damage system. The degree-hour dose is the amount needed to remove the full HP of an otherwise undamaged median plant. Warming stops new cold HP loss; CCTO does **not** heal HP or model acclimation. Other forms of damage share the same HP. Optional `coldDamageLethalDoseVariation` supplies deterministic variation in required dose (default zero; uncalibrated); no separate injury gauge is maintained. The UI reports **損傷開始温度 / Cold damage starts** and existing **休眠温度 / Dormancy temperature**.
+
+Onset and lethal dose are specified together. The existing leafless check provides temperature samples; a sample interval is capped at 2,000 game ticks. The first cold reading starts the observation without inferring earlier temperatures. A sparse saved observation record retains time, whether the preceding observation was cold, and damage fractions below one HP, not accumulated cold injury. A cold reading immediately after a warm one restarts cold timing without charging the preceding warm interval. This cannot capture temperature spikes between readings. Save compatibility and interactions with other mods require actual game testing.
+
+The former `coldDamageRecoveryPerHour` experimental option is **not supported**. Existing experimental V2 injury-save data has no supported conversion path; no such experimental model has shipped. The V3 production XML opts 46 Vanilla/Medieval Overhaul plants into HP loss and retains 32 dormancy plants. The final coefficient table is `Docs/ColdDamageHpV3Candidates.csv` and individual spread is disabled (`w=0`). Native acceptance is still pending. Previous V2 candidate figures under the hidden-injury/recovery model are no longer acceptance evidence.
+

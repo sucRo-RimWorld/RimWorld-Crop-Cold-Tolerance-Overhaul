@@ -22,7 +22,11 @@ namespace CropColdToleranceOverhaul.Patches
                 return;
             }
 
-            if (extension.coldDormancy)
+            if (extension.HasColdDamageModel && !extension.coldDormancy)
+            {
+                __result = float.MinValue; // Native cold death must not fire.
+            }
+            else if (extension.coldDormancy)
             {
                 __result = __instance.def.plant.minGrowthTemperature;
             }
@@ -51,6 +55,15 @@ namespace CropColdToleranceOverhaul.Patches
             }
 
             float temperature = __instance.AmbientTemperature;
+            if (extension.HasColdDamageModel)
+            {
+                if (extension.coldDormancy
+                    && temperature < __instance.def.plant.minGrowthTemperature)
+                {
+                    ColdToleranceUtility.EnterColdDormancy(__instance);
+                }
+                return false;
+            }
 
             if (extension.HasColdDeathTemperature
                 && temperature < extension.coldDeathTemperature)
@@ -70,6 +83,7 @@ namespace CropColdToleranceOverhaul.Patches
         }
     }
 
+
     [HarmonyPatch(typeof(Plant), "CheckMakeLeafless")]
     internal static class PlantCheckMakeLeaflessPatch
     {
@@ -88,6 +102,17 @@ namespace CropColdToleranceOverhaul.Patches
             }
 
             float temperature = __instance.AmbientTemperature;
+            if (extension.HasColdDamageModel)
+            {
+                __instance.Map.GetComponent<ColdDamageMapComponent>()
+                    .UpdatePlant(__instance, extension, temperature);
+                if (!__instance.Destroyed && extension.coldDormancy
+                    && temperature < __instance.def.plant.minGrowthTemperature)
+                {
+                    ColdToleranceUtility.EnterColdDormancy(__instance);
+                }
+                return;
+            }
 
             if (extension.HasColdDeathTemperature
                 && temperature < extension.coldDeathTemperature)

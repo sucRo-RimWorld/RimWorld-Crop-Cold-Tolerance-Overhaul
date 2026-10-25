@@ -1,5 +1,19 @@
 # CCTO Beta Release Checklist
 
+## V3 development acceptance — not published (2026-10-25)
+
+The older 0.1.3 Beta checklist remains historical. The authoritative [78-Def V3 design](ColdDamageHpV3Candidates.csv) uses 46 HP profiles and 32 dormant profiles, individual variation zero. Implementation resides in [Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60). No new public version has been chosen.
+
+- [x] Source/XML implemented on Draft and 78 final loaded Def values checked in original 1.6 ([19/19 native PASS](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/40177263201), Unity ERROR0, exit0).
+- [x] Controlled frost through normal game Tick reduces actual Potato HP without cold healing; Healroot dormant; ordinary winter Pine alive. This is not full calendar/weather/economy acceptance.
+- [x] Genuine separate-process 1.6 Scribe save/load of production Potato at 20% injury with restored plant identity, HP and observation clock, then continuing cold injury ([native PASS](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/40177836437), both Unity ERROR0).
+- [ ] 1.7 source build and native acceptance with exact V3 production code, not prior fixed-DLL evidence.
+- [ ] Representative real Medieval Overhaul (not 29-Def lightweight fixture) sowing, harvest, actual yield and labor telemetry; seasons, normal and extreme cold, biome plant survival, full-cycle TPS.
+- [ ] Confirm harvest penalty after partial HP injury and fatal crop notices in true native play.
+- [ ] Produce and stage the distributable production DLL; align About/Manifest, version, README, English/Japanese Workshop and 2game copy and changelog at the chosen release version.
+- [ ] End-stage release acceptance and author Steam publication approval (not granted).
+
+
 This is the release-preparation checklist for the first public Beta.
 
 ## Completed technical gates

@@ -57,3 +57,64 @@ Feature: CCTO cold tolerance runtime behavior
     When I set the CCTO test plant room temperature to -30
     And I force the CCTO plant cold check
     Then the CCTO test plant is dead
+
+
+  Scenario: Cumulative frost lowers visible HP but warming does not heal it
+    Given a cumulative CCTO test plant with minimum growth 0 onset -5 dose 20
+    When I set the CCTO test outdoor temperature to -10
+    And I force the CCTO plant cold check
+    Then the CCTO plant HP is recorded at first observation
+    When I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP decreased from last observation
+    When I retain a fractional CCTO cold HP remainder
+    And I set the CCTO test outdoor temperature to 10
+    And I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP did not recover
+    When I set the CCTO test outdoor temperature to -10
+    And I simulate 1000 ticks between CCTO damage observations
+    Then the CCTO plant HP did not recover
+    When I simulate 1000 ticks between CCTO damage observations
+    Then the CCTO plant HP decreased from last observation
+    And the CCTO test plant is alive
+
+  Scenario: Cumulative frost and dormancy coexist until fatal accumulated exposure
+    Given a dormant cumulative CCTO test plant with minimum growth 5 onset -5 dose 5
+    When I set the CCTO test outdoor temperature to -10
+    And I force the CCTO plant cold check
+    Then the CCTO test plant is dormant
+    And the CCTO plant HP is recorded at first observation
+    When I simulate 2000 ticks between CCTO damage observations
+    Then the CCTO plant HP decreased from last observation
+    And the CCTO test plant is dormant
+    When I simulate 1000 ticks between CCTO damage observations
+    Then the CCTO test plant is dead
+
+  # Small, ordinary-Tick native V3 acceptance checks. Do not substitute
+  # these for seasonal production-economy or world-climate balance judgments.
+  Scenario: Finalized production potato loses visible HP under frost and never cold-heals
+    Given an unmodified V3 production potato plant
+    When I set the CCTO test outdoor temperature to -10
+    And I force the CCTO plant cold check
+    Then the production CCTO plant HP is recorded
+    When I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP decreased from last observation
+    When I set the CCTO test outdoor temperature to 10
+    And I advance 4000 complete RimWorld game ticks
+    Then the CCTO plant HP did not recover
+    And the CCTO test plant is alive
+
+  Scenario: Finalized production healroot goes dormant rather than dying
+    Given an unmodified V3 production healroot plant
+    When I set the CCTO test outdoor temperature to -10
+    And I run one CCTO plant long tick
+    Then the CCTO test plant is dormant
+    And the CCTO test plant is alive
+
+  Scenario: Finalized production pine survives an ordinary cold winter observation
+    Given an unmodified V3 production pine plant
+    When I set the CCTO test outdoor temperature to -35
+    And I force the CCTO plant cold check
+    Then the production CCTO plant HP is recorded
+    When I advance 4000 complete RimWorld game ticks
+    Then the production CCTO plant HP is unchanged
+    And the CCTO test plant is alive

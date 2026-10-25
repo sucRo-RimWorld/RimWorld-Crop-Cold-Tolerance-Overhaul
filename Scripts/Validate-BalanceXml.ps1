@@ -20,8 +20,37 @@ function LoadXml([string]$Path) {
   catch { Fail "Invalid XML: $Path" }
 }
 
-function Spec([double]$Min, [object]$Death, [bool]$Dormancy) {
-  return @{ Min=$Min; Death=$Death; Dormancy=$Dormancy }
+# Read the current canonical V3 design instead of repeating the obsolete fixed-death table.
+$csvPath = Join-Path $RepoRoot "Docs/ColdDamageHpV3Candidates.csv"
+if (-not (Test-Path -LiteralPath $csvPath)) { Fail "Missing canonical V3 CSV: $csvPath" }
+$designRows = @(Get-Content -LiteralPath $csvPath -Encoding UTF8 |
+  Where-Object { $_.Trim() -and -not $_.StartsWith("#") } | ConvertFrom-Csv)
+if ($designRows.Count -ne 78) { Fail "Expected 78 canonical V3 Defs" }
+$design = @{}
+foreach ($r in $designRows) {
+  if ($design.ContainsKey($r.defName)) { Fail "Duplicate canonical Def: $($r.defName)" }
+  $design[$r.defName] = $r
+}
+if (@($designRows | Where-Object { $_.mode -eq "hp_damage" }).Count -ne 46 -or
+    @($designRows | Where-Object { $_.mode -eq "dormancy" }).Count -ne 32) {
+  Fail "Expected 46 HP and 32 dormancy profiles"
+}
+
+function Spec([double]$Min, [string]$DefName) {
+  $r = $design[$DefName]
+  if ($null -eq $r) { Fail "Missing canonical V3 spec for $DefName" }
+  if ($r.mode -eq "dormancy") {
+    if ($r.hp_injury_onset_C -or $r.full_hp_degree_game_hours -or $r.lethal_dose_variation) {
+      Fail "Dormancy row has HP fields: $DefName"
+    }
+    return @{ Min=$Min; Onset=$null; Dose=$null; Dormancy=$true }
+  }
+  if ($r.mode -ne "hp_damage" -or -not $r.hp_injury_onset_C -or
+      -not $r.full_hp_degree_game_hours -or $r.lethal_dose_variation -ne "0") {
+    Fail "Invalid HP design row: $DefName"
+  }
+  return @{ Min=$Min; Onset=[double]$r.hp_injury_onset_C;
+    Dose=[double]$r.full_hp_degree_game_hours; Dormancy=$false }
 }
 
 function AssertNoFrameworkConsumerDefData([string[]]$RelativePaths) {
@@ -60,87 +89,87 @@ AssertNoFrameworkConsumerDefData @(
 )
 
 $vanilla = @{
-  Plant_Rice        = Spec 10 (-1) $false
-  Plant_Potato      = Spec 5  (-2) $false
-  Plant_Corn        = Spec 8  (-2) $false
-  Plant_Strawberry  = Spec 5  (-9) $false
-  Plant_Haygrass    = Spec 0  (-9) $false
-  Plant_Cotton      = Spec 10 (-1) $false
-  Plant_Devilstrand = Spec 8  (-1) $false
-  Plant_Healroot    = Spec 0  (-9) $false
-  Plant_Hops        = Spec 5  $null $true
-  Plant_Smokeleaf   = Spec 5  (-4) $false
-  Plant_Psychoid    = Spec 8  (-1) $false
-  Plant_TreeCocoa   = Spec 12 0 $false
-  Plant_TreeBamboo   = Spec 10 (-18) $false
-  Plant_TreeBirch    = Spec 5  $null $true
-  Plant_TreeCecropia = Spec 10 0 $false
-  Plant_TreeCypress  = Spec 5  $null $true
-  Plant_Dandelion    = Spec 0  $null $true
-  Plant_Daylily      = Spec 0  $null $true
-  Plant_TreeDrago    = Spec 8  0 $false
-  Plant_TreeMaple    = Spec 5  $null $true
-  Plant_TreeOak      = Spec 5  $null $true
-  Plant_TreePalm     = Spec 10 0 $false
-  Plant_TreePine     = Spec 0  (-35) $false
-  Plant_TreePoplar   = Spec 5  $null $true
-  Plant_Rose         = Spec 5  $null $true
-  Plant_SaguaroCactus = Spec 8 (-6) $false
-  Plant_TreeTeak     = Spec 12 3 $false
-  Plant_Timbershroom = Spec 0  $null $true
-  Plant_Tinctoria    = Spec 5  (-4) $false
-  Plant_TreeWillow   = Spec 5  $null $true
-  Agarilux               = Spec 0  $null $true
-  Plant_Agave            = Spec 5  (-7) $false
-  Plant_Alocasia         = Spec 10 (-1) $false
-  Plant_Ambrosia         = Spec 0  (-9) $false
-  Plant_Astragalus       = Spec 0  $null $true
-  Plant_Berry            = Spec 0  $null $true
-  Plant_Brambles         = Spec 0  $null $true
-  Bryolux                = Spec 0  (-12) $false
-  Plant_Bush             = Spec 0  $null $true
-  Plant_Chokevine        = Spec 0  $null $true
-  Plant_Clivia           = Spec 8  (-2) $false
-  Plant_Rafflesia        = Spec 12 5 $false
-  Glowstool              = Spec 0  (-8) $false
-  Plant_Grass            = Spec 0  $null $true
-  Plant_ShrubLow         = Spec 8  (-2) $false
-  Plant_Moss             = Spec 0  $null $true
-  Plant_PincushionCactus = Spec 5  (-8) $false
-  Plant_TallGrass        = Spec 0  $null $true
-  Plant_HealrootWild     = Spec 0  (-9) $false
+  Plant_Rice        = Spec 10 "Plant_Rice"
+  Plant_Potato      = Spec 5 "Plant_Potato"
+  Plant_Corn        = Spec 8 "Plant_Corn"
+  Plant_Strawberry  = Spec 5 "Plant_Strawberry"
+  Plant_Haygrass    = Spec 0 "Plant_Haygrass"
+  Plant_Cotton      = Spec 10 "Plant_Cotton"
+  Plant_Devilstrand = Spec 8 "Plant_Devilstrand"
+  Plant_Healroot    = Spec 0 "Plant_Healroot"
+  Plant_Hops        = Spec 5 "Plant_Hops"
+  Plant_Smokeleaf   = Spec 5 "Plant_Smokeleaf"
+  Plant_Psychoid    = Spec 8 "Plant_Psychoid"
+  Plant_TreeCocoa   = Spec 12 "Plant_TreeCocoa"
+  Plant_TreeBamboo   = Spec 10 "Plant_TreeBamboo"
+  Plant_TreeBirch    = Spec 5 "Plant_TreeBirch"
+  Plant_TreeCecropia = Spec 10 "Plant_TreeCecropia"
+  Plant_TreeCypress  = Spec 5 "Plant_TreeCypress"
+  Plant_Dandelion    = Spec 0 "Plant_Dandelion"
+  Plant_Daylily      = Spec 0 "Plant_Daylily"
+  Plant_TreeDrago    = Spec 8 "Plant_TreeDrago"
+  Plant_TreeMaple    = Spec 5 "Plant_TreeMaple"
+  Plant_TreeOak      = Spec 5 "Plant_TreeOak"
+  Plant_TreePalm     = Spec 10 "Plant_TreePalm"
+  Plant_TreePine     = Spec 0 "Plant_TreePine"
+  Plant_TreePoplar   = Spec 5 "Plant_TreePoplar"
+  Plant_Rose         = Spec 5 "Plant_Rose"
+  Plant_SaguaroCactus = Spec 8 "Plant_SaguaroCactus"
+  Plant_TreeTeak     = Spec 12 "Plant_TreeTeak"
+  Plant_Timbershroom = Spec 0 "Plant_Timbershroom"
+  Plant_Tinctoria    = Spec 5 "Plant_Tinctoria"
+  Plant_TreeWillow   = Spec 5 "Plant_TreeWillow"
+  Agarilux               = Spec 0 "Agarilux"
+  Plant_Agave            = Spec 5 "Plant_Agave"
+  Plant_Alocasia         = Spec 10 "Plant_Alocasia"
+  Plant_Ambrosia         = Spec 0 "Plant_Ambrosia"
+  Plant_Astragalus       = Spec 0 "Plant_Astragalus"
+  Plant_Berry            = Spec 0 "Plant_Berry"
+  Plant_Brambles         = Spec 0 "Plant_Brambles"
+  Bryolux                = Spec 0 "Bryolux"
+  Plant_Bush             = Spec 0 "Plant_Bush"
+  Plant_Chokevine        = Spec 0 "Plant_Chokevine"
+  Plant_Clivia           = Spec 8 "Plant_Clivia"
+  Plant_Rafflesia        = Spec 12 "Plant_Rafflesia"
+  Glowstool              = Spec 0 "Glowstool"
+  Plant_Grass            = Spec 0 "Plant_Grass"
+  Plant_ShrubLow         = Spec 8 "Plant_ShrubLow"
+  Plant_Moss             = Spec 0 "Plant_Moss"
+  Plant_PincushionCactus = Spec 5 "Plant_PincushionCactus"
+  Plant_TallGrass        = Spec 0 "Plant_TallGrass"
+  Plant_HealrootWild     = Spec 0 "Plant_HealrootWild"
 }
 
 $mo = @{
-  DankPyon_Plant_Onions      = Spec 5  (-3) $false
-  DankPyon_Plant_Lentils     = Spec 5  (-4) $false
-  DankPyon_Plant_Cabbages    = Spec 0  (-6) $false
-  DankPyon_Plant_Garlic      = Spec 0  $null $true
-  DankPyon_Plant_Mushrooms   = Spec 5  (-1) $false
-  DankPyon_Plant_Wheat       = Spec 0  (-6) $false
-  DankPyon_Plant_Flax        = Spec 5  (-5) $false
-  DankPyon_Plant_Sugarcane   = Spec 10 (-5) $false
-  DankPyon_Plant_Carrots     = Spec 0  (-4) $false
-  DankPyon_Plant_Herb        = Spec 5  (-3) $false
-  DankPyon_Plant_Tomatoes    = Spec 10 (-1) $false
-  DankPyon_Plant_Grape       = Spec 5  $null $true
-  DankPyon_Plant_Pumpkins    = Spec 10 (-1) $false
-  DankPyon_Tree_Apple        = Spec 5  $null $true
-  DankPyon_Tree_Lemon        = Spec 10 (-4) $false
-  DankPyon_Tree_Mulberry     = Spec 5  $null $true
-  DankPyon_Tree_GriffonBerry = Spec 5  $null $true
-  DankPyon_Plant_Mindwort    = Spec 5  (-3) $false
-  DankPyon_Plant_Poppy       = Spec 5  (-5) $false
-  DankPyon_Plant_Fleawort    = Spec 3  (-6) $false
-  DankPyon_Plant_FlyAgaric   = Spec 0  $null $true
-  DankPyon_Plant_MindwortWild  = Spec 5  (-3) $false
-  DankPyon_Plant_PoppyWild     = Spec 5  (-5) $false
-  DankPyon_Plant_FleawortWild  = Spec 3  (-6) $false
-  DankPyon_Plant_FlyAgaricWild = Spec 0  $null $true
-  DankPyon_GreatOak            = Spec 5  $null $true
-  DankPyon_GreatIter           = Spec 5  $null $true
-  DankPyon_GreatFir            = Spec 0  (-35) $false
-  DankPyon_GreatWillow         = Spec 5  $null $true
+  DankPyon_Plant_Onions      = Spec 5 "DankPyon_Plant_Onions"
+  DankPyon_Plant_Lentils     = Spec 5 "DankPyon_Plant_Lentils"
+  DankPyon_Plant_Cabbages    = Spec 0 "DankPyon_Plant_Cabbages"
+  DankPyon_Plant_Garlic      = Spec 0 "DankPyon_Plant_Garlic"
+  DankPyon_Plant_Mushrooms   = Spec 5 "DankPyon_Plant_Mushrooms"
+  DankPyon_Plant_Wheat       = Spec 0 "DankPyon_Plant_Wheat"
+  DankPyon_Plant_Flax        = Spec 5 "DankPyon_Plant_Flax"
+  DankPyon_Plant_Sugarcane   = Spec 10 "DankPyon_Plant_Sugarcane"
+  DankPyon_Plant_Carrots     = Spec 0 "DankPyon_Plant_Carrots"
+  DankPyon_Plant_Herb        = Spec 5 "DankPyon_Plant_Herb"
+  DankPyon_Plant_Tomatoes    = Spec 10 "DankPyon_Plant_Tomatoes"
+  DankPyon_Plant_Grape       = Spec 5 "DankPyon_Plant_Grape"
+  DankPyon_Plant_Pumpkins    = Spec 10 "DankPyon_Plant_Pumpkins"
+  DankPyon_Tree_Apple        = Spec 5 "DankPyon_Tree_Apple"
+  DankPyon_Tree_Lemon        = Spec 10 "DankPyon_Tree_Lemon"
+  DankPyon_Tree_Mulberry     = Spec 5 "DankPyon_Tree_Mulberry"
+  DankPyon_Tree_GriffonBerry = Spec 5 "DankPyon_Tree_GriffonBerry"
+  DankPyon_Plant_Mindwort    = Spec 5 "DankPyon_Plant_Mindwort"
+  DankPyon_Plant_Poppy       = Spec 5 "DankPyon_Plant_Poppy"
+  DankPyon_Plant_Fleawort    = Spec 3 "DankPyon_Plant_Fleawort"
+  DankPyon_Plant_FlyAgaric   = Spec 0 "DankPyon_Plant_FlyAgaric"
+  DankPyon_Plant_MindwortWild  = Spec 5 "DankPyon_Plant_MindwortWild"
+  DankPyon_Plant_PoppyWild     = Spec 5 "DankPyon_Plant_PoppyWild"
+  DankPyon_Plant_FleawortWild  = Spec 3 "DankPyon_Plant_FleawortWild"
+  DankPyon_Plant_FlyAgaricWild = Spec 0 "DankPyon_Plant_FlyAgaricWild"
+  DankPyon_GreatOak            = Spec 5 "DankPyon_GreatOak"
+  DankPyon_GreatIter           = Spec 5 "DankPyon_GreatIter"
+  DankPyon_GreatFir            = Spec 0 "DankPyon_GreatFir"
+  DankPyon_GreatWillow         = Spec 5 "DankPyon_GreatWillow"
 }
 
 # These wild alchemy defs inherit from named cultivated defs in MO 1.6.
@@ -180,12 +209,18 @@ function ValidatePatch(
     if ($extensions.ContainsKey($defName)) { Fail "$Label duplicate direct extension: $defName" }
 
     $ext = $node.value.li
-    $death = $null
-    if ($null -ne $ext.coldDeathTemperature) { $death = [double]$ext.coldDeathTemperature }
+    $onset = $null
+    $dose = $null
+    if ($null -ne $ext.coldDamageStartTemperature) { $onset = [double]$ext.coldDamageStartTemperature }
+    if ($null -ne $ext.coldDamageDegreeHoursToDie) { $dose = [double]$ext.coldDamageDegreeHoursToDie }
     $dormancy = $false
     if ($null -ne $ext.coldDormancy) { $dormancy = ([string]$ext.coldDormancy -eq "true") }
-
-    $extensions[$defName] = @{ Death=$death; Dormancy=$dormancy }
+    if ($null -ne $ext.coldDeathTemperature) { Fail "$Label still contains legacy death threshold: $defName" }
+    if ($null -ne $ext.coldDamageLethalDoseVariation -and
+        [double]$ext.coldDamageLethalDoseVariation -ne 0) {
+      Fail "$Label has unapproved HP variation: $defName"
+    }
+    $extensions[$defName] = @{ Onset=$onset; Dose=$dose; Dormancy=$dormancy }
   }
 
   foreach ($node in @($xml.SelectNodes("//*[@Class='PatchOperationConditional']"))) {
@@ -234,11 +269,15 @@ function ValidatePatch(
       Fail "$Label wrong dormancy flag for $defName"
     }
 
-    if ($null -eq $want.Death) {
-      if ($null -ne $got.Death) { Fail "$Label unexpected death threshold for $defName" }
+    if ($want.Dormancy) {
+      if ($null -ne $got.Onset -or $null -ne $got.Dose) {
+        Fail "$Label dormant profile has HP injury fields: $defName"
+      }
     } else {
-      if ($null -eq $got.Death -or [double]$got.Death -ne [double]$want.Death) {
-        Fail "$Label wrong death threshold for $defName"
+      if ($null -eq $got.Onset -or $null -eq $got.Dose -or
+          [double]$got.Onset -ne [double]$want.Onset -or
+          [double]$got.Dose -ne [double]$want.Dose) {
+        Fail "$Label V3 onset/dose mismatch for $defName"
       }
     }
   }
