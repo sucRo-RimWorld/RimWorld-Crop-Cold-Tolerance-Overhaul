@@ -2,7 +2,7 @@
 
 **RimWorld 1.6 / 1.7 (unstable) — 0.1.3 Beta**
 
-**Planned next public version: 0.2 (unreleased).** The substantial cold-injury redesign will apply accumulated cold damage to visible Plant HP. Historical V2/V3 labels are design iterations, not published version numbers. The 0.1.3 tables and package described here remain the current release; details and release conditions are in [the design](Docs/Design.md#next-public-release-identity--02-planned-2026-10-26) and [release checklist](Docs/ReleaseChecklist.md#next-public-release-02-not-yet-published).
+**Development status (2026-10-26):** Continue the existing 0.1.3 fixed cold-death mechanism. The active review may adjust **only source-justified fixed death-temperature values**; no values are newly adopted yet. The proposed cumulative visible-HP injury redesign and its former 0.2 release target are **deferred** and remain in Draft history; no 0.2 release exists. Internal V2/V3 are design iteration labels, not public versions. See [the current design decision](Docs/Design.md#current-development-decision--fixed-cold-death-temperature-values-only-2026-10-26) and [release checklist](Docs/ReleaseChecklist.md#current-fixed-threshold-tuning-only--2026-10-26).
 
 **A realism-focused cold-tolerance rebalance and lightweight XML framework for RimWorld plants.**
 
