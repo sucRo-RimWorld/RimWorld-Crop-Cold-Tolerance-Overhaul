@@ -1,8 +1,8 @@
 # Crop Cold Tolerance Overhaul（作物耐寒性オーバーホール）
 
-**RimWorld 1.6 / 1.7 (unstable) — 0.1.3 Beta**
+**RimWorld 1.6 / 1.7 (unstable) — 0.1.4 Beta (repository source; Steam update not yet verified)**
 
-**Development status (2026-10-26):** Continue the existing 0.1.3 fixed cold-death mechanism. The active review may adjust **only source-justified fixed death-temperature values**; no values are newly adopted yet. The proposed cumulative visible-HP injury redesign and its former 0.2 release target are **deferred** and remain in Draft history; no 0.2 release exists. Internal V2/V3 are design iteration labels, not public versions. See [the current design decision](Docs/Design.md#current-development-decision--fixed-cold-death-temperature-values-only-2026-10-26) and [release checklist](Docs/ReleaseChecklist.md#current-fixed-threshold-tuning-only--2026-10-26).
+**0.1.4 Beta source update (2026-10-26):** Fixed-death-only hardiness adjustment: Vanilla Pine and optional Medieval Overhaul Great Fir now die below **−40°C instead of −35°C**. The change aims to prevent implausible cold-forest evergreen loss in typical severe winters, based on an original RimWorld 1.6 pine-eligible boreal tile reaching −37.835°C; this is a risk estimate, **not a demonstrated 60-day loaded-map mortality result or an exact measured whole-tree death temperature**. No HP injury model, C# change, additional dormancy, growth/economy change, or alteration to other plants. [Changelog](About/Changelog.txt) and [0.1.4 release notes](Docs/ReleaseNotes/ReleaseNotes-0.1.4-Beta.md) explain the basis. The 0.2 cumulative-HP redesign remains deferred; the Steam Workshop upload of 0.1.4 is **not yet confirmed**.
 
 **A realism-focused cold-tolerance rebalance and lightweight XML framework for RimWorld plants.**
 
@@ -109,7 +109,7 @@ For CCTO dormancy plants, the CCTO minimum growth temperature is also the dorman
 | Maple | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
 | Oak | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
 | Palm | 0°C | 10°C | generic tree cold behavior | fixed death at 0°C |
-| Pine | 0°C | 0°C | generic tree cold behavior | fixed death at -35°C |
+| Pine | 0°C | 0°C | generic tree cold behavior | fixed death at -40°C |
 | Poplar | 0°C | 5°C | generic deciduous-tree cold behavior | cold dormancy below 5°C |
 | Rose | 0°C | 5°C | generic plant cold behavior | cold dormancy below 5°C |
 | Saguaro cactus | 0°C | 8°C | generic plant cold behavior | fixed death at -6°C |
@@ -172,7 +172,7 @@ The following are the 29 MO-specific cultivated and wild PlantDefs patched by CC
 | Wild fly agaric | 0°C | 0°C | inherited wild leafless/cold behavior | cold dormancy below 0°C |
 | Great oak | 0°C | 5°C | leafless and survives | cold dormancy below 5°C |
 | Great Iter | 0°C | 5°C | leafless and survives | cold dormancy below 5°C |
-| Great fir | 0°C | 0°C | evergreen tree cold behavior | fixed death at -35°C |
+| Great fir | 0°C | 0°C | evergreen tree cold behavior | fixed death at -40°C |
 | Great willow | 0°C | 5°C | leafless and survives | cold dormancy below 5°C |
 
 ## Dependencies
@@ -248,7 +248,7 @@ This mod was developed with AI assistance, primarily for code implementation, do
 
 ## Verification
 
-The **0.1.3 Beta** corrected build passed:
+The **0.1.3 Beta** corrected build passed the checks below (prior release evidence). **These tests have not been re-run against the 0.1.4 temperature edits:**
 
 - the full automated framework + Core/MO integration gate: **14/14**;
 - loaded-value validation for all **49 living Core + 29 MO-specific PlantDefs**, including complete supported-living-plant coverage;
@@ -257,11 +257,11 @@ The **0.1.3 Beta** corrected build passed:
 
 Earlier normal-game checks also verified wild-plant Info Cards, the standard Info Card ordering, Dubs Mint Menus display, and Nice Plants Menu compatibility.
 
-The tested release source of truth is `main`.
+These prior 0.1.3 integration tests applied to the then-current `main` source. The present 0.1.4 source has a separate two-threshold delta.
 
 ## Status
 
-Current version: **0.1.3 Beta**.
+Repository source version: **0.1.4 Beta**. Steam publication/installed package at 0.1.4 **not yet verified**; previously published release series was 0.1.3 Beta.
 
 This is a Beta release: the core feature set is implemented and has passed the documented automated and normal-game smoke gates. The Beta phase is for wider real-play validation, compatibility reports, and feedback on the fixed-threshold balance model.
 

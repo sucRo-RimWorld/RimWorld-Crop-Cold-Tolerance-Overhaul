@@ -2,19 +2,36 @@
 
 ## Current development decision — fixed cold-death temperature values only (2026-10-26)
 
-**Latest author decision:** Retain the shipped fixed low-temperature-death **mechanism** for now. Re-evaluate and, only if independently justified, change the existing plant-specific `coldDeathTemperature` **numbers** in the current Core / optional Medieval Overhaul XML. This is an intentionally narrow, backwards-compatible value-tuning pass for the current 0.1.3-series behavior, not activation of the cumulative visible-HP model.
+**Latest author decision:** Keep the fixed cold-death **mechanism** and release the bounded Pine/Great Fir values below as **0.1.4 Beta**. The change selects only two existing `coldDeathTemperature` numbers in Core / optional MO; the HP injury model remains deferred. No other coefficient, API or crop production behavior is changed.
 
 **Change boundaries:** Keep C# hooks, fixed death semantics, `minGrowthTemperature`, optimum-growth temperature fields, dormancy assignments and behavior, supported 49 Core + 29 MO plant identities, integration/API, crop yield, growDays, and fertility unchanged. Do not copy V3 HP onset `A` or lethal degree-hours `D` into `coldDeathTemperature`; they are incompatible physiological/model endpoints. The V3 HP design table, code and existing Draft PR #60 are retained as **deferred historical/development work**, not the active cutover or an automatic future publication.
 
-**Calibration gate:** Start from all existing fixed thresholds, with **no change by default**. For each proposed edit identify a concrete biological/source or ordinary-biome contradiction, its stage/acclimation/exposure assumptions, the old and proposed fixed threshold, expected impact in normal and extreme climates, and known simplification limits. Do not change a value merely to maintain crop profitability, to imitate an HP-model coefficient or to increase difficulty. Prior engine/source PASS only validates its actual technical contract. Independent acceptance is required for any new threshold; absent that, retain the old value and mark it unselected. Avoid per-plant native tests and large matrices; validate a bounded representative change set after implementation.
+**Calibration rule:** All fixed thresholds are preserved by default. The two 0.1.4 changes below follow independent original-game cold-forest evidence and winter-acclimated conifer context; they are approximate species-role choices, not measured full-tree LT100. Further threshold changes require a concrete source or ordinary-biome contradiction, stage/exposure assumptions and expected normal/extreme-climate implications. Do not tune crop economics or increase difficulty for its own sake. Static checks and older-engine PASS do not establish 0.1.4 native acceptance.
 
-**Public version:** Current distribution/metadata stays **0.1.3 Beta**. The previously selected **0.2** numbering assumed the substantial HP-based model conversion. As that conversion is on hold, **0.2 is deferred rather than automatically assigned to a fixed-threshold-only change**; decide any public version number at release preparation based on the actual change. Do not publish or update Steam from this design decision. Canonical release status: [ReleaseChecklist](ReleaseChecklist.md#current-fixed-threshold-tuning-only--2026-10-26).
+**Release identity:** Repository `About/About.xml`, `About/Manifest.xml`, `About/Changelog.txt` and README are prepared for **0.1.4 Beta**, not yet uploaded/verified on Steam. The old `0.2` HP redesign stays deferred. Actual publication and subscribed-package acceptance require separate authorization. [ReleaseChecklist](ReleaseChecklist.md#014-fixed-threshold-adjustment--prepared-not-published).
 
-## Next public release identity — 0.2 (planned 2026-10-26)
+### 0.1.4 fixed death threshold decision — Boreal pine and Great Fir (2026-10-26)
 
-**Historical 2026-10-26 decision, now deferred by the fixed-only direction above:** the 0.2 version was reserved for a substantial switch from fixed death to cumulative visible Plant HP injury. That feature switch is currently on hold; 0.2 is not the assigned version for the next fixed-number-only adjustment. "V1", "V2" and "V3" identify historical internal design iterations only; they are **not public release version numbers**. The V3-design/source Draft PR #60 is the work currently intended for public **0.2**, not a published V3 or an intervening public V2.
+**Accepted narrow XML adjustment for the 0.1.4 source:** `Plant_TreePine` **−35 → −40°C** and conditional MO `DankPyon_GreatFir` **−35 → −40°C**. This is not yet a verified live Workshop update. Both plants retain `minGrowthTemperature=0°C`, ordinary fixed threshold semantics, no new dormant status, no HP mechanics or C# work. Vanilla and MO remain independent supported profiles. Other 46 fixed-death thresholds and 30 dormancy definitions are unchanged.
 
-**Current shipped/source release metadata remains 0.1.3.** Do not bump `About/About.xml`, `About/Manifest.xml`, the release notes/tag, README current-version header, or Steam/2game public copy to 0.2 until the implementation and release-payload gates are satisfied in one final release change set. Tag spelling and any Beta designation are release-time metadata decisions, not evidence that 0.2 is already published. Canonical release gate: [ReleaseChecklist](ReleaseChecklist.md#next-public-release-02-not-yet-published).
+**Independent evidence and modeling limits:**
+
+- Original RimWorld 1.6 **world/tile hourly calendar** sampling, [manually accepted original-game run #39776410000](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000), 1,440 hour points per actual tile: pine-eligible cold BorealForest tile #44000 (mean −5.536°C) ranges **−37.835 to +26.670°C**; **11 hourly samples below the existing −35°C death threshold**. The same seed's actual generated-map BorealForest tile #40777 has 483 natural pines and minimum **−32.647°C**. The cold tile was not itself loaded as a map and its eligibility does not prove actual pine spawn there. Weather/normal Tick was **not** simulated for a season. These represent a concrete biome-extirpation **risk**, not a demonstrated live forest die-off.
+- [Repo 1992, seasonal Scots pine/spruce frost hardiness](https://agris.fao.org/search/en/providers/122535/records/65dff6d10f3e94b9e5de11cb): sampled frost hardiness from −3.5°C to **below −40°C** across seasons, explicitly depending on winter acclimation and organ/tissue. [US Forest Service, Strimbeck et al. 2007](https://research.fs.usda.gov/treesearch/15616): midwinter temperate-mountain/continental conifer foliage LT50 approximately **−33 to −44°C**, boreal conifer species still more resistant in laboratory tests. These are **tissue cold-injury endpoints, not whole-tree instantaneous death thresholds**. `−40°C` is a conservative, game-readable stand-in for winter-hardened boreal evergreen survival, not a measured species-wide death point.
+- MO Great Fir is paired with generic boreal Pine because the original CCTO design used the same `−35°C` threshold and conifer role. **Its actual MO natural-map distribution has not been validated**; do not claim a Great Fir game-world death was observed.
+
+| Representative independent check | 0.1.3: −35°C | 0.1.4: −40°C | Intended outcome |
+|---|---|---|---|
+| Actual world cold forest sample −37.835°C | Temperature crosses instantaneous death threshold | Remains above death threshold | Avoid possible ordinary cold-forest pine wipeout |
+| Median pine-bearing forest minimum −32.647°C | Not lethal | Not lethal | Leave ordinary/less-cold forest unchanged |
+| Severe −45°C exposure | Below threshold | Below threshold | Preserve a threat under truly exceptional cold |
+| Warm/normal growth or dormancy | Unchanged | Unchanged | No growth/dormancy/processing side effects |
+
+**Approval/verification boundary:** The author selected this narrow fixed-death revision and **0.1.4** version. It is a game approximation rather than a measured biological all-tree lethal limit. Exact loaded-game / natural-season behavior, including actual MO Great Fir natural habitat, has not been established for this change. Targeted source checks and any required later native acceptance are separate; do not promote old 0.1.3 test results to new-number PASS. Public upload remains a distinct author-controlled step.
+
+## Historical HP-model 0.2 plan — deferred (2026-10-26)
+
+The earlier 0.2 release designation was contingent on converting fixed death to cumulative visible Plant HP injury. That redesign and its internal V2/V3 iteration names are **historical/deferred work**; Draft [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) must not be merged into the **0.1.4 Beta** fixed-threshold release. The active source version is 0.1.4; its Steam distribution is not yet verified. No public 0.2 has shipped.
 
 ## Governing objective and verification boundaries — clarified 2026-10-26
 
@@ -192,7 +209,7 @@ Wild counterparts of cultivated alchemy plants use the same cold model as the cu
 | Wild fly agaric | 0°C | cold dormancy | same species model as cultivated fly agaric |
 | Great oak | 5°C | cold dormancy | ancient deciduous Dark Forest tree |
 | Great Iter | 5°C | cold dormancy | giant leaf-shedding Dark Forest tree |
-| Great fir | 0°C | -35°C | evergreen snow-forest giant; aligned with Core pine-class severe-cold survival |
+| Great fir | 0°C | -40°C | evergreen snow-forest giant; aligned with Core pine-class severe-cold survival |
 | Great willow | 5°C | cold dormancy | ancient deciduous willow |
 
 
@@ -222,7 +239,7 @@ Wild counterparts of cultivated alchemy plants use the same cold model as the cu
 | Maple | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
 | Oak | 5°C | cold dormancy | temperate deciduous forestry tree |
 | Palm | 10°C | 0°C | generic warm-climate palm |
-| Pine | 0°C | -35°C | evergreen boreal/tundra forestry tree; survives severe cold without leafless dormancy |
+| Pine | 0°C | -40°C | evergreen boreal/tundra forestry tree; survives severe cold without leafless dormancy |
 | Poplar | 5°C | cold dormancy | cold-hardy deciduous forestry tree |
 | Rose | 5°C | cold dormancy | temperate perennial shrub |
 | Saguaro cactus | 8°C | -6°C | desert plant; growth requires warmth but brief freezing is survivable |

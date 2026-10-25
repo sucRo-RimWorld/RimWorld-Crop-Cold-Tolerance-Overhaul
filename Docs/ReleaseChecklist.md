@@ -1,15 +1,21 @@
 # CCTO Beta Release Checklist
 
-## Current fixed-threshold tuning only — 2026-10-26
+## 0.1.4 fixed-threshold adjustment — prepared, not published
 
-**Author-selected scope:** do not activate or release the cumulative Plant-HP injury model for now. Keep the 0.1.3 fixed-death framework and dormancy; change only an existing `coldDeathTemperature` when a source-backed, independently reviewed discrepancy warrants it. The existing 48 fixed-death + 30 dormancy species remain the baseline. There are **no newly authorized fixed numeric replacements** merely from this scope decision.
+**Author decision (2026-10-26):** the small fixed-death temperature update is **0.1.4 Beta**, not 0.2. Only Core `Plant_TreePine` and optional MO `DankPyon_GreatFir` move from −35°C to −40°C, motivated by documented cold-forest temperature sampling and approximated winter-acclimated conifer survival. Current C# and fixed-death rules, 78-target coverage, growing limits, dormancy and all other balance entries remain unchanged.
 
-- [ ] Review concrete candidate species against real-world source endpoints, life stage/acclimation, fixed-model simplifications and normal/worst-case biome impacts; reject unsupported substitutions. Do not repurpose the deferred V3 `A` or `D`.
-- [ ] Implement only accepted Core / MO fixed threshold XML value changes. Preserve the minimum growth fields, optimal growth fields, dormancy, C# engine and API, crop yield/growDays/fertility, and third-party addon ownership.
-- [ ] Perform targeted XML/static checks for changed definitions and one bounded, consolidated runtime validation *if* XML changes were made. Reuse existing 0.1.3 behavior evidence for unchanged functionality; no automatic RimWorld launches.
-- [ ] When a genuine release is ready, assign its version based on the actual fixed-threshold-only diff. Reconcile About/Manifest, README, changelog, release notes, bilingual Workshop/2game descriptions and payload together, then obtain separate publication approval.
+- [x] The 0.1.4 source XML adjustment and matching About/Manifest version, bilingual `About/Changelog.txt`, new release notes, README/design and implementation table are prepared on the release PR. The version files on GitHub are **not proof of Steam installation**.
+- [ ] Verify 0.1.4 package/profile load and intended Pine/Great Fir death threshold at −40°C with original 1.6 game (and 1.7 if advertised), without re-running unrelated matrices. Reuse earlier 0.1.3 unchanged engine and save evidence only within its original scope.
+- [ ] Obtain the author's separate Steam publication approval, publish/update Workshop, **then** verify the installed subscribed package version 0.1.4 and source/hash alignment. Do not claim that a GitHub merge uploads Steam.
+- [ ] If public descriptions are edited, keep maintained Japanese/English Workshop and 2game copy synchronized; none of those bodies require a version-number change for this narrowly scoped release.
 
-**Public/version boundary:** Current `About.xml` / `Manifest.xml` and public-facing installed contents remain **0.1.3 Beta**. Previous **0.2** target assumed the major HP-model switch, now **deferred**; a fixed-threshold adjustment is not by itself an automatic 0.2 release. [Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) retains experimental HP-model work but is no longer on the active integration path. Do not merge or publish it under the fixed-only scope.
+**0.2 remains deferred:** the HP injury redesign and [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) are not part of 0.1.4. The legacy checklist below is retained for historical 0.1.x acceptance, not as 0.1.4 PASS evidence.
+
+
+
+## Historical fixed-threshold scope decision — 2026-10-26
+
+The author initially restricted changes to independently supported fixed `coldDeathTemperature` values, preserving 48 fixed-death and 30 dormancy profiles. Subsequently the Pine and Great Fir adjustment and **0.1.4 Beta** version were selected. The 0.1.4 checklist above supersedes the old open-ended scope/version tasks; **do not reintroduce** the deferred 0.2 HP redesign or Agriculture economy balance.
 
 This is the release-preparation checklist for the first public Beta.
 

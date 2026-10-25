@@ -595,7 +595,7 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreePine"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-35</coldDeathTemperature>
+        <coldDeathTemperature>-40</coldDeathTemperature>
       </li>
     </value>
   </Operation>

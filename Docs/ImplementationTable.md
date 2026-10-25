@@ -36,7 +36,7 @@ This file is the implementation-facing mapping for the current fixed-threshold/d
 | `Plant_TreeMaple` | Maple | 5°C | dormancy | — |
 | `Plant_TreeOak` | Oak | 5°C | dormancy | — |
 | `Plant_TreePalm` | Palm | 10°C | death | 0°C |
-| `Plant_TreePine` | Pine | 0°C | death | -35°C |
+| `Plant_TreePine` | Pine | 0°C | death | -40°C |
 | `Plant_TreePoplar` | Poplar | 5°C | dormancy | — |
 | `Plant_Rose` | Rose | 5°C | dormancy | — |
 | `Plant_SaguaroCactus` | Saguaro cactus | 8°C | death | -6°C |
@@ -111,7 +111,7 @@ These DefNames were verified against `Plants_Cultivated_Alchemy.xml` in the uplo
 | `DankPyon_Plant_FlyAgaricWild` | Wild fly agaric | 0°C | dormancy | — |
 | `DankPyon_GreatOak` | Great oak | 5°C | dormancy | — |
 | `DankPyon_GreatIter` | Great Iter | 5°C | dormancy | — |
-| `DankPyon_GreatFir` | Great fir | 0°C | death | -35°C |
+| `DankPyon_GreatFir` | Great fir | 0°C | death | -40°C |
 | `DankPyon_GreatWillow` | Great willow | 5°C | dormancy | — |
 
 All four currently inherit `HealrootBase`, but CCTO deliberately assigns them distinct cold behavior.

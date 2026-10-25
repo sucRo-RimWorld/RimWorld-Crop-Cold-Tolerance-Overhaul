@@ -1,6 +1,14 @@
 # RimWorld-Crop-Cold-Tolerance-Overhaul
 # Add Changenote reads the heading for the current version from About/Manifest.xml.
 
+0.1.4 - Boreal conifer cold-hardiness correction / 寒冷地針葉樹の耐寒性を微調整
+- Pine (Vanilla) and Great Fir (Medieval Overhaul): fixed cold-death temperature lowered from -35°C to -40°C.
+- Reason: original RimWorld 1.6 world-temperature sampling recorded an eligible boreal-forest tile falling to -37.835°C, below the previous -35°C instant-death threshold. A modest threshold adjustment reduces the risk of ordinary winter cold killing established cold-forest evergreens. Winter-hardened conifers can tolerate such low temperatures, although tissue experiments do not establish an exact whole-tree death point.
+- This is a targeted, approximate adjustment: the fixed-death method, all other plant values, growth temperatures, dormancy, and save compatibility are unchanged. The cumulative HP injury system is NOT introduced in 0.1.4.
+- バニラのマツとMedieval OverhaulのGreat Firの固定枯死温度を、−35℃から−40℃へ変更しました。
+- 理由：RimWorld 1.6で計測した寒冷林の対象タイルでは最低気温が−37.835℃に達し、従来の−35℃の即時枯死判定を下回るためです。冬季に耐寒性を高める針葉樹が、通常の厳冬期に不自然に枯死するリスクを抑えます。−40℃は樹木全体の実測致死温度ではなく、ゲーム向けの近似値です。
+- 固定枯死方式、他の植物の数値、最低生育温度、休眠、セーブ互換性は変更しません。HP累積寒害方式も導入しません。
+
 0.1.3 - Beta release metadata / ベータ版の更新履歴対応
 - Added versioned Workshop changenote metadata for the existing 0.1.3 beta release.
 - 既存の0.1.3ベータ版に、Workshop更新履歴用メタデータを追加しました。

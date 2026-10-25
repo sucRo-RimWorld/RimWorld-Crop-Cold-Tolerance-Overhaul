@@ -1,5 +1,12 @@
 # CCTO Coordination
 
+## CCTO 0.1.4 fixed-threshold micro-adjustment — 2026-10-26
+
+**Owner:** Core and MO `Patches/*_ColdTolerance.xml`, [Design](Design.md#014-fixed-death-threshold-decision--boreal-pine-and-great-fir-2026-10-26), [ReleaseChecklist](ReleaseChecklist.md#014-fixed-threshold-adjustment--prepared-not-published), `About/Changelog.txt` and About/Manifest metadata. **Author version decision:** small fixed-threshold update is **0.1.4 Beta**, following 0.1.3. Selected Pine `Plant_TreePine` and optional MO `DankPyon_GreatFir` `coldDeathTemperature` **−35 → −40°C**, to reduce the risk of implausible loss of winter-hardening conifers on cold BorealForest tiles. Original 1.6 hourly tile minimum −37.835°C (not actual loaded-map death), and literature indicates midwinter conifer cold-hardiness; −40 is a game proxy, not experimental whole-tree LT100.
+- Align the canonical numeric XML, Design, ImplementationTable, README, About/Manifest 0.1.4, and **bilingual reason** in Changelog/ReleaseNotes. Keep all 46 other fixed thresholds, 30 dormancy cases, C#, growth minima, crop economics and HP Draft #60 unchanged. Prior 0.2 plan remains deferred.
+- Release/source metadata is **not** Steam proof. Final 0.1.4 game and subscribed-package verification plus explicit publisher approval remain separate. Previous 0.1.3 original game tests do not establish loaded 0.1.4 numerical behavior.
+
+
 ## CCTO fixed-death-only numeric review replaces HP cutover — 2026-10-26
 
 **Owner:** [Design](Design.md#current-development-decision--fixed-cold-death-temperature-values-only-2026-10-26), [ReleaseChecklist](ReleaseChecklist.md#current-fixed-threshold-tuning-only--2026-10-26), Core/MO `Patches/*_ColdTolerance.xml` own actual fixed values. **Current instruction:** preserve 0.1.3 fixed cold-death mechanism, 48 fixed-death + 30 dormancy baseline; restrict next tuning to independently supported `coldDeathTemperature` *numbers* only. Do not change C#, HP model, growth minima/optimum, dormancy assignments, agriculture economics or plant identities.

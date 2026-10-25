@@ -694,7 +694,7 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_GreatFir"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-35</coldDeathTemperature>
+              <coldDeathTemperature>-40</coldDeathTemperature>
             </li>
           </value>
         </li>
