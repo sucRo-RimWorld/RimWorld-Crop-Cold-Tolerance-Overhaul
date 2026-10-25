@@ -20,7 +20,7 @@
 - [Repo 1992, seasonal Scots pine/spruce frost hardiness](https://agris.fao.org/search/en/providers/122535/records/65dff6d10f3e94b9e5de11cb): sampled frost hardiness from −3.5°C to **below −40°C** across seasons, explicitly depending on winter acclimation and organ/tissue. [US Forest Service, Strimbeck et al. 2007](https://research.fs.usda.gov/treesearch/15616): midwinter temperate-mountain/continental conifer foliage LT50 approximately **−33 to −44°C**, boreal conifer species still more resistant in laboratory tests. These are **tissue cold-injury endpoints, not whole-tree instantaneous death thresholds**. `−40°C` is a conservative, game-readable stand-in for winter-hardened boreal evergreen survival, not a measured species-wide death point.
 - MO Great Fir is paired with generic boreal Pine because the original CCTO design used the same `−35°C` threshold and conifer role. **Its actual MO natural-map distribution has not been validated**; do not claim a Great Fir game-world death was observed.
 
-| Representative independent check | Fixed−35 current | Fixed−40 proposal | Intended outcome |
+| Representative independent check | 0.1.3: −35°C | 0.1.4: −40°C | Intended outcome |
 |---|---|---|---|
 | Actual world cold forest sample −37.835°C | Temperature crosses instantaneous death threshold | Remains above death threshold | Avoid possible ordinary cold-forest pine wipeout |
 | Median pine-bearing forest minimum −32.647°C | Not lethal | Not lethal | Leave ordinary/less-cold forest unchanged |
@@ -29,11 +29,9 @@
 
 **Approval/verification boundary:** The author selected this narrow fixed-death revision and **0.1.4** version. It is a game approximation rather than a measured biological all-tree lethal limit. Exact loaded-game / natural-season behavior, including actual MO Great Fir natural habitat, has not been established for this change. Targeted source checks and any required later native acceptance are separate; do not promote old 0.1.3 test results to new-number PASS. Public upload remains a distinct author-controlled step.
 
-## Next public release identity — 0.2 (planned 2026-10-26)
+## Historical HP-model 0.2 plan — deferred (2026-10-26)
 
-**Historical 2026-10-26 decision, now deferred by the fixed-only direction above:** the 0.2 version was reserved for a substantial switch from fixed death to cumulative visible Plant HP injury. That feature switch is currently on hold; 0.2 is not the assigned version for the next fixed-number-only adjustment. "V1", "V2" and "V3" identify historical internal design iterations only; they are **not public release version numbers**. The V3-design/source Draft PR #60 is the work currently intended for public **0.2**, not a published V3 or an intervening public V2.
-
-**Current shipped/source release metadata remains 0.1.3.** Do not bump `About/About.xml`, `About/Manifest.xml`, the release notes/tag, README current-version header, or Steam/2game public copy to 0.2 until the implementation and release-payload gates are satisfied in one final release change set. Tag spelling and any Beta designation are release-time metadata decisions, not evidence that 0.2 is already published. Canonical release gate: [ReleaseChecklist](ReleaseChecklist.md#next-public-release-02-not-yet-published).
+The earlier 0.2 release designation was contingent on converting fixed death to cumulative visible Plant HP injury. That redesign and its internal V2/V3 iteration names are **historical/deferred work**; Draft [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) must not be merged into the **0.1.4 Beta** fixed-threshold release. The active source version is 0.1.4; its Steam distribution is not yet verified. No public 0.2 has shipped.
 
 ## Governing objective and verification boundaries — clarified 2026-10-26
 
