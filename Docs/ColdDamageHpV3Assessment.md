@@ -1,5 +1,8 @@
 # CCTO HP-only V3 candidate assessment — 2026-10-22
 
+**LATEST 2026-10-25 SMOKELEAF NUMERIC SELECTION:** Author selected Vanilla `Plant_Smokeleaf` **A−4°C/D100°C·game-hour** as the 16th numerical A/D candidate without changing the prior A/D values. Its hemp-like fictional leaf-crop frost scenario at 85HP, w=0, 2,000-tick sampling leaves 79HP after −5°C×8h and 67HP after three warm-separated −5°C×8h nights; −10°C×24h kills. These are calibrated gameplay choices, not a measured fictional-organism LD100 or actual native-game PASS. **78 total: 16 selected A/D, 32 other unapproved HP, 30 original dormancy, 0 source HOLD.** All per-row w=.20 unapproved, actual code w=0. No runtime/production XML adoption, real native game acceptance, Draft feature main merge or release. Earlier 15/33 records below are historical.
+
+
 **LATEST 2026-10-25 PSYCHOID NUMERIC DECISION:** Author selected Vanilla `Plant_Psychoid` A0°C/D50°C·game-hour as the 15th numerical A/D candidate, replacing A+2/D50. In the 85HP no-recovery w=0 2,000-tick modeled case, three 0°C×8h nights leave full HP rather than 12HP, while three −1°C nights leave 49HP rather than kill. Fictional-crop gameplay estimate only. Current 78 rows: 15 A/D selected, 33 other HP unapproved, 30 dormancy, 0 source HOLD. All CSV w=.20 unapproved, framework defaults to w=0, no active XML/C# or native game/release approval. Earlier 14/34 figures below are dated history.
 
 
