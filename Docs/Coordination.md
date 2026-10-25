@@ -1,5 +1,14 @@
 # CCTO Coordination
 
+## CCTO realism-first scope clarification — 2026-10-26
+
+**Owner:** [Design](Design.md#governing-objective-and-verification-boundaries--clarified-2026-10-26) is the canonical policy; [CropGameplayRoles-ja](CropGameplayRoles-ja.md) is optional player-facing context. **Status:** interpretation/design updated, V3 Draft #60 not merged, no new runtime or numerical values, publication unchanged.
+
+- Original V1 realism-first purpose governs V3. Only plant-specific growth temperatures, cold-injury/exposure, dormancy and normal native-ecosystem survival determine CCTO coefficients. Vanilla+CCTO and optional MO+CCTO are supported; Agriculture economics are not a CCTO dependency, numeric target or release gate.
+- Earlier seven crop-economy roles are not required V3 acceptance. Preserve the factual scope of prior MO+Agriculture telemetry but do not use external growDays, recipes or yield competitiveness to tune CCTO. Independent realism/representative cold-climate review and technical compatibility gates remain required.
+- MO 1.6 Cabbage malformed optimum tag is confirmed, yet corrected 0–25°C full-rate growth remains biologically unapproved. 15–20°C is a candidate only. V3 finalized 46 HP/32 dormancy w=0 unchanged; no C#/XML, native test, distributable or Steam change follows from this documentation decision.
+
+
 ## MO 1.6 cabbage growth optimum typo — Draft correction and original 1.6 evidence, 2026-10-25
 
 **Owner:** [CCTO V3 Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60), canonical before/after values in Draft `Docs/CropGameplayRoles-ja.md`. **Status:** real native 1.6 source-corrected growth probe PASS; Draft-only compatibility patch, **0–25°C all-optimal-rate biologically inconsistent and NOT RELEASE ACCEPTED**. No production main merge, distributable update or Steam publication.
