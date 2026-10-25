@@ -22,6 +22,7 @@ namespace CropColdToleranceOverhaul.E2E
         private CellRect? testRoomRect;
         private int? rememberedDormancyTick;
         private int? observedColdHp;
+        private float? heldAmbientTemperature;
 
         private static readonly FieldInfo MadeLeaflessTickField =
             typeof(Plant).GetField(
@@ -526,6 +527,9 @@ namespace CropColdToleranceOverhaul.E2E
                 room,
                 target,
                 "outdoor test room");
+            // Keep deterministic frost through long simulation. Normal map
+            // climate updates otherwise overwrite the test room temperature.
+            heldAmbientTemperature = target;
         }
 
         [When("I enclose the CCTO test plant in a roofed indoor room")]
@@ -622,6 +626,7 @@ namespace CropColdToleranceOverhaul.E2E
                 room,
                 target,
                 "indoor plant room");
+            heldAmbientTemperature = target;
         }
 
         [When("I run one CCTO plant long tick")]
@@ -666,7 +671,22 @@ namespace CropColdToleranceOverhaul.E2E
                 // through the map TickLists including Plant.TickLong.
                 DebugSettings.fastEcology = false;
                 for (int i = 0; i < ticks; i++)
+                {
+                    // Test temperature is an intentionally fixed exposure,
+                    // not a prediction that real outdoor weather stays frozen.
+                    // Reapply it after each *actual* native game tick, while
+                    // allowing Plant.TickLong and every map ticker to run.
+                    if (heldAmbientTemperature.HasValue && testPlant != null
+                        && testPlant.Spawned && !testPlant.Destroyed)
+                    {
+                        Room currentRoom = testPlant.GetRoom();
+                        ctx.Require(currentRoom != null,
+                            "Frost test lost its room during native Tick.");
+                        currentRoom.Temperature = heldAmbientTemperature.Value;
+                    }
+
                     Find.TickManager.DoSingleTick();
+                }
             }
             finally
             {
@@ -705,7 +725,12 @@ namespace CropColdToleranceOverhaul.E2E
             Plant plant = RequireTestPlant(ctx);
             ctx.Require(observedColdHp.HasValue, "No previous HP observation.");
             ctx.Assert(plant.HitPoints < observedColdHp.Value,
-                "Expected cold injury to decrease ordinary visible plant HP.");
+                "Expected cold injury to decrease ordinary visible plant HP."
+                + " originalHP=" + observedColdHp.Value
+                + " actualHP=" + plant.HitPoints
+                + " ambient=" + (plant.Spawned ? plant.AmbientTemperature.ToString("F2") : "unspawned")
+                + " gameTick=" + Find.TickManager.TicksGame
+                + " ticker=" + plant.def.tickerType);
             observedColdHp = plant.HitPoints;
         }
 
@@ -848,6 +873,8 @@ namespace CropColdToleranceOverhaul.E2E
                 testPlantDef = null;
                 originalModExtensions = null;
                 rememberedDormancyTick = null;
+                heldAmbientTemperature = null;
+                observedColdHp = null;
             }
         }
 
