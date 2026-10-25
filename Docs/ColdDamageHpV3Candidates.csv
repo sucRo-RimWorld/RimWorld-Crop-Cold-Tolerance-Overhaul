@@ -1,4 +1,5 @@
 # HP-only, no cold-recovery numerical rebalance V3 trial, 2026-10-22. No XML opt-in or release approval.
+# CURRENT 2026-10-25: Author selected MO Lentil A=-5/D120 with prior HOLD numeric values unchanged, making 10 A/D selected, 3 HOLD (Rice/Corn/Wheat), 35 other HP unapproved, 30 dormancy. Earlier dated snapshot counts are history. Per-plant w=0.20 still UNAPPROVED; runtime default w=0; NO C#/XML activation or game PASS.
 # Two plant-specific parameters: injury_onset_C, full_hp_degree_game_hours. Variation 0.20 is a shared uncalibrated hypothesis.
 # Temperature and fatal-dose values are first-pass GAMEPLAY PROPOSALS informed by habitat / frost-sensitivity ordering, not measured whole-plant thresholds.
 # 30 preexisting dormancy defs remain unchanged. Do not treat the 48 proposed tuples as independently accepted balance or copy to production.
