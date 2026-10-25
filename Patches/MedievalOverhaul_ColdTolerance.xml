@@ -78,6 +78,19 @@
           </nomatch>
         </li>
 
+        <!-- MO 1.6 typo: minOptimalGrowthTemperature appears twice (0, 25).
+             The second element is intended as maxOptimalGrowthTemperature.
+             Match only malformed MO; skip once upstream corrects it. -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Cabbages"]/plant/minOptimalGrowthTemperature[2]</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Cabbages"]/plant/minOptimalGrowthTemperature[2]</xpath>
+            <value>
+              <maxOptimalGrowthTemperature>25</maxOptimalGrowthTemperature>
+            </value>
+          </match>
+        </li>
+
         <li Class="PatchOperationAddModExtension">
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Cabbages"]</xpath>
           <value>
