@@ -6,23 +6,16 @@
 
 - [x] The 0.1.4 source XML adjustment and matching About/Manifest version, bilingual `About/Changelog.txt`, new release notes, README/design and implementation table are prepared on the release PR. The version files on GitHub are **not proof of Steam installation**.
 - [ ] Verify 0.1.4 package/profile load and intended Pine/Great Fir death threshold at −40°C with original 1.6 game (and 1.7 if advertised), without re-running unrelated matrices. Reuse earlier 0.1.3 unchanged engine and save evidence only within its original scope.
-- [ ] Confirm an actual subscribed Steam package with version 0.1.4 and source hash/version, then publish/update Workshop after the author's separate publication approval. Do not claim that a GitHub merge uploads Steam.
+- [ ] Obtain the author's separate Steam publication approval, publish/update Workshop, **then** verify the installed subscribed package version 0.1.4 and source/hash alignment. Do not claim that a GitHub merge uploads Steam.
 - [ ] If public descriptions are edited, keep maintained Japanese/English Workshop and 2game copy synchronized; none of those bodies require a version-number change for this narrowly scoped release.
 
 **0.2 remains deferred:** the HP injury redesign and [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) are not part of 0.1.4. The legacy checklist below is retained for historical 0.1.x acceptance, not as 0.1.4 PASS evidence.
 
 
 
-## Current fixed-threshold tuning only — 2026-10-26
+## Historical fixed-threshold scope decision — 2026-10-26
 
-**Historical scope selection (now implemented as 0.1.4 source, see above):** preserve the fixed-death framework and dormant species. Only the Pine and Great Fir fixed death values have been selected, not any HP-derived coefficients. 48 fixed-death + 30 dormancy profiles remain in place.
-
-- [ ] Review concrete candidate species against real-world source endpoints, life stage/acclimation, fixed-model simplifications and normal/worst-case biome impacts; reject unsupported substitutions. Do not repurpose the deferred V3 `A` or `D`.
-- [ ] Implement only accepted Core / MO fixed threshold XML value changes. Preserve the minimum growth fields, optimal growth fields, dormancy, C# engine and API, crop yield/growDays/fertility, and third-party addon ownership.
-- [ ] Perform targeted XML/static checks for changed definitions and one bounded, consolidated runtime validation *if* XML changes were made. Reuse existing 0.1.3 behavior evidence for unchanged functionality; no automatic RimWorld launches.
-- [ ] When a genuine release is ready, assign its version based on the actual fixed-threshold-only diff. Reconcile About/Manifest, README, changelog, release notes, bilingual Workshop/2game descriptions and payload together, then obtain separate publication approval.
-
-**Historical public-version status superseded by 0.1.4 decision above:** 0.1.3 was previously the current repository source; 0.1.4 is the selected small-update version in source while Steam installation remains unverified. The former **0.2** HP-model target is deferred. [Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) remains outside the active release.
+The author initially restricted changes to independently supported fixed `coldDeathTemperature` values, preserving 48 fixed-death and 30 dormancy profiles. Subsequently the Pine and Great Fir adjustment and **0.1.4 Beta** version were selected. The 0.1.4 checklist above supersedes the old open-ended scope/version tasks; **do not reintroduce** the deferred 0.2 HP redesign or Agriculture economy balance.
 
 This is the release-preparation checklist for the first public Beta.
 
