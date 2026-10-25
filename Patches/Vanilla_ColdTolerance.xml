@@ -22,7 +22,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Rice"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-1</coldDeathTemperature>
+        <coldDamageStartTemperature>2</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>60</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -48,7 +49,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Potato"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-2</coldDeathTemperature>
+        <coldDamageStartTemperature>-2</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>100</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -74,7 +76,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Corn"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-2</coldDeathTemperature>
+        <coldDamageStartTemperature>0</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>64</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -100,7 +103,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Strawberry"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-9</coldDeathTemperature>
+        <coldDamageStartTemperature>-2</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>180</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -126,7 +130,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Haygrass"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-9</coldDeathTemperature>
+        <coldDamageStartTemperature>-8</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>220</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -152,7 +157,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Cotton"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-1</coldDeathTemperature>
+        <coldDamageStartTemperature>0</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>48</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -178,7 +184,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Devilstrand"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-1</coldDeathTemperature>
+        <coldDamageStartTemperature>0</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>70</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -204,7 +211,7 @@
     <xpath>/Defs/ThingDef[defName="Plant_Healroot"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-9</coldDeathTemperature>
+        <coldDormancy>true</coldDormancy>
       </li>
     </value>
   </Operation>
@@ -256,7 +263,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Smokeleaf"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-4</coldDeathTemperature>
+        <coldDamageStartTemperature>-4</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>100</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -282,7 +290,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Psychoid"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-1</coldDeathTemperature>
+        <coldDamageStartTemperature>0</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>50</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -308,7 +317,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreeCocoa"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>0</coldDeathTemperature>
+        <coldDamageStartTemperature>5</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>180</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -335,7 +345,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-18</coldDeathTemperature>
+        <coldDamageStartTemperature>-20</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>1400</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -387,7 +398,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreeCecropia"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>0</coldDeathTemperature>
+        <coldDamageStartTemperature>4</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>160</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -491,7 +503,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreeDrago"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>0</coldDeathTemperature>
+        <coldDamageStartTemperature>2</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>240</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -569,7 +582,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreePalm"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>0</coldDeathTemperature>
+        <coldDamageStartTemperature>4</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>200</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -595,7 +609,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreePine"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-35</coldDeathTemperature>
+        <coldDamageStartTemperature>-40</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>5000</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -673,7 +688,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_SaguaroCactus"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-6</coldDeathTemperature>
+        <coldDamageStartTemperature>-3</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>180</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -699,7 +715,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_TreeTeak"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>3</coldDeathTemperature>
+        <coldDamageStartTemperature>6</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>220</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -751,7 +768,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Tinctoria"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-4</coldDeathTemperature>
+        <coldDamageStartTemperature>-4</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>110</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -830,7 +848,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Agave"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-7</coldDeathTemperature>
+        <coldDamageStartTemperature>-8</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>550</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -856,7 +875,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Alocasia"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-1</coldDeathTemperature>
+        <coldDamageStartTemperature>3</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>120</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -882,7 +902,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Ambrosia"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-9</coldDeathTemperature>
+        <coldDamageStartTemperature>-10</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>240</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -986,7 +1007,8 @@
     <xpath>/Defs/ThingDef[defName="Bryolux"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-12</coldDeathTemperature>
+        <coldDamageStartTemperature>-14</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>450</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -1064,7 +1086,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Clivia"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-2</coldDeathTemperature>
+        <coldDamageStartTemperature>-3</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>180</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -1090,7 +1113,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_Rafflesia"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>5</coldDeathTemperature>
+        <coldDamageStartTemperature>7</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>100</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -1116,7 +1140,8 @@
     <xpath>/Defs/ThingDef[defName="Glowstool"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-8</coldDeathTemperature>
+        <coldDamageStartTemperature>-10</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>280</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -1168,7 +1193,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_ShrubLow"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-2</coldDeathTemperature>
+        <coldDamageStartTemperature>-3</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>240</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -1220,7 +1246,8 @@
     <xpath>/Defs/ThingDef[defName="Plant_PincushionCactus"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-8</coldDeathTemperature>
+        <coldDamageStartTemperature>-10</coldDamageStartTemperature>
+        <coldDamageDegreeHoursToDie>750</coldDamageDegreeHoursToDie>
       </li>
     </value>
   </Operation>
@@ -1272,7 +1299,7 @@
     <xpath>/Defs/ThingDef[defName="Plant_HealrootWild"]</xpath>
     <value>
       <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-        <coldDeathTemperature>-9</coldDeathTemperature>
+        <coldDormancy>true</coldDormancy>
       </li>
     </value>
   </Operation>

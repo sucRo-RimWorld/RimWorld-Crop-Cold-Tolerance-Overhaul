@@ -28,7 +28,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Onions"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-3</coldDeathTemperature>
+              <coldDamageStartTemperature>-5</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>120</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -54,7 +55,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Lentils"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-4</coldDeathTemperature>
+              <coldDamageStartTemperature>-5</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>120</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -80,7 +82,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Cabbages"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-6</coldDeathTemperature>
+              <coldDamageStartTemperature>-3.5</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>240</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -132,7 +135,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Mushrooms"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-1</coldDeathTemperature>
+              <coldDamageStartTemperature>0</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>90</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -158,7 +162,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Wheat"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-6</coldDeathTemperature>
+              <coldDamageStartTemperature>-7</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>200</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -184,7 +189,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Flax"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-5</coldDeathTemperature>
+              <coldDamageStartTemperature>-5</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>140</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -210,7 +216,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Sugarcane"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-5</coldDeathTemperature>
+              <coldDamageStartTemperature>-3</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>24</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -236,7 +243,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Carrots"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-4</coldDeathTemperature>
+              <coldDamageStartTemperature>-7</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>170</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -262,7 +270,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Herb"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-3</coldDeathTemperature>
+              <coldDamageStartTemperature>-4</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>110</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -288,7 +297,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Tomatoes"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-1</coldDeathTemperature>
+              <coldDamageStartTemperature>0</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>21.5</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -340,7 +350,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Pumpkins"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-1</coldDeathTemperature>
+              <coldDamageStartTemperature>0</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>21.5</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -392,7 +403,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Tree_Lemon"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-4</coldDeathTemperature>
+              <coldDamageStartTemperature>-5</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>650</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -470,7 +482,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Mindwort"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-3</coldDeathTemperature>
+              <coldDamageStartTemperature>-3</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>110</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -496,7 +509,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Poppy"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-5</coldDeathTemperature>
+              <coldDamageStartTemperature>-6</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>150</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -522,7 +536,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_Plant_Fleawort"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-6</coldDeathTemperature>
+              <coldDamageStartTemperature>-7</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>170</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
@@ -694,7 +709,8 @@
           <xpath>/Defs/ThingDef[defName="DankPyon_GreatFir"]</xpath>
           <value>
             <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
-              <coldDeathTemperature>-35</coldDeathTemperature>
+              <coldDamageStartTemperature>-40</coldDamageStartTemperature>
+              <coldDamageDegreeHoursToDie>5000</coldDamageDegreeHoursToDie>
             </li>
           </value>
         </li>
