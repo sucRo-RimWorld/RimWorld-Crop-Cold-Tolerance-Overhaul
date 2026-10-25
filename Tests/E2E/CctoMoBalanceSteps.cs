@@ -84,7 +84,7 @@ namespace CropColdToleranceOverhaul.E2E
                 GenSpawn.Spawn(plant, cell, map, WipeMode.Vanish);
                 plant.HitPoints = plant.MaxHitPoints;
                 plant.Growth = 1f;
-                int baseline = plant.YieldNow();
+                int baseline = StableYield(plant);
                 ctx.Require(plant.Spawned && baseline > 0, "Baseline harvest unavailable: " + def.defName);
                 if (samples > 0)
                 {
@@ -109,7 +109,7 @@ namespace CropColdToleranceOverhaul.E2E
                     }
                 }
                 int hp = plant.Destroyed ? 0 : plant.HitPoints;
-                int harvest = plant.Destroyed ? 0 : plant.YieldNow();
+                int harvest = plant.Destroyed ? 0 : StableYield(plant);
                 ctx.Assert(hp <= plant.MaxHitPoints && harvest <= baseline,
                     "Cold should not increase plant HP or expected harvest");
                 PlantProperties p = def.plant;
@@ -139,6 +139,23 @@ namespace CropColdToleranceOverhaul.E2E
                 room.Temperature = 25f;
             }
         }
+        // Vanilla Plant.YieldNow uses stochastic rounding; compare both
+        // observations from the SAME fixed Rand state without perturbing
+        // global gameplay random numbers. The actual YieldNow engine remains
+        // unmodified. This is reproducible native harvest telemetry.
+        private static int StableYield(Plant plant)
+        {
+            Rand.PushState(1729);
+            try
+            {
+                return plant.YieldNow();
+            }
+            finally
+            {
+                Rand.PopState();
+            }
+        }
+
         private static Dictionary<Plant, ColdDamageRecord> States(Map map)
         {
             return StateField.GetValue(map.GetComponent<ColdDamageMapComponent>())
