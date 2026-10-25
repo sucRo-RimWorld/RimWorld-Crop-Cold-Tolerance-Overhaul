@@ -83,6 +83,31 @@ namespace CropColdToleranceOverhaul.Patches
         }
     }
 
+
+    // RimWorld can omit CheckMakeLeafless on an otherwise healthy plant
+    // (particularly when the HP model disables Vanilla's lethal threshold).
+    // Cold exposure must progress on the ordinary plant tick independently
+    // of whether the engine needs to change the leafless state.
+    [HarmonyPatch(typeof(Plant), "TickLong")]
+    internal static class PlantColdDamageTickLongPatch
+    {
+        [HarmonyPostfix]
+        private static void Postfix(Plant __instance)
+        {
+            if (__instance == null || __instance.Destroyed || !__instance.Spawned)
+                return;
+
+            ColdToleranceExtension extension = ColdToleranceUtility.ExtensionFor(__instance);
+            if (extension == null || !extension.HasColdDamageModel)
+                return;
+
+            // CheckMakeLeafless may also observe this tick. UpdatePlant's
+            // lastTick/elapsed==0 guard prevents double charging.
+            __instance.Map.GetComponent<ColdDamageMapComponent>()
+                .UpdatePlant(__instance, extension, __instance.AmbientTemperature);
+        }
+    }
+
     [HarmonyPatch(typeof(Plant), "CheckMakeLeafless")]
     internal static class PlantCheckMakeLeaflessPatch
     {
