@@ -88,7 +88,7 @@ namespace CropColdToleranceOverhaul.E2E
                         "Actual plant temperature differs from controlled frost");
                     ColdCheck.Invoke(plant, null);
                     var states = States(map);
-                    ColdDamageRecord state;
+                    ColdDamageRecord state = null;
                     ctx.Require(states != null && states.TryGetValue(plant, out state),
                         "First cold sample did not initialize map component");
                     for (int i = 0; i < samples && !plant.Destroyed; ++i)
