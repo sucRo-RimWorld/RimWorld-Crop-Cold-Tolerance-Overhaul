@@ -62,7 +62,7 @@ Plant_PincushionCactus,Pincushion cactus,hp_damage,-8,-10,750,0.20,UNAPPROVED_HP
 Plant_TallGrass,Tall grass,dormancy,,,,,KEEP_EXISTING_DORMANCY
 Plant_HealrootWild,Wild healroot,hp_damage,-9,-10,200,0.20,UNAPPROVED_HP_TRIAL
 DankPyon_Plant_Onions,Onion,hp_damage,-3,-5,120,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
-DankPyon_Plant_Lentils,Lentil,hp_damage,-4,-5,120,0.20,HOLD_SOURCE_STAGE_ENDPOINT_UNRESOLVED
+DankPyon_Plant_Lentils,Lentil,hp_damage,-4,-5,120,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Cabbages,Cabbage,hp_damage,-6,-3.5,240,0.20,APPROVED_A_D_CANDIDATE_VARIATION_PENDING
 DankPyon_Plant_Garlic,Garlic,dormancy,,,,,KEEP_EXISTING_DORMANCY
 DankPyon_Plant_Mushrooms,Mushroom,hp_damage,-1,0,90,0.20,UNAPPROVED_HP_TRIAL
