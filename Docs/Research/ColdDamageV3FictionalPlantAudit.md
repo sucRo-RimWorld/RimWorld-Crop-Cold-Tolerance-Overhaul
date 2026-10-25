@@ -97,3 +97,24 @@ These remaining **23** rows are *not* to be assigned fictional-species freeform 
 **Author selected:** `Plant_Devilstrand` **A0°C/D70°C·game-hour** as the **14th numeric A/D candidate** after the comparison above. The previous A+2/D70 is rejected as too punishing during marginal nonfreezing nights for an extremely slow harvestable crop; the selected A0 still loses 26/85HP across three warm-separated −1°C×8h nights and dies in −10°C×8h. The underlying fictional fungus has no empirical LT50; only game ecology and independently predeclared frost/harvest scenarios justify this **numerical candidate** compromise. Earlier statements in this file that Devilstrand is `UNAPPROVED_HP_TRIAL` describe the status *before this selection*.
 
 **Current authoritative count** is now 14 selected A/D, 34 other unapproved HP, 30 retained dormancy, 0 separate source HOLD (78 total). Every row's `lethal_dose_variation=0.20` remains unapproved; code defaults w=0. No new runtime/production XML or native game evidence.
+
+## Psychoid independent frost-onset comparison A+2, A+1 and A0 at D50 (2026-10-25)
+
+**REVIEW ONLY; `Plant_Psychoid` A+2/D50 remains unapproved in the CSV.** Psychoid is a **fictional psychite plant** (possibly inspired by real coca, not taxonomically identical). [Vanilla Psychoid Wiki](https://rimworldwiki.com/wiki/Psychoid_plant) supplies **85 MaxHP**, **9 growDays** (~16.62 ideal normal-soil calendar days), **8 base harvested leaves**, Plants level 6 for sowing, and **both soil and hydroponics**. It can grow in polluted soil and has a below-average **40% fertility sensitivity**. Thus a player can protect it indoors without changing cold damage, but a harvestable outdoor crop should not be wiped out by a few *nonfreezing* nights without a game-ecology reason. Original CCTO Design calls it a warm-climate fictional drug crop; there is no experimentally observed `Psychoid` lethal A or dose D. The baseline A+2/D50 is not directly measured, and neither are alternatives.
+
+**Predeclared representative gameplay checks:** no injury in warm greenhouse above 10°C; three **+1°C×8h**, **0°C×8h**, or **−1°C×8h** nights warm-separated to test marginal season attrition; one **−3°C×8h** frost to test manageable one-off loss, three such nights as an extreme repeated event; one **−8°C×8h** hard freeze to test crop failure. The nominal existing 2,000-tick observation design charges **7.2h of the 8h** on a night starting warm, with w=0, original HP85 and fractional damage carried between nights. Below, the values are **simplified HP estimates** (conditional crop yield of surviving plant = 50%+50%×HP/85), not actual game/weather crop acceptance or source LT50.
+
+| Scenario (85 initial HP) | Trial A+2/D50 | A+1/D50 comparison | A0/D50 comparison | A0/D70 Devilstrand-severity reference |
+|---|---:|---:|---:|---:|
+| ≥+10°C greenhouse | 85 | 85 | 85 | 85 |
+| +1°C×8h, 3 nights | 49 | 85 | 85 | 85 |
+| 0°C×8h, 3 nights | 12 | 49 | 85 | 85 |
+| −1°C×8h, 1 night | 49 | 61 | 73 | 77 |
+| −1°C×8h, 3 nights | dead | 12 | **49** | 59 |
+| −3°C×8h, 1 night | 24 | 37 | **49** | 59 |
+| −3°C×8h, 3 nights | dead | dead | **dead** | 7 |
+| −8°C×8h, 1 night | dead | dead | **dead** | 16 |
+
+**Source-versus-game interpretation:** At A+2, even **0°C** sustained for three separate nights causes ~86% HP loss, with 57% of a nominal full surviving harvest, although no independent Psychoid cold-mortality data support this effect. A+1 prevents +1°C night injury but still leaves only 12/85HP after three −1°C nights. **A0/D50** keeps zero injury for above-freezing nights and ordinary 0°C conditions, but three −1°C frosts still remove 36HP and three −3°C frosts kill it, leaving an evident vulnerability to prolonged hard freeze. Holding D50 differentiates its more severe frost sensitivity from much longer-growing **Devilstrand's selected A0/D70**; an identical A does not mean the same total exposure tolerance. No special drug-crop effects, phase-dependent crop health, toxic soil or new resilience timers are implied.
+
+**Reviewer recommendation (NOT numeric author approval): A0°C/D50°C·game-hour**, for simple and cold-sensitive fictional crop behavior without permanent +1°C chilling injury. If a *material* distinction warrants chilling injury above freezing, A+1/D50 is a harsher alternative, but should not be selected solely because Psychoid's lore is warm-climate. Existing `lethal_dose_variation=.20` remains an unapproved shared guess (runtime w=0). Candidate CSV unchanged for Psychoid; after Devilstrand selection the authority totals are **14 selected A/D, 34 unapproved HP trials including Psychoid, 30 retained dormancy and zero source HOLD**. This recommendation does not authorize native farm tests, production XML/C# edits or release.
