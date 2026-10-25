@@ -1,5 +1,14 @@
 # CCTO Coordination
 
+### CCTO-V3-PSYCHOID-A0-D50-SELECTED-20261025 — 15 selected, 33 pending
+
+Author selected **Vanilla `Plant_Psychoid` A0°C/D50°C·game-hour** as the 15th numeric A/D candidate in CCTO [Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), superseding the formerly unapproved A+2/D50. Canonical numbers and reasons are owner `Docs/ColdDamageHpV3Candidates.csv`, `Docs/Design.md` and `Docs/Research/ColdDamageV3FictionalPlantAudit.md`. The fictional warm-season 85HP crop is compared with a bounded w=0 2,000-tick model: three separated 0°C×8h nights leave all HP (vs historical A+2 12HP); three separated −1°C×8h nights leave 49HP (vs historical death). More severe repeated frost remains lethal; there is no real-world Psychoid mortality literature claimed.
+
+**Current classification (78 total): 15 `APPROVED_A_D_CANDIDATE_VARIATION_PENDING`, 33 `UNAPPROVED_HP_TRIAL`, 30 unchanged `KEEP_EXISTING_DORMANCY`, zero separate source HOLD.** Previous 14/34 and Psychoid A+2 descriptions below are historical. **All per-Def CSV variation .20 remains unapproved** (actual C# default w=0); production XML activation, runtime revision, native 1.6/1.7 crop acceptance, main integration of feature PR #31 and Steam publication are not approved.
+
+Next numerical work: audit Smokeleaf's current A−4/D100 and pair the cultivated/wild Healroot A−10/D200 against their respective real-species/generic-ecology and crop-survival evidence; no values or status for them are pre-approved. Do not create new physiological organs/states or schedule repeated native game tests.
+
+
 ### CCTO-V3-DEVILSTRAND-A0-D70-SELECTED-20261025 — 14 A/D selected, 34 trials remain
 
 **Owner numeric authority:** [CCTO Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31) `Docs/ColdDamageHpV3Candidates.csv`, `Docs/Design.md` and `Docs/Research/ColdDamageV3FictionalPlantAudit.md`. User selected **Vanilla `Plant_Devilstrand` A0°C/D70°C·game-hour** as the fourteenth **numerical A/D candidate only**, replacing earlier unapproved A+2/D70 after bounded cold-night impact comparisons. An 85HP fictional engineered fungus with 22.5 nominal growDays / ~41.5 ideal soil calendar days has no source-measured lethal dose. At existing w=0 and 2,000-tick cold sampling, three separate +1°C×8h nights now leave 85HP rather than old 59HP; three separate −1°C×8h nights leave 59HP rather than old 7HP; continuous −10°C×8h remains fatal. This is the selected ecology/crop-season gameplay tradeoff, NOT a new stage system, cold healing or physiological claim.
