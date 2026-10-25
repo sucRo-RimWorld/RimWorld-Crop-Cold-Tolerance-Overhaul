@@ -1,5 +1,14 @@
 # CCTO Coordination
 
+## V3 production integration and native acceptance — in progress, 2026-10-25
+
+**Owner:** [CCTO Draft PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) at source `4f43985948d49e3ffc284885e8c0a2e7442d3d89`. **Status:** proposed production source/XML integration; **NOT MERGED, NOT GAME-TEST ACCEPTED, NOT PUBLISHED**. The finalized main [78-Def table](ColdDamageHpV3Candidates.csv) remains sole numeric authority (46 HP, 32 dormancy, w=0), not historic Draft #31 CSV.
+
+- Implementation branch brings over intended HP engine and new UI, rewrites Vanilla/MO XML to final V3, retains growth minima and wild MO inheritance, uses dormancy for both Healroots and removes their old fixed-death fallback. Loaded balance assertions and static validator now check V3 fields. Native source checks must not be mislabeled as gameplay acceptance.
+- Project manual 1.6 bridge [PR #1027](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/1027) merged `a16bec54df001ba43f4bb1234216dc43c7943f25`; prelaunch uniqueness correction [PR #1028](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/1028) merged `92e9a38bc89d608eaa839dd2c780807218cfe232`. Its exact source pin is this PR's `4f4398...`, 19 Pickle cases, plus the genuine two-process Scribe probe now using production Potato A−2/D100. Earlier run [#40176000425](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/40176000425) failed **before compile or game launch** due to 16-vs-19 preflight mismatch and is not a model failure or PASS.
+- Manual game acceptance started with Project issue #39 `/amj ccto-cold-16`; evaluate actual original-game result, exact compile hashes, normal Tick, fatal notification, production save/load and any regressions. Only affected cases should be rerun after repairs. Full seasonal crop efficiency and realistic weather/forest/ecology remain distinct untested balance questions. Do not enable PR/push-triggered game tests, optional VPE expansion or Steam publication.
+
+
 ## Current V3 numerical design — finalized and reconciled, 2026-10-25
 
 **Numerical decisions complete; production cutover and native acceptance remain open.** The author delegated audit/correction/re-audit and final value selection, then authorized reconciling and merging these values and Japanese crop-use documentation to main. Current authority: [Design](Design.md#current-v3-numerical-specification--finalized-2026-10-25), [78-Def value table](ColdDamageHpV3Candidates.csv), [final audit](Research/ColdDamageV3BatchReview.md), [Japanese gameplay roles](CropGameplayRoles-ja.md).
