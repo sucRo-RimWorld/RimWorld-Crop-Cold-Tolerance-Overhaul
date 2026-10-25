@@ -1,5 +1,11 @@
 # RimWorld Crop Cold Tolerance Overhaul — Design
 
+## Next public release identity — 0.2 (planned 2026-10-26)
+
+**Author decision:** the next publicly released CCTO version after the 0.1.3 Beta series is **0.2**, because replacing fixed low-temperature death with cumulative visible Plant HP injury is a substantial gameplay/model change. "V1", "V2" and "V3" identify historical internal design iterations only; they are **not public release version numbers**. The V3-design/source Draft PR #60 is the work currently intended for public **0.2**, not a published V3 or an intervening public V2.
+
+**Current shipped/source release metadata remains 0.1.3.** Do not bump `About/About.xml`, `About/Manifest.xml`, the release notes/tag, README current-version header, or Steam/2game public copy to 0.2 until the implementation and release-payload gates are satisfied in one final release change set. Tag spelling and any Beta designation are release-time metadata decisions, not evidence that 0.2 is already published. Canonical release gate: [ReleaseChecklist](ReleaseChecklist.md#next-public-release-02-not-yet-published).
+
 ## Governing objective and verification boundaries — clarified 2026-10-26
 
 **CCTO is a standalone, realism-oriented plant cold-tolerance overhaul, not a crop-production or inter-crop economic-balance mod.** The original V1 purpose continues into V3: represent species-specific growth-temperature limits, cold injury/death and dormancy within a deliberately simplified RimWorld model.
