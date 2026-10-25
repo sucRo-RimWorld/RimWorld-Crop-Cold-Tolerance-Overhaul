@@ -2,6 +2,8 @@
 
 **RimWorld 1.6 / 1.7 (unstable) — 0.1.3 Beta**
 
+**Planned next public version: 0.2 (unreleased).** The substantial cold-injury redesign will apply accumulated cold damage to visible Plant HP. Historical V2/V3 labels are design iterations, not published version numbers. The 0.1.3 tables and package described here remain the current release; details and release conditions are in [the design](Docs/Design.md#next-public-release-identity--02-planned-2026-10-26) and [release checklist](Docs/ReleaseChecklist.md#next-public-release-02-not-yet-published).
+
 **A realism-focused cold-tolerance rebalance and lightweight XML framework for RimWorld plants.**
 
 Crop Cold Tolerance Overhaul (CCTO) is built around real-world differences in plant cold tolerance. It uses documented frost injury, chilling sensitivity, overwintering behavior, and lethal-temperature information where available as reference points, then translates them into clear RimWorld thresholds rather than applying Vanilla's mostly generic cold response.
