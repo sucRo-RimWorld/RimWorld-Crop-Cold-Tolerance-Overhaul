@@ -173,22 +173,9 @@ namespace CropColdToleranceOverhaul.E2E
                 "The source plant was not restored by RimWorld Scribe");
             Require(plant.thingIDNumber == number,
                 "Plant stable identity changed over real .rws reload");
-            var states = States(map);
-            ColdDamageRecord record;
-            if (!states.TryGetValue(plant, out record))
-            {
-                Log.Message("CCTO_COLD_RELOAD_DEBUG dictionaryCount=" + states.Count
-                    + " savedId=" + expectedId
-                    + " keys=" + string.Join(", ", states.Keys
-                        .Select(x => x == null ? "<null>" : x.ThingID).ToArray()));
-                throw new InvalidOperationException(
-                    "Saved damage record was not linked to the reloaded Plant");
-            }
-            Require(object.ReferenceEquals(record.plant, plant),
-                "Cross-reference is not the actual reloaded plant instance");
-            // The loaded game may run several hundred real ticks while
-            // the Root_Play verification hook waits. Compare the exact
-            // Scribe-phase snapshot to source, not later HP damage.
+            // Check what Scribe actually restored at PostLoadInit. Ordinary
+            // game ticks may validly release a zero-remainder cold record once
+            // the plant is warm; the lost HP itself is stored on the Plant.
             Require(ColdDamageScribeSnapshot.Restored
                 && ColdDamageScribeSnapshot.PlantId == expectedId
                 && ColdDamageScribeSnapshot.PlantNumber == number,
@@ -197,11 +184,31 @@ namespace CropColdToleranceOverhaul.E2E
                 "at immediate Scribe PostLoadInit", plant);
             Require(ColdDamageScribeSnapshot.LastTick == tick,
                 "Original observation tick not restored at Scribe PostLoadInit");
-            Require(record.lastTick >= tick && DamageFraction(plant) >= 0f
-                && DamageFraction(plant) <= 1f,
-                "Live loaded game produced invalid plant HP state");
+            Require(ColdDamageScribeSnapshot.PendingHitPointDamage == 0f,
+                "The saved test injury should have no fractional HP remainder");
+            Require(DamageFraction(plant) >= ExpectedDamage - (1f / plant.MaxHitPoints + 0.001f),
+                "The loaded plant recovered lost cold HP after actual Scribe reload");
             Require(plant.def.GetModExtension<ColdToleranceExtension>()?.HasColdDamageModel == true,
-                "Loaded crop lost its opt-in cold damage extension");
+                "Loaded crop lost its production V3 cold damage extension");
+
+            var states = States(map);
+            ColdDamageRecord record;
+            bool retained = states.TryGetValue(plant, out record);
+            if (retained)
+            {
+                Require(object.ReferenceEquals(record.plant, plant)
+                    && record.lastTick >= tick,
+                    "Reloaded live cold record lost its plant reference or clock");
+            }
+            else
+            {
+                Require(plant.AmbientTemperature >= Onset,
+                    "A cold-exposed plant lost its record before a warm observation");
+                Log.Message("CCTO_COLD_RELOAD_WARM_CLEANUP"
+                    + " originalScribeRecordRestored=true"
+                    + " liveRecordReleased=true"
+                    + " coldHpPreserved=true");
+            }
 
             // Then exercise *the reloaded instance*, not a replacement Plant.
             Room room = plant.GetRoom();
@@ -210,6 +217,23 @@ namespace CropColdToleranceOverhaul.E2E
             room.Temperature = Freezing;
             Require(Math.Abs(plant.AmbientTemperature - Freezing) < 0.25f,
                 "Reload continuation did not set the actual plant ambient temperature");
+            // Establish the new cold interval, whether the historical
+            // Scribe record was retained or validly released after warmth.
+            if (!retained)
+            {
+                Observe(plant);  // First cold observation; no retroactive dose.
+                Require(States(map).TryGetValue(plant, out record),
+                    "First renewed cold observation did not create a record");
+            }
+            else if (!record.lastObservationWasCold)
+            {
+                record.lastTick = Find.TickManager.TicksGame - Elapsed;
+                Observe(plant);  // Warm-to-cold transition; no retroactive dose.
+                Require(States(map).TryGetValue(plant, out record)
+                    && record.lastObservationWasCold,
+                    "Warm-to-cold observation did not reset the cold interval");
+            }
+
             float before = DamageFraction(plant);
             record.lastTick = Find.TickManager.TicksGame - Elapsed;
             Observe(plant);
@@ -231,6 +255,7 @@ namespace CropColdToleranceOverhaul.E2E
     {
         public static bool Restored;
         public static float Damage;
+        public static float PendingHitPointDamage;
         public static int LastTick;
         public static int PlantNumber;
         public static string PlantId;
@@ -256,6 +281,7 @@ namespace CropColdToleranceOverhaul.E2E
                     continue;
                 Restored = true;
                 Damage = ColdDamageSaveProbe.DamageFraction(pair.Key);
+                PendingHitPointDamage = record.pendingHitPointDamage;
                 LastTick = record.lastTick;
                 PlantId = pair.Key.ThingID;
                 PlantNumber = pair.Key.thingIDNumber;
