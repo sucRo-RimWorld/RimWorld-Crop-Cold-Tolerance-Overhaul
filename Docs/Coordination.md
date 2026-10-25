@@ -1,5 +1,12 @@
 # CCTO Coordination
 
+## CCTO next public version 0.2 — 2026-10-26
+
+**Owner:** [Design](Design.md#next-public-release-identity--02-planned-2026-10-26) and [ReleaseChecklist](ReleaseChecklist.md#next-public-release-02-not-yet-published). **Status:** author chooses **0.2** as the next public release after 0.1.3 Beta for the cumulative visible-HP cold-injury overhaul. Existing "V2"/"V3" names are internal design iterations; Draft [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) prepares 0.2, not a public V3.
+- No intervening public V2 release is implied. Current `About.xml`/`Manifest.xml`, README release header, live Workshop and DLL remain 0.1.3-series until a separately accepted 0.2 release.
+- At release preparation, update metadata, README (required for version changes), release notes/changelog, English/Japanese public copy and distribution payload together; do not claim Steam publication or game acceptance from this decision alone. Runtime, numeric and real-climate gates remain unchanged.
+
+
 ## CCTO realism-first scope clarification — 2026-10-26
 
 **Owner:** [Design](Design.md#governing-objective-and-verification-boundaries--clarified-2026-10-26) is the canonical policy; [CropGameplayRoles-ja](CropGameplayRoles-ja.md) is optional player-facing context. **Status:** interpretation/design updated, V3 Draft #60 not merged, no new runtime or numerical values, publication unchanged.
