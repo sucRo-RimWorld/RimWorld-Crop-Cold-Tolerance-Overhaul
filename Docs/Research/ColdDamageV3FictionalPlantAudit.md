@@ -182,3 +182,23 @@ Current formal CSV tally: **15 selected A/D, 33 other HP trials unapproved, 30 d
 **Approved at V3 candidate design level:** `Plant_Healroot` and `Plant_HealrootWild` both enter CCTO's **existing cold dormancy mode** below their unchanged `minGrowthTemperature=0°C`. This selects Option 1 from the earlier three-option physiological/winter-survival audit. The rejected comparison was `hp_damage` **A−10/D200** (and the older fixed `coldDeathTemperature=−9°C` remains in active source until an authorized XML cutover). No new A/D or spread is selected. Dormancy means the existing game leafless/non-harvestable state instead of HP attrition during winter, with resumption as temperatures warm; it omits extreme-frost mortality and the lore-only stronger wild/cultivated differentiation. This is a deliberate gameplay/ecology simplification, not a measured genetic or cold-organ survival conclusion.
 
 **Canonical CSV status/counts:** both new candidates `mode=dormancy`, `APPROVED_DORMANCY_CANDIDATE_PENDING_XML` with empty unused numeric fields. In 78 Defs: **16 selected A/D + 30 other unapproved HP + 2 new dormant Healroot candidates + 30 existing unchanged dormant plants**. No separate biological source HOLD. The earlier audit's `UNAPPROVED_HP_TRIAL` designation and “options NONE approved” preceded this author decision and are superseded. No current `Patches/Vanilla_ColdTolerance.xml`, C# code, runtime native 1.6/1.7 evidence or public Workshop build was changed or authorized.
+
+## Ambrosia sprout: season-gated wild crop versus winter survival (2026-10-25)
+
+**Unapproved source-specific review:** Vanilla `Plant_Ambrosia` remains `UNAPPROVED_HP_TRIAL` with **A−10°C/D240°C·game-hour**, w=.20 unapproved. This is a rare fictional event-only fruit crop, not a persistent resident of the entire boreal winter. The original [Ambrosia sprout event](https://rimworldwiki.com/wiki/Events#Ambrosia_sprout) is restricted to a tile's **growing season**, and appears only in tropical rain/swamp, temperate forest/swamp, boreal forest or arid shrubland; **not tundra or cold bog**. Wiki [Ambrosia item](https://mail.rimworldwiki.com/wiki/Ambrosia#Acquisition) says bushes cannot be sown by colonists and may be harvested multiple times; the [wild-plant balance table](https://teemo.dev/game-design/rimworld/systems/research-and-production-reference/) lists plant maxHP100, 6 growDays / ~11.08 ideal actual in-game days, 4 fruit. Therefore comparing this event-only bush against the **coldest winter daily minima from a full 60-day biome calendar** as if it must permanently survive year-round is the wrong gameplay endpoint. The material acceptance target is *reasonable time from the event to its first useful harvest in growing-season conditions*, with later winter loss allowed; unprotected groves need not survive all winter.
+
+**Predeclared bounded onset/dose check** against original proposed A−10/D240, nominal 100HP and 2,000-tick samples w=0, first cold reading uncharged, with each repeated constant 8-hour event charging ~7.2 game-hours and warm readings separating nights:
+
+| Season exposure | Plant HP after event(s) |
+|---|---:|
+| Warm growing season, no ambient below −10°C | 100/100 |
+| Three −12°C×8h nights | 82/100 |
+| Three −15°C×8h nights | 55/100 |
+| One −20°C×8h night | 70/100 |
+| Three −20°C×8h nights | 10/100 |
+| One −25°C×8h night | 55/100 |
+| Three −25°C×8h nights | dead |
+
+**Interpretation:** A−10/D240 imposes little damage until exceptionally deep freezes for the growing season, and severely cold events can shorten rare-grove harvest windows. The separate full-year cold BorealForest calendar should not drive Ambrosia to dormancy merely because the **event biome** includes boreal forest: its trigger is growing-season limited. This differs from the naturally persistent wild Healroot that was author-assigned dormancy. However, a cold-snap shortly after a late-season event could still leave a grove unable to reach maturity; an independent actual event timing/weather outcome is not established by these constant-night comparisons. Do not invent an empirical whole-plant fatal dose for a fictional berry or declare a loaded-game PASS.
+
+**Reviewer preference only:** retain existing **A−10/D240** as the *next numerical candidate comparison*, no new mode switch. The CSV remains unchanged: **16 selected HP A/D**, **30 other unapproved HP (including Ambrosia)**, **2 newly selected dormancy candidates awaiting XML**, and **30 originally dormant Defs** = 78. Variation .20 unapproved; actual framework w=0, production XML/C# unchanged, no real RimWorld farm/events or release.
