@@ -1,5 +1,22 @@
 # RimWorld Crop Cold Tolerance Overhaul — Design
 
+## Governing objective and verification boundaries — clarified 2026-10-26
+
+**CCTO is a standalone, realism-oriented plant cold-tolerance overhaul, not a crop-production or inter-crop economic-balance mod.** The original V1 purpose continues into V3: represent species-specific growth-temperature limits, cold injury/death and dormancy within a deliberately simplified RimWorld model.
+
+Priority:
+
+1. **Biological evidence first:** distinguish growth limits, optimal growth, chilling/frost injury, exposure time, acclimation, life stage and overwintering. Record what the original source actually measured.
+2. **Honest approximation:** a V3 HP injury-onset `A` and cumulative fatal dose `D` are game-model coefficients, **not measured laboratory LD100**. Rounding and simplification require a biological/modeling explanation, not a desire to rescue an economically weak crop.
+3. **Ecology and technical sanity:** review ordinary weather, extreme cold and repeated exposures, including normal survival in natural biomes; exclude implausible routine die-offs caused by model error. Technical loaded-Def, HP, UI and save tests prove only their own behavior.
+4. **No forced gameplay parity:** seasonal differences may emerge, but each crop is not required to occupy a competitive economic niche. Increased difficulty may result from realistic values, but is not itself a tuning objective.
+
+**Independent profiles:** CCTO supports `Vanilla + CCTO` and optional `MO + CCTO`. Agriculture and other AMJ mods are **not dependencies or CCTO numerical reference profiles**. Observations from `MO + Agriculture + CCTO` remain useful only for the cold-temperature/HP behavior actually measured; altered yields, growDays, fertility, jobs, recipes or crop profitability are neither inputs nor release requirements for CCTO. Do not change CCTO temperature coefficients to compensate for those external crop economics.
+
+**Numerical acceptance:** evidence independent of a derived coefficient plus representative normal, severe, repeated-exposure and biome conditions remain necessary; CSV completeness, formula self-consistency and technical PASS do not prove realism. Reopen a previously finalized value only for a concrete biological/model contradiction, implausible ordinary-climate/ecological outcome or implementation defect—not because Carrot, Onion or Cabbage loses a production ranking. The former seven crop-economy role comparisons are **optional player-context research, not seven mandatory V3 acceptance gates**. Previously accepted original 1.6 bounded technical evidence retains its limited scope; 1.7, natural-season/ecological realism, distributable build and publication remain distinct.
+
+**Cabbage:** the MO 1.6 duplicate optimal-temperature tag is an upstream XML error, but merely correcting it to full-speed 0–25°C is not biologically accepted. A 15–20°C optimum is a research-backed *candidate*, not an approved/implemented value. Decide by plant biology and temperature response, not economic competition. The finalized V3 46 HP + 32 dormancy, `w=0` design values remain unchanged pending contrary relevant evidence.
+
 ## Current V3 numerical specification — finalized 2026-10-25
 
 The author delegated the remaining numerical decisions with “監査→修正→監査を行い、値を確定させて”. The resulting **game-design values are final**, not individually author-measured biological coefficients: [ColdDamageHpV3Candidates.csv](ColdDamageHpV3Candidates.csv) is the single current value table. It contains **46 HP profiles with w=0 and 32 dormancy profiles, zero pending values**. `FINALIZED_DESIGN_VALUES` denotes delegated final HP selection; `FINALIZED_DESIGN_DORMANCY` denotes the two newly selected dormant Healroots; `KEEP_EXISTING_DORMANCY` retains the original 30.
@@ -10,7 +27,7 @@ For identical full-HP plants with identical histories, w=0 does not require mixe
 
 Rationale, original-source distinctions, audit corrections and re-audit results: [final audit and selection record](Research/ColdDamageV3BatchReview.md). All dated candidate/approval-count/Healroot-HOLD passages below are historical where they conflict with this current specification. Numerical selection is complete. The proposed source/XML cutover requires exact-source build, ordinary-tick game acceptance and distribution separately.
 
-作物の季節・気候・土地・用途ごとの使い分けと、実装後に確認する均衡は[日本語の考察資料](CropGameplayRoles-ja.md)を参照。実ゲームで検証した攻略・生産効率の順位ではない。
+作物の季節・気候・土地・用途の参考考察は[日本語資料](CropGameplayRoles-ja.md)を参照。農業経済上の優劣はCCTO温度値の採否・公開条件ではない。
 
 ## 1. Scope
 
@@ -36,9 +53,9 @@ It does **not** rebalance:
 - processing
 - research progression
 
-The balance philosophy follows Ancient & Medieval Japan (AMJ): real-world cold tolerance is used as evidence, but final values are chosen so that plants have clear gameplay identities and meaningful climate/season tradeoffs. Where available, real-world frost-damage and lethal-temperature information is used as a reference for plant-specific death thresholds. Because actual plant response varies by cultivar, growth stage, acclimation, and exposure duration, CCTO treats those temperatures as guidelines rather than copying a single reported value literally; values are rounded/tuned into clear gameplay thresholds.
+Realistic, species-specific low-temperature response is the governing design objective. Plant-level evidence informs values, with clearly disclosed game approximations; game economy and difficulty are not independent numerical targets.
 
-The intended difficulty direction is generally upward relative to the original Vanilla / Medieval Overhaul settings. Most supported plants should require warmer conditions for active growth, and ordinary plants should usually face lethal cold at substantially warmer temperatures than the original generic derived threshold. The gameplay purpose is to make plant selection, seasonal timing, and temperature management matter more. This is an overall balance direction rather than a universal nerf: selected perennial/overwintering plants intentionally gain cold dormancy and winter survival.
+Compared with Vanilla / Medieval Overhaul, some plants may stop growth or suffer injury sooner, while appropriate overwintering species survive through dormancy. This difficulty change is a possible *consequence* of realism, never the goal to maximize. Natural-biome viability and credible temperature response take precedence over guaranteeing each cultivated crop a profitable niche.
 
 ## 1.1 Standalone-mod rationale
 
