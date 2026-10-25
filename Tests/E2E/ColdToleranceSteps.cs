@@ -21,98 +21,104 @@ namespace CropColdToleranceOverhaul.E2E
         private readonly List<Thing> testRoomWalls = new List<Thing>();
         private CellRect? testRoomRect;
         private int? rememberedDormancyTick;
+        private int? observedColdHp;
 
         private static readonly FieldInfo MadeLeaflessTickField =
             typeof(Plant).GetField(
                 "madeLeaflessTick",
                 BindingFlags.Instance | BindingFlags.NonPublic);
 
+        private static readonly FieldInfo ColdDamageStatesField =
+            typeof(ColdDamageMapComponent).GetField(
+                "states",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+
         [Then("loaded Core living plant Defs match the CCTO balance table")]
         public void AssertLoadedVanillaBalanceDefs(PickleContext ctx)
         {
-            AssertLoadedBalanceDef(ctx, "Plant_Rice", 10f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Potato", 5f, -2f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Corn", 8f, -2f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Strawberry", 5f, -9f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Haygrass", 0f, -9f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Cotton", 10f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Devilstrand", 8f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Healroot", 0f, -9f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Hops", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Smokeleaf", 5f, -4f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Psychoid", 8f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeCocoa", 12f, 0f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeBamboo", 10f, -18f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeBirch", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeCecropia", 10f, 0f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeCypress", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Dandelion", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Daylily", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeDrago", 8f, 0f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeMaple", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeOak", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_TreePalm", 10f, 0f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreePine", 0f, -35f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreePoplar", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Rose", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_SaguaroCactus", 8f, -6f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeTeak", 12f, 3f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Timbershroom", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Tinctoria", 5f, -4f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TreeWillow", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "Agarilux", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Agave", 5f, -7f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Alocasia", 10f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Ambrosia", 0f, -9f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Astragalus", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Berry", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Brambles", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Bryolux", 0f, -12f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Bush", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Chokevine", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_Clivia", 8f, -2f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Rafflesia", 12f, 5f, false);
-            AssertLoadedBalanceDef(ctx, "Glowstool", 0f, -8f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Grass", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_ShrubLow", 8f, -2f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_Moss", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_PincushionCactus", 5f, -8f, false);
-            AssertLoadedBalanceDef(ctx, "Plant_TallGrass", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "Plant_HealrootWild", 0f, -9f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Rice", 10f, 2f, 60f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Potato", 5f, -2f, 100f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Corn", 8f, 0f, 64f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Strawberry", 5f, -2f, 180f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Haygrass", 0f, -8f, 220f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Cotton", 10f, 0f, 48f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Devilstrand", 8f, 0f, 70f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Healroot", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Hops", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Smokeleaf", 5f, -4f, 100f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Psychoid", 8f, 0f, 50f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeCocoa", 12f, 5f, 180f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeBamboo", 10f, -20f, 1400f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeBirch", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeCecropia", 10f, 4f, 160f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeCypress", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Dandelion", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Daylily", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeDrago", 8f, 2f, 240f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeMaple", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeOak", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_TreePalm", 10f, 4f, 200f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreePine", 0f, -40f, 5000f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreePoplar", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Rose", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_SaguaroCactus", 8f, -3f, 180f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeTeak", 12f, 6f, 220f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Timbershroom", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Tinctoria", 5f, -4f, 110f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TreeWillow", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Agarilux", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Agave", 5f, -8f, 550f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Alocasia", 10f, 3f, 120f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Ambrosia", 0f, -10f, 240f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Astragalus", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Berry", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Brambles", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Bryolux", 0f, -14f, 450f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Bush", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Chokevine", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_Clivia", 8f, -3f, 180f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Rafflesia", 12f, 7f, 100f, false);
+            AssertLoadedBalanceDef(ctx, "Glowstool", 0f, -10f, 280f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Grass", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_ShrubLow", 8f, -3f, 240f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_Moss", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_PincushionCactus", 5f, -10f, 750f, false);
+            AssertLoadedBalanceDef(ctx, "Plant_TallGrass", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "Plant_HealrootWild", 0f, null, null, true);
         }
 
         [Then("loaded Medieval Overhaul plant Defs match the CCTO balance table")]
         public void AssertLoadedMedievalOverhaulBalanceDefs(PickleContext ctx)
         {
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Onions", 5f, -3f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Lentils", 5f, -4f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Cabbages", 0f, -6f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Garlic", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Mushrooms", 5f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Wheat", 0f, -6f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Flax", 5f, -5f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Sugarcane", 10f, -5f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Carrots", 0f, -4f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Herb", 5f, -3f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Tomatoes", 10f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Grape", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Pumpkins", 10f, -1f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Apple", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Lemon", 10f, -4f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Mulberry", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_GriffonBerry", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Mindwort", 5f, -3f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Poppy", 5f, -5f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Fleawort", 3f, -6f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaric", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_MindwortWild", 5f, -3f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_PoppyWild", 5f, -5f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FleawortWild", 3f, -6f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaricWild", 0f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_GreatOak", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_GreatIter", 5f, null, true);
-            AssertLoadedBalanceDef(ctx, "DankPyon_GreatFir", 0f, -35f, false);
-            AssertLoadedBalanceDef(ctx, "DankPyon_GreatWillow", 5f, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Onions", 5f, -5f, 120f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Lentils", 5f, -5f, 120f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Cabbages", 0f, -3.5f, 240f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Garlic", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Mushrooms", 5f, 0f, 90f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Wheat", 0f, -7f, 200f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Flax", 5f, -5f, 140f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Sugarcane", 10f, -3f, 24f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Carrots", 0f, -7f, 170f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Herb", 5f, -4f, 110f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Tomatoes", 10f, 0f, 21.5f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Grape", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Pumpkins", 10f, 0f, 21.5f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Apple", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Lemon", 10f, -5f, 650f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_Mulberry", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Tree_GriffonBerry", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Mindwort", 5f, -3f, 110f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Poppy", 5f, -6f, 150f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_Fleawort", 3f, -7f, 170f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaric", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_MindwortWild", 5f, -3f, 110f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_PoppyWild", 5f, -6f, 150f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FleawortWild", 3f, -7f, 170f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_Plant_FlyAgaricWild", 0f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatOak", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatIter", 5f, null, null, true);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatFir", 0f, -40f, 5000f, false);
+            AssertLoadedBalanceDef(ctx, "DankPyon_GreatWillow", 5f, null, null, true);
         }
 
         [Then("all loaded supported living plant Defs are covered by CCTO balance")]
@@ -333,6 +339,14 @@ namespace CropColdToleranceOverhaul.E2E
             ctx.Assert(
                 infinite.ConfigErrors().Count() == 1,
                 "An infinite death temperature should report one configuration error.");
+
+            ColdToleranceExtension recovery = new ColdToleranceExtension();
+            recovery.coldDeathTemperature = -15f; // Legacy fallback remains legal.
+            recovery.coldDamageStartTemperature = -5f;
+            recovery.coldDamageDegreeHoursToDie = 10f;
+            ctx.Assert(
+                recovery.HasColdDamageModel && !recovery.ConfigErrors().Any(),
+                "An HP cold injury configuration must validate.");
         }
 
         [Then("CCTO Info Card stat construction matches fixed-death and dormancy configuration")]
@@ -411,6 +425,39 @@ namespace CropColdToleranceOverhaul.E2E
                 ctx,
                 minimumGrowthTemperature,
                 extension);
+        }
+
+
+        // Test-only approximation: never patch real balance Defs in the release.
+        [Given("a cumulative CCTO test plant with minimum growth {float} onset {float} dose {float}")]
+        public void SpawnCumulativeColdPlant(
+            PickleContext ctx,
+            float minimumGrowthTemperature,
+            float onset,
+            float lethalDegreeHours)
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDamageStartTemperature = onset;
+            extension.coldDamageDegreeHoursToDie = lethalDegreeHours;
+            ctx.Require(extension.HasColdDamageModel,
+                "Test cumulative model configuration must be valid.");
+            ConfigureAndSpawn(ctx, minimumGrowthTemperature, extension);
+        }
+
+        [Given("a dormant cumulative CCTO test plant with minimum growth {float} onset {float} dose {float}")]
+        public void SpawnDormantCumulativeColdPlant(
+            PickleContext ctx,
+            float minimumGrowthTemperature,
+            float onset,
+            float lethalDegreeHours)
+        {
+            ColdToleranceExtension extension = new ColdToleranceExtension();
+            extension.coldDormancy = true;
+            extension.coldDamageStartTemperature = onset;
+            extension.coldDamageDegreeHoursToDie = lethalDegreeHours;
+            ctx.Require(extension.HasColdDamageModel,
+                "Test combined dormancy + cumulative model must be valid.");
+            ConfigureAndSpawn(ctx, minimumGrowthTemperature, extension);
         }
 
         [When("I set the CCTO test outdoor temperature to {float}")]
@@ -553,6 +600,82 @@ namespace CropColdToleranceOverhaul.E2E
                 "Plant.CheckMakeLeafless was not found.");
 
             check.Invoke(plant, null);
+        }
+
+
+        [When("I advance {int} complete RimWorld game ticks")]
+        public void AdvanceCompleteGameTicks(PickleContext ctx, int ticks)
+        {
+            ctx.Require(ticks > 0 && ticks <= 5000,
+                "The full game-tick integration check must remain bounded.");
+            ctx.Require(Find.TickManager != null,
+                "Ordinary RimWorld TickManager is required.");
+            int start = Find.TickManager.TicksGame;
+            bool previousFastEcology = DebugSettings.fastEcology;
+            try
+            {
+                // Quickstart/Pickle may enable 2000-tick fast ecology mode.
+                // Each iteration here must instead advance one real game tick
+                // through the map TickLists including Plant.TickLong.
+                DebugSettings.fastEcology = false;
+                for (int i = 0; i < ticks; i++)
+                    Find.TickManager.DoSingleTick();
+            }
+            finally
+            {
+                DebugSettings.fastEcology = previousFastEcology;
+            }
+            ctx.Assert(Find.TickManager.TicksGame - start == ticks,
+                "Full game-tick advancement did not complete.");
+        }
+
+        [When("I simulate {int} ticks between CCTO damage observations")]
+        public void SimulateDamageObservation(PickleContext ctx, int elapsedTicks)
+        {
+            ctx.Require(elapsedTicks > 0 && elapsedTicks <= 2000,
+                "Only one already-supported bounded observation interval is allowed.");
+            ColdDamageRecord record = RequireDamageRecord(ctx);
+            // Only the clock stamp is adjusted; the loaded plant, room
+            // temperature, Harmony postfix and map component are real.
+            // This is not proof of actual timed game-loop delivery.
+            record.lastTick = Find.TickManager.TicksGame - elapsedTicks;
+            ForcePlantColdCheck(ctx);
+        }
+
+        [Then("the CCTO plant HP is recorded at first observation")]
+        public void RememberColdHp(PickleContext ctx)
+        {
+            ColdDamageRecord record = RequireDamageRecord(ctx);
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Assert(record.pendingHitPointDamage == 0f,
+                "First observation must not apply unobserved cold injury.");
+            observedColdHp = plant.HitPoints;
+        }
+
+        [Then("the CCTO plant HP decreased from last observation")]
+        public void AssertColdHpDecreased(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Require(observedColdHp.HasValue, "No previous HP observation.");
+            ctx.Assert(plant.HitPoints < observedColdHp.Value,
+                "Expected cold injury to decrease ordinary visible plant HP.");
+            observedColdHp = plant.HitPoints;
+        }
+
+        [When("I retain a fractional CCTO cold HP remainder")]
+        public void RetainFractionalColdHpRemainder(PickleContext ctx)
+        {
+            ColdDamageRecord record = RequireDamageRecord(ctx);
+            record.pendingHitPointDamage = 0.5f;
+        }
+
+        [Then("the CCTO plant HP did not recover")]
+        public void AssertNoColdHpRecovery(PickleContext ctx)
+        {
+            Plant plant = RequireTestPlant(ctx);
+            ctx.Require(observedColdHp.HasValue, "No previous HP observation.");
+            ctx.Assert(plant.HitPoints == observedColdHp.Value,
+                "Warming must not restore HP lost to frost.");
         }
 
         [Then("the CCTO test plant is alive")]
@@ -928,7 +1051,8 @@ namespace CropColdToleranceOverhaul.E2E
             PickleContext ctx,
             string defName,
             float expectedMinimumGrowthTemperature,
-            float? expectedDeathTemperature,
+            float? expectedOnset,
+            float? expectedDose,
             bool expectedDormancy)
         {
             ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
@@ -995,38 +1119,32 @@ namespace CropColdToleranceOverhaul.E2E
                 + extension.coldDormancy
                 + ".");
 
-            if (expectedDeathTemperature.HasValue)
+            ctx.Assert(!extension.HasColdDeathTemperature,
+                "V3 production plant must not retain a fixed cold-death threshold: " + defName);
+            if (expectedDormancy)
             {
-                ctx.Assert(
-                    extension.HasColdDeathTemperature,
-                    "Loaded balance Def '"
-                    + defName
-                    + "' is missing its fixed cold-death temperature.");
-
-                if (extension.HasColdDeathTemperature)
-                {
-                    ctx.Assert(
-                        Math.Abs(
-                            extension.coldDeathTemperature
-                            - expectedDeathTemperature.Value) < 0.001f,
-                        "Loaded coldDeathTemperature mismatch for "
-                        + defName
-                        + ": expected "
-                        + expectedDeathTemperature.Value.ToString("F2")
-                        + " C, got "
-                        + extension.coldDeathTemperature.ToString("F2")
-                        + " C.");
-                }
+                ctx.Assert(!extension.HasColdDamageModel
+                    && float.IsNaN(extension.coldDamageStartTemperature)
+                    && float.IsNaN(extension.coldDamageDegreeHoursToDie),
+                    "Dormancy plant unexpectedly has cold HP injury fields: " + defName);
             }
             else
             {
-                ctx.Assert(
-                    !extension.HasColdDeathTemperature,
-                    "Loaded balance Def '"
-                    + defName
-                    + "' unexpectedly has coldDeathTemperature="
-                    + extension.coldDeathTemperature.ToString("F2")
-                    + " C.");
+                ctx.Assert(extension.HasColdDamageModel,
+                    "Missing complete V3 cold HP injury model for: " + defName);
+                ctx.Assert(expectedOnset.HasValue && expectedDose.HasValue,
+                    "Incomplete test expectation for: " + defName);
+                if (expectedOnset.HasValue && expectedDose.HasValue)
+                {
+                    ctx.Assert(Math.Abs(extension.coldDamageStartTemperature -
+                        expectedOnset.Value) < 0.001f,
+                        "V3 onset mismatch for: " + defName);
+                    ctx.Assert(Math.Abs(extension.coldDamageDegreeHoursToDie -
+                        expectedDose.Value) < 0.001f,
+                        "V3 lethal dose mismatch for: " + defName);
+                }
+                ctx.Assert(extension.coldDamageLethalDoseVariation == 0f,
+                    "V3 per-plant variation must remain zero: " + defName);
             }
         }
 
@@ -1126,6 +1244,22 @@ namespace CropColdToleranceOverhaul.E2E
                 map != null,
                 "CCTO E2E scenario requires a live current map.");
             return map;
+        }
+
+
+        private ColdDamageRecord RequireDamageRecord(PickleContext ctx)
+        {
+            ctx.Require(ColdDamageStatesField != null,
+                "CCTO damage state reflection field was not found.");
+            Plant plant = RequireTestPlant(ctx);
+            Map map = RequireCurrentMap(ctx);
+            var component = map.GetComponent<ColdDamageMapComponent>();
+            ctx.Require(component != null, "CCTO cold damage map component missing.");
+            var states = ColdDamageStatesField.GetValue(component)
+                as Dictionary<Plant, ColdDamageRecord>;
+            ctx.Require(states != null && states.ContainsKey(plant),
+                "No saved CCTO damage record for the test plant.");
+            return states[plant];
         }
 
         private Plant RequireTestPlant(PickleContext ctx)
