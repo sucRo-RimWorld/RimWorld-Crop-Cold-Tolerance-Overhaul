@@ -128,6 +128,18 @@ namespace CropColdToleranceOverhaul.E2E
                     ctx.Require(Math.Abs(def.plant.growDays -
                         (name == "DankPyon_Plant_Carrots" ? 6f : 8f)) < .001f,
                         "MO+Agriculture growth values not loaded " + name);
+                    if (name == "DankPyon_Plant_Cabbages")
+                    {
+                        // Original MO 1.6 duplicates the minOptimal 0/25
+                        // element, incorrectly making 25 the optimum onset.
+                        // CCTO's conditional XML correction must produce the
+                        // intended 0 to 25 optimal interval.
+                        ctx.Require(Math.Abs(def.plant.minOptimalGrowthTemperature) < .001f
+                            && Math.Abs(def.plant.maxOptimalGrowthTemperature - 25f) < .001f,
+                            "Loaded MO cabbage still has malformed optimal temperature interval"
+                            + " minOptimal=" + def.plant.minOptimalGrowthTemperature
+                            + " maxOptimal=" + def.plant.maxOptimalGrowthTemperature);
+                    }
                     defs.Add(def);
                 }
                 foreach (IntVec3 c in CellRect.CenteredOn(map.Center, 12).Cells)
