@@ -1,5 +1,16 @@
 # CCTO Beta Release Checklist
 
+## Next public release: 0.2 — not yet published
+
+**Author-selected next public version: 0.2**, following 0.1.3 Beta. This is a significant cold-model feature upgrade (fixed cold-death threshold → accumulated frost injury applied to visible Plant HP, plus revised dormancy/temperature presentation), not a 0.1.4 patch. Historical "V2"/"V3" labels refer to internal design rounds; the integrated V3 Draft [PR #60](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/60) targets the **0.2 release**, not a public "V3".
+
+- [ ] Complete the 0.2 code/XML and biological realism review, including unresolved MO 1.6 Cabbage optimal-growth-temperature correction; preserve the CCTO standalone Vanilla and optional MO acceptance profiles. Agriculture crop economics and former seven farming-role comparisons are **not** release gates.
+- [ ] Finish only remaining necessary targeted technical acceptance (including advertised RimWorld versions and realistic climate/ecology), exact production DLL and package compatibility checks; reuse unchanged prior test evidence.
+- [ ] In **one release-preparation change set**, align `About/About.xml`, `About/Manifest.xml`, README/current-versus-planned description, bilingual Workshop and 2game copy, changelog, release notes/tag and package. Review README against shipped contents per Project SharedRules.
+- [ ] Obtain author publication authorization and verify the actual installed/Steam package. Version 0.2 is **planned**, not released.
+
+**0.1.3 remains the repository's current advertised version.** This decision alone does not alter metadata, existing binaries, publication or Steam Workshop. The older checklist below records 0.1.x Beta evidence only.
+
 This is the release-preparation checklist for the first public Beta.
 
 ## Completed technical gates
