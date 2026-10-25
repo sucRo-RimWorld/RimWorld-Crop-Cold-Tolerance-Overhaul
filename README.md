@@ -2,7 +2,7 @@
 
 **RimWorld 1.6 / 1.7 (unstable) — 0.1.3 Beta**
 
-**Source-development note (V3 unreleased):** The 0.1.3 Beta fixed-death tables below describe the *currently published* release, not V3 development XML. The [final V3 design](Docs/Design.md#current-v3-numerical-specification--finalized-2026-10-25) and [78-Def numeric authority](Docs/ColdDamageHpV3Candidates.csv) define **46 cumulative visible-HP injury profiles + 32 cold-dormancy profiles (w=0)**. Source-controlled RimWorld 1.6 native technical checks (19/19 fixed-temperature scenarios and a genuine two-process .rws save/load) have passed, but 1.7, actual MO crop-season economics, distributable DLL staging and publication are still pending. Do not treat this source draft as a released V3 package.
+**Source-development note (next public release 0.2, internal V3 draft, not published):** The 0.1.3 Beta fixed-death tables below describe the *currently published* release, not V3 development XML. The [final V3 design](Docs/Design.md#current-v3-numerical-specification--finalized-2026-10-25) and [78-Def numeric authority](Docs/ColdDamageHpV3Candidates.csv) define **46 cumulative visible-HP injury profiles + 32 cold-dormancy profiles (w=0)**. Source-controlled RimWorld 1.6 native technical checks (19/19 fixed-temperature scenarios and a genuine two-process .rws save/load) have passed, but 1.7, independent temperature/biome realism assessment, distributable DLL staging and publication are still pending; Agriculture crop economics are not a CCTO release gate. Do not treat this source draft as a released 0.2 package.
 
 
 
