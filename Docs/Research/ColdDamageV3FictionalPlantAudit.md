@@ -69,3 +69,25 @@ These remaining **23** rows are *not* to be assigned fictional-species freeform 
 **No approval and no edit to any of the 35 A/D CSV rows.** Priority discrepancies worth further selection review are (1) Devilstrand long-season survival under repeated mild freeze at A+2/D70, (2) Psychoid survival at A+2/D50 under three −1°C nights, (3) rare cold-biome Ambrosia sprouts surviving until useful harvest, and (4) Bryolux/Glowstool cave-temperature ecology. Mindwort/wild Mindwort and Healroot/wild Healroot must retain paired same-species parameters unless the original Def justifies a stage distinction. Cold-hardy fantastic Great Fir should be benchmarked against existing real Pine *as a proxy* and natural biome, not assigned invented physiological LD100. Do not redesign the fixed 2,000-tick HP engine or migrate the 30 established dormancy species because of this screening.
 
 **Current candidate state unchanged:** 13 selected A/D, 35 `UNAPPROVED_HP_TRIAL`, 30 `KEEP_EXISTING_DORMANCY`, 0 source/endpoint HOLD. `lethal_dose_variation=0.20` remains unapproved in every CSV row; runtime w=0; no new native game tests, active XML, C# edits or Steam action.
+
+## Devilstrand onset comparison A+2 versus A0 at D70 (2026-10-25)
+
+**Review result, not author-selected A/D.** Keep `Plant_Devilstrand` `UNAPPROVED_HP_TRIAL` in [candidate CSV](../ColdDamageHpV3Candidates.csv); current trial A+2°C/D70°C·game-hour, next reviewer **A0°C/D70°C·game-hour**. The source [RimWorld Wiki Devilstrand plant](https://rimworldwiki.com/wiki/Devilstrand_mushroom) describes a genetically engineered fungal high-value crop with **85 maxHP**, 22.5 growDays, **41.54 ideal normal-soil calendar days** (29.67 in rich soil; cannot use hydroponics), 6 nominal yield and Plants skill 10 to sow. This is **game lore/ecology evidence, not biological frost-mortality measurements**. Long grow time means a partially grown crop's exposure to repeated frost, and autumn failure after a long warm season, merit more weight than a one-night test. Vanilla Wiki's ~−10°C legacy cold-death statement is a different *instant-threshold* mechanic and does not numerically calibrate a degree-hour D.
+
+**Predeclared independent gameplay comparisons:** unheated ideal normal-soil field before frost; shoulder-season repeated nights (weak frost −1°C×8 game-hours with warm interruption), a nonfreezing +1°C×8h repeated case, deep frost −5°C×8h and sustained severe −10°C×8h, plus a greenhouse kept above +10°C. Current V3 2,000-tick sampling of 8h constant temperature charges 9 observations ×0.8h = **7.2 billable game-hours per episode**; first observation not charged; no cold-specific healing; w=0. 85HP damage = integer-truncated cumulative `85*sum(max(0,A-T)*7.2)/D`; fractional remainder carries between separated nights. Report HP survival, not fabricated physiological LT50, plant death rate or guaranteed integer actual harvest.
+
+| Test case | A+2/D70 (current trial) | A0/D70 (reviewer comparison) |
+|---|---:|---:|
+| Ideal greenhouse/crop at ≥+10°C | 85/85HP | 85/85HP |
+| +1°C×8h, 3 separated nights (chill, **no freezing**) | 59/85HP | 85/85HP |
+| 0°C×8h, 3 separated nights | 33/85HP | 85/85HP |
+| −1°C×8h, 1 night | 59/85HP | 77/85HP |
+| −1°C×8h, 3 separated nights | 7/85HP | 59/85HP |
+| −1°C×8h, 10 separated nights | dead | dead |
+| −5°C×8h, 1 night | 24/85HP | 42/85HP |
+| −5°C×8h, 3 separated nights | dead | dead |
+| −10°C×8h, 1 night | dead | dead |
+
+**Interpretation:** At A+2, +1°C nonfreezing marginal nights irreversibly cost ~31% of max HP in three nights although the proposed underlying biology is a fictional engineered fungus with no documented +1°C lethal-tissue reaction. This penalizes a 41.5-day crop even before actual frost. A0 reduces repeated weak-frost attrition without making an exposed fungal field winter-proof; three −1°C nights still cost ~31% HP and ten such nights kill; a full night of −10°C kills under either alternative. The comparison is an *ecology/season-playability preference*, NOT proof that engineered Devilstrand tissue survives all positive temperature exposure.
+
+**Review recommendation: A0/D70 ahead of A+2/D70**, pending the next explicit author numerical selection. D70 is reused only as the bounded comparison to isolate onset effect, not independently measured or fully validated as fatality dose; once A is chosen, reconsider D only if a material ordinary-season or harsh-frost mismatch remains. **Do not mark approved yet**; current totals remain 13 author-selected A/D, 35 HP trials (including Devilstrand), 30 unchanged dormancy. `lethal_dose_variation=.20` remains unapproved; runtime C# w=0, no opt-in production XML, changed engine, actual map-season harvest or native-game claim.
