@@ -257,7 +257,7 @@ The **0.1.3 Beta** corrected build passed the checks below (prior release eviden
 
 Earlier normal-game checks also verified wild-plant Info Cards, the standard Info Card ordering, Dubs Mint Menus display, and Nice Plants Menu compatibility.
 
-The tested release source of truth is `main`.
+These prior 0.1.3 integration tests applied to the then-current `main` source. The present 0.1.4 source has a separate two-threshold delta.
 
 ## Status
 
