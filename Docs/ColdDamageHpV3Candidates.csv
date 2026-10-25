@@ -1,3 +1,6 @@
+# DEFERRED HP-MODEL DESIGN values; not the active fixed-death temperature source as of 2026-10-26.
+# Author's current tuning scope: retain fixed cold-death behavior and adjust source-backed coldDeathTemperature values only; see Docs/Design.md.
+# Do NOT copy hp_injury_onset_C or full_hp_degree_game_hours as fixed death thresholds.
 # Final V3 GAME DESIGN values, 2026-10-25; finalized under user-delegated audit/correct/re-audit instruction.
 # 46 HP profiles (w=0); 32 dormancy profiles (30 retained + cultivated/wild Healroot). Zero pending values.
 # Retains all 17 remotely selected A/D pairs, including Haygrass A=-8/D220 (main 895a750, draft 980ea65). Saguaro changed A=-7/D700 to A=-3/D180.
