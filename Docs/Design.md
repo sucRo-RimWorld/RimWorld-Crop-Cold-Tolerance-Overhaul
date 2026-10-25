@@ -2324,3 +2324,12 @@ The field percentages cited by agricultural sources are **not** an exact calibra
 At initial 80 MaxHP and w=0, three separate −8°C×8-game-hour nights leave **72HP (~95.0% conditional harvest factor)** versus unselected A−6/D200 **63HP (~89.4%)**; constant −12°C×24h leaves **34/80HP**, not full mortality. Both are bounded engineering scenarios using 2,000-tick observations and no modeled cultivar-specific hardening, not source-calibrated lethal degree-hours. Actual MO source shows 12 growDays and roughly ~22 ideal calendar days at ordinary light, so planting late in a limited season may fail under either A; this is a crop-duration/season interaction, not proof that A−7 needs to be reduced.
 
 **Current 78 rows:** 11 selected A/D, **2 HOLD** (Vanilla `Plant_Rice` A+3/D60, Vanilla `Plant_Corn` A0/D64), 35 other unapproved HP trials, 30 original dormancy. All CSV w=.20 values remain **unapproved**, actual C# default w=0; no production XML, C# patch, real 1.6/1.7 map crop test or release. Earlier wheat-HOLD snapshots above are dated historical research and superseded for Wheat A/D approval only.
+
+## V3 Rice and Corn pending A/D decision (2026-10-25)
+
+Rice and Corn are the **only remaining A/D HOLD**. The source distinction is documented in [the source-first review](Research/ColdDamageV3SourceFirstAudit.md#rice-and-corn-late-season-yield-versus-plant-survival-2026-10-25).
+
+- **Rice `Plant_Rice`:** historical A+3/D60, compared with unselected A+2/D60. Three distinct 0°C×8h nights kill the former but leave approximately 24/85HP under the latter, with w=0 and current tick sampling. Rice pollen sterility at 15–17°C is not whole-plant death; do not raise the HP injury onset to reproductive chilling temperatures or claim either onset reproduces seedling acclimation.
+- **Corn `Plant_Corn`:** historical A0/D64 remains the leading *review-only* candidate for living productive crop and harvestable ears after frost. At w=0, a constant −1°C×8h event predicts approximately 5.6% conditional yield loss and −2°C×8h approximately 11.3%; these only approximate advanced grain-fill field loss, not every seedling or maturity state. No organ/stage subsystem is added.
+
+**No new selection:** Candidate CSV still has 11 selected A/D, Rice/Corn HOLD, 35 unapproved HP trials and 30 existing dormancy. All candidate per-Def w=.20 values remain unapproved and default runtime w=0; no production XML activation or native 1.6/1.7 acceptance.
