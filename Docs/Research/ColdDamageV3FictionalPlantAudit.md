@@ -124,3 +124,24 @@ These remaining **23** rows are *not* to be assigned fictional-species freeform 
 The author selected Vanilla `Plant_Psychoid` A0°C/D50°C·game-hour, replacing the former unapproved A+2/D50 trial. The preceding comparative scenario table is the review evidence. Its nominal w=0 outcomes retain 85/85HP after three separate 0°C×8h nights (old A+2: 12HP), and 49/85HP after three −1°C×8h nights (old: death); three −3°C nights remain fatal. This is an explicitly fictional-crop gameplay choice, not a laboratory frost tolerance datum. Earlier review-only wording is historical.
 
 Current formal CSV tally: **15 selected A/D, 33 other HP trials unapproved, 30 dormancy, 0 source HOLD**. CSV variation .20 is unapproved, C# default w=0. Next distinct review target: Smokeleaf A−4/D100 and planted/wild Healroot A−10/D200; do not infer their approval from Psychoid. No production XML, runtime C#, native farm acceptance or release.
+
+## Smokeleaf: hemp frost analogue and bounded A/D comparison (2026-10-25)
+
+**Review only, `Plant_Smokeleaf` stays `UNAPPROVED_HP_TRIAL` A−4°C / D100°C·game-hour.** Original crop HP85, growDays7.5, ~13.85 ideal soil calendar days, base yield9 leaves: [RimWorld Wiki](https://rimworldwiki.com/wiki/Smokeleaf_plant). It is a *game-world plant* whose leaf use resembles real `Cannabis sativa`; hemp studies are **a physiological proxy, not proven taxonomic identity or direct RimWorld plant fatal-dose measurements**. [Canadian Food Inspection Agency 2020 biology review](https://inspection.canada.ca/en/plant-varieties/plants-novel-traits/applicants/directive-94-08/biology-documents/cannabis-sativa) reports brief light frost tolerance down to about −6°C, but killing under heavy or extended near-freezing conditions. [University of Vermont Extension (2019)](https://blog.uvm.edu/outcropn/2019/10/22/hemp-and-cold-temperatures/) reports mature crop tolerance around 29–32°F (~−1.7..0°C), vegetative damage at 25–28°F (~−3.9..−2.2°C), and heavy damage near/below 24°F (~−4.4°C), with **mature floral-oil quality distinct from leaves/stalk survival**. [Galic et al., Horticulturae (2022)](https://doi.org/10.3390/horticulturae8060531) reports detached leaves −8°C greater damage than −4/−2°C and plant age/conditioning differences. No source reports a direct scalar permanent-HP LD100/D in RimWorld game-hours.
+
+**Predeclared gameplay/endpoints:** (i) warm healthy 13.85-day planting, (ii) three 0°C and −3°C×8h warm-separated nights, (iii) one and three −5/−7°C×8h frost nights, (iv) sustained severe −10°C×24h, (v) crop-survival and conditional harvest separately. A single 8h episode nominally bills 7.2h under current 2,000-tick sampling after first low sample, w=0, HP85, no cold-specific healing; fractional loss carried between nights, **not actual loaded weather or observed leaf oil potency**. Using candidate A−4/D100, comparison A−5/D100 (more initial frost tolerance), and A−4/D140 (slower HP attrition):
+
+| Condition | existing A−4/D100 | A−5/D100 | A−4/D140 |
+|---|---:|---:|---:|
+| 0°C×8h for 3 nights | 85HP | 85HP | 85HP |
+| −3°C×8h for 3 nights | 85HP | 85HP | 85HP |
+| −5°C×8h for 1 night | 79HP | 85HP | 81HP |
+| −5°C×8h for 3 nights | 67HP | 85HP | 72HP |
+| −7°C×8h for 1 night | 67HP | 73HP | 72HP |
+| −7°C×8h for 3 nights | 30HP | 49HP | 46HP |
+| −10°C×8h for 1 night | 49HP | 55HP | 59HP |
+| −10°C×24h continuous | dead | dead | **1HP** |
+
+**Interpretation:** Existing A−4/D100 causes only 6/85HP (~3.5% conditional harvest-factor) loss from one −5°C×8h event, yet three such nights leave 67HP (~89.4% conditional harvest). It therefore represents light brief frost resistance and lasting multiple-frost cumulative damage with the minimum two-factor HP model, without claiming −5°C mature hemp survival means zero organ injury. A−5/D100 makes all exposure at exactly −5°C indefinitely harmless, a poor simplification of long cold stress; A−4/D140 notably lets an unprotected plant remain barely alive after a full −10°C game-day, risking a less convincing strong-frost endpoint. In this bounded comparison **retain original A−4/D100 as the reviewer-leading A/D candidate**, rather than invent new parameters. Confirm player-visible crop season/sowing and companion planted/wild crop differences only when accepting values, not by synthetic extra game tests.
+
+**Approval boundary:** No `Plant_Smokeleaf` CSV A/D or status changed by this section. **15 author-selected A/D, 33 other unapproved HP including Smokeleaf, 30 dormancy, 0 HOLD.** CSV variation .20 unapproved, code default w=0. No active XML/C#, native RimWorld acceptance, or release.
