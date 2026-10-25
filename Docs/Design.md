@@ -10,6 +10,25 @@
 
 **Public version:** Current distribution/metadata stays **0.1.3 Beta**. The previously selected **0.2** numbering assumed the substantial HP-based model conversion. As that conversion is on hold, **0.2 is deferred rather than automatically assigned to a fixed-threshold-only change**; decide any public version number at release preparation based on the actual change. Do not publish or update Steam from this design decision. Canonical release status: [ReleaseChecklist](ReleaseChecklist.md#current-fixed-threshold-tuning-only--2026-10-26).
 
+### Fixed death threshold review — Boreal pine and Great Fir (unreleased proposal, 2026-10-26)
+
+**Proposed XML-only change:** `Plant_TreePine` **−35 → −40°C** and conditional MO `DankPyon_GreatFir` **−35 → −40°C**. This is a bounded, **unreleased branch proposal, not a change in current 0.1.3 public behavior**. Both plants retain `minGrowthTemperature=0°C`, ordinary fixed threshold semantics, no new dormant status, no HP mechanics or C# work. Vanilla and MO remain independent supported profiles. Other 46 fixed-death thresholds and 30 dormancy definitions are unchanged.
+
+**Independent evidence and modeling limits:**
+
+- Original RimWorld 1.6 **world/tile hourly calendar** sampling, [manually accepted original-game run #39776410000](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39776410000), 1,440 hour points per actual tile: pine-eligible cold BorealForest tile #44000 (mean −5.536°C) ranges **−37.835 to +26.670°C**; **11 hourly samples below the existing −35°C death threshold**. The same seed's actual generated-map BorealForest tile #40777 has 483 natural pines and minimum **−32.647°C**. The cold tile was not itself loaded as a map and its eligibility does not prove actual pine spawn there. Weather/normal Tick was **not** simulated for a season. These represent a concrete biome-extirpation **risk**, not a demonstrated live forest die-off.
+- [Repo 1992, seasonal Scots pine/spruce frost hardiness](https://agris.fao.org/search/en/providers/122535/records/65dff6d10f3e94b9e5de11cb): sampled frost hardiness from −3.5°C to **below −40°C** across seasons, explicitly depending on winter acclimation and organ/tissue. [US Forest Service, Strimbeck et al. 2007](https://research.fs.usda.gov/treesearch/15616): midwinter temperate-mountain/continental conifer foliage LT50 approximately **−33 to −44°C**, boreal conifer species still more resistant in laboratory tests. These are **tissue cold-injury endpoints, not whole-tree instantaneous death thresholds**. `−40°C` is a conservative, game-readable stand-in for winter-hardened boreal evergreen survival, not a measured species-wide death point.
+- MO Great Fir is paired with generic boreal Pine because the original CCTO design used the same `−35°C` threshold and conifer role. **Its actual MO natural-map distribution has not been validated**; do not claim a Great Fir game-world death was observed.
+
+| Representative independent check | Fixed−35 current | Fixed−40 proposal | Intended outcome |
+|---|---|---|---|
+| Actual world cold forest sample −37.835°C | Temperature crosses instantaneous death threshold | Remains above death threshold | Avoid possible ordinary cold-forest pine wipeout |
+| Median pine-bearing forest minimum −32.647°C | Not lethal | Not lethal | Leave ordinary/less-cold forest unchanged |
+| Severe −45°C exposure | Below threshold | Below threshold | Preserve a threat under truly exceptional cold |
+| Warm/normal growth or dormancy | Unchanged | Unchanged | No growth/dormancy/processing side effects |
+
+**Approval/verification boundary:** This evidence supports a **candidate improvement**, not universal botanical calibration. The correct final release decision must weigh future severe cold tiles, acclimation omitted by fixed death logic and actual native cold-event behavior. Only two XML numeric tags are proposed; static source mapping and the smallest necessary later native acceptance are separate. Do not call the old 0.1.3 engine PASS new-number game acceptance. Hold this PR unmerged pending numerical review and release integration.
+
 ## Next public release identity — 0.2 (planned 2026-10-26)
 
 **Historical 2026-10-26 decision, now deferred by the fixed-only direction above:** the 0.2 version was reserved for a substantial switch from fixed death to cumulative visible Plant HP injury. That feature switch is currently on hold; 0.2 is not the assigned version for the next fixed-number-only adjustment. "V1", "V2" and "V3" identify historical internal design iterations only; they are **not public release version numbers**. The V3-design/source Draft PR #60 is the work currently intended for public **0.2**, not a published V3 or an intervening public V2.
