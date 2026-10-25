@@ -1,5 +1,14 @@
 # CCTO Coordination
 
+### CCTO-V3-SMOKELEAF-A-MINUS4-D100-SELECTED-20261025 — 16 selected, 32 pending
+
+**Author's current numerical decision** is Vanilla `Plant_Smokeleaf` **A−4°C / D100°C·game-hour**, the **16th selected A/D candidate**, preserving its prior numerical trial fields and changing only CSV review status to `APPROVED_A_D_CANDIDATE_VARIATION_PENDING` in CCTO [Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31). Definitive specification and bounded hemp-analogue frost-risk assessment are in owner `Docs/ColdDamageHpV3Candidates.csv`, `Docs/Design.md`, and `Docs/Research/ColdDamageV3FictionalPlantAudit.md`. At 85HP, w=0, 2,000-tick sample, one −5°C×8-game-hour night leaves 79HP, three separate −5°C×8h nights leave 67HP, and −10°C×24h is lethal. These are modeled game-ecology comparisons rather than direct measurements of fictional Smokeleaf mortality.
+
+**78-def current count: 16 A/D selected; 32 other HP unapproved; 30 existing dormancy; no separate source HOLD.** Older 15/33, Smokeleaf-unapproved notes below are dated history. All `lethal_dose_variation=.20` fields are still **unapproved**, actual framework w=0; the candidate decision DOES NOT approve C#/XML production activation, native 1.6/1.7 acceptance, main V3 feature branch integration or Steam publication.
+
+**Next owner work** is bounded cold-tolerance review of cultivated and wild Vanilla Healroot, currently both `A−10/D200` and both `UNAPPROVED_HP_TRIAL`. Keep two Def entries but one species-level A/D physiology unless there is a demonstrable life-stage difference; do not automatically select the values or ask the user to relay an agent handoff.
+
+
 ### CCTO-V3-PSYCHOID-A0-D50-SELECTED-20261025 — 15 selected, 33 pending
 
 Author selected **Vanilla `Plant_Psychoid` A0°C/D50°C·game-hour** as the 15th numeric A/D candidate in CCTO [Draft PR #31](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/pull/31), superseding the formerly unapproved A+2/D50. Canonical numbers and reasons are owner `Docs/ColdDamageHpV3Candidates.csv`, `Docs/Design.md` and `Docs/Research/ColdDamageV3FictionalPlantAudit.md`. The fictional warm-season 85HP crop is compared with a bounded w=0 2,000-tick model: three separated 0°C×8h nights leave all HP (vs historical A+2 12HP); three separated −1°C×8h nights leave 49HP (vs historical death). More severe repeated frost remains lethal; there is no real-world Psychoid mortality literature claimed.
