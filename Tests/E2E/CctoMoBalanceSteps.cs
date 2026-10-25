@@ -31,6 +31,13 @@ namespace CropColdToleranceOverhaul.E2E
             ctx.Require(LoadedModManager.RunningModsListForReading.Any(m =>
                 string.Equals(m.PackageId, "dankpyon.medieval.overhaul", StringComparison.OrdinalIgnoreCase)),
                 "Real Medieval Overhaul must be active; MO fixture is not accepted");
+            ctx.Require(LoadedModManager.RunningModsListForReading.Any(m =>
+                string.Equals(m.PackageId, "sucro.ancientmedievaljapan.core",
+                    StringComparison.OrdinalIgnoreCase)),
+                "Actual Agriculture/Grains patch provider must be active");
+            // Fail on the exact loaded MO+Agriculture coefficients, not
+            // merely successful activation of both package IDs.
+            RequireAgricultureGrowth(ctx);
             Map map = Find.CurrentMap;
             ctx.Require(map != null, "Native map unavailable");
             IntVec3 cell = FindCell(ctx, map);
@@ -70,6 +77,29 @@ namespace CropColdToleranceOverhaul.E2E
             }
             ctx.Assert(rows == 30, "Expected 30 actual planted crop observations");
             Log.Message("CCTO_MO_BALANCE_COMPLETE rows=30 provider=original-mo-1.6 naturalSeason=false actualPawnJobs=false");
+        }
+
+        private static void RequireAgricultureGrowth(PickleContext ctx)
+        {
+            string[] defs = {
+                "DankPyon_Plant_Onions", "DankPyon_Plant_Carrots",
+                "DankPyon_Plant_Lentils", "DankPyon_Plant_Tomatoes",
+                "DankPyon_Plant_Cabbages", "DankPyon_Plant_Pumpkins",
+                "DankPyon_Plant_Wheat"
+            };
+            float[] days = { 8f, 6f, 8f, 7f, 8f, 8f, 12f };
+            int[] skills = { 3, 4, 2, 4, 4, 8, -1 };
+            for (int i = 0; i < defs.Length; ++i)
+            {
+                ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defs[i]);
+                ctx.Require(def != null && def.plant != null,
+                    "Missing actual MO agricultural plant " + defs[i]);
+                ctx.Assert(Math.Abs(def.plant.growDays - days[i]) < 0.001f,
+                    "Agriculture crop growth patch not loaded for " + defs[i]);
+                if (skills[i] >= 0)
+                    ctx.Assert(def.plant.sowMinSkill == skills[i],
+                        "Agriculture/MO sow skill differs for " + defs[i]);
+            }
         }
 
         private static void Observe(PickleContext ctx, Map map, Room room, IntVec3 cell,
