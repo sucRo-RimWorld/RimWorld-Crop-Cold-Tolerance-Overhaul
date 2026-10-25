@@ -202,3 +202,27 @@ Current formal CSV tally: **15 selected A/D, 33 other HP trials unapproved, 30 d
 **Interpretation:** A−10/D240 imposes little damage until exceptionally deep freezes for the growing season, and severely cold events can shorten rare-grove harvest windows. The separate full-year cold BorealForest calendar should not drive Ambrosia to dormancy merely because the **event biome** includes boreal forest: its trigger is growing-season limited. This differs from the naturally persistent wild Healroot that was author-assigned dormancy. However, a cold-snap shortly after a late-season event could still leave a grove unable to reach maturity; an independent actual event timing/weather outcome is not established by these constant-night comparisons. Do not invent an empirical whole-plant fatal dose for a fictional berry or declare a loaded-game PASS.
 
 **Reviewer preference only:** retain existing **A−10/D240** as the *next numerical candidate comparison*, no new mode switch. The CSV remains unchanged: **16 selected HP A/D**, **30 other unapproved HP (including Ambrosia)**, **2 newly selected dormancy candidates awaiting XML**, and **30 originally dormant Defs** = 78. Variation .20 unapproved; actual framework w=0, production XML/C# unchanged, no real RimWorld farm/events or release.
+
+## Haygrass mixed forage stand: author-selected A/D (2026-10-25)
+
+**Candidate-only decision:** Vanilla `Plant_Haygrass` **A−8°C / D220°C·game-hour**, selected by author after comparison with unapproved **A−12/D220** and reviewer **A−6/D220**. `Docs/ColdDamageHpV3Candidates.csv` is the numeric owner. The 0.20 per-row fatal-dose variation remains unapproved; actual draft framework defaults to w=0. Do not put these numbers in production XML or claim native-game balance acceptance.
+
+**Observed or documented source facts (not measured A or D):**
+- [RimWorld Wiki: Haygrass](https://rimworldwiki.com/wiki/Haygrass) reports an in-game **mixed grass crop**, 85 maxHP, 7 growDays (~12.92 ideal calendar days) and base 18 hay yield. It is cultivated/harvested; that does not specify its underlying perennial crown physiology.
+- [Penn State Extension: Orchardgrass (2025)](https://extension.psu.edu/orchardgrass) ranks winter survival very differently across cool-season forage species (e.g. Kentucky bluegrass/timothy high, perennial ryegrass low), so a generic mix cannot be assigned a real single species' mortality temperature.
+- [University of Maine Cooperative Extension: Forage characteristics](https://extension.umaine.edu/livestock/pasture-course/lesson-2/appendix-a/) independently contrasts winter-hardiness among cool-season grasses.
+- [Iowa State Extension: Winter injury in forage stands](https://crops.extension.iastate.edu/cropnews/2013/03/evaluate-forage-stands-winter-injury) distinguishes winter injury to productive pasture from surviving grass regrowth/crown viability; a plant may survive despite lost standing forage. The RimWorld abstraction cannot independently represent this distinction.
+- [Penn State Extension: Extending the Grazing Season (2025)](https://extension.psu.edu/strategies-for-extending-the-grazing-season) reports that stockpiled cool-season forage loses quality/foliage after frost in species-dependent ways, rather than frost mortality at one universal air threshold.
+
+**Bounded gameplay test before numerical adoption:** Representative endpoint = *harvestable, standing mixed forage in a usual single-harvest RimWorld growing season*, **not** root/crown LT50 or overwintering natural wild population. Scenarios: ordinary light frost, three separated moderate cold nights, repeated severe frost, and overwintering failure in a cold biome. For constant ambient temperatures during each 8-game-hour event, warm-between-event observations, stable 2,000-tick callbacks, first cold reading never backcharged, 85 original HP, no unrelated damage/healing, and w=0: accumulated E is `max(0, A−T) × (3×7.2)` degree-game-hours, and remaining HP is `85 − floor(85×E/220)`, destroyed when HP loss reaches 85.
+
+| Scenario: three separate 8h events | A−12/D220 original trial | A−8/D220 selected | A−6/D220 reviewer |
+|---|---:|---:|---:|
+| −5°C | 85 | 85 | 85 |
+| −8°C | 85 | 85 | 69 |
+| −10°C | 85 | 69 | 52 |
+| −15°C | 60 | 27 | 10 |
+| −20°C | 19 | dead | dead |
+| −25°C | dead | dead | dead |
+
+**Resolved tradeoff:** The original A−12 made three −10°C nights inconsequential for harvestable forage; A−6 pushed repeated −15°C nights down to 10/85HP. Selected A−8 permits moderate cold and harvest degradation, but destroys a field exposed to severe deep-winter nights. Actual grass crown survival, growth after thaw, acclimation, soil/plant temperatures and on-map daily low durations are not calibrated. D220 is still a **gameplay dose**, not empirically measured degree-hour LD100. This selection does **not** license direct production XML/C# modification or 1.6/1.7 game-test claims. Latest classification: 17 selected A/D, 29 remaining HP trials, 2 Healroot mode candidates, 30 prior dormancy, total 78.
