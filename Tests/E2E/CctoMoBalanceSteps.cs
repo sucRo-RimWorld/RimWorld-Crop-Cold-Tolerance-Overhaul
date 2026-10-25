@@ -58,6 +58,11 @@ namespace CropColdToleranceOverhaul.E2E
                     rows += 3;
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Warning("CCTO_MO_BALANCE_SCENARIO_FAILURE detail=" + ex);
+                throw;
+            }
             finally
             {
                 room.Temperature = previous;
@@ -122,6 +127,11 @@ namespace CropColdToleranceOverhaul.E2E
                     + " onsetC=" + F(cold.coldDamageStartTemperature)
                     + " lethalDegreeHours=" + F(cold.coldDamageDegreeHoursToDie)
                     + " destroyed=" + plant.Destroyed.ToString().ToLowerInvariant());
+            }
+            catch (Exception ex)
+            {
+                Log.Warning("CCTO_MO_BALANCE_FAILED def=" + def.defName + " case=" + phase + " detail=" + ex);
+                throw;
             }
             finally
             {
