@@ -1,6 +1,12 @@
 # Implementation Def Mapping
 
-This file is the implementation-facing mapping for the current fixed-threshold/dormancy balance.
+This file is the implementation-facing mapping for the **currently deployed**
+fixed-threshold/dormancy balance. The previously proposed but **REJECTED for production XML** cumulative injury V1 numbers are archived in
+[ColdDamageBalanceV1.csv](ColdDamageBalanceV1.csv) with the
+[formal calculation and gameplay assumptions](ColdDamageBalanceV1.md).
+**V1 is NOT an approved balance**; see [the failure audit](ColdDamageBalanceFailureAudit.md) and [review state](ColdDamageBalanceReview.json).
+The 48 current death thresholds and 30 dormancy entries below
+are unchanged until the planned integration.
 
 ## Rules
 

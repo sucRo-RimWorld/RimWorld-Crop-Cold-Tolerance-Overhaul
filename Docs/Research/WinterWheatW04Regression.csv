@@ -1,0 +1,14 @@
+# Fitted coefficients and quantiles transcribed from Zheng et al. (2018), Crop Science 58:1740–1750, doi:10.2135/cropsci2018.01.0014
+# Source original Tables 2, 4 and 5; full-text HTML mirror: https://www.academia.edu/120431829/Tolerance_of_Different_Winter_Wheat_Cultivars_to_Prolonged_Freezing_Injury_at_their_Critical_Temperatures
+# CAUTION: original Table 4 K/P/R2 and Table 5 LD values are published REGRESSION DERIVATIVES, NOT independent raw per-treatment mortality observations.
+# soil temperatures are programmed chamber cycles with 3h at daily min and 3h at daily max; they are NOT constant full-duration exposure or ambient air readings.
+# Modelled values starting 'model_from_rounded_KP_' recomputed from published rounded K/P only, NOT copied original measurements.
+# Model F(n)=1-(1-P)^max(0,n-K); n in empirical consecutive freeze DAYS, applies at the cultivar-specific soil temperature cycle only.
+# Model n_q=K+ln(1-q)/ln(1-P). Source Table 5 mismatches up to 0.41d from rounded K/P; do not silently adjust coefficients.
+# For single-plant simulation, stable individual death threshold can be inverse CDF once; no per-tick random draw needed. This does NOT calibrate the temperature severity function.
+# Freeze conditions field-acclimated plants; cultivars and study duration apply only within study scope. No CCTO XML is changed.
+cultivar,growth_habit,soil_min_C,soil_max_C,fit_K_freeze_days,fit_P_daily_conditional_mortality,fit_R_squared,original_table5_LD10_days,original_table5_LD20_days,original_table5_LD50_days,model_from_rounded_KP_LD10_days,model_from_rounded_KP_LD20_days,model_from_rounded_KP_LD50_days,model_from_rounded_KP_survival_3d,model_from_rounded_KP_survival_5d,model_from_rounded_KP_survival_8d,source_id
+Jing411,strong winter,-17,-8,1.4,0.086,0.963,2.5,3.8,8.7,2.572,3.881,9.108,0.86599,0.72345,0.55239,W04
+Nongda211,winter,-17,-8,1.6,0.223,0.863,2,2.5,4.4,2.018,2.484,4.347,0.70241,0.42406,0.19893,W04
+Zhengmai366,semi-winter,-14,-5,0.3,0.111,0.665,1.2,2.2,6.2,1.195,2.197,6.191,0.72784,0.57523,0.40415,W04
+Yanzhan4110,weak spring,-11,-4,2.3,0.094,0.67,3.4,4.7,9.6,3.367,4.560,9.322,0.93323,0.76603,0.56968,W04

@@ -160,8 +160,8 @@ The underlying E2E runner:
 - runs framework regression scenarios and live cold-behavior scenarios;
 - clears the previous isolated save-data and Pickle report directories before every run, preventing a startup failure from being mistaken for a stale earlier PASS;
 - writes fresh reports to `TestResults\Pickle`;
-- in full balance mode, parses the fresh `summary.json` and requires exactly 14 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-supported-living-plant coverage scenario;
-- after scenario validation, scans the isolated runtime log and fails the full gate if CCTO itself emitted any ERROR-level entry; a clean 14/14 scenario count is not sufficient when the mod logged an error;
+- in full balance mode, parses the fresh `summary.json` and requires exactly 16 clean passes plus explicit presence of the Core loaded-balance scenario, the Medieval Overhaul loaded-balance scenario, and the all-loaded-supported-living-plant coverage scenario;
+- after scenario validation, scans the isolated runtime log and fails the full gate if CCTO itself emitted any ERROR-level entry; a clean 16/16 scenario count is not sufficient when the mod logged an error;
 - exits with Pickle's pass/fail/error result, an integration-summary error if the expected balance scenarios were not actually run, or a runtime-log error-gate failure;
 - is wrapped by an outer five-minute process watchdog, so a RimWorld/Pickle startup or runtime freeze cannot leave the batch file waiting indefinitely.
 
@@ -194,6 +194,22 @@ Framework regression scenarios check:
 - unconfigured plants retain the vanilla per-plant threshold range;
 - extension validation accepts dormancy-only and finite fixed death values while rejecting incomplete/infinite configurations;
 - CCTO Info Card stat construction matches fixed-death, dormancy-only, and combined configurations.
+
+The Draft cumulative-injury branch adds two scoped native Pickle scenarios
+to the earlier 14-case integration suite: (a) first cold sample zero
+then bounded 2,000-tick frost accumulation and warm recovery, and
+(b) opt-in cumulative damage coexisting with cold dormancy through
+fatal exposure. The scenarios adjust only the saved observation timestamp
+to inject a known elapsed interval; they exercise a *real spawned plant,
+Harmony cold check and map component*, **not** ordinary tick scheduling.
+They do **not** perform a real game save/reload. The existing
+RimTest input check covers invalid negative/NaN/infinite recovery.
+After these changes the expected full integrated Pickle gate is
+**16 clean scenarios**; previous 14-case pass evidence is for
+the unchanged old suite, not a passing test of these two additions.
+No native test has yet been run for PR #24. A future single
+consolidated original-game run must cover actual save/reload,
+timed cold exposure, source/loaded DLL hashes and ERROR gate.
 
 Live-map scenarios check:
 
@@ -326,3 +342,138 @@ CCTO-specific default:
 
 Do not spend Astra merely on routine CCTO file edits or compile-error loops.
 
+
+
+### 2026-10-21 actual original Linux 1.6 CCTO opt-in acceptance
+
+**Actual validated owner source:** `d58e2c160b9ccd424c2ed50d9f8335188da64fb4`
+(compile fix for the required `RimWorld.Plant` namespace).
+Project manually invoked [Actions #39597538963](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39597538963)
+on its isolated native slot 3. Source-pinned CCTO was compiled
+against the independently owned original RimWorld Linux
+**1.6.4871 rev600**. Generated CCTO assembly SHA256:
+`a1166f42928d89925555e6231a722dc5b23348f30100eaf4d5f8f1eb0c9420ea`.
+The test companion uses an isolated, **test-only renamed
+packageId** to select exactly that compiled DLL rather
+than the older host-staged CCTO production DLL. Its
+source-owned MO fixture contains Defs, **not live MO assemblies**.
+
+**Verified actual native result:** Pickle **16/16 passed**;
+0 failed, 0 skipped, 0 flaky; 0 detected Unity ERROR;
+game exit code 0; no timeout. The two newly exercised
+cold-injury scenarios used a real spawned Plant, actual
+CCTO Harmony postfix and map component. The 2000/1000-tick
+intervals were **injected by adjusting the saved record's
+lastTick**; this proves code behavior at known intervals,
+not normal scheduled delivery. Existing fixed cold death,
+dormancy, info-card and loaded Vanilla+MO-fixture balance
+cases all passed. The existing extension-validation
+Pickle scenario also checks invalid negative/NaN/infinite
+recovery and valid zero recovery.
+
+**Failures and correction:** preceding Project
+[Actions #39597165888](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39597165888)
+failed on production **C# compilation** (CS0246
+`Plant` missing `using RimWorld;` in
+`ColdDamageMapComponent.cs`), *before native game
+launch*. Fixed in owner commit
+`d58e2c160b9ccd424c2ed50d9f8335188da64fb4`;
+subsequent scoped real-game run above is the accepted evidence.
+
+**Not covered by this run:** real save-and-reload
+reconstruction of `cctoColdDamageStates`; normal
+tick-scheduling accuracy, intermittent cold spikes,
+RimWorld **1.7** with the changed C#; real complete
+Medieval Overhaul assemblies; existing saves;
+long-term balance, variation statistics, actual
+crop-specific XML opt-in, Workshop deployment.
+These cannot be called PASS from the 16 tests.
+The feature remains optional and **no production
+plant is switched to the cumulative model**.
+PR #24 remains Draft for biological coefficient /
+consumer-activation decisions; existing 48
+fixed-death and 30 dormancy settings remain
+unchanged. Do not automatically rerun the
+whole game suite for this documentation addition.
+
+
+### 2026-10-22 actual original Linux 1.6 two-process Scribe save/reload acceptance
+
+**Source tested:** CCTO Draft PR #24 commit
+`dbc555620c65e7b66666988eb29c51d5f8a31c8a`.
+**Actual original-game evidence:**
+[Project Actions #39709845297](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39709845297),
+manual-only `/amj ccto-cold-save-16`,
+RimWorld Linux **1.6.4871** on isolated native slot 1.
+The script compiled **source-pinned production DLL**
+SHA256 `68d3e8a4fa6bb8544819da0d38bb2bd782b627c4e4bcdd6350332fff8e81c2a4`
+plus the source-owned test-only Quickstart probe, with
+unique disposable package IDs, isolated save folder and
+no normal player files touched.
+
+**Actual two-process sequence and PASS:** the first
+original game generated a real **706,654-byte .rws**
+(`CCTO_ColdDamage_ActualSave16.rws`,
+SHA256 `e2e19cea6c2cf3f70c8a979e376185e3d37f704258f44da4a79d39587abd067f`)
+containing a *spawned* `Plant_Potato2204` with test-only
+cold damage **0.20**, `thingIDNumber=2204` and
+`lastTick=30`. First game exited **0** with Unity
+ERROR **0**. The second **separate** original game
+process loaded that same .rws using the real
+`Game.LoadGame` and Scribe. At the **PostLoadInit
+snapshot, before resumed time advances**, the actual
+resolved plant record contained **the same ID,
+damage 0.20, lastTick 30 and a correctly restored
+Plant reference**. After ordinary game time advanced
+during the 180-frame verification delay, warm recovery
+was observed, then a bounded 2,000-tick test frost
+continued accumulation on that *same restored Plant*,
+reaching **damage 0.39304**. Second game exited **0**,
+Unity ERROR **0**, explicit
+`CCTO_COLD_RELOAD_RESULT passed=True actualScribeGameReload=true plantReferenceRestored=true tickRestored=true damageRestored=true`;
+the strict `real_save_reload_pass=true` gate passed.
+[Evidence artifact](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39709845297)
+ID `12396766587`.
+
+**Confirmed and fixed real source defect:**
+`ColdDamageMapComponent.ExposeData()` previously discarded
+a valid plant reference during `PostLoadInit` when
+`!record.plant.Spawned`. In the **real** reload's
+Scribe phase the same plant had resolved with
+`Destroyed=false`, `damage=0.20`,
+`lastTick=30`, and `HasColdDamageModel=true`,
+but had **`Spawned=false` temporarily** while map
+spawning was incomplete. This prematurely eliminated
+the record. [Diagnostic Actions #39708995115](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39708995115).
+Owner production source fix commit:
+`4061fc57331fc0153558abd550c0675e687a1135`
+removes **only** the premature loading-phase
+`Spawned` filter; ordinary `Prune()` still rejects
+stale or unspawned plants **after** the map is live.
+The short-lived Scribe tracing instrumentation
+was removed after diagnosis.
+
+**Test timing correction, not another production fix:**
+[Actions #39709429939](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39709429939)
+demonstrated that the recovered record was present
+but **0.20→0.19304** due to actual ambient warmth
+during 180 frames before assertion. It failed a
+naive delayed strict equality. The final Quickstart
+checks the **Scribe PostLoadInit snapshot** for
+exact saved numbers, then verifies the *continuation
+from the live reloaded record*. Owner test
+commit `dbc555620c65e7b66666988eb29c51d5f8a31c8a`.
+
+**Boundaries:** this tests a **test-only opted-in
+Vanilla potato** with deliberately specified
+test parameters, not production potato XML,
+any published crop calibration, real 1.7,
+MO binaries, old existing player saves,
+naturally timed real frost exposure/callback
+scheduling, long-run performance or Workshop
+delivery. The earlier original 1.6 **16/16**
+Pickle test [Actions #39597538963](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39597538963)
+remains evidence for its earlier pinned source and
+non-save behaviors; do not claim it was rerun on
+the current head. No automatic game matrix
+or publication follows this PASS.

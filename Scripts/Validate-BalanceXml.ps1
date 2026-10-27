@@ -10,6 +10,42 @@ function Fail([string]$Message) {
   exit 1
 }
 
+# Fail closed if a rejected cumulative-injury candidate is ever copied
+# into production XML.  Arithmetic/schema integrity is not balance approval.
+$reviewPath = Join-Path $RepoRoot "Docs/ColdDamageBalanceReview.json"
+if (Test-Path -LiteralPath $reviewPath) {
+  $review = Get-Content -LiteralPath $reviewPath -Raw -Encoding UTF8 | ConvertFrom-Json
+  $xmlFiles = @(Get-ChildItem -LiteralPath (Join-Path $RepoRoot "Patches") -Recurse -File -Filter "*.xml")
+  $injuryXml = @($xmlFiles | Where-Object {
+    (Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8) -match '<coldDamageStartTemperature>'
+  })
+  if ($injuryXml.Count -gt 0) {
+    $unresolved = @($review.reasons | Where-Object { $_.state -ne "resolved" })
+    $acceptance = $review.acceptance
+    $expectedReviewCases = @("short_frost", "repeated_nights", "prolonged_freeze", "warm_recovery", "wild_biome", "source_state_contrast")
+    $submittedReviewCases = @($acceptance.independent_scenarios | Where-Object {
+      -not [string]::IsNullOrWhiteSpace([string]$_.id) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.expected) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.predicted) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.source_context) -and
+      -not [string]::IsNullOrWhiteSpace([string]$_.disposition)
+    } | ForEach-Object { [string]$_.id })
+    $missingReviewCases = @($expectedReviewCases | Where-Object { $submittedReviewCases -notcontains $_ })
+    $tableFile = Join-Path $RepoRoot "Docs/ColdDamageBalanceV1.csv"
+    $hashMatches = (Test-Path -LiteralPath $tableFile) -and
+      ([string]$acceptance.accepted_table_sha256 -eq
+       (Get-FileHash -LiteralPath $tableFile -Algorithm SHA256).Hash.ToLowerInvariant())
+    $approved = $review.status -eq "accepted_for_xml" -and
+      $unresolved.Count -eq 0 -and
+      $acceptance.author_decision -eq "approved" -and
+      -not [string]::IsNullOrWhiteSpace([string]$acceptance.decision_reference) -and
+      $missingReviewCases.Count -eq 0 -and $hashMatches
+    if (-not $approved) {
+      Fail "Unapproved cold-injury XML blocked: status=$($review.status), open=$($unresolved.Count), missingIndependentCases=$($missingReviewCases.Count), approvedEvidence=$($hashMatches). See Docs/ColdDamageBalanceReview.json"
+    }
+  }
+}
+
 function Ok([string]$Message) {
   Write-Host "[OK] $Message" -ForegroundColor Green
 }
